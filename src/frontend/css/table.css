@@ -1,0 +1,64 @@
+
+.dataTable {
+    width: calc(100% - 1em);
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+    margin: 0 1em;
+}
+
+.dataTable .vrapper {
+    overflow-y: auto;
+}
+
+.dataTable #search {
+    height: 2.5em;
+    padding: 0 1em;
+    background: #cecece;
+    border-radius: 0.5em;
+    border: none;
+    margin-bottom: 10%;
+}
+
+
+.dataTable table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.5em;
+}
+
+.dataTable td {
+    text-align: center;
+    padding: 0;
+    border: solid 0.01em black;
+}
+
+.patientButton.selected {
+    box-shadow: inset 0 0 0 0.2em var(--mainColor);
+}
+
+.patientButton.foundName {
+    box-shadow: inset 0 0 0 0.2em #3d4ae7;
+}
+
+.dataTable .patientButton {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding:0.5em;
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+::placeholder {
+    color: #3B3B3B;
+    text-align: center;
+    font-size: 1.1em;
+}
+

@@ -1,0 +1,36 @@
+#sidebar {
+    position: relative;
+    background-color: rgb(227, 227, 228);
+    padding: var(--menuSize);
+    flex-basis: fit-content;
+    max-width: 15em;
+    text-align: center;
+}
+
+#sidebar ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#sidebar li {
+    transition: 0.25s;
+}
+
+#sidebar button {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: black;
+    background: transparent;
+    border: none;
+    padding: 0.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.35s;
+}
+
+#sidebar button:hover {
+    box-shadow: 0 0 0 0.1em #000000,-0.9em 0.1em 0 0 var(--mainColor),-0.9em -0.1em var(--mainColor);
+}

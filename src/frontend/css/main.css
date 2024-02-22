@@ -1,0 +1,164 @@
+:root {
+    --menuSize: 1em;
+    --mainColor: #004aad;
+    --backGroundColor: #ffffff;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    font-family:Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--backGroundColor);
+}
+
+#bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    z-index: -1;
+}
+
+#container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.welcome {
+    position: relative;
+    width: 100%;
+    top: calc(var(--menuSize) * -1);
+    left: calc(var(--menuSize) * -1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--mainColor);
+    padding: 0 1em ;
+}
+
+.icon {
+    height: 2em;
+    width: 2em;
+    margin-right: 0.5em;
+}
+
+#logo {
+    width: 13em;
+}
+
+ .mainButton {
+    position: relative;
+     width: 100%;
+     padding: 0.5em 2em 0.5em 0.5em;
+    text-align: left;
+    color: white;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    box-shadow: 0 0 0 0.05rem #000000;
+    background: var(--mainColor);
+    border-radius: 0.2em;
+}
+
+.mainButton:hover {
+    box-shadow: 0 0 0 0.1rem black;
+    background: rgb(0, 100, 229);
+}
+
+.basicButton {
+     background: var(--mainColor);
+     width: fit-content;
+     color: white;
+     display: block;
+     padding: 0.5em;
+     margin: 1em;
+     box-shadow: 0 0 0 0.05rem #000000;
+     border: none;
+     border-radius: 0.2em;
+     font-size: initial;
+     cursor: pointer;
+ }
+
+#info, studyPatientInfo {
+    width: 100%;
+    height: calc(100% - 2em);
+    padding: 1em;
+    background-color: rgba(0,0,0,0);
+    overflow-y: auto;
+    display: inline;
+}
+
+#info h1 {
+    text-align: center;
+}
+
+
+#patientAdd , #edit, #studies {
+    height: 100%;
+    margin: auto;
+    display: none;
+    align-items: center;
+}
+
+#patientAdd ul, #edit ul, #studies ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#patientAdd li, #edit li,#studies li {
+    position: relative;
+    align-items: center;
+    margin: 20% 0;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.active {
+    display: flex;
+}
+
+.nonactive {
+    display: none;
+}
+
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% - 2em);
+    padding: 3vh 1em;
+    font-size: 1.1rem;
+    text-align: center;
+    border: 0.1rem black solid;
+    animation: slide 2.5s ease-in-out forwards;
+}
+
+@keyframes slide {
+    0% {
+        padding: 0 1em;
+        opacity: 0;
+    }
+    15%,85%{
+        padding: 3vh 1em;
+        opacity: 1;
+    }
+    100% {
+        padding: 0 1em;
+        opacity: 0;
+    }
+}
+
+
+
+

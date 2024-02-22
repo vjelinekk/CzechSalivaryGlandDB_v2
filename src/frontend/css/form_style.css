@@ -1,0 +1,117 @@
+
+.form {
+    display: none;
+    margin-left: 2em;
+    justify-content: left;
+    width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding-bottom: 1em;
+}
+
+.form h1 {
+    border-bottom: black solid 0.1em;
+    padding: .5em 0;
+    text-align: left;
+}
+
+.form h2 {
+    padding: .5em 0;
+    border-bottom: black dashed 0.1em;
+}
+
+.form p {
+    margin: 0;
+}
+
+.form input[type="text"] {
+    margin: 1.2em;
+    padding: 0.5em 1em;
+}
+
+.form textarea {
+    width: 100%;
+}
+
+.form input[type="text"]:disabled {
+    cursor: not-allowed;
+}
+
+.form [class="checkboxItemDiv"],.form .optionalCheckboxOptionDiv,.form span{
+    position: relative;
+    display: flex;
+    margin: 1.2em;
+}
+
+.form .nestedDiv {
+    background-color: rgba(126, 126, 126, 0.10);
+    margin-left: 2em;
+}
+
+
+.form input[type="checkbox"] {
+    appearance: none;
+    background-color: initial;
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.1em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateX(-0.5em);
+
+
+    display: grid;
+    place-content: center;
+}
+
+
+.form input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 130ms transform ease-in-out;
+    box-shadow:inset 1em  1em var(--mainColor);
+}
+
+.form input[type="checkbox"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form input[type="checkbox"]:disabled::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 130ms transform ease-in-out;
+    box-shadow:inset 1em  1em gray;
+}
+
+
+.form input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.form button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.form #editBtnsDiv {
+    position: fixed;
+    /*bottom: 0;*/
+    top: 5em;
+    right: 2em;
+    display: flex;
+    justify-content: end;
+
+    z-index: 1;
+}
+
+
+
+
