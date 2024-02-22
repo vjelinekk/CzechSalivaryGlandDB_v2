@@ -26,6 +26,7 @@
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.62.0",
         "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+        "copy-webpack-plugin": "^12.0.2",
         "css-loader": "^6.10.0",
         "electron": "29.0.1",
         "eslint": "^8.56.0",
@@ -41,8 +42,7 @@
     },
     "keywords": [],
     "author": {
-        "name": "Vojtěch Jelínek",
-        "email": "jelinek@rtsoft.cz"
+        "name": "Vojtěch Jelínek"
     },
     "license": "MIT",
     "dependencies": {
