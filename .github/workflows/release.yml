@@ -20,6 +20,10 @@ jobs:
             with:
                 node-version: 20
           - run: npm install
+          - run: |
+              if [ "${{ matrix.os }}" = "macos-latest" ]; then
+                npm install --save-dev appdmg
+              fi
           - run: npm run publish
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
