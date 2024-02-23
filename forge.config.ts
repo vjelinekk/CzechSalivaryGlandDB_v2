@@ -59,7 +59,7 @@ const config: ForgeConfig = {
             name: '@electron-forge/publisher-github',
             config: {
                 repository: {
-                    owner: 'vjelinek',
+                    owner: 'vjelinekk',
                     name: 'CzechSalivaryGlandDB_v2',
                 },
             },
