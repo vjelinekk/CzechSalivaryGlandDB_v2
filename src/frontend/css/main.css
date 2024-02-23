@@ -104,7 +104,7 @@ body {
 #patientAdd , #edit, #studies {
     height: 100%;
     margin: auto;
-    display: none;
+    display: flex;
     align-items: center;
 }
 
