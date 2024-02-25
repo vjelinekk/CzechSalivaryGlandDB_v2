@@ -5,7 +5,7 @@ interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<components>>
 }
 
-const Menu = (props: MenuProps) => {
+const Menu: React.FC<MenuProps> = (props) => {
     const handleButtonClick = (componentName: components) => {
         props.setActiveComponent(componentName)
     }

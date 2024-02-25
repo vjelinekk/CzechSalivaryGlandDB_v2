@@ -5,9 +5,9 @@ interface AddPatientProps {
     setActiveComponent: React.Dispatch<React.SetStateAction<components>>
 }
 
-const AddPatient = (props: AddPatientProps) => {
+const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
     const handleButtonClick = (componentName: components) => {
-        props.setActiveComponent(componentName)
+        setActiveComponent(componentName)
     }
 
     return (
