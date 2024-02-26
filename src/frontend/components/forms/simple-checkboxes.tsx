@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SimpleCheckboxItem from './simple-checkbox-item'
 import { useSingleSelection } from '../../hooks/useSingleSelection'
 

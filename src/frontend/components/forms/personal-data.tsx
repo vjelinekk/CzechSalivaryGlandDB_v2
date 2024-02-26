@@ -55,70 +55,24 @@ const PersonalData = () => {
             </div>
             <div className="subsectionDiv">
                 <h2>Informace z OA</h2>
-                <ConditionalCheckboxes title="Jiné nádorové onemocnění v OA">
+                <ConditionalCheckboxes
+                    enableSingleSelect={true}
+                    title="Jiné nádorové onemocnění v OA"
+                >
                     <ConditionalCheckboxOption label="Ano">
                         <TextInput label="Specifikace místa výskytu jiného karcinomu" />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption label="Ne" />
                 </ConditionalCheckboxes>
-                <div className="conditionalCheckboxDiv">
-                    <h3 className="conditionalCheckboxTitle">
-                        Jiné nádorové onemocnění v OA
-                    </h3>
-                    <div className="optionalCheckboxOptionDiv">
-                        <input
-                            type="checkbox"
-                            onClick={() =>
-                                setShowCarcinomaSpecification(
-                                    !showCarcinomaSpecification
-                                )
-                            }
-                        />
-                        <p className="conditionalOptionLabel">Ano</p>
-                    </div>
-                    {showCarcinomaSpecification && (
-                        <div className="nestedDiv">
-                            <div className="textInputDiv">
-                                <p>
-                                    Specifikace místa výskytu jiného karcinomu:
-                                </p>
-                                <input type="text" className="textInput" />
-                            </div>
-                        </div>
-                    )}
-                    <div className="optionalCheckboxOptionDiv">
-                        <input type="checkbox" />
-                        <p className="conditionalOptionLabel">Ne</p>
-                    </div>
-                </div>
-                <div className="conditionalCheckboxDiv">
-                    <h3 className="conditionalCheckboxTitle">
-                        Jiné onemocnění velkých slinných žláz v OA
-                    </h3>
-                    <div className="optionalCheckboxOptionDiv">
-                        <input
-                            type="checkbox"
-                            onClick={() =>
-                                setShowDiseaseSpecification(
-                                    !showDiseaseSpecification
-                                )
-                            }
-                        />
-                        <p className="conditionalOptionLabel">Ano</p>
-                    </div>
-                    {showDiseaseSpecification && (
-                        <div className="nestedDiv">
-                            <div className="textInputDiv">
-                                <p>Specifikace onemocnění:</p>
-                                <input type="text" className="textInput" />
-                            </div>
-                        </div>
-                    )}
-                    <div className="optionalCheckboxOptionDiv">
-                        <input type="checkbox" />
-                        <p className="conditionalOptionLabel">Ne</p>
-                    </div>
-                </div>
+                <ConditionalCheckboxes
+                    enableSingleSelect={true}
+                    title="Jiné onemocnění velkých slinných žláz v OA"
+                >
+                    <ConditionalCheckboxOption label="Ano">
+                        <TextInput label="Specifikace onemocnění:" />
+                    </ConditionalCheckboxOption>
+                    <ConditionalCheckboxOption label="Ne" />
+                </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
                 <h2>Přítomnost obecných rizikových faktorů</h2>

@@ -1,25 +1,40 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 
-interface ConditionalCheckboxOptionProps {
+export interface ConditionalCheckboxOptionProps {
     label: string
     children?: React.ReactNode
+    selected?: boolean
+    onSelect?: () => void
 }
 
 const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
     label,
     children,
+    selected,
+    onSelect,
 }) => {
-    const [isChecked, setIsChecked] = useState(false)
     const [showChildren, setShowChildren] = useState(false)
+
+    useEffect(() => {
+        if (selected == undefined) {
+            return
+        }
+        if (!selected) {
+            setShowChildren(false)
+        }
+    }, [selected])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selected = event.target.checked
-        setIsChecked(selected)
 
         if (selected && children) {
             setShowChildren(true)
         } else {
             setShowChildren(false)
+        }
+
+        if (onSelect) {
+            onSelect()
         }
     }
 
@@ -28,7 +43,7 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
             <div className="optionalCheckboxOptionDiv">
                 <input
                     type="checkbox"
-                    checked={isChecked}
+                    checked={selected}
                     onChange={handleChange}
                 />
                 <p className="conditionalOptionLabel">{label}</p>
