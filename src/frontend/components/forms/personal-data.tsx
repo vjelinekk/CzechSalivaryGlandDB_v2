@@ -1,28 +1,55 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import SimpleCheckboxes from './simple-checkboxes'
 import ConditionalCheckboxes from './conditional-checkboxes'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
 import TextInput from './text-input'
+import NumberInput from './number-input'
+import PackYears from './pack-years'
+import { ParotidPatientData } from '../../types'
+import isCzechAlphabet from '../../utils/isCzechAlphabet'
+import isPersonalIdentificationNumber from '../../utils/isPersonalIdentificationNumber'
 
-const PersonalData = () => {
-    const [showCarcinomaSpecification, setShowCarcinomaSpecification] =
-        useState(false)
+interface PersonalDataProps {
+    setFormData: Dispatch<SetStateAction<ParotidPatientData | null>>
+    setFormErrors: Dispatch<SetStateAction<string[]>>
+}
 
-    const [showDiseaseSpecification, setShowDiseaseSpecification] =
-        useState(false)
-
-    const [showPackYearCount, setShowPackYearCount] = useState(false)
-
+const PersonalData: React.FC<PersonalDataProps> = ({
+    setFormData,
+    setFormErrors,
+}) => {
     return (
         <div className="sectionDiv">
             <h1>ANAMNESTICKÁ/PERSONÁLNÍ DATA</h1>
             <div className="subsectionDiv">
                 <h2>Základní informace</h2>
-                <TextInput label="Jméno" />
-                <TextInput label="Příjmení" />
-                <TextInput label="Identifikační kód pacienta" />
-                <TextInput label="RČ" />
-                <TextInput label="Věk pacienta v době diagnózy" />
+                <TextInput
+                    label="Jméno"
+                    dbLabel="jmeno"
+                    setFormData={setFormData}
+                    setFormErrors={setFormErrors}
+                    validation={isCzechAlphabet}
+                />
+                <TextInput
+                    label="Příjmení"
+                    dbLabel="prijmeni"
+                    setFormData={setFormData}
+                    setFormErrors={setFormErrors}
+                    validation={isCzechAlphabet}
+                />
+                <TextInput
+                    label="Identifikační kód pacienta"
+                    dbLabel="id_pacient"
+                    setFormData={setFormData}
+                />
+                <TextInput
+                    label="RČ"
+                    dbLabel="rodne_cislo"
+                    setFormData={setFormData}
+                    setFormErrors={setFormErrors}
+                    validation={isPersonalIdentificationNumber}
+                />
+                <NumberInput label="Věk pacienta v době diagnózy" />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
@@ -60,7 +87,11 @@ const PersonalData = () => {
                     title="Jiné nádorové onemocnění v OA"
                 >
                     <ConditionalCheckboxOption label="Ano">
-                        <TextInput label="Specifikace místa výskytu jiného karcinomu" />
+                        <TextInput
+                            label="Specifikace místa výskytu jiného karcinomu"
+                            dbLabel="pecifikace_mista_vyskytu_jineho_karcinomu"
+                            setFormData={setFormData}
+                        />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption label="Ne" />
                 </ConditionalCheckboxes>
@@ -69,53 +100,27 @@ const PersonalData = () => {
                     title="Jiné onemocnění velkých slinných žláz v OA"
                 >
                     <ConditionalCheckboxOption label="Ano">
-                        <TextInput label="Specifikace onemocnění:" />
+                        <TextInput
+                            label="Specifikace onemocnění:"
+                            dbLabel="specifikace_onemocneni"
+                            setFormData={setFormData}
+                        />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption label="Ne" />
                 </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
                 <h2>Přítomnost obecných rizikových faktorů</h2>
-                <div className="conditionalCheckboxDiv">
-                    <h3 className="conditionalCheckboxTitle">Kouření</h3>
-                    <div className="optionalCheckboxOptionDiv">
-                        <input
-                            type="checkbox"
-                            onClick={() =>
-                                setShowPackYearCount(!showPackYearCount)
-                            }
-                        />
-                        <p className="conditionalOptionLabel">Ano</p>
-                    </div>
-                    {showPackYearCount && (
-                        <div className="nestedDiv">
-                            <div className="textInputDiv">
-                                <p>Počet cigaret denně:</p>
-                                <input type="text" className="textInput" />
-                            </div>
-                            <div className="textInputDiv">
-                                <p>Jak dlouho:</p>
-                                <input type="text" className="textInput" />
-                            </div>
-                            <div className="textInputDiv">
-                                <p>Počet balíčko roků:</p>
-                                <input
-                                    type="text"
-                                    className="textInput"
-                                    disabled
-                                />
-                            </div>
-                        </div>
-                    )}
-                    <div className="optionalCheckboxOptionDiv">
-                        <input type="checkbox" />
-                        <p className="conditionalOptionLabel">Ne</p>
-                    </div>
-                    <div className="optionalCheckboxOptionDiv">
-                        <input type="checkbox" />
-                        <p className="conditionalOptionLabel">Nezjištěno</p>
-                    </div>
-                </div>
+                <ConditionalCheckboxes
+                    enableSingleSelect={true}
+                    title="Kouření"
+                >
+                    <ConditionalCheckboxOption label="Ano">
+                        <PackYears />
+                    </ConditionalCheckboxOption>
+                    <ConditionalCheckboxOption label="Ne" />
+                    <ConditionalCheckboxOption label="Nezjištěno" />
+                </ConditionalCheckboxes>
                 <SimpleCheckboxes
                     title="Abusus alkoholu"
                     enableSingleSelect={true}
