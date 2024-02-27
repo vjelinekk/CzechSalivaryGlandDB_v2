@@ -1,4 +1,4 @@
-interface CommonPatientData {
+export interface CommonPatientData {
     jmeno: string
     prijmeni: string
     id_pacient: string
@@ -18,3 +18,7 @@ interface CommonPatientData {
 }
 
 export interface ParotidPatientData extends CommonPatientData {}
+
+export interface SubmandibularPatientData extends CommonPatientData {}
+
+export interface SublingualPatientData extends CommonPatientData {}

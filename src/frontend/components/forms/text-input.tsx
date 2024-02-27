@@ -1,10 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import { ParotidPatientData } from '../../types'
+import { CommonFormInputProps } from '../../props'
 
-interface TextInputProps {
+interface TextInputProps extends CommonFormInputProps {
     label: string
-    dbLabel: string
-    setFormData: Dispatch<SetStateAction<ParotidPatientData> | null>
     setFormErrors?: Dispatch<SetStateAction<string[]>>
     validation?: (value: string) => boolean
 }
