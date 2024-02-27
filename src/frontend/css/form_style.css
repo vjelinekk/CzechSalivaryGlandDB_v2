@@ -9,6 +9,29 @@
     padding-bottom: 1em;
 }
 
+.addPatientButtonDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.divider {
+    border-bottom: black solid 0.1em;
+    margin: 1em 0;
+}
+
+.inputWithError {
+    display: flex;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+}
+
+
 .form h1 {
     border-bottom: black solid 0.1em;
     padding: .5em 0;
@@ -25,6 +48,11 @@
 }
 
 .form input[type="text"] {
+    margin: 1.2em;
+    padding: 0.5em 1em;
+}
+
+.form input[type="number"] {
     margin: 1.2em;
     padding: 0.5em 1em;
 }

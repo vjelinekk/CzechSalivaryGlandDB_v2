@@ -1,5 +1,12 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "cSpell.words": ["csgdb", "vjelinek", "vjelinekk", "Submandibular"],
+    "cSpell.words": [
+        "balíčko",
+        "balickoroku",
+        "csgdb",
+        "Submandibular",
+        "vjelinek",
+        "vjelinekk"
+    ],
     "cSpell.language": "en,cs"
 }
