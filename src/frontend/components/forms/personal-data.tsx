@@ -7,7 +7,7 @@ import NumberInput from './number-input'
 import PackYears from './pack-years'
 import { ParotidPatientData } from '../../types'
 import isCzechAlphabet from '../../utils/isCzechAlphabet'
-import isPersonalIdentificationNumber from '../../utils/isPersonalIdentificationNumber'
+import isPID from '../../utils/isPID'
 
 interface PersonalDataProps {
     setFormData: Dispatch<SetStateAction<ParotidPatientData | null>>
@@ -47,9 +47,13 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                     dbLabel="rodne_cislo"
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
-                    validation={isPersonalIdentificationNumber}
+                    validation={isPID}
                 />
-                <NumberInput label="Věk pacienta v době diagnózy" />
+                <NumberInput
+                    label="Věk pacienta v době diagnózy"
+                    dbLabel="vek_pri_diagnoze"
+                    setFormData={setFormData}
+                />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
@@ -89,7 +93,7 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                     <ConditionalCheckboxOption label="Ano">
                         <TextInput
                             label="Specifikace místa výskytu jiného karcinomu"
-                            dbLabel="pecifikace_mista_vyskytu_jineho_karcinomu"
+                            dbLabel="specifikace_mista_vyskytu_jineho_karcinomu"
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxOption>
