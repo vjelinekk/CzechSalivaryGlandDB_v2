@@ -6,10 +6,14 @@ const ParotidGlandForm = () => {
     const [formData, setFormData] = useState<ParotidPatientData | null>(null)
     const [formErrors, setFormErrors] = useState<string[]>([])
 
-    const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleButtonClick = async (
+        e: React.MouseEvent<HTMLButtonElement>
+    ) => {
         e.preventDefault()
         console.log(formData)
         console.log(formErrors)
+        const res = await window.api.send('add-patient', 'test')
+        console.log(res)
     }
 
     return (

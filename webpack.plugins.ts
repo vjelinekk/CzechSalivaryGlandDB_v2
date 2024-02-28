@@ -1,4 +1,5 @@
 import type IForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+// eslint-disable-next-line import/default
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import path from 'path'
 
