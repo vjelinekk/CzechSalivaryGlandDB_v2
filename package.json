@@ -25,6 +25,7 @@
         "@electron/fuses": "^1.7.0",
         "@types/react": "^18.2.57",
         "@types/react-dom": "^18.2.19",
+        "@types/sqlite3": "^3.1.11",
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.62.0",
         "@vercel/webpack-asset-relocator-loader": "^1.7.3",
@@ -50,6 +51,7 @@
     "dependencies": {
         "electron-squirrel-startup": "^1.0.0",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "sqlite3": "^5.1.7"
     }
 }
