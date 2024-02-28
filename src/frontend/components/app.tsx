@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Menu from './menu'
 import PatientsList from './patients-list'
 import AddPatient from './add-patient'

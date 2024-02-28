@@ -12,7 +12,7 @@ const ParotidGlandForm = () => {
         e.preventDefault()
         console.log(formData)
         console.log(formErrors)
-        const res = await window.api.send('add-patient', 'test')
+        const res = await window.api.send('add-patient', formData)
         console.log(res)
     }
 

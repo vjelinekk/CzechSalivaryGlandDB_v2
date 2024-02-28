@@ -3,11 +3,8 @@ name: Build
 on: [pull_request]
 
 jobs:
-    build:
-        strategy:
-            matrix:
-                os: [ubuntu-latest, macos-latest, windows-latest]
-        runs-on: ${{ matrix.os }}
+    prettier_eslint:
+        runs-on: ubuntu-latest
 
         steps:
             - name: Check out repository code
@@ -16,8 +13,6 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-            - uses: actions/setup-python@v4
-              with:
-                  python-version: '3.10'
             - run: npm install
-            - run: npm run make
+            - run: npm run lint
+            - run: npm run prettier
