@@ -1,5 +1,3 @@
-
-
 /* The popup form - hidden by default */
 .popUpForm {
     position: absolute;
@@ -17,7 +15,7 @@
 .popUp {
     display: none;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -32,6 +30,5 @@
 }
 
 .popUpForm label {
- width: fit-content;
+    width: fit-content;
 }
-

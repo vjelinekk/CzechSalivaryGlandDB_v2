@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family:Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background: var(--backGroundColor);
@@ -40,7 +40,7 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--mainColor);
-    padding: 0 1em ;
+    padding: 0 1em;
 }
 
 .icon {
@@ -53,10 +53,10 @@ body {
     width: 13em;
 }
 
- .mainButton {
+.mainButton {
     position: relative;
-     width: 100%;
-     padding: 0.5em 2em 0.5em 0.5em;
+    width: 100%;
+    padding: 0.5em 2em 0.5em 0.5em;
     text-align: left;
     color: white;
     border: none;
@@ -74,24 +74,25 @@ body {
 }
 
 .basicButton {
-     background: var(--mainColor);
-     width: fit-content;
-     color: white;
-     display: block;
-     padding: 0.5em;
-     margin: 1em;
-     box-shadow: 0 0 0 0.05rem #000000;
-     border: none;
-     border-radius: 0.2em;
-     font-size: initial;
-     cursor: pointer;
- }
+    background: var(--mainColor);
+    width: fit-content;
+    color: white;
+    display: block;
+    padding: 0.5em;
+    margin: 1em;
+    box-shadow: 0 0 0 0.05rem #000000;
+    border: none;
+    border-radius: 0.2em;
+    font-size: initial;
+    cursor: pointer;
+}
 
-#info, studyPatientInfo {
+#info,
+studyPatientInfo {
     width: 100%;
     height: calc(100% - 2em);
     padding: 1em;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     overflow-y: auto;
     display: inline;
 }
@@ -100,21 +101,26 @@ body {
     text-align: center;
 }
 
-
-#patientAdd , #edit, #studies {
+#patientAdd,
+#edit,
+#studies {
     height: 100%;
     margin: auto;
     display: flex;
     align-items: center;
 }
 
-#patientAdd ul, #edit ul, #studies ul {
+#patientAdd ul,
+#edit ul,
+#studies ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-#patientAdd li, #edit li,#studies li {
+#patientAdd li,
+#edit li,
+#studies li {
     position: relative;
     align-items: center;
     margin: 20% 0;
@@ -149,7 +155,8 @@ h1 {
         padding: 0 1em;
         opacity: 0;
     }
-    15%,85%{
+    15%,
+    85% {
         padding: 3vh 1em;
         opacity: 1;
     }
@@ -158,7 +165,3 @@ h1 {
         opacity: 0;
     }
 }
-
-
-
-

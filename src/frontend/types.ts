@@ -17,8 +17,11 @@ export interface CommonPatientData {
     abusus_alkoholu: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ParotidPatientData extends CommonPatientData {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubmandibularPatientData extends CommonPatientData {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SublingualPatientData extends CommonPatientData {}
