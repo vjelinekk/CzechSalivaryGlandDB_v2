@@ -5,16 +5,19 @@ import ConditionalCheckboxOption from './conditional-checkbox-option'
 import TextInput from './text-input'
 import NumberInput from './number-input'
 import PackYears from './pack-years'
-import { ParotidPatientData } from '../../types'
+import { PatientData } from '../../types'
 import isCzechAlphabet from '../../utils/isCzechAlphabet'
 import isPID from '../../utils/isPID'
+import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 
 interface PersonalDataProps {
-    setFormData: Dispatch<SetStateAction<ParotidPatientData | null>>
+    formData: PatientData | null
+    setFormData: Dispatch<SetStateAction<PatientData | null>>
     setFormErrors: Dispatch<SetStateAction<string[]>>
 }
 
 const PersonalData: React.FC<PersonalDataProps> = ({
+    formData,
     setFormData,
     setFormErrors,
 }) => {
@@ -26,6 +29,7 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                 <TextInput
                     label="Jméno"
                     dbLabel="jmeno"
+                    data={getDataFromPatientInterface(formData, 'jmeno')}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isCzechAlphabet}
@@ -33,6 +37,7 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                 <TextInput
                     label="Příjmení"
                     dbLabel="prijmeni"
+                    data={getDataFromPatientInterface(formData, 'prijmeni')}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isCzechAlphabet}
@@ -40,11 +45,13 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                 <TextInput
                     label="Identifikační kód pacienta"
                     dbLabel="id_pacient"
+                    data={getDataFromPatientInterface(formData, 'id_pacient')}
                     setFormData={setFormData}
                 />
                 <TextInput
                     label="RČ"
                     dbLabel="rodne_cislo"
+                    data={getDataFromPatientInterface(formData, 'rodne_cislo')}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isPID}
@@ -52,6 +59,12 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                 <NumberInput
                     label="Věk pacienta v době diagnózy"
                     dbLabel="vek_pri_diagnoze"
+                    data={
+                        getDataFromPatientInterface(
+                            formData,
+                            'vek_pri_diagnoze'
+                        ) as number
+                    }
                     setFormData={setFormData}
                 />
             </div>
@@ -94,6 +107,10 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                         <TextInput
                             label="Specifikace místa výskytu jiného karcinomu"
                             dbLabel="specifikace_mista_vyskytu_jineho_karcinomu"
+                            data={getDataFromPatientInterface(
+                                formData,
+                                'specifikace_mista_vyskytu_jineho_karcinomu'
+                            )}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxOption>
@@ -107,6 +124,10 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                         <TextInput
                             label="Specifikace onemocnění:"
                             dbLabel="specifikace_onemocneni"
+                            data={getDataFromPatientInterface(
+                                formData,
+                                'specifikace_onemocneni'
+                            )}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxOption>

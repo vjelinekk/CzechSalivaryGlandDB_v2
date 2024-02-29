@@ -26,21 +26,29 @@ const app = () => {
     return (
         <>
             <Menu setActiveComponent={setActiveComponent} />
-            {activeComponent === components.patientsList && <PatientsList />}
-            {activeComponent === components.addPatient && (
+            {activeComponent.component === components.patientsList && (
+                <PatientsList />
+            )}
+            {activeComponent.component === components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
             )}
-            {activeComponent === components.studiesList && <StudiesList />}
-            {activeComponent === components.addStudy && <AddStudy />}
-            {activeComponent === components.parotidGlandForm && (
-                <ParotidGlandForm />
+            {activeComponent.component === components.studiesList && (
+                <StudiesList />
             )}
-            {activeComponent === components.sublingualGlandForm && (
+            {activeComponent.component === components.addStudy && <AddStudy />}
+            {activeComponent.component === components.parotidGlandForm && (
+                <ParotidGlandForm
+                    data={{
+                        jmeno: 'Vojta',
+                        prijmeni: 'Jelinek',
+                    }}
+                />
+            )}
+            {activeComponent.component === components.sublingualGlandForm && (
                 <SublingualGlandForm />
             )}
-            {activeComponent === components.submandibularGlandForm && (
-                <SubmandibularGlandForm />
-            )}
+            {activeComponent.component ===
+                components.submandibularGlandForm && <SubmandibularGlandForm />}
         </>
     )
 }
