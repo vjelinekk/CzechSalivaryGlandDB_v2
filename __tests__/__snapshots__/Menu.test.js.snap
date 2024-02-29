@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu Menu renders correctly 1`] = `
+<div
+  id="sidebar"
+>
+  <div
+    id="bg"
+  />
+  <div
+    className="welcome"
+  >
+    <img
+      alt="Česká společnost otorinolaryngologie a chirurgie hlavy a krku"
+      id="logo"
+      src="../img/LOGO_splt.png"
+    />
+  </div>
+  <ul>
+    <li>
+      <button
+        id="list-patient"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="pacienti"
+          src="../img/pacienti_outline.png"
+        />
+        Seznam pacientů
+      </button>
+    </li>
+    <li>
+      <button
+        id="add-patient"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="pacient_pridat"
+          src="../img/pacient_pridat_outline.png"
+        />
+        Přidat pacienta
+      </button>
+    </li>
+    <li>
+      <button
+        id="studies-btn"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="studie"
+          src="../img/studie_outline.png"
+        />
+        Studie
+      </button>
+    </li>
+    <li>
+      <button
+        id="add-study"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="studie_pridat"
+          src="../img/studie_pridat_outline.png"
+        />
+        Přidat studii
+      </button>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Menu renders correctly 1`] = `
+<div
+  id="sidebar"
+>
+  <div
+    id="bg"
+  />
+  <div
+    className="welcome"
+  >
+    <img
+      alt="Česká společnost otorinolaryngologie a chirurgie hlavy a krku"
+      id="logo"
+      src="../img/LOGO_splt.png"
+    />
+  </div>
+  <ul>
+    <li>
+      <button
+        id="list-patient"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="pacienti"
+          src="../img/pacienti_outline.png"
+        />
+        Seznam pacientů
+      </button>
+    </li>
+    <li>
+      <button
+        id="add-patient"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="pacient_pridat"
+          src="../img/pacient_pridat_outline.png"
+        />
+        Přidat pacienta
+      </button>
+    </li>
+    <li>
+      <button
+        id="studies-btn"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="studie"
+          src="../img/studie_outline.png"
+        />
+        Studie
+      </button>
+    </li>
+    <li>
+      <button
+        id="add-study"
+        onClick={[Function]}
+      >
+        <img
+          className="icon"
+          id="studie_pridat"
+          src="../img/studie_pridat_outline.png"
+        />
+        Přidat studii
+      </button>
+    </li>
+  </ul>
+</div>
+`;
