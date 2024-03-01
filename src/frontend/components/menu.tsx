@@ -1,13 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { components } from '../constants'
+import { activeComponentState } from '../types'
 
 interface MenuProps {
-    setActiveComponent: Dispatch<SetStateAction<components>>
+    setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
 }
 
 const Menu: React.FC<MenuProps> = (props) => {
     const handleButtonClick = (componentName: components) => {
-        props.setActiveComponent(componentName)
+        props.setActiveComponent({ component: componentName })
     }
 
     return (

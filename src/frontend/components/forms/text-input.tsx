@@ -10,13 +10,16 @@ interface TextInputProps extends CommonFormInputProps {
 const TextInput: React.FC<TextInputProps> = ({
     label,
     dbLabel,
+    data,
     setFormData,
     setFormErrors,
     validation,
 }) => {
     const [error, setError] = useState(false)
+    const [inputValue, setInputValue] = useState(data ? data : '')
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value)
         if (e.target.value !== '') {
             if (validation) {
                 if (!validation(e.target.value)) {
@@ -48,6 +51,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     type="text"
                     className="textInput"
                     onChange={handleChange}
+                    value={inputValue}
                 />
                 {error && <p className="error">Neplatný vstup</p>}
             </div>

@@ -1,13 +1,16 @@
 import React from 'react'
 import { components } from '../constants'
+import { activeComponentState } from '../types'
 
 interface AddPatientProps {
-    setActiveComponent: React.Dispatch<React.SetStateAction<components>>
+    setActiveComponent: React.Dispatch<
+        React.SetStateAction<activeComponentState>
+    >
 }
 
 const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
     const handleButtonClick = (componentName: components) => {
-        setActiveComponent(componentName)
+        setActiveComponent({ component: componentName })
     }
 
     return (

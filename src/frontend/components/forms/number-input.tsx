@@ -8,6 +8,7 @@ interface NumberInputProps extends CommonFormInputProps {
 const NumberInput: React.FC<NumberInputProps> = ({
     label,
     dbLabel,
+    data,
     setFormData,
 }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +24,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
                 type="number"
                 className="textInput"
                 onChange={handleChange}
+                value={data ? data : ''}
             />
         </div>
     )

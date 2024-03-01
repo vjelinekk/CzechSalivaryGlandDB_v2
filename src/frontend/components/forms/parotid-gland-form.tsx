@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import PersonalData from './personal-data'
-import { ParotidPatientData } from '../../types'
+import { ParotidPatientData, PatientData } from '../../types'
 
-const ParotidGlandForm = () => {
-    const [formData, setFormData] = useState<ParotidPatientData | null>(null)
+interface ParotidGlandFormProps {
+    data: PatientData
+}
+
+const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({ data }) => {
+    const [formData, setFormData] = useState<ParotidPatientData | null>(data)
     const [formErrors, setFormErrors] = useState<string[]>([])
 
     const handleButtonClick = async (
@@ -18,8 +22,9 @@ const ParotidGlandForm = () => {
 
     return (
         <>
-            <form className="form 3">
+            <form className="form">
                 <PersonalData
+                    formData={formData}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                 />
