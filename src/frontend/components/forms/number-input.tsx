@@ -10,6 +10,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
     dbLabel,
     data,
     setFormData,
+    disabled,
 }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => {
@@ -25,6 +26,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
                 className="textInput"
                 onChange={handleChange}
                 value={data ? data : ''}
+                disabled={disabled}
             />
         </div>
     )

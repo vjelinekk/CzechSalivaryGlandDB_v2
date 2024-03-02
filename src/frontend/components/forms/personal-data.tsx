@@ -9,17 +9,20 @@ import { PatientData } from '../../types'
 import isCzechAlphabet from '../../utils/isCzechAlphabet'
 import isPID from '../../utils/isPID'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
+import { dbLabels } from '../../constants'
 
 interface PersonalDataProps {
     formData: PatientData | null
     setFormData: Dispatch<SetStateAction<PatientData | null>>
     setFormErrors: Dispatch<SetStateAction<string[]>>
+    disabled: boolean
 }
 
 const PersonalData: React.FC<PersonalDataProps> = ({
     formData,
     setFormData,
     setFormErrors,
+    disabled,
 }) => {
     return (
         <div className="sectionDiv">
@@ -28,56 +31,77 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                 <h2>Základní informace</h2>
                 <TextInput
                     label="Jméno"
-                    dbLabel="jmeno"
-                    data={getDataFromPatientInterface(formData, 'jmeno')}
+                    dbLabel={dbLabels.jmeno}
+                    data={getDataFromPatientInterface(formData, dbLabels.jmeno)}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isCzechAlphabet}
+                    disabled={disabled}
                 />
                 <TextInput
                     label="Příjmení"
-                    dbLabel="prijmeni"
-                    data={getDataFromPatientInterface(formData, 'prijmeni')}
+                    dbLabel={dbLabels.prijmeni}
+                    data={getDataFromPatientInterface(
+                        formData,
+                        dbLabels.prijmeni
+                    )}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isCzechAlphabet}
+                    disabled={disabled}
                 />
                 <TextInput
                     label="Identifikační kód pacienta"
-                    dbLabel="id_pacient"
-                    data={getDataFromPatientInterface(formData, 'id_pacient')}
+                    dbLabel={dbLabels.id_pacient}
+                    data={getDataFromPatientInterface(
+                        formData,
+                        dbLabels.id_pacient
+                    )}
                     setFormData={setFormData}
+                    disabled={disabled}
                 />
                 <TextInput
                     label="RČ"
-                    dbLabel="rodne_cislo"
-                    data={getDataFromPatientInterface(formData, 'rodne_cislo')}
+                    dbLabel={dbLabels.rodne_cislo}
+                    data={getDataFromPatientInterface(
+                        formData,
+                        dbLabels.rodne_cislo
+                    )}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
                     validation={isPID}
+                    disabled={disabled}
                 />
                 <NumberInput
                     label="Věk pacienta v době diagnózy"
-                    dbLabel="vek_pri_diagnoze"
+                    dbLabel={dbLabels.vek_pri_diagnoze}
                     data={
                         getDataFromPatientInterface(
                             formData,
-                            'vek_pri_diagnoze'
+                            dbLabels.vek_pri_diagnoze
                         ) as number
                     }
                     setFormData={setFormData}
+                    disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
                     title="Pohlaví pacienta"
+                    dbLabel={dbLabels.pohlavi}
+                    data={formData}
+                    setFormData={setFormData}
                     enableSingleSelect={true}
                     options={['Žena', 'Muž']}
+                    disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
                     title="Demografické informace - kraj trvalého bydliště pacienta"
+                    dbLabel={dbLabels.kraj}
+                    data={formData}
+                    setFormData={setFormData}
                     enableSingleSelect={true}
                     options={[
                         'Hlavní město Praha',
@@ -95,61 +119,88 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                         'Olomoucký kraj',
                         'Moravskoslezský kraj',
                     ]}
+                    disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
                 <h2>Informace z OA</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
+                    dbLabel={dbLabels.jine_nadorove_onemocneni_v_oa}
+                    data={formData}
+                    setFormData={setFormData}
                     title="Jiné nádorové onemocnění v OA"
                 >
-                    <ConditionalCheckboxOption label="Ano">
+                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
                         <TextInput
                             label="Specifikace místa výskytu jiného karcinomu"
-                            dbLabel="specifikace_mista_vyskytu_jineho_karcinomu"
+                            dbLabel={
+                                dbLabels.specifikace_mista_vyskytu_jineho_karcinomu
+                            }
                             data={getDataFromPatientInterface(
                                 formData,
-                                'specifikace_mista_vyskytu_jineho_karcinomu'
+                                dbLabels.specifikace_mista_vyskytu_jineho_karcinomu
                             )}
                             setFormData={setFormData}
+                            disabled={disabled}
                         />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" />
+                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
                 </ConditionalCheckboxes>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
+                    dbLabel={
+                        dbLabels.jine_onemocneni_velkych_slinnych_zlaz_v_oa
+                    }
+                    data={formData}
+                    setFormData={setFormData}
                     title="Jiné onemocnění velkých slinných žláz v OA"
                 >
-                    <ConditionalCheckboxOption label="Ano">
+                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
                         <TextInput
                             label="Specifikace onemocnění:"
-                            dbLabel="specifikace_onemocneni"
+                            dbLabel={dbLabels.specifikace_onemocneni}
                             data={getDataFromPatientInterface(
                                 formData,
-                                'specifikace_onemocneni'
+                                dbLabels.specifikace_onemocneni
                             )}
                             setFormData={setFormData}
+                            disabled={disabled}
                         />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" />
+                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
                 </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
                 <h2>Přítomnost obecných rizikových faktorů</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
+                    dbLabel={dbLabels.koureni}
+                    data={formData}
+                    setFormData={setFormData}
                     title="Kouření"
                 >
-                    <ConditionalCheckboxOption label="Ano">
-                        <PackYears />
+                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
+                        <PackYears
+                            data={formData}
+                            setFormData={setFormData}
+                            disabled={disabled}
+                        />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" />
-                    <ConditionalCheckboxOption label="Nezjištěno" />
+                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
+                    <ConditionalCheckboxOption
+                        label="Nezjištěno"
+                        disabled={disabled}
+                    />
                 </ConditionalCheckboxes>
                 <SimpleCheckboxes
                     title="Abusus alkoholu"
+                    dbLabel={dbLabels.abusus_alkoholu}
+                    data={formData}
+                    setFormData={setFormData}
                     enableSingleSelect={true}
                     options={['Ano', 'Ne', 'Nezjištěno']}
+                    disabled={disabled}
                 />
             </div>
         </div>

@@ -14,6 +14,7 @@ const TextInput: React.FC<TextInputProps> = ({
     setFormData,
     setFormErrors,
     validation,
+    disabled,
 }) => {
     const [error, setError] = useState(false)
     const [inputValue, setInputValue] = useState(data ? data : '')
@@ -52,6 +53,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     className="textInput"
                     onChange={handleChange}
                     value={inputValue}
+                    disabled={disabled}
                 />
                 {error && <p className="error">Neplatný vstup</p>}
             </div>
