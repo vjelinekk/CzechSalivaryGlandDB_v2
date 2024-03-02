@@ -1,20 +1,35 @@
-import { useState } from 'react'
+import { useState, Dispatch } from 'react'
+import { PatientData } from '../types'
 
 interface SingleSelectionHook {
     selectedOptions: string[]
     handleCheckboxChange: (label: string) => void
 }
 
-export const useSingleSelection = (
+interface SingleSelectionParams {
     enableSingleSelect: boolean
-): SingleSelectionHook => {
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+    defaultSelected: string[]
+    dbLabel: string
+    setFormData: Dispatch<React.SetStateAction<PatientData | null>>
+}
+
+export const useSingleSelection = ({
+    enableSingleSelect,
+    defaultSelected,
+    dbLabel,
+    setFormData,
+}: SingleSelectionParams): SingleSelectionHook => {
+    const [selectedOptions, setSelectedOptions] =
+        useState<string[]>(defaultSelected)
 
     const handleCheckboxChange = (label: string) => {
         if (enableSingleSelect) {
             setSelectedOptions((prevSelected) =>
                 prevSelected.includes(label) ? [] : [label]
             )
+            setFormData((prev) => {
+                return { ...prev, [dbLabel]: label }
+            })
         } else {
             setSelectedOptions((prevSelected) => {
                 if (prevSelected.includes(label)) {

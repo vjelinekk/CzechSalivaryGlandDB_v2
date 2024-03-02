@@ -21,13 +21,25 @@ export interface PatientData {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ParotidPatientData extends PatientData {}
+export interface ParotidPatientData extends PatientData {
+    test1?: string
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SubmandibularPatientData extends PatientData {}
+export interface SubmandibularPatientData extends PatientData {
+    test2?: string
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SublingualPatientData extends PatientData {}
+export interface SublingualPatientData extends PatientData {
+    test3?: string
+}
+
+export type PatientType =
+    | ParotidPatientData
+    | SubmandibularPatientData
+    | SublingualPatientData
+    | PatientData
 
 export interface activeComponentState {
     component: components

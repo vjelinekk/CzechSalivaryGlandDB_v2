@@ -7,8 +7,8 @@ import AddStudy from './add-study'
 import ParotidGlandForm from './forms/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual-gland-form'
 import SubmandibularGlandForm from './forms/submandibular-gland-form'
-import { components } from '../constants'
-import { useActiveComponent } from '../hooks/useActiveComponent'
+import { components, formStates } from '../constants'
+import { useActiveComponent } from '../hooks/use-active-component'
 
 // CSS imports
 import '../css/form_style.css'
@@ -37,12 +37,7 @@ const app = () => {
             )}
             {activeComponent.component === components.addStudy && <AddStudy />}
             {activeComponent.component === components.parotidGlandForm && (
-                <ParotidGlandForm
-                    data={{
-                        jmeno: 'Vojta',
-                        prijmeni: 'Jelinek',
-                    }}
-                />
+                <ParotidGlandForm formState={formStates.add} />
             )}
             {activeComponent.component === components.sublingualGlandForm && (
                 <SublingualGlandForm />

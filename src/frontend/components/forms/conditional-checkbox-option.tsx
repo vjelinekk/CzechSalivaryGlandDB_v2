@@ -5,6 +5,7 @@ export interface ConditionalCheckboxOptionProps {
     children?: React.ReactNode
     selected?: boolean
     onSelect?: () => void
+    disabled: boolean
 }
 
 const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
@@ -12,8 +13,9 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
     children,
     selected,
     onSelect,
+    disabled,
 }) => {
-    const [showChildren, setShowChildren] = useState(false)
+    const [showChildren, setShowChildren] = useState(selected)
 
     useEffect(() => {
         if (selected == undefined) {
@@ -45,6 +47,7 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
                     type="checkbox"
                     checked={selected}
                     onChange={handleChange}
+                    disabled={disabled}
                 />
                 <p className="conditionalOptionLabel">{label}</p>
             </div>
