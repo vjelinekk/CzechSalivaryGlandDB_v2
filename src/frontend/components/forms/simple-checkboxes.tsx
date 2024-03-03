@@ -5,7 +5,7 @@ import { PatientType } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 
 interface SimpleCheckboxesProps {
-    title: string
+    title?: string
     dbLabel: string
     data: PatientType | null
     setFormData: React.Dispatch<React.SetStateAction<PatientType | null>>
@@ -34,7 +34,7 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
 
     return (
         <>
-            <h2>{title}</h2>
+            {title && <h3>{title}</h3>}
             <div className="checkboxDiv">
                 {options.map((option) => (
                     <SimpleCheckboxItem
