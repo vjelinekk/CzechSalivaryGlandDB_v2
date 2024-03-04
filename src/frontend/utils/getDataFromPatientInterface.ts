@@ -1,7 +1,7 @@
-import { PatientData } from '../types'
+import { PatientType } from '../types'
 
 const getDataFromPatientInterface = (
-    data: PatientData | null,
+    data: PatientType | null,
     dbLabel: string
 ) => {
     if (data) {

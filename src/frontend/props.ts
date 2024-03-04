@@ -1,11 +1,19 @@
 import { Dispatch, SetStateAction } from 'react'
+import { ConditionalCheckboxOptionProps } from './components/forms/conditional-checkbox-option'
 import { PatientData, PatientType } from './types'
 
-export interface CommonFormInputProps {
+export interface CommonFormComponentProps {
     dbLabel: string
-    data: string | number
-    setFormData: Dispatch<SetStateAction<PatientType> | null>
-    disabled: boolean
+    setFormData: Dispatch<SetStateAction<PatientType | null>>
+    disabled?: boolean
+    children?:
+        | React.ReactElement<CommonFormComponentProps>
+        | React.ReactElement<CommonFormComponentProps>[]
+        | React.ReactElement<ConditionalCheckboxOptionProps>[]
+}
+
+export interface CommonFormInputProps extends CommonFormComponentProps {
+    data: string | number | Array<string>
 }
 
 export interface CommonFormProps {

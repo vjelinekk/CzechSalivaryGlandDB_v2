@@ -4,10 +4,10 @@ import ConditionalCheckboxes from './conditional-checkboxes'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
 import TextInput from './text-input'
 import NumberInput from './number-input'
-import PackYears from './pack-years'
 import { PatientData } from '../../types'
 import isCzechAlphabet from '../../utils/isCzechAlphabet'
 import isPID from '../../utils/isPID'
+import calculatePackYears from '../../utils/calculatePackYears'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { dbLabels } from '../../constants'
 
@@ -131,7 +131,11 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                     setFormData={setFormData}
                     title="Jiné nádorové onemocnění v OA"
                 >
-                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
+                    <ConditionalCheckboxOption
+                        label="Ano"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    >
                         <TextInput
                             label="Specifikace místa výskytu jiného karcinomu"
                             dbLabel={
@@ -145,7 +149,11 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                             disabled={disabled}
                         />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
+                    <ConditionalCheckboxOption
+                        label="Ne"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    />
                 </ConditionalCheckboxes>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
@@ -156,7 +164,11 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                     setFormData={setFormData}
                     title="Jiné onemocnění velkých slinných žláz v OA"
                 >
-                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
+                    <ConditionalCheckboxOption
+                        label="Ano"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    >
                         <TextInput
                             label="Specifikace onemocnění:"
                             dbLabel={dbLabels.specifikace_onemocneni}
@@ -168,7 +180,11 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                             disabled={disabled}
                         />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
+                    <ConditionalCheckboxOption
+                        label="Ne"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    />
                 </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
@@ -180,17 +196,57 @@ const PersonalData: React.FC<PersonalDataProps> = ({
                     setFormData={setFormData}
                     title="Kouření"
                 >
-                    <ConditionalCheckboxOption label="Ano" disabled={disabled}>
-                        <PackYears
-                            data={formData}
+                    <ConditionalCheckboxOption
+                        label="Ano"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    >
+                        <NumberInput
+                            label="Počet cigaret denně"
+                            dbLabel={dbLabels.pocet_cigaret_denne}
+                            data={getDataFromPatientInterface(
+                                formData,
+                                dbLabels.pocet_cigaret_denne
+                            )}
                             setFormData={setFormData}
                             disabled={disabled}
                         />
+                        <NumberInput
+                            label="Jak dlouho (roky)"
+                            dbLabel={dbLabels.jak_dlouho_kouri}
+                            data={getDataFromPatientInterface(
+                                formData,
+                                dbLabels.jak_dlouho_kouri
+                            )}
+                            setFormData={setFormData}
+                            disabled={disabled}
+                        />
+                        <NumberInput
+                            label="Počet balíčko roků"
+                            dbLabel={dbLabels.pocet_balickoroku}
+                            data={getDataFromPatientInterface(
+                                formData,
+                                dbLabels.pocet_balickoroku
+                            )}
+                            calculateFrom={[
+                                dbLabels.pocet_cigaret_denne,
+                                dbLabels.jak_dlouho_kouri,
+                            ]}
+                            calculate={() => calculatePackYears(formData)}
+                            formData={formData}
+                            setFormData={setFormData}
+                            disabled={true}
+                        />
                     </ConditionalCheckboxOption>
-                    <ConditionalCheckboxOption label="Ne" disabled={disabled} />
+                    <ConditionalCheckboxOption
+                        label="Ne"
+                        disabled={disabled}
+                        setFormData={setFormData}
+                    />
                     <ConditionalCheckboxOption
                         label="Nezjištěno"
                         disabled={disabled}
+                        setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
                 <SimpleCheckboxes

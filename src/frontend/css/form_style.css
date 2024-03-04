@@ -45,12 +45,22 @@
     margin: 0;
 }
 
+.form .textInputDiv p {
+    margin: 0;
+    font-weight: bold;
+}
+
 .form input[type='text'] {
     margin: 1.2em;
     padding: 0.5em 1em;
 }
 
 .form input[type='number'] {
+    margin: 1.2em;
+    padding: 0.5em 1em;
+}
+
+.form input[type='date'] {
     margin: 1.2em;
     padding: 0.5em 1em;
 }

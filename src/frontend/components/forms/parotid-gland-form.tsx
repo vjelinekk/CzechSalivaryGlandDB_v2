@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import PersonalData from './personal-data'
+import ParotidGlandDiagnosis from './parotid-gland-diagnosis'
 import { ParotidPatientData } from '../../types'
 import { formStates } from '../../constants'
+import ParotidGlandTherapy from './parotid-gland-therapy'
+import ParotidGlandHistopathology from './parotid-gland-histopathology'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -28,6 +31,24 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
     return (
         <form className="form">
             <PersonalData
+                formData={formData}
+                setFormData={setFormData}
+                setFormErrors={setFormErrors}
+                disabled={formState === formStates.view}
+            />
+            <ParotidGlandDiagnosis
+                formData={formData}
+                setFormData={setFormData}
+                setFormErrors={setFormErrors}
+                disabled={formState === formStates.view}
+            />
+            <ParotidGlandTherapy
+                formData={formData}
+                setFormData={setFormData}
+                setFormErrors={setFormErrors}
+                disabled={formState === formStates.view}
+            />
+            <ParotidGlandHistopathology
                 formData={formData}
                 setFormData={setFormData}
                 setFormErrors={setFormErrors}
