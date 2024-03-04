@@ -3,13 +3,12 @@ import { PatientType } from '../../types'
 import { useSingleSelection } from '../../hooks/use-single-selection'
 import { ConditionalCheckboxOptionProps } from './conditional-checkbox-option'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
+import { CommonFormComponentProps } from '../../props'
 
-interface ConditionalCheckboxesProps {
-    title: string
+interface ConditionalCheckboxesProps extends CommonFormComponentProps {
+    title?: string
     enableSingleSelect: boolean
-    dbLabel: string
     data: PatientType | null
-    setFormData: React.Dispatch<React.SetStateAction<PatientType | null>>
     children: React.ReactElement<ConditionalCheckboxOptionProps>[]
 }
 
@@ -32,7 +31,7 @@ const ConditionalCheckboxes: React.FC<ConditionalCheckboxesProps> = ({
 
     return (
         <div className="conditionalCheckboxDiv">
-            <h3 className="conditionalCheckboxTitle">{title}</h3>
+            {title && <h3 className="conditionalCheckboxTitle">{title}</h3>}
             {children.map((child, index) => {
                 return React.cloneElement(child, {
                     key: index,

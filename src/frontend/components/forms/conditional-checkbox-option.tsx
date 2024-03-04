@@ -1,11 +1,22 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
+import React, {
+    ChangeEvent,
+    useState,
+    useEffect,
+    Dispatch,
+    SetStateAction,
+} from 'react'
+import { PatientType } from '../../types'
+import { CommonFormComponentProps } from '../../props'
 
 export interface ConditionalCheckboxOptionProps {
     label: string
-    children?: React.ReactNode
+    children?:
+        | React.ReactElement<CommonFormComponentProps>
+        | React.ReactElement<CommonFormComponentProps>[]
     selected?: boolean
     onSelect?: () => void
     disabled: boolean
+    setFormData: Dispatch<SetStateAction<PatientType | null>>
 }
 
 const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
@@ -14,6 +25,7 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
     selected,
     onSelect,
     disabled,
+    setFormData,
 }) => {
     const [showChildren, setShowChildren] = useState(selected)
 
@@ -22,9 +34,51 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
             return
         }
         if (!selected) {
+            unsetChildren()
             setShowChildren(false)
         }
     }, [selected])
+
+    const unsetChildrenRecursive = (
+        child: React.ReactElement<CommonFormComponentProps>
+    ) => {
+        if (child.props.children) {
+            if (Array.isArray(child.props.children)) {
+                child.props.children.forEach((child) => {
+                    unsetChildrenRecursive(
+                        child as React.ReactElement<CommonFormComponentProps>
+                    )
+                })
+            } else {
+                unsetChildrenRecursive(
+                    child.props.children as React.ReactElement
+                )
+            }
+        }
+        if (child.props.dbLabel !== undefined) {
+            setFormData((prev) => {
+                if (prev) {
+                    delete prev[child.props.dbLabel]
+                    return { ...prev }
+                }
+                return prev
+            })
+        }
+    }
+
+    const unsetChildren = () => {
+        if (children) {
+            if (Array.isArray(children)) {
+                children.forEach((child) => {
+                    unsetChildrenRecursive(child)
+                })
+            } else {
+                const child =
+                    children as React.ReactElement<CommonFormComponentProps>
+                unsetChildrenRecursive(child)
+            }
+        }
+    }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selected = event.target.checked

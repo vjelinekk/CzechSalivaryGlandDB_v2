@@ -1,11 +1,11 @@
 import React from 'react'
 import { CommonFormInputProps } from '../../props'
 
-interface DataPickerProps extends CommonFormInputProps {
+interface DatePickerProps extends CommonFormInputProps {
     label: string
 }
 
-const DataPicker: React.FC<DataPickerProps> = ({
+const DatePicker: React.FC<DatePickerProps> = ({
     label,
     dbLabel,
     data,
@@ -32,4 +32,4 @@ const DataPicker: React.FC<DataPickerProps> = ({
     )
 }
 
-export default DataPicker
+export default DatePicker

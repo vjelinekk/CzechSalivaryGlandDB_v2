@@ -3,15 +3,13 @@ import SimpleCheckboxItem from './simple-checkbox-item'
 import { useSingleSelection } from '../../hooks/use-single-selection'
 import { PatientType } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
+import { CommonFormComponentProps } from '../../props'
 
-interface SimpleCheckboxesProps {
+interface SimpleCheckboxesProps extends CommonFormComponentProps {
     title?: string
-    dbLabel: string
     data: PatientType | null
-    setFormData: React.Dispatch<React.SetStateAction<PatientType | null>>
     enableSingleSelect: boolean
     options: string[]
-    disabled: boolean
 }
 
 const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
