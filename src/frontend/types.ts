@@ -39,6 +39,7 @@ export interface PatientData {
 }
 
 export interface ParotidPatientData extends PatientData {
+    id_podcelistni?: number
     rok_diagnozy?: string
     diagnoza_mkn_10?: string
     strana_nalezu?: string

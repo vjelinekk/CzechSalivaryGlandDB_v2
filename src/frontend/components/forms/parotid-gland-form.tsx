@@ -7,6 +7,7 @@ import ParotidGlandTherapy from './parotid-gland-therapy'
 import ParotidGlandHistopathology from './parotid-gland-histopathology'
 import TNMClassification from './tnm-classification'
 import Dispensarization from './dispensarization'
+import Attachments from './attachments'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -26,7 +27,7 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
         e.preventDefault()
         console.log(formData)
         console.log(formErrors)
-        const res = await window.api.send('add-patient', formData)
+        const res = await window.api.send(formData)
         console.log(res)
     }
 
@@ -62,6 +63,11 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
                 disabled={formState === formStates.view}
             />
             <Dispensarization
+                formData={formData}
+                setFormData={setFormData}
+                disabled={formState === formStates.view}
+            />
+            <Attachments
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === formStates.view}
