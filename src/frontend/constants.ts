@@ -105,3 +105,12 @@ export enum dbLabels {
     planovana_kontrola = 'planovana_kontrola',
     poznamky = 'poznamky',
 }
+
+export enum TNMClassificationResult {
+    stageI = 'Stage I',
+    stageII = 'Stage II',
+    stageIII = 'Stage III',
+    stageIVA = 'Stage IVA',
+    stageIVB = 'Stage IVB',
+    stageIVC = 'Stage IVC',
+}
