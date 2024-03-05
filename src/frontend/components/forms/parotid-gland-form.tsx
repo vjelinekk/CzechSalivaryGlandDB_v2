@@ -6,6 +6,7 @@ import { formStates } from '../../constants'
 import ParotidGlandTherapy from './parotid-gland-therapy'
 import ParotidGlandHistopathology from './parotid-gland-histopathology'
 import TNMClassification from './tnm-classification'
+import Dispensarization from './dispensarization'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -56,6 +57,11 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
                 disabled={formState === formStates.view}
             />
             <TNMClassification
+                formData={formData}
+                setFormData={setFormData}
+                disabled={formState === formStates.view}
+            />
+            <Dispensarization
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === formStates.view}
