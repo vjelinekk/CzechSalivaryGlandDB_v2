@@ -10,13 +10,17 @@ declare global {
     interface Window {
         api: {
             send: (
-                channel: string,
                 data:
                     | ParotidPatientData
                     | SublingualPatientData
                     | SubmandibularPatientData
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ) => Promise<any>
+        }
+        fs: {
+            save: () => Promise<string>
+            getFileIcon: (fileName: string) => Promise<string>
+            open: (filePath: string) => void
         }
     }
 }

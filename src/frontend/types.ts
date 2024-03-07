@@ -2,6 +2,9 @@ import { components } from './constants'
 
 export interface PatientData {
     [key: string]: string | number | string[]
+    id?: number
+    formType?: number
+    attachments?: string[]
     jmeno?: string
     prijmeni?: string
     id_pacient?: string
