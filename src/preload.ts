@@ -18,7 +18,13 @@ contextBridge.exposeInMainWorld('api', {
 })
 
 contextBridge.exposeInMainWorld('fs', {
-    save: (channel: ipcChannels, patientId?: string, patientType?: string) => {
+    save: () => {
         return ipcRenderer.invoke(ipcChannels.save)
+    },
+    getFileIcon: (fileName: string) => {
+        return ipcRenderer.invoke(ipcChannels.getFileIcon, fileName)
+    },
+    open: (filePath: string) => {
+        ipcRenderer.invoke(ipcChannels.open, filePath)
     },
 })

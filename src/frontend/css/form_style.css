@@ -145,3 +145,35 @@
 
     z-index: 1;
 }
+
+.attachment-container {
+    display: flex;
+    align-items: center;
+    margin: 10px; /* Adjust margin as needed */
+}
+
+.attachment-button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+}
+
+.attachment-icon {
+    width: 48px; /* Adjust width as needed */
+    height: 48px; /* Adjust height as needed */
+    margin-right: 8px; /* Adjust margin as needed */
+}
+
+.attachments {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+}

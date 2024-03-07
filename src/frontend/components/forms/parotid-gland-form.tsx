@@ -18,7 +18,10 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
     data,
     formState,
 }) => {
-    const [formData, setFormData] = useState<ParotidPatientData | null>(data)
+    const [formData, setFormData] = useState<ParotidPatientData | null>({
+        ...data,
+        formType: 3,
+    })
     const [formErrors, setFormErrors] = useState<string[]>([])
 
     const handleButtonClick = async (
@@ -68,8 +71,8 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
                 disabled={formState === formStates.view}
             />
             <Attachments
-                formData={formData}
                 setFormData={setFormData}
+                formData={formData}
                 disabled={formState === formStates.view}
             />
             {formState === formStates.add && (

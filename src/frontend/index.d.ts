@@ -18,8 +18,9 @@ declare global {
             ) => Promise<any>
         }
         fs: {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            save: () => Promise<any>
+            save: () => Promise<string>
+            getFileIcon: (fileName: string) => Promise<string>
+            open: (filePath: string) => void
         }
     }
 }
