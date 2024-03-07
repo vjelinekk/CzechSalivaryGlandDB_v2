@@ -9,6 +9,7 @@ import TNMClassification from './tnm-classification'
 import Dispensarization from './dispensarization'
 import Attachments from './attachments'
 import Notes from './notes'
+import { ipcAPIInsertChannels } from '../../../ipc/ipcChannels'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -21,7 +22,7 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
 }) => {
     const [formData, setFormData] = useState<ParotidPatientData | null>({
         ...data,
-        formType: 3,
+        form_type: 3,
     })
     const [formErrors, setFormErrors] = useState<string[]>([])
 
@@ -31,8 +32,9 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
         e.preventDefault()
         console.log(formData)
         console.log(formErrors)
-        const res = await window.api.send(formData)
-        console.log(res)
+        const JSONdata = JSON.parse(JSON.stringify(formData))
+        console.log(JSONdata)
+        window.api.insert(ipcAPIInsertChannels.insertPriusni, JSONdata)
     }
 
     return (

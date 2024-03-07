@@ -1,30 +1,20 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import {
-    ParotidPatientData,
-    SublingualPatientData,
-    SubmandibularPatientData,
-} from './frontend/types'
-import ipcChannels from './ipc/ipcChannels'
+import { ipcAPIInsertChannels, ipcFSChannels } from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
-    send: (
-        data:
-            | ParotidPatientData
-            | SublingualPatientData
-            | SubmandibularPatientData
-    ) => {
-        return ipcRenderer.invoke(ipcChannels.addPatient, data)
+    insert: (channel: ipcAPIInsertChannels, data: JSON) => {
+        return ipcRenderer.invoke(channel.toString(), [data])
     },
 })
 
 contextBridge.exposeInMainWorld('fs', {
     save: () => {
-        return ipcRenderer.invoke(ipcChannels.save)
+        return ipcRenderer.invoke(ipcFSChannels.save)
     },
     getFileIcon: (fileName: string) => {
-        return ipcRenderer.invoke(ipcChannels.getFileIcon, fileName)
+        return ipcRenderer.invoke(ipcFSChannels.getFileIcon, fileName)
     },
     open: (filePath: string) => {
-        ipcRenderer.invoke(ipcChannels.open, filePath)
+        ipcRenderer.invoke(ipcFSChannels.open, filePath)
     },
 })

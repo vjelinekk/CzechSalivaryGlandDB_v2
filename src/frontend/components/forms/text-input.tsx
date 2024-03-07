@@ -40,6 +40,11 @@ const TextInput: React.FC<TextInputProps> = ({
                 return prev.filter((error) => error !== label)
             })
         setFormData((prev) => {
+            if (e.target.value === '' && prev[dbLabel] !== undefined) {
+                delete prev[dbLabel]
+                return { ...prev }
+            }
+
             return { ...prev, [dbLabel]: e.target.value }
         })
     }
