@@ -8,6 +8,7 @@ import ParotidGlandHistopathology from './parotid-gland-histopathology'
 import TNMClassification from './tnm-classification'
 import Dispensarization from './dispensarization'
 import Attachments from './attachments'
+import Notes from './notes'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -73,6 +74,11 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
             <Attachments
                 setFormData={setFormData}
                 formData={formData}
+                disabled={formState === formStates.view}
+            />
+            <Notes
+                formData={formData}
+                setFormData={setFormData}
                 disabled={formState === formStates.view}
             />
             {formState === formStates.add && (
