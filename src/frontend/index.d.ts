@@ -1,21 +1,14 @@
-import {
-    ParotidPatientData,
-    SublingualPatientData,
-    SubmandibularPatientData,
-} from './types'
-
 export {}
+
+import { ipcAPIInsertChannels } from '../ipc/ipcChannels'
 
 declare global {
     interface Window {
         api: {
-            send: (
-                data:
-                    | ParotidPatientData
-                    | SublingualPatientData
-                    | SubmandibularPatientData
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            ) => Promise<any>
+            insert: (
+                channel: ipcAPIInsertChannels,
+                data: JSON
+            ) => Promise<number | null>
         }
         fs: {
             save: () => Promise<string>

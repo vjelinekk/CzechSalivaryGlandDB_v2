@@ -1,9 +1,14 @@
-import { components } from './constants'
+import { components, FormType } from './constants'
+
+export interface activeComponentState {
+    component: components
+    displayFormWithData?: boolean
+}
 
 export interface PatientData {
-    [key: string]: string | number | string[]
+    [key: string]: string | number | string[] | FormType
     id?: number
-    formType?: number
+    form_type: FormType
     attachments?: string[]
     jmeno?: string
     prijmeni?: string
@@ -100,22 +105,13 @@ export interface ParotidPatientData extends PatientData {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SubmandibularPatientData extends PatientData {
-    test2?: string
-}
+export interface SubmandibularPatientData extends PatientData {}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SublingualPatientData extends PatientData {
-    test3?: string
-}
+export interface SublingualPatientData extends PatientData {}
 
 export type PatientType =
     | ParotidPatientData
     | SubmandibularPatientData
     | SublingualPatientData
     | PatientData
-
-export interface activeComponentState {
-    component: components
-    displayFormWithData?: boolean
-}

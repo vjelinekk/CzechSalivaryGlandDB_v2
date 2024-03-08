@@ -1,9 +1,9 @@
-enum ipcChannels {
-    addPatient = 'add-patient',
-    saveTemp = 'saveTemp',
+export enum ipcAPIInsertChannels {
+    insertPatient = 'insertPatient',
+}
+
+export enum ipcFSChannels {
     save = 'save',
     getFileIcon = 'getFileIcon',
     open = 'open',
 }
-
-export default ipcChannels
