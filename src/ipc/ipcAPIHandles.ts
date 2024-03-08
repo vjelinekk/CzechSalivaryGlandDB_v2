@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
-import { insertFormPriusni } from '../backend/priusniManager'
+import { insertPatient } from '../backend/patientsManager'
 import { ipcAPIInsertChannels } from './ipcChannels'
 
-ipcMain.handle(ipcAPIInsertChannels.insertPriusni, async (event, args) => {
+ipcMain.handle(ipcAPIInsertChannels.insertPatient, async (event, args) => {
     const [data] = args
-    insertFormPriusni(data)
+    return await insertPatient(data)
 })

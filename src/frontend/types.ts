@@ -1,4 +1,4 @@
-import { components } from './constants'
+import { components, FormType } from './constants'
 
 export interface activeComponentState {
     component: components
@@ -6,8 +6,9 @@ export interface activeComponentState {
 }
 
 export interface PatientData {
-    [key: string]: string | number | string[]
-    form_type?: number
+    [key: string]: string | number | string[] | FormType
+    id?: number
+    form_type: FormType
     attachments?: string[]
     jmeno?: string
     prijmeni?: string
@@ -46,7 +47,6 @@ export interface PatientData {
 }
 
 export interface ParotidPatientData extends PatientData {
-    id_priusni?: string
     rok_diagnozy?: string
     diagnoza_mkn_10?: string
     strana_nalezu?: string
@@ -104,13 +104,11 @@ export interface ParotidPatientData extends PatientData {
     misto_vyskytu_vzdalene_metastazy_histopatologie?: string
 }
 
-export interface SubmandibularPatientData extends PatientData {
-    id_podcelistni?: number
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface SubmandibularPatientData extends PatientData {}
 
-export interface SublingualPatientData extends PatientData {
-    id_podjazykove?: number
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface SublingualPatientData extends PatientData {}
 
 export type PatientType =
     | ParotidPatientData

@@ -14,11 +14,9 @@ import {
     PriusniColumns,
     StudieColumns,
 } from './types'
+import { columnToSQL } from './utils'
 
 const db = new sqlite3.Database('db.sqlite')
-
-const columnToSQL = (columnName: string, columnType: string) =>
-    `${columnName} ${columnType}`
 
 const createTable = (
     tableName: TableNames,

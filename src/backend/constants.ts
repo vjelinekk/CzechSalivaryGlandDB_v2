@@ -15,8 +15,8 @@ export enum TableNames {
 }
 
 export const podcelistniColumns: PodcelistniColumns = {
-    id_podcelistni: {
-        columnName: 'id_podcelistni',
+    id: {
+        columnName: 'id',
         columnType: 'INTEGER UNIQUE',
     },
     form_type: {
@@ -377,13 +377,13 @@ export const podcelistniColumns: PodcelistniColumns = {
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',
-        columnType: '(id_podcelistni AUTOINCREMENT)',
+        columnType: '(id AUTOINCREMENT)',
     },
 }
 
 export const podjazykoveColumns: PodjazykoveColumns = {
-    id_podjazykove: {
-        columnName: 'id_podjazykove',
+    id: {
+        columnName: 'id',
         columnType: 'INTEGER UNIQUE',
     },
     form_type: {
@@ -736,13 +736,13 @@ export const podjazykoveColumns: PodjazykoveColumns = {
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',
-        columnType: '(id_podjazykove AUTOINCREMENT)',
+        columnType: '(id AUTOINCREMENT)',
     },
 }
 
 export const priusniColumns: PriusniColumns = {
-    id_priusni: {
-        columnName: 'id_priusni',
+    id: {
+        columnName: 'id',
         columnType: 'INTEGER UNIQUE',
     },
     form_type: {
@@ -1111,13 +1111,13 @@ export const priusniColumns: PriusniColumns = {
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',
-        columnType: '(id_priusni AUTOINCREMENT)',
+        columnType: '(id AUTOINCREMENT)',
     },
 }
 
 export const studieColumns: StudieColumns = {
-    id_studie: {
-        columnName: 'id_studie',
+    id: {
+        columnName: 'id',
         columnType: 'INTEGER UNIQUE',
     },
     nazev_studie: {
@@ -1130,13 +1130,13 @@ export const studieColumns: StudieColumns = {
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',
-        columnType: '(id_studie AUTOINCREMENT)',
+        columnType: '(id AUTOINCREMENT)',
     },
 }
 
 export const jeVeStudiiColumns: JeVeStudiiColumns = {
-    id_je_ve_studii: {
-        columnName: 'id_je_ve_studii',
+    id: {
+        columnName: 'id',
         columnType: 'INTEGER',
     },
     id_studie: {
@@ -1157,6 +1157,12 @@ export const jeVeStudiiColumns: JeVeStudiiColumns = {
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',
-        columnType: '(id_je_ve_studii AUTOINCREMENT)',
+        columnType: '(id AUTOINCREMENT)',
     },
+}
+
+export enum FormType {
+    podcelistni = 1,
+    podjazykove = 2,
+    priusni = 3,
 }

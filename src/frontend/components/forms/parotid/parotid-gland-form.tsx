@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import PersonalData from './personal-data'
+import PersonalData from '../personal-data'
 import ParotidGlandDiagnosis from './parotid-gland-diagnosis'
-import { ParotidPatientData } from '../../types'
-import { formStates } from '../../constants'
+import { ParotidPatientData } from '../../../types'
+import { formStates, FormType } from '../../../constants'
 import ParotidGlandTherapy from './parotid-gland-therapy'
 import ParotidGlandHistopathology from './parotid-gland-histopathology'
-import TNMClassification from './tnm-classification'
-import Dispensarization from './dispensarization'
-import Attachments from './attachments'
-import Notes from './notes'
-import { ipcAPIInsertChannels } from '../../../ipc/ipcChannels'
+import TNMClassification from '../tnm-classification'
+import Dispensarization from '../dispensarization'
+import Attachments from '../attachments'
+import Notes from '../notes'
+import { ipcAPIInsertChannels } from '../../../../ipc/ipcChannels'
 
 interface ParotidGlandFormProps {
     data?: ParotidPatientData
@@ -22,7 +22,7 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
 }) => {
     const [formData, setFormData] = useState<ParotidPatientData | null>({
         ...data,
-        form_type: 3,
+        form_type: FormType.priusni,
     })
     const [formErrors, setFormErrors] = useState<string[]>([])
 
@@ -30,11 +30,12 @@ const ParotidGlandForm: React.FC<ParotidGlandFormProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        console.log(formData)
-        console.log(formErrors)
         const JSONdata = JSON.parse(JSON.stringify(formData))
-        console.log(JSONdata)
-        window.api.insert(ipcAPIInsertChannels.insertPriusni, JSONdata)
+        const result = await window.api.insert(
+            ipcAPIInsertChannels.insertPatient,
+            JSONdata
+        )
+        console.log(result)
     }
 
     return (

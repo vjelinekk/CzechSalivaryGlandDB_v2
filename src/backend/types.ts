@@ -6,6 +6,7 @@ interface ColumnDefinition {
 
 export interface CommonColumns {
     [key: string]: ColumnDefinition
+    id: ColumnDefinition
     PRIMARY_KEY: ColumnDefinition
     form_type: ColumnDefinition
     jmeno: ColumnDefinition
@@ -46,7 +47,6 @@ export interface CommonColumns {
 }
 
 export interface PodcelistniColumns extends CommonColumns {
-    id_podcelistni: ColumnDefinition
     rok_diagnozy: ColumnDefinition
     diagnoza_mkn_10: ColumnDefinition
     strana_nalezu: ColumnDefinition
@@ -103,7 +103,6 @@ export interface PodcelistniColumns extends CommonColumns {
 }
 
 export interface PodjazykoveColumns extends CommonColumns {
-    id_podjazykove: ColumnDefinition
     rok_diagnozy: ColumnDefinition
     diagnoza_mkn_10: ColumnDefinition
     strana_nalezu: ColumnDefinition
@@ -158,7 +157,6 @@ export interface PodjazykoveColumns extends CommonColumns {
 }
 
 export interface PriusniColumns extends CommonColumns {
-    id_priusni: ColumnDefinition
     rok_diagnozy: ColumnDefinition
     diagnoza_mkn_10: ColumnDefinition
     strana_nalezu: ColumnDefinition
@@ -217,14 +215,14 @@ export interface PriusniColumns extends CommonColumns {
 }
 
 export interface StudieColumns {
-    id_studie: ColumnDefinition
+    id: ColumnDefinition
     nazev_studie: ColumnDefinition
     typ_studie: ColumnDefinition
     PRIMARY_KEY: ColumnDefinition
 }
 
 export interface JeVeStudiiColumns {
-    id_je_ve_studii: ColumnDefinition
+    id: ColumnDefinition
     id_studie: ColumnDefinition
     id_pacient_db: ColumnDefinition
     typ_pacienta: ColumnDefinition

@@ -3,7 +3,7 @@ import { ipcAPIInsertChannels, ipcFSChannels } from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
     insert: (channel: ipcAPIInsertChannels, data: JSON) => {
-        return ipcRenderer.invoke(channel.toString(), [data])
+        return ipcRenderer.invoke(channel, [data])
     },
 })
 

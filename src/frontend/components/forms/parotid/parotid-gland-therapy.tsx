@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { dbLabels } from '../../constants'
-import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
-import { ParotidPatientData } from '../../types'
-import DatePicker from './date-picker'
-import ConditionalCheckboxes from './conditional-checkboxes'
-import ConditionalCheckboxOption from './conditional-checkbox-option'
-import SimpleCheckboxes from './simple-checkboxes'
-import TextInput from './text-input'
+import { dbLabels } from '../../../constants'
+import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
+import { ParotidPatientData } from '../../../types'
+import DatePicker from '../date-picker'
+import ConditionalCheckboxes from '../conditional-checkboxes'
+import ConditionalCheckboxOption from '../conditional-checkbox-option'
+import SimpleCheckboxes from '../simple-checkboxes'
+import TextInput from '../text-input'
 
 interface ParotidGlandTherapyProps {
     formData: ParotidPatientData | null

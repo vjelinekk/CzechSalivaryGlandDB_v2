@@ -114,3 +114,9 @@ export enum TNMClassificationResult {
     stageIVB = 'Stage IVB',
     stageIVC = 'Stage IVC',
 }
+
+export enum FormType {
+    podcelistni = 1,
+    podjazykove = 2,
+    priusni = 3,
+}

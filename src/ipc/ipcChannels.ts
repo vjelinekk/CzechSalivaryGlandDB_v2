@@ -1,7 +1,5 @@
 export enum ipcAPIInsertChannels {
-    insertPodcelistni = 'insertPodcelistni',
-    insertPodjazykove = 'insertPodjazykove',
-    insertPriusni = 'insertPriusni',
+    insertPatient = 'insertPatient',
 }
 
 export enum ipcFSChannels {
