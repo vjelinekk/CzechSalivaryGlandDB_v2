@@ -1,14 +1,12 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
-import { PatientType } from '../../types'
+import React, { useState } from 'react'
+import { GlandComponentProps } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 
-interface NotesProps {
-    formData: PatientType | null
-    setFormData: Dispatch<SetStateAction<PatientType | null>>
-    disabled: boolean
-}
-
-const Notes: React.FC<NotesProps> = ({ formData, setFormData, disabled }) => {
+const Notes: React.FC<GlandComponentProps> = ({
+    formData,
+    setFormData,
+    disabled,
+}) => {
     const [notes, setNotes] = useState<string>(
         getDataFromPatientInterface(formData, 'poznamky') as string
     )

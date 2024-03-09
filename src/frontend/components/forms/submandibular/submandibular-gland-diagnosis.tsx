@@ -1,13 +1,13 @@
 import React from 'react'
-import { GlandComponentProps } from '../../../types'
 import { dbLabels } from '../../../constants'
-import DatePicker from '../date-picker'
+import { GlandComponentProps } from '../../../types'
 import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import SimpleCheckboxes from '../simple-checkboxes'
-import ConditionalCheckboxes from '../conditional-checkboxes'
 import ConditionalCheckboxOption from '../conditional-checkbox-option'
+import ConditionalCheckboxes from '../conditional-checkboxes'
+import DatePicker from '../date-picker'
+import SimpleCheckboxes from '../simple-checkboxes'
 
-const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
+const SubmandibularGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -31,7 +31,7 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['C07']}
+                options={['C080']}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -616,4 +616,4 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default ParotidGlandDiagnosis
+export default SubmandibularGlandDiagnosis

@@ -1,14 +1,14 @@
 import React from 'react'
 import { dbLabels } from '../../../constants'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
 import { GlandComponentProps } from '../../../types'
-import DatePicker from '../date-picker'
-import ConditionalCheckboxes from '../conditional-checkboxes'
+import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
 import ConditionalCheckboxOption from '../conditional-checkbox-option'
+import ConditionalCheckboxes from '../conditional-checkboxes'
+import DatePicker from '../date-picker'
 import SimpleCheckboxes from '../simple-checkboxes'
 import TextInput from '../text-input'
 
-const ParotidGlandTherapy: React.FC<GlandComponentProps> = ({
+const SubmandibularGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -47,18 +47,9 @@ const ParotidGlandTherapy: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            'Parotidektomie I–IV (VII)',
-                            'Parotidektomie I–IV',
-                            'Parotidektomie I–IV (VII, S, MM)',
-                            'Parotidektomie I–II (PES)',
-                            'Parotidektomie III–IV (Deep lobe parotidectomy)',
-                            'Parotidektomie I',
-                            'Parotidektomie II',
-                            'Parotidektomie I–II–III',
-                            'Parotidektomie V',
-                            'ECD I',
-                            'ECD II',
-                            'ECD V',
+                            'Peroorální exstirpace',
+                            'Zevní exstirpace',
+                            'Jiná',
                         ]}
                     />
                     <ConditionalCheckboxes
@@ -132,46 +123,6 @@ const ParotidGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
-                    <ConditionalCheckboxes
-                        title="Jiné pooperační komplikace"
-                        data={formData}
-                        dbLabel={dbLabels.jine_pooperacni_komplikace}
-                        setFormData={setFormData}
-                        enableSingleSelect={true}
-                        disabled={disabled}
-                    >
-                        <ConditionalCheckboxOption
-                            label="Nejsou"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="Syndrom Freyové"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="Slinná píštěl"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="Jiné"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <TextInput
-                                label="Upřesnění jiné komplikace"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace}
-                                data={getDataFromPatientInterface(
-                                    formData,
-                                    dbLabels.jine_pooperacni_komplikace
-                                )}
-                                setFormData={setFormData}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                    </ConditionalCheckboxes>
                     <SimpleCheckboxes
                         title="Adjuvantní terapie"
                         data={formData}
@@ -213,4 +164,4 @@ const ParotidGlandTherapy: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default ParotidGlandTherapy
+export default SubmandibularGlandTherapy

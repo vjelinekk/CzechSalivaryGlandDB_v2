@@ -1,18 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import { dbLabels } from '../../constants'
-import { PatientType } from '../../types'
+import { GlandComponentProps } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
 import ConditionalCheckboxes from './conditional-checkboxes'
 import DatePicker from './date-picker'
 
-interface DispensarizationProps {
-    formData: PatientType | null
-    setFormData: Dispatch<SetStateAction<PatientType | null>>
-    disabled: boolean
-}
-
-const Dispensarization: React.FC<DispensarizationProps> = ({
+const Dispensarization: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,

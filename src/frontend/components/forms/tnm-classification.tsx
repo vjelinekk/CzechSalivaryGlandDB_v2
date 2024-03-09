@@ -1,15 +1,9 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import { dbLabels } from '../../constants'
-import { PatientType } from '../../types'
+import { GlandComponentProps } from '../../types'
 import TNMClassificationCalculator from './tnm-classification-calculator'
 
-interface TNMClassificationProps {
-    formData: PatientType | null
-    setFormData: Dispatch<SetStateAction<PatientType | null>>
-    disabled: boolean
-}
-
-const TNMClassification: React.FC<TNMClassificationProps> = ({
+const TNMClassification: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,

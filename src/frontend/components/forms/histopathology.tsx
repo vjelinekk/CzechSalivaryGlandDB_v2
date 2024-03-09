@@ -1,21 +1,14 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import { dbLabels } from '../../../constants'
-import { ParotidPatientData } from '../../../types'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import SimpleCheckboxes from '../simple-checkboxes'
-import TextInput from '../text-input'
-import NumberInput from '../number-input'
+import React from 'react'
+import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
+import { dbLabels } from '../../constants'
+import { GlandComponentProps } from '../../types'
+import ConditionalCheckboxOption from './conditional-checkbox-option'
+import ConditionalCheckboxes from './conditional-checkboxes'
+import SimpleCheckboxes from './simple-checkboxes'
+import TextInput from './text-input'
+import NumberInput from './number-input'
 
-interface ParotidGlandHistopathologyProps {
-    formData: ParotidPatientData | null
-    setFormData: Dispatch<SetStateAction<ParotidPatientData | null>>
-    setFormErrors: Dispatch<SetStateAction<string[]>>
-    disabled: boolean
-}
-
-const ParotidGlandHistopathology: React.FC<ParotidGlandHistopathologyProps> = ({
+const Histopathology: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -381,4 +374,4 @@ const ParotidGlandHistopathology: React.FC<ParotidGlandHistopathologyProps> = ({
     )
 }
 
-export default ParotidGlandHistopathology
+export default Histopathology
