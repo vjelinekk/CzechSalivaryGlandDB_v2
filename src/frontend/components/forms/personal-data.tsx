@@ -1,24 +1,17 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import SimpleCheckboxes from './simple-checkboxes'
 import ConditionalCheckboxes from './conditional-checkboxes'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
 import TextInput from './text-input'
 import NumberInput from './number-input'
-import { PatientData } from '../../types'
+import { GlandComponentProps } from '../../types'
 import isCzechAlphabet from '../../utils/isCzechAlphabet'
 import isPID from '../../utils/isPID'
 import calculatePackYears from '../../utils/calculatePackYears'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { dbLabels } from '../../constants'
 
-interface PersonalDataProps {
-    formData: PatientData | null
-    setFormData: Dispatch<SetStateAction<PatientData | null>>
-    setFormErrors: Dispatch<SetStateAction<string[]>>
-    disabled: boolean
-}
-
-const PersonalData: React.FC<PersonalDataProps> = ({
+const PersonalData: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     setFormErrors,

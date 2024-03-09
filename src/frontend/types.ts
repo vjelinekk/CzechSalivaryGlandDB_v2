@@ -1,8 +1,21 @@
-import { components, FormType } from './constants'
+import { Dispatch, SetStateAction } from 'react'
+import { components, FormStates, FormType } from './constants'
 
 export interface activeComponentState {
     component: components
     displayFormWithData?: boolean
+}
+
+export interface GlandComponentProps {
+    formData: PatientData | null
+    setFormData: Dispatch<SetStateAction<PatientData | null>>
+    setFormErrors?: Dispatch<SetStateAction<string[]>>
+    disabled: boolean
+}
+
+export interface GlandFormProps {
+    data?: PatientData
+    formState: FormStates
 }
 
 export interface PatientData {
@@ -26,32 +39,10 @@ export interface PatientData {
     jak_dlouho_kouri?: number
     pocet_balickoroku?: number
     abusus_alkoholu?: string
-    t_klasifikace_klinicka?: string
-    n_klasifikace_klinicka?: string
-    m_klasifikace_klinicka?: string
-    tnm_klasifikace_klinicka?: string
-    t_klasifikace_patologicka?: string
-    n_klasifikace_patologicka?: string
-    m_klasifikace_patologicka?: string
-    tnm_klasifikace_patologicka?: string
-    datum_prvni_kontroly_po_lecbe?: string
-    perzistence?: string
-    datum_prokazani_perzistence?: string
-    recidiva?: string
-    datum_prokazani_recidivy?: string
-    stav?: string
-    datum_umrti?: string
-    posledni_kontrola?: string
-    planovana_kontrola?: string
-    poznamky?: string
-}
-
-export interface ParotidPatientData extends PatientData {
     rok_diagnozy?: string
     diagnoza_mkn_10?: string
     strana_nalezu?: string
-    funkce_n_vii_dle_h_b_predoperacne?: string
-    diagnosticke_metody?: Array<string>
+    diagnosticke_metody?: string[]
     fnab?: string
     vysledek_fnab?: string
     core_biopsie?: string
@@ -79,9 +70,6 @@ export interface ParotidPatientData extends PatientData {
     strana_blokove_krcni_disekce?: string
     typ_nd?: string
     rozsah_nd?: string
-    funkce_n_vii_dle_h_b_pooperacne?: string
-    pooperacni_komplikace?: string
-    jine_pooperacni_komplikace?: string
     adjuvantni_terapie?: string
     typ_nechirurgicke_terapie?: string
     histopatologie_vysledek?: string
@@ -102,16 +90,41 @@ export interface ParotidPatientData extends PatientData {
     extranodalni_sireni_vysledek_histopatologie?: string
     prokazane_vzdalene_metastazy_histopatologie?: string
     misto_vyskytu_vzdalene_metastazy_histopatologie?: string
+    t_klasifikace_klinicka?: string
+    n_klasifikace_klinicka?: string
+    m_klasifikace_klinicka?: string
+    tnm_klasifikace_klinicka?: string
+    t_klasifikace_patologicka?: string
+    n_klasifikace_patologicka?: string
+    m_klasifikace_patologicka?: string
+    tnm_klasifikace_patologicka?: string
+    datum_prvni_kontroly_po_lecbe?: string
+    perzistence?: string
+    datum_prokazani_perzistence?: string
+    recidiva?: string
+    datum_prokazani_recidivy?: string
+    stav?: string
+    datum_umrti?: string
+    posledni_kontrola?: string
+    planovana_kontrola?: string
+    poznamky?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SubmandibularPatientData extends PatientData {}
+export interface ParotidPatientData extends PatientData {
+    funkce_n_vii_dle_h_b_predoperacne?: string
+    funkce_n_vii_dle_h_b_pooperacne?: string
+    pooperacni_komplikace?: string
+    jine_pooperacni_komplikace?: string
+}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SublingualPatientData extends PatientData {}
+export interface SubmandibularPatientData extends PatientData {
+    funkce_n_vii_dle_h_b_predoperacne?: string
+    funkce_n_vii_dle_h_b_pooperacne?: string
+}
+
+export type SublingualPatientData = PatientData
 
 export type PatientType =
     | ParotidPatientData
     | SubmandibularPatientData
     | SublingualPatientData
-    | PatientData

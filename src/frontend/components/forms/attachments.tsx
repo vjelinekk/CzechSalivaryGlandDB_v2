@@ -1,14 +1,8 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { PatientType } from '../../types'
+import React from 'react'
+import { GlandComponentProps } from '../../types'
 import Attachment from './attachment'
 
-interface AttachmentsProps {
-    formData: PatientType | null
-    setFormData: Dispatch<SetStateAction<PatientType | null>>
-    disabled: boolean
-}
-
-const Attachments: React.FC<AttachmentsProps> = ({
+const Attachments: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,

@@ -8,7 +8,7 @@ export enum components {
     submandibularGlandForm = 'submandibular-gland-form',
 }
 
-export enum formStates {
+export enum FormStates {
     add = 'add',
     edit = 'edit',
     view = 'view',

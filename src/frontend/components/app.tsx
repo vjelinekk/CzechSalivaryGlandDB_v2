@@ -7,7 +7,7 @@ import AddStudy from './add-study'
 import ParotidGlandForm from './forms/parotid/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
 import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
-import { components, formStates } from '../constants'
+import { components, FormStates } from '../constants'
 import { useActiveComponent } from '../hooks/use-active-component'
 
 // CSS imports
@@ -37,13 +37,15 @@ const app = () => {
             )}
             {activeComponent.component === components.addStudy && <AddStudy />}
             {activeComponent.component === components.parotidGlandForm && (
-                <ParotidGlandForm formState={formStates.add} />
+                <ParotidGlandForm formState={FormStates.add} />
             )}
             {activeComponent.component === components.sublingualGlandForm && (
-                <SublingualGlandForm />
+                <SublingualGlandForm formState={FormStates.add} />
             )}
             {activeComponent.component ===
-                components.submandibularGlandForm && <SubmandibularGlandForm />}
+                components.submandibularGlandForm && (
+                <SubmandibularGlandForm formState={FormStates.add} />
+            )}
         </>
     )
 }
