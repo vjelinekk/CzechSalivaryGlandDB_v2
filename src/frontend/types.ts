@@ -3,7 +3,12 @@ import { components, FormStates, FormType } from './constants'
 
 export interface activeComponentState {
     component: components
-    displayFormWithData?: boolean
+    activePatient?: PatientType | null
+}
+
+export interface EditSavedState {
+    done: boolean
+    saved: boolean | null
 }
 
 export interface GlandComponentProps {
@@ -15,14 +20,18 @@ export interface GlandComponentProps {
 
 export interface GlandFormProps {
     data?: PatientData
-    formState: FormStates
+    defaultFormState: FormStates
+    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
+    editSaved?: EditSavedState
+    setEditSaved?: Dispatch<SetStateAction<EditSavedState>>
+    setActivePatient?: Dispatch<SetStateAction<PatientType | null>>
 }
 
 export interface PatientData {
-    [key: string]: string | number | string[] | FormType
+    [key: string]: string | number | FormType
     id?: number
     form_type: FormType
-    attachments?: string[]
+    attachments?: string
     jmeno?: string
     prijmeni?: string
     id_pacient?: string
@@ -42,7 +51,7 @@ export interface PatientData {
     rok_diagnozy?: string
     diagnoza_mkn_10?: string
     strana_nalezu?: string
-    diagnosticke_metody?: string[]
+    diagnosticke_metody?: string
     fnab?: string
     vysledek_fnab?: string
     core_biopsie?: string

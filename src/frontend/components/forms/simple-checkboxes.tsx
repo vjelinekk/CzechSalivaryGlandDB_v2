@@ -23,9 +23,9 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
 }) => {
     const { selectedOptions, handleCheckboxChange } = useSingleSelection({
         enableSingleSelect,
-        defaultSelected: [
-            getDataFromPatientInterface(data, dbLabel).toString(),
-        ],
+        defaultSelected: getDataFromPatientInterface(data, dbLabel)
+            ? (getDataFromPatientInterface(data, dbLabel) as string).split(',')
+            : [''],
         dbLabel,
         setFormData,
     })

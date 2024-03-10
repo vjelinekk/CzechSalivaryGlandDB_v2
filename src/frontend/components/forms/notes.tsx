@@ -8,7 +8,9 @@ const Notes: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const [notes, setNotes] = useState<string>(
-        getDataFromPatientInterface(formData, 'poznamky') as string
+        getDataFromPatientInterface(formData, 'poznamky')
+            ? (getDataFromPatientInterface(formData, 'poznamky') as string)
+            : ''
     )
 
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

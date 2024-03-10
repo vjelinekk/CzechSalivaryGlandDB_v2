@@ -6,7 +6,6 @@ import ConditionalCheckboxOption from '../conditional-checkbox-option'
 import ConditionalCheckboxes from '../conditional-checkboxes'
 import DatePicker from '../date-picker'
 import SimpleCheckboxes from '../simple-checkboxes'
-import TextInput from '../text-input'
 
 const SublingualGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,

@@ -1,5 +1,13 @@
-export enum ipcAPIInsertChannels {
-    insertPatient = 'insertPatient',
+export enum ipcAPISaveChannels {
+    savePatient = 'savePatient',
+}
+
+export enum ipcAPIDeleteChannels {
+    deletePatient = 'deletePatient',
+}
+
+export enum ipcAPIGetChannels {
+    getAllPatients = 'getAllPatients',
 }
 
 export enum ipcFSChannels {

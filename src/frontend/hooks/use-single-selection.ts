@@ -32,7 +32,7 @@ export const useSingleSelection = ({
                     prevFormData !== undefined &&
                     prevFormData[dbLabel] === label
                 ) {
-                    delete prevFormData[dbLabel]
+                    prevFormData[dbLabel] = ''
                     return { ...prevFormData }
                 }
                 return { ...prevFormData, [dbLabel]: label }
@@ -47,21 +47,23 @@ export const useSingleSelection = ({
             })
             setFormData((prevFormData) => {
                 const updatedFormData = { ...prevFormData }
-                if (updatedFormData[dbLabel] === undefined) {
-                    updatedFormData[dbLabel] = [label]
+                const stringSplit = (updatedFormData[dbLabel] as string)?.split(
+                    ','
+                )
+                if (
+                    updatedFormData[dbLabel] === undefined ||
+                    updatedFormData[dbLabel] === null
+                ) {
+                    updatedFormData[dbLabel] = label + ','
                 } else {
-                    if (
-                        (updatedFormData[dbLabel] as string[]).includes(label)
-                    ) {
-                        updatedFormData[dbLabel] = (
-                            updatedFormData[dbLabel] as string[]
-                        ).filter((option) => option !== label)
+                    if (stringSplit?.includes(label)) {
+                        stringSplit.filter((option) => option !== label)
                     } else {
-                        ;(updatedFormData[dbLabel] as string[]).push(label)
+                        updatedFormData[dbLabel] += label + ','
                     }
                 }
-                if ((updatedFormData[dbLabel] as string[]).length === 0) {
-                    delete updatedFormData[dbLabel]
+                if (stringSplit?.length === 0) {
+                    updatedFormData[dbLabel] = ''
                 }
 
                 return updatedFormData

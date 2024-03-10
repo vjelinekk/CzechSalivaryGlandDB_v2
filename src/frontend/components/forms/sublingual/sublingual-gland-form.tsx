@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { ipcAPIInsertChannels } from '../../../../ipc/ipcChannels'
 import { FormStates, FormType } from '../../../constants'
 import { GlandFormProps, SublingualPatientData } from '../../../types'
 import Attachments from '../attachments'
@@ -10,28 +9,34 @@ import TNMClassification from '../tnm-classification'
 import SublingualGlandTherapy from './sublingual-gland-therapy'
 import SublingualGlandDiagnosis from './sublingual-gland-diagnosis'
 import Histopathology from '../histopathology'
+import AddPatientButton from '../add-patient-button'
+import EditButtons from '../edit-buttons'
+import { useGlandForm } from '../../../hooks/use-gland-form'
+import EditResult from '../edit-result'
 
-const SublingualGlandForm: React.FC<GlandFormProps> = ({ data, formState }) => {
+const SublingualGlandForm: React.FC<GlandFormProps> = ({
+    data,
+    defaultFormState,
+    editSaved,
+    setEditSaved,
+    setActiveComponent,
+    setActivePatient,
+}) => {
     const [formData, setFormData] = useState<SublingualPatientData | null>({
         ...data,
         form_type: FormType.podjazykove,
     })
-    const [formErrors, setFormErrors] = useState<string[]>([])
 
-    const handleButtonClick = async (
-        e: React.MouseEvent<HTMLButtonElement>
-    ) => {
-        e.preventDefault()
-        const JSONdata = JSON.parse(JSON.stringify(formData))
-        const result = await window.api.insert(
-            ipcAPIInsertChannels.insertPatient,
-            JSONdata
-        )
-        console.log(result)
-    }
+    const { formErrors, formState, setFormErrors, setFormState } = useGlandForm(
+        {
+            editSaved,
+            defaultFormState,
+        }
+    )
 
     return (
         <form className="form">
+            <EditResult editSaved={editSaved} setEditSaved={setEditSaved} />
             <PersonalData
                 formData={formData}
                 setFormData={setFormData}
@@ -73,20 +78,20 @@ const SublingualGlandForm: React.FC<GlandFormProps> = ({ data, formState }) => {
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
-            {formState === FormStates.add && (
-                <>
-                    <div className="divider"></div>
-                    <div className="addPatientButtonDiv">
-                        <button
-                            className="basicButton"
-                            disabled={formErrors.length > 0}
-                            onClick={handleButtonClick}
-                        >
-                            Přidat pacienta
-                        </button>
-                    </div>
-                </>
-            )}
+            <AddPatientButton
+                formState={formState}
+                formData={formData}
+                formErrors={formErrors}
+                setActiveComponent={setActiveComponent}
+            />
+            <EditButtons
+                formData={formData}
+                formState={formState}
+                formErrors={formErrors}
+                setFormState={setFormState}
+                setEditSaved={setEditSaved}
+                setActivePatient={setActivePatient}
+            />
         </form>
     )
 }

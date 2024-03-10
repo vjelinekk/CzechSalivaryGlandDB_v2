@@ -1,3 +1,5 @@
+export type RowRecordType = Record<string, string | number | string[]>
+
 interface ColumnDefinition {
     [key: string]: string
     columnName: string

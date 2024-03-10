@@ -27,7 +27,9 @@ const app = () => {
         <>
             <Menu setActiveComponent={setActiveComponent} />
             {activeComponent.component === components.patientsList && (
-                <PatientsList />
+                <PatientsList
+                    defaultActivePatient={activeComponent.activePatient}
+                />
             )}
             {activeComponent.component === components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
@@ -37,14 +39,23 @@ const app = () => {
             )}
             {activeComponent.component === components.addStudy && <AddStudy />}
             {activeComponent.component === components.parotidGlandForm && (
-                <ParotidGlandForm formState={FormStates.add} />
+                <ParotidGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
             )}
             {activeComponent.component === components.sublingualGlandForm && (
-                <SublingualGlandForm formState={FormStates.add} />
+                <SublingualGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
             )}
             {activeComponent.component ===
                 components.submandibularGlandForm && (
-                <SubmandibularGlandForm formState={FormStates.add} />
+                <SubmandibularGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
             )}
         </>
     )
