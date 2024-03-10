@@ -25,7 +25,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
         setValue(Number(e.target.value) ? Number(e.target.value) : '')
         setFormData((prev) => {
             if (e.target.value === '' && prev[dbLabel] !== undefined) {
-                delete prev[dbLabel]
+                prev[dbLabel] = ''
                 return { ...prev }
             }
 

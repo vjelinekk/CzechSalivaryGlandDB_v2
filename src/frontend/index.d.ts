@@ -1,14 +1,24 @@
 export {}
 
-import { ipcAPIInsertChannels } from '../ipc/ipcChannels'
+import {
+    ipcAPIDeleteChannels,
+    ipcAPIGetChannels,
+    ipcAPISaveChannels,
+} from '../ipc/ipcChannels'
+import { PatientType } from './types'
 
 declare global {
     interface Window {
         api: {
-            insert: (
-                channel: ipcAPIInsertChannels,
+            save: (
+                channel: ipcAPISaveChannels,
                 data: JSON
             ) => Promise<number | null>
+            delete: (
+                chanel: ipcAPIDeleteChannels,
+                data: JSON
+            ) => Promise<boolean>
+            get: (channel: ipcAPIGetChannels) => Promise<PatientType[]>
         }
         fs: {
             save: () => Promise<string>

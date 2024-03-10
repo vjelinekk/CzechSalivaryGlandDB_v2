@@ -135,7 +135,7 @@ const ParotidGlandTherapy: React.FC<GlandComponentProps> = ({
                     <ConditionalCheckboxes
                         title="Jiné pooperační komplikace"
                         data={formData}
-                        dbLabel={dbLabels.jine_pooperacni_komplikace}
+                        dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}

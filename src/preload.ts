@@ -1,9 +1,20 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { ipcAPIInsertChannels, ipcFSChannels } from './ipc/ipcChannels'
+import {
+    ipcAPIDeleteChannels,
+    ipcAPIGetChannels,
+    ipcAPISaveChannels,
+    ipcFSChannels,
+} from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
-    insert: (channel: ipcAPIInsertChannels, data: JSON) => {
+    save: (channel: ipcAPISaveChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, [data])
+    },
+    delete: (channel: ipcAPIDeleteChannels, data: JSON) => {
+        return ipcRenderer.invoke(channel, data)
+    },
+    get: (channel: ipcAPIGetChannels) => {
+        return ipcRenderer.invoke(channel)
     },
 })
 

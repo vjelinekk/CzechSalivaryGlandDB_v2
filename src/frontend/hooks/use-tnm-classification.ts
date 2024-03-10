@@ -68,10 +68,12 @@ const useTNMClassification = (
     setFormData: Dispatch<SetStateAction<PatientType | null>>
 ): useTNMClassificationProps => {
     const [tnm, setTNM] = useState<TNMClassificationResult | ''>(
-        getDataFromPatientInterface(
-            formData,
-            tnmLabel
-        ) as TNMClassificationResult
+        getDataFromPatientInterface(formData, tnmLabel)
+            ? (getDataFromPatientInterface(
+                  formData,
+                  tnmLabel
+              ) as TNMClassificationResult)
+            : ''
     )
 
     useEffect(() => {

@@ -1,8 +1,24 @@
 import { ipcMain } from 'electron'
-import { insertPatient } from '../backend/patientsManager'
-import { ipcAPIInsertChannels } from './ipcChannels'
+import {
+    deletePatient,
+    getAllPatients,
+    savePatient,
+} from '../backend/patientsManager'
+import {
+    ipcAPIDeleteChannels,
+    ipcAPIGetChannels,
+    ipcAPISaveChannels,
+} from './ipcChannels'
 
-ipcMain.handle(ipcAPIInsertChannels.insertPatient, async (event, args) => {
+ipcMain.handle(ipcAPISaveChannels.savePatient, async (event, args) => {
     const [data] = args
-    return await insertPatient(data)
+    return await savePatient(data)
+})
+
+ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
+    return await deletePatient(data)
+})
+
+ipcMain.handle(ipcAPIGetChannels.getAllPatients, async () => {
+    return await getAllPatients()
 })

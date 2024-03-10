@@ -41,7 +41,7 @@ const TextInput: React.FC<TextInputProps> = ({
             })
         setFormData((prev) => {
             if (e.target.value === '' && prev[dbLabel] !== undefined) {
-                delete prev[dbLabel]
+                prev[dbLabel] = ''
                 return { ...prev }
             }
 

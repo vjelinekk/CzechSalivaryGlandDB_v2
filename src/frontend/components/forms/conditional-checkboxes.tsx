@@ -23,7 +23,9 @@ const ConditionalCheckboxes: React.FC<ConditionalCheckboxesProps> = ({
     const { selectedOptions, handleCheckboxChange } = useSingleSelection({
         enableSingleSelect,
         defaultSelected: [
-            getDataFromPatientInterface(data, dbLabel).toString(),
+            getDataFromPatientInterface(data, dbLabel)
+                ? getDataFromPatientInterface(data, dbLabel).toString()
+                : '',
         ],
         dbLabel,
         setFormData,

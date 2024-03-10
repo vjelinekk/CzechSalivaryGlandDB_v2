@@ -7,7 +7,7 @@
     margin: 0 1em;
 }
 
-.dataTable .vrapper {
+.dataTable .wrapper {
     overflow-y: auto;
 }
 
@@ -27,6 +27,10 @@
 }
 
 .dataTable td {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 0;
     border: solid 0.01em black;
@@ -58,4 +62,11 @@
     color: #3b3b3b;
     text-align: center;
     font-size: 1.1em;
+}
+
+.dataTable .tableSelect {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }

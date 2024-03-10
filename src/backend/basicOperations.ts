@@ -1,10 +1,11 @@
 import { RunResult } from 'sqlite3'
 import { TableNames } from './constants'
 import db from './dbManager'
+import { RowRecordType } from './types'
 
 export const insertRow = (
     tableName: TableNames,
-    data: Record<string, string | number | string[]>
+    data: RowRecordType
 ): Promise<number> => {
     return new Promise<number>((resolve, reject) => {
         const keys = Object.keys(data)
@@ -23,26 +24,29 @@ export const insertRow = (
     })
 }
 
-export const getRow = (tableName: TableNames, id: number) => {
+export const getRow = (
+    tableName: TableNames,
+    id: number
+): Promise<RowRecordType> => {
     const query = `SELECT * FROM ${tableName} WHERE id = ?`
     return new Promise((resolve, reject) => {
         db.get(query, [id], (err, row) => {
             if (err) {
                 reject(err)
             }
-            resolve(row)
+            resolve(row as RowRecordType)
         })
     })
 }
 
-export const getAllRows = (tableName: TableNames) => {
+export const getAllRows = (tableName: TableNames): Promise<RowRecordType[]> => {
     const query = `SELECT * FROM ${tableName}`
     return new Promise((resolve, reject) => {
         db.all(query, (err, rows) => {
             if (err) {
                 reject(err)
             }
-            resolve(rows)
+            resolve(rows as RowRecordType[])
         })
     })
 }
@@ -51,18 +55,17 @@ export const updateRow = (
     tableName: TableNames,
     id: number,
     data: Record<string, string | number | string[]>
-): Promise<void> => {
-    return new Promise<void>((resolve, reject) => {
+): Promise<number> => {
+    return new Promise<number>((resolve, reject) => {
         const keys = Object.keys(data)
         const values = Object.values(data)
         const placeholders = keys.map((key) => `${key} = ?`).join(', ')
         const query = `UPDATE ${tableName} SET ${placeholders} WHERE id = ?`
         db.run(query, [...values, id], function (err) {
             if (err) {
-                console.log(err)
                 reject(err)
             } else {
-                resolve()
+                resolve(id)
             }
         })
     })
@@ -86,7 +89,6 @@ export const deleteRow = (tableName: TableNames, id: number): Promise<void> => {
         const query = `DELETE FROM ${tableName} WHERE id = ?`
         db.run(query, [id], (err) => {
             if (err) {
-                console.log(err)
                 reject(err)
             } else {
                 resolve()
