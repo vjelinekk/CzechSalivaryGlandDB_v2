@@ -14,6 +14,18 @@ export enum FormStates {
     view = 'view',
 }
 
+export const formTypeToStringMap: { [key: number]: string } = {
+    1: 'podčelistní',
+    2: 'podjazyková',
+    3: 'příušní',
+}
+
+export const formTypeToBasicStringMap: { [key: number]: string } = {
+    1: 'podcelistni',
+    2: 'podjazykova',
+    3: 'priusni',
+}
+
 export enum dbLabels {
     jmeno = 'jmeno',
     prijmeni = 'prijmeni',

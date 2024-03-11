@@ -1,8 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { PatientType } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
     ipcAPISaveChannels,
+    ipcExportChannels,
     ipcFSChannels,
 } from './ipc/ipcChannels'
 
@@ -15,6 +17,12 @@ contextBridge.exposeInMainWorld('api', {
     },
     get: (channel: ipcAPIGetChannels) => {
         return ipcRenderer.invoke(channel)
+    },
+})
+
+contextBridge.exposeInMainWorld('export', {
+    export: (channel: ipcExportChannels, patients: PatientType[]) => {
+        return ipcRenderer.invoke(channel, patients)
     },
 })
 

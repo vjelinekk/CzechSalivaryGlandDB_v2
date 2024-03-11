@@ -4,6 +4,7 @@ import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
     ipcAPISaveChannels,
+    ipcExportChannels,
 } from '../ipc/ipcChannels'
 import { PatientType } from './types'
 
@@ -20,8 +21,14 @@ declare global {
             ) => Promise<boolean>
             get: (channel: ipcAPIGetChannels) => Promise<PatientType[]>
         }
+        export: {
+            export: (
+                channel: ipcExportChannels,
+                patients: PatientType[]
+            ) => Promise<void>
+        }
         fs: {
-            save: () => Promise<string>
+            save: () => Promise<string | null>
             getFileIcon: (fileName: string) => Promise<string>
             open: (filePath: string) => void
         }

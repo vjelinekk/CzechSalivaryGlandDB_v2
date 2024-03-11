@@ -64,9 +64,35 @@
     font-size: 1.1em;
 }
 
-.dataTable .tableSelect {
+.tableButton {
+    background: var(--mainColor);
+    color: white;
+    font-size: 0.9em;
+    padding: 0.5em;
+    margin: 0.2em;
+    border: none;
+    border-radius: 0.2em;
+    cursor: pointer;
+    width: 100%; /* Set width to 100% to take up full width of the parent */
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the total width */
+}
+
+.tableSelect {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    align-content: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.tableSelect div {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+}
+
+/* Adjust the margin between buttons if needed */
+.tableButton + .tableButton {
+    margin-top: 10px; /* Margin between stacked buttons */
 }

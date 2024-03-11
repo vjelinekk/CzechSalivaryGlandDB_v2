@@ -6,7 +6,7 @@ ipcMain.handle(ipcFSChannels.save, async () => {
         properties: ['openFile', 'multiSelections'],
     })
 
-    if (result.canceled) return
+    if (result.canceled) return null
 
     return result.filePaths[0]
 })

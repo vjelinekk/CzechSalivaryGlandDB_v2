@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
+import { formTypeToStringMap } from '../constants'
 import { PatientType } from '../types'
-import { formTypeToString } from '../utils/formTypeToString'
 
 interface PatientButtonProps {
     patient: PatientType
@@ -48,7 +48,7 @@ const PatientButton: React.FC<PatientButtonProps> = ({
                 onClick={handleOnClick}
             >
                 {patient?.jmeno || ''} {patient?.prijmeni || ''} (
-                {formTypeToString(patient?.form_type) || ''})
+                {formTypeToStringMap[patient.form_type] || ''})
             </button>
         </>
     )
