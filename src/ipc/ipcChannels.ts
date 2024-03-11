@@ -10,6 +10,11 @@ export enum ipcAPIGetChannels {
     getAllPatients = 'getAllPatients',
 }
 
+export enum ipcExportChannels {
+    export = 'export',
+    exportAnonymized = 'exportAnonymized',
+}
+
 export enum ipcFSChannels {
     save = 'save',
     getFileIcon = 'getFileIcon',

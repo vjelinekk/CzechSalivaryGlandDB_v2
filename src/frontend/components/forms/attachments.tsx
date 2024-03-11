@@ -12,6 +12,7 @@ const Attachments: React.FC<GlandComponentProps> = ({
     ) => {
         e.preventDefault()
         const fileName = await window.fs.save()
+        if (!fileName) return
         setFormData((prev) => {
             const prevAttachments = prev?.attachments || ''
             return {

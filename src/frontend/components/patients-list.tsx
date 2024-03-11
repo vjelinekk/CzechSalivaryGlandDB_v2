@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FormType } from '../../backend/constants'
-import { ipcAPIGetChannels } from '../../ipc/ipcChannels'
+import { ipcAPIGetChannels, ipcExportChannels } from '../../ipc/ipcChannels'
 import { FormStates } from '../constants'
 import { EditSavedState, PatientType } from '../types'
 import ParotidGlandForm from './forms/parotid/parotid-gland-form'
@@ -45,25 +45,51 @@ const PatientsList: React.FC<PatientsListProps> = ({
         setSelectedPatients([])
     }
 
+    const handleExport = async () => {
+        await window.export.export(ipcExportChannels.export, selectedPatients)
+    }
+
+    const handleExportAnonymized = async () => {
+        await window.export.export(
+            ipcExportChannels.exportAnonymized,
+            selectedPatients
+        )
+    }
+
     return (
         <>
             <div id="main" className="dataTable">
                 <input id="search" placeholder="Vyhledat..." />
                 <div className="wrapper">
                     <div className="tableSelect">
-                        <button
-                            className="basicButton"
-                            onClick={handleSelectAll}
-                        >
-                            Označit vše
-                        </button>
-                        <button
-                            className="basicButton"
-                            onClick={handleDeselectAll}
-                        >
-                            Zrušit označení
-                        </button>
-                        <button className="basicButton">Exportovat</button>
+                        <div>
+                            <button
+                                className="tableButton"
+                                onClick={handleSelectAll}
+                            >
+                                Označit vše
+                            </button>
+                            <button
+                                className="tableButton"
+                                onClick={handleDeselectAll}
+                            >
+                                Zrušit označení
+                            </button>
+                        </div>
+                        <div>
+                            <button
+                                onClick={handleExport}
+                                className="tableButton"
+                            >
+                                Exportovat
+                            </button>
+                            <button
+                                onClick={handleExportAnonymized}
+                                className="tableButton"
+                            >
+                                Exportovat anonymizované
+                            </button>
+                        </div>
                     </div>
                     <table id="patient-table">
                         <tbody id="patients-tbody">
