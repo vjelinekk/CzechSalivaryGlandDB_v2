@@ -51,6 +51,22 @@ export const getAllRows = (tableName: TableNames): Promise<RowRecordType[]> => {
     })
 }
 
+export const getRowsBy = (
+    tableName: TableNames,
+    column: string,
+    value: string | number
+): Promise<RowRecordType[]> => {
+    const query = `SELECT * FROM ${tableName} WHERE ${column} = ?`
+    return new Promise((resolve, reject) => {
+        db.all(query, [value], (err, rows) => {
+            if (err) {
+                reject(err)
+            }
+            resolve(rows as RowRecordType[])
+        })
+    })
+}
+
 export const updateRow = (
     tableName: TableNames,
     id: number,
@@ -74,7 +90,7 @@ export const updateRow = (
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const saveRow = async (
     tableName: TableNames,
-    data: Record<string, string | number | string[]>
+    data: RowRecordType
 ): Promise<void> => {
     const row = await getRow(tableName, data.id as number)
     if (row) {

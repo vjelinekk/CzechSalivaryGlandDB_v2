@@ -1,5 +1,5 @@
 import React from 'react'
-import { components } from '../constants'
+import { Components } from '../constants'
 import { activeComponentState } from '../types'
 
 interface AddPatientProps {
@@ -9,7 +9,7 @@ interface AddPatientProps {
 }
 
 const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
-    const handleButtonClick = (componentName: components) => {
+    const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }
 
@@ -21,7 +21,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                         id="add-parotid-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(components.parotidGlandForm)
+                            handleButtonClick(Components.parotidGlandForm)
                         }
                     >
                         Příušní žláza
@@ -32,7 +32,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                         id="add-sublingual-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(components.sublingualGlandForm)
+                            handleButtonClick(Components.sublingualGlandForm)
                         }
                     >
                         Podjazyková žláza
@@ -43,7 +43,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                         id="add-submandibular-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(components.submandibularGlandForm)
+                            handleButtonClick(Components.submandibularGlandForm)
                         }
                     >
                         Podčelistní žláza

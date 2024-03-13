@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
-import { components, FormStates, FormType } from './constants'
+import { Components, FormStates, FormType, StudyTypes } from './constants'
 
 export interface activeComponentState {
-    component: components
+    component: Components
     activePatient?: PatientType | null
+    studyType?: StudyTypes | null
 }
 
 export interface EditSavedState {
@@ -129,6 +130,19 @@ export interface ParotidPatientData extends PatientData {
 export interface SubmandibularPatientData extends PatientData {
     funkce_n_vii_dle_h_b_predoperacne?: string
     funkce_n_vii_dle_h_b_pooperacne?: string
+}
+
+export interface Study {
+    id?: number
+    nazev_studie?: string
+    typ_studie?: StudyTypes
+}
+
+export interface PatientInStudy {
+    id?: number
+    id_pacient_db?: number
+    id_studie?: number
+    typ_pacienta?: FormType
 }
 
 export type SublingualPatientData = PatientData

@@ -1,4 +1,4 @@
-export type RowRecordType = Record<string, string | number | string[]>
+export type RowRecordType = Record<string, string | number>
 
 interface ColumnDefinition {
     [key: string]: string
@@ -127,4 +127,11 @@ export interface JeVeStudiiColumns {
     typ_pacienta: ColumnDefinition
     FOREIGN_KEY: ColumnDefinition
     PRIMARY_KEY: ColumnDefinition
+}
+
+export interface JeVeStudiiType {
+    id: number
+    id_studie: number
+    id_pacient_db: number
+    typ_pacienta: string
 }

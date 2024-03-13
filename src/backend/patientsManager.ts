@@ -6,9 +6,10 @@ import {
     updateRow,
 } from './basicOperations'
 import { FormType, TableNames } from './constants'
+import { RowRecordType } from './types'
 
 export const insertPatient = async (
-    data: Record<string, string | number | string[]>
+    data: RowRecordType
 ): Promise<number | null> => {
     const formType = data.form_type as FormType
     let result
@@ -62,7 +63,7 @@ export const updatePatient = async (
 }
 
 export const savePatient = async (
-    data: Record<string, string | number | string[]>
+    data: RowRecordType
 ): Promise<number | null> => {
     try {
         const patient = await getPatient(
@@ -89,6 +90,26 @@ export const getAllPatients = async () => {
         const priusni = await getAllRows(TableNames.priusni)
 
         patients.push(...podcelistni, ...podjazykove, ...priusni)
+    } catch (err) {
+        patients = null
+    }
+
+    return patients
+}
+
+export const getPatientsByType = async (
+    formType: FormType
+): Promise<Record<string, string | number | string[]>[] | null> => {
+    let patients
+
+    try {
+        if (formType === FormType.podcelistni) {
+            patients = await getAllRows(TableNames.podcelistni)
+        } else if (formType === FormType.podjazykove) {
+            patients = await getAllRows(TableNames.podjazykove)
+        } else if (formType === FormType.priusni) {
+            patients = await getAllRows(TableNames.priusni)
+        }
     } catch (err) {
         patients = null
     }
