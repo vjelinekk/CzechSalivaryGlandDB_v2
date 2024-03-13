@@ -7,6 +7,12 @@
     margin: 0 1em;
 }
 
+.dataTable .studyNameInput {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+}
+
 .dataTable .wrapper {
     overflow-y: auto;
 }
@@ -17,7 +23,9 @@
     background: #cecece;
     border-radius: 0.5em;
     border: none;
-    margin-bottom: 10%;
+    margin-top: 5%;
+    text-align: center;
+    /* margin-bottom: 5%; */
 }
 
 .dataTable table {
@@ -83,7 +91,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .tableSelect div {
@@ -94,5 +102,5 @@
 
 /* Adjust the margin between buttons if needed */
 .tableButton + .tableButton {
-    margin-top: 10px; /* Margin between stacked buttons */
+    /* margin-top: 10px; Margin between stacked buttons */
 }

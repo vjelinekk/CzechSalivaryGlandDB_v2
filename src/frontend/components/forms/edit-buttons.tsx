@@ -32,6 +32,12 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
+        const confirmDeletion = window.confirm(
+            'Opravdu chcete smazat pacienta?'
+        )
+        if (!confirmDeletion) {
+            return
+        }
         const JSONdata = JSON.parse(JSON.stringify(formData))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deletePatient,

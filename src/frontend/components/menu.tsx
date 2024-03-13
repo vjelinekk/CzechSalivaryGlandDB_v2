@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { components } from '../constants'
+import { Components } from '../constants'
 import { activeComponentState } from '../types'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
 }
 
-const Menu: React.FC<MenuProps> = (props) => {
-    const handleButtonClick = (componentName: components) => {
-        props.setActiveComponent({ component: componentName })
+const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
+    const handleButtonClick = (componentName: Components) => {
+        setActiveComponent({ component: componentName })
     }
 
     return (
@@ -26,7 +26,7 @@ const Menu: React.FC<MenuProps> = (props) => {
                     <button
                         id="list-patient"
                         onClick={() =>
-                            handleButtonClick(components.patientsList)
+                            handleButtonClick(Components.patientsList)
                         }
                     >
                         <img
@@ -40,7 +40,7 @@ const Menu: React.FC<MenuProps> = (props) => {
                 <li>
                     <button
                         id="add-patient"
-                        onClick={() => handleButtonClick(components.addPatient)}
+                        onClick={() => handleButtonClick(Components.addPatient)}
                     >
                         <img
                             id="pacient_pridat"
@@ -54,7 +54,7 @@ const Menu: React.FC<MenuProps> = (props) => {
                     <button
                         id="studies-btn"
                         onClick={() =>
-                            handleButtonClick(components.studiesList)
+                            handleButtonClick(Components.studiesList)
                         }
                     >
                         <img
@@ -68,7 +68,7 @@ const Menu: React.FC<MenuProps> = (props) => {
                 <li>
                     <button
                         id="add-study"
-                        onClick={() => handleButtonClick(components.addStudy)}
+                        onClick={() => handleButtonClick(Components.addStudy)}
                     >
                         <img
                             id="studie_pridat"

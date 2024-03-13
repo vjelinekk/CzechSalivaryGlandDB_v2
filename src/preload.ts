@@ -3,6 +3,7 @@ import { PatientType } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
+    ipcAPIInsertChannels,
     ipcAPISaveChannels,
     ipcExportChannels,
     ipcFSChannels,
@@ -12,11 +13,14 @@ contextBridge.exposeInMainWorld('api', {
     save: (channel: ipcAPISaveChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, [data])
     },
+    insert: (channel: ipcAPIInsertChannels, data: JSON) => {
+        return ipcRenderer.invoke(channel, data)
+    },
     delete: (channel: ipcAPIDeleteChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, data)
     },
-    get: (channel: ipcAPIGetChannels) => {
-        return ipcRenderer.invoke(channel)
+    get: (channel: ipcAPIGetChannels, data?: JSON) => {
+        return ipcRenderer.invoke(channel, data)
     },
 })
 

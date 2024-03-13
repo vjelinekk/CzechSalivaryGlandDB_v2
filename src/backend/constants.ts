@@ -1166,3 +1166,10 @@ export enum FormType {
     podjazykove = 2,
     priusni = 3,
 }
+
+export enum StudyType {
+    podcelistni = 1,
+    podjazykove = 2,
+    priusni = 3,
+    specialni = 4,
+}

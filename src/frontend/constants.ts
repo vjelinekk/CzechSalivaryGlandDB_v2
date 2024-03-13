@@ -1,4 +1,4 @@
-export enum components {
+export enum Components {
     patientsList = 'patients-list',
     addPatient = 'add-patient',
     studiesList = 'studies-list',
@@ -6,6 +6,14 @@ export enum components {
     parotidGlandForm = 'parotid-gland-form',
     sublingualGlandForm = 'sublingual-gland-form',
     submandibularGlandForm = 'submandibular-gland-form',
+    study = 'study',
+}
+
+export enum StudyTypes {
+    submandibular = 1,
+    sublingual = 2,
+    parotid = 3,
+    special = 4,
 }
 
 export enum FormStates {
@@ -131,4 +139,10 @@ export enum FormType {
     podcelistni = 1,
     podjazykove = 2,
     priusni = 3,
+}
+
+export const studyTypeToFormTypeMap: { [key: number]: FormType } = {
+    1: FormType.podcelistni,
+    2: FormType.podjazykove,
+    3: FormType.priusni,
 }

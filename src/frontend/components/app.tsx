@@ -7,7 +7,8 @@ import AddStudy from './add-study'
 import ParotidGlandForm from './forms/parotid/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
 import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
-import { components, FormStates } from '../constants'
+import StudyCreation from './study-creation'
+import { Components, FormStates } from '../constants'
 import { useActiveComponent } from '../hooks/use-active-component'
 
 // CSS imports
@@ -20,42 +21,47 @@ import '../css/table.css'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
-        components.patientsList
+        Components.patientsList
     )
 
     return (
         <>
             <Menu setActiveComponent={setActiveComponent} />
-            {activeComponent.component === components.patientsList && (
+            {activeComponent.component === Components.patientsList && (
                 <PatientsList
                     defaultActivePatient={activeComponent.activePatient}
                 />
             )}
-            {activeComponent.component === components.addPatient && (
+            {activeComponent.component === Components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
             )}
-            {activeComponent.component === components.studiesList && (
+            {activeComponent.component === Components.studiesList && (
                 <StudiesList />
             )}
-            {activeComponent.component === components.addStudy && <AddStudy />}
-            {activeComponent.component === components.parotidGlandForm && (
+            {activeComponent.component === Components.addStudy && (
+                <AddStudy setActiveComponent={setActiveComponent} />
+            )}
+            {activeComponent.component === Components.parotidGlandForm && (
                 <ParotidGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
             )}
-            {activeComponent.component === components.sublingualGlandForm && (
+            {activeComponent.component === Components.sublingualGlandForm && (
                 <SublingualGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
             )}
             {activeComponent.component ===
-                components.submandibularGlandForm && (
+                Components.submandibularGlandForm && (
                 <SubmandibularGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
+            )}
+            {activeComponent.component === Components.study && (
+                <StudyCreation studyType={activeComponent?.studyType} />
             )}
         </>
     )
