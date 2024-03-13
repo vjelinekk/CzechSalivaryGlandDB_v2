@@ -7,6 +7,7 @@ import {
     updateRow,
 } from './basicOperations'
 import { FormType, TableNames } from './constants'
+import { RowRecordType } from './types'
 
 const tableName = TableNames.studie
 
