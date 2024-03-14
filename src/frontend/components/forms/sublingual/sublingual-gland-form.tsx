@@ -21,6 +21,7 @@ const SublingualGlandForm: React.FC<GlandFormProps> = ({
     setEditSaved,
     setActiveComponent,
     setActivePatient,
+    idStudie,
 }) => {
     const [formData, setFormData] = useState<SublingualPatientData | null>({
         ...data,
@@ -91,6 +92,7 @@ const SublingualGlandForm: React.FC<GlandFormProps> = ({
                 setFormState={setFormState}
                 setEditSaved={setEditSaved}
                 setActivePatient={setActivePatient}
+                idStudie={idStudie}
             />
         </form>
     )

@@ -19,6 +19,12 @@ contextBridge.exposeInMainWorld('api', {
     delete: (channel: ipcAPIDeleteChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, data)
     },
+    deletePatientFromStudy: (studyId: number, patientId: number) => {
+        return ipcRenderer.invoke(ipcAPIDeleteChannels.deletePatientFromStudy, [
+            studyId,
+            patientId,
+        ])
+    },
     get: (channel: ipcAPIGetChannels, data?: JSON) => {
         return ipcRenderer.invoke(channel, data)
     },

@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import {
     ipcAPIGetChannels,
     ipcAPIInsertChannels,
@@ -10,8 +16,15 @@ import {
     StudyTypes,
     FormType,
     studyTypeToFormTypeMap,
+    Components,
 } from '../constants'
-import { EditSavedState, PatientInStudy, PatientType, Study } from '../types'
+import {
+    activeComponentState,
+    EditSavedState,
+    PatientInStudy,
+    PatientType,
+    Study,
+} from '../types'
 import ParotidGlandForm from './forms/parotid/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
 import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
@@ -21,12 +34,14 @@ interface PatientsListProps {
     defaultActivePatient?: PatientType
     studyType?: StudyTypes
     idStudie?: number
+    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
 }
 
 const PatientsList: React.FC<PatientsListProps> = ({
     defaultActivePatient,
     studyType,
     idStudie,
+    setActiveComponent,
 }) => {
     const [patients, setPatients] = useState<PatientType[]>([])
     const [activePatient, setActivePatient] = useState<PatientType | null>(
@@ -108,10 +123,16 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 id_studie: studyId,
                 typ_pacienta: patient.form_type,
             }
+
             await window.api.insert(
                 ipcAPIInsertChannels.insertPatientToStudy,
                 JSON.parse(JSON.stringify(patientInStudy))
             )
+        })
+
+        setActiveComponent({
+            component: Components.studiesList,
+            activeStudy: { ...study, id: studyId },
         })
     }
 
@@ -208,6 +229,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         editSaved={editSaved}
                         setEditSaved={setEditSaved}
                         setActivePatient={setActivePatient}
+                        idStudie={idStudie}
                     />
                 )) ||
                     (activePatient.form_type === FormType.podjazykove && (
@@ -218,6 +240,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             editSaved={editSaved}
                             setEditSaved={setEditSaved}
                             setActivePatient={setActivePatient}
+                            idStudie={idStudie}
                         />
                     )) ||
                     (activePatient.form_type === FormType.podcelistni && (
@@ -228,6 +251,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             editSaved={editSaved}
                             setEditSaved={setEditSaved}
                             setActivePatient={setActivePatient}
+                            idStudie={idStudie}
                         />
                     )))}
         </>

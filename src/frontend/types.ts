@@ -5,6 +5,7 @@ export interface activeComponentState {
     component: Components
     activePatient?: PatientType | null
     studyType?: StudyTypes | null
+    activeStudy?: Study | null
 }
 
 export interface EditSavedState {
@@ -26,6 +27,7 @@ export interface GlandFormProps {
     editSaved?: EditSavedState
     setEditSaved?: Dispatch<SetStateAction<EditSavedState>>
     setActivePatient?: Dispatch<SetStateAction<PatientType | null>>
+    idStudie?: number
 }
 
 export interface PatientData {

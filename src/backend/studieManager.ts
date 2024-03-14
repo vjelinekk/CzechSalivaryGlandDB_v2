@@ -113,12 +113,33 @@ export const getStudies = async (): Promise<RowRecordType[]> => {
     }
 }
 
-export const deletePatientFromStudy = async (id: number): Promise<boolean> => {
+export const deletePatientFromAllStudies = async (
+    patientId: number
+): Promise<boolean> => {
     try {
         await deleteRowsBy(
             TableNames.jeVeStudii,
-            jeVeStudiiColumns.id_pacient_db.columnName,
-            id
+            [jeVeStudiiColumns.id_pacient_db.columnName],
+            [patientId]
+        )
+        return true
+    } catch (err) {
+        return false
+    }
+}
+
+export const deletePatientFromStudy = async (
+    studyId: number,
+    patientId: number
+): Promise<boolean> => {
+    try {
+        await deleteRowsBy(
+            TableNames.jeVeStudii,
+            [
+                jeVeStudiiColumns.id_studie.columnName,
+                jeVeStudiiColumns.id_pacient_db.columnName,
+            ],
+            [studyId, patientId]
         )
         return true
     } catch (err) {
@@ -132,8 +153,8 @@ export const deleteStudy = async (data: RowRecordType): Promise<boolean> => {
         await deleteRow(tableName, id)
         await deleteRowsBy(
             TableNames.jeVeStudii,
-            jeVeStudiiColumns.id_studie.columnName,
-            id
+            [jeVeStudiiColumns.id_studie.columnName],
+            [id]
         )
         return true
     } catch (err) {

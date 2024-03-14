@@ -21,6 +21,7 @@ const SubmandibularGlandForm: React.FC<GlandFormProps> = ({
     setEditSaved,
     setActiveComponent,
     setActivePatient,
+    idStudie,
 }) => {
     const [formData, setFormData] = useState<SubmandibularPatientData | null>({
         ...data,
@@ -91,6 +92,7 @@ const SubmandibularGlandForm: React.FC<GlandFormProps> = ({
                 setFormState={setFormState}
                 setEditSaved={setEditSaved}
                 setActivePatient={setActivePatient}
+                idStudie={idStudie}
             />
         </form>
     )

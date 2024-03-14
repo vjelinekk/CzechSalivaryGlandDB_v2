@@ -63,8 +63,8 @@ ipcMain.handle(ipcAPIDeleteChannels.deleteStudy, async (event, data) => {
 
 ipcMain.handle(
     ipcAPIDeleteChannels.deletePatientFromStudy,
-    async (event, data) => {
-        const id = data.id
-        return await deletePatientFromStudy(id)
+    async (event, args) => {
+        const [studyId, patientId] = args
+        return await deletePatientFromStudy(studyId, patientId)
     }
 )

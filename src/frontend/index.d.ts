@@ -24,6 +24,10 @@ declare global {
                 chanel: ipcAPIDeleteChannels,
                 data: JSON
             ) => Promise<boolean>
+            deletePatientFromStudy: (
+                studyId: number,
+                patientId: number
+            ) => Promise<boolean>
             get: (
                 channel: ipcAPIGetChannels,
                 formType?: FormType
