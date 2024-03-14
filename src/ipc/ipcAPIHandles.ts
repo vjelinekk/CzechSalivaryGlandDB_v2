@@ -6,6 +6,8 @@ import {
     savePatient,
 } from '../backend/patientsManager'
 import {
+    deletePatientFromStudy,
+    deleteStudy,
     getPatientsInStudy,
     getStudies,
     insertPatientToStudy,
@@ -35,10 +37,6 @@ ipcMain.handle(
     }
 )
 
-ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
-    return await deletePatient(data)
-})
-
 ipcMain.handle(ipcAPIGetChannels.getAllPatients, async () => {
     return await getAllPatients()
 })
@@ -54,3 +52,19 @@ ipcMain.handle(ipcAPIGetChannels.getPatientsInStudy, async (event, id) => {
 ipcMain.handle(ipcAPIGetChannels.getStudies, async () => {
     return await getStudies()
 })
+
+ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
+    return await deletePatient(data)
+})
+
+ipcMain.handle(ipcAPIDeleteChannels.deleteStudy, async (event, data) => {
+    return await deleteStudy(data)
+})
+
+ipcMain.handle(
+    ipcAPIDeleteChannels.deletePatientFromStudy,
+    async (event, data) => {
+        const id = data.id
+        return await deletePatientFromStudy(id)
+    }
+)

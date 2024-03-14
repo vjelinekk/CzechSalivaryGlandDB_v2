@@ -112,3 +112,20 @@ export const deleteRow = (tableName: TableNames, id: number): Promise<void> => {
         })
     })
 }
+
+export const deleteRowsBy = (
+    tableName: TableNames,
+    column: string,
+    value: string | number
+): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+        const query = `DELETE FROM ${tableName} WHERE ${column} = ?`
+        db.run(query, [value], (err) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve()
+            }
+        })
+    })
+}

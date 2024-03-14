@@ -65,9 +65,6 @@ const PatientsList: React.FC<PatientsListProps> = ({
             setPatients(loadedPatients)
         }
 
-        console.log(currentIdStudie)
-        console.log(idStudie)
-
         if (idStudie) {
             if (currentIdStudie.current !== idStudie) {
                 setActivePatient(null)
@@ -122,7 +119,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
         <>
             <div id="main" className="dataTable">
                 {(studyType && (
-                    <div>
+                    <div style={{ margin: '1rem' }}>
                         <input
                             type="text"
                             className="studyNameInput"
@@ -179,7 +176,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 <tr key={index}>
                                     <td>
                                         <PatientButton
-                                            key={patient.id}
+                                            key={`${patient.id}-${patient.form_type}`}
                                             patient={patient}
                                             isActivePatient={
                                                 activePatient?.id ===
