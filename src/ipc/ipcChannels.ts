@@ -9,6 +9,8 @@ export enum ipcAPIInsertChannels {
 
 export enum ipcAPIDeleteChannels {
     deletePatient = 'deletePatient',
+    deleteStudy = 'deleteStudy',
+    deletePatientFromStudy = 'deletePatientFromStudy',
 }
 
 export enum ipcAPIGetChannels {

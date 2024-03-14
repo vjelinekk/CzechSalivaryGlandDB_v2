@@ -1,12 +1,18 @@
 import {
     deleteRow,
+    deleteRowsBy,
     getAllRows,
     getRow,
     getRowsBy,
     insertRow,
     updateRow,
 } from './basicOperations'
-import { FormType, TableNames } from './constants'
+import {
+    FormType,
+    jeVeStudiiColumns,
+    studieColumns,
+    TableNames,
+} from './constants'
 import { RowRecordType } from './types'
 
 const tableName = TableNames.studie
@@ -50,15 +56,6 @@ export const insertPatientToStudy = async (
 ): Promise<boolean> => {
     try {
         await insertRow(TableNames.jeVeStudii, data)
-        return true
-    } catch (err) {
-        return false
-    }
-}
-
-export const deletePatientFromStudy = async (id: number): Promise<boolean> => {
-    try {
-        await deleteRow(TableNames.jeVeStudii, id)
         return true
     } catch (err) {
         return false
@@ -113,5 +110,33 @@ export const getStudies = async (): Promise<RowRecordType[]> => {
         return await getAllRows(TableNames.studie)
     } catch (err) {
         return []
+    }
+}
+
+export const deletePatientFromStudy = async (id: number): Promise<boolean> => {
+    try {
+        await deleteRowsBy(
+            TableNames.jeVeStudii,
+            jeVeStudiiColumns.id_pacient_db.columnName,
+            id
+        )
+        return true
+    } catch (err) {
+        return false
+    }
+}
+
+export const deleteStudy = async (data: RowRecordType): Promise<boolean> => {
+    const id = data[studieColumns.id.columnName] as number
+    try {
+        await deleteRow(tableName, id)
+        await deleteRowsBy(
+            TableNames.jeVeStudii,
+            jeVeStudiiColumns.id_studie.columnName,
+            id
+        )
+        return true
+    } catch (err) {
+        return false
     }
 }
