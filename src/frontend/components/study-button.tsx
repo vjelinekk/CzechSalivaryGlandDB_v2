@@ -87,6 +87,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
         }
 
         setListChanged((prev) => !prev)
+        setActiveStudy(null)
     }
 
     return (

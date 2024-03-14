@@ -6,7 +6,7 @@ import {
     updateRow,
 } from './basicOperations'
 import { FormType, TableNames } from './constants'
-import { deletePatientFromStudy } from './studieManager'
+import { deletePatientFromAllStudies } from './studieManager'
 import { RowRecordType } from './types'
 
 export const insertPatient = async (
@@ -148,13 +148,13 @@ export const deletePatient = async (
     try {
         if (formType === FormType.podcelistni) {
             await deleteRow(TableNames.podcelistni, id)
-            await deletePatientFromStudy(id)
+            await deletePatientFromAllStudies(id)
         } else if (formType === FormType.podjazykove) {
             await deleteRow(TableNames.podjazykove, id)
-            await deletePatientFromStudy(id)
+            await deletePatientFromAllStudies(id)
         } else if (formType === FormType.priusni) {
             await deleteRow(TableNames.priusni, id)
-            await deletePatientFromStudy(id)
+            await deletePatientFromAllStudies(id)
         }
 
         return true

@@ -6,9 +6,15 @@ import PatientsList from './patients-list'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 
-const StudiesList: React.FC = () => {
+interface StudiesListProps {
+    defaultActiveStudy?: Study
+}
+
+const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
     const [studies, setStudies] = useState<Study[]>([])
-    const [activeStudy, setActiveStudy] = useState<Study | null>(null)
+    const [activeStudy, setActiveStudy] = useState<Study | null>(
+        defaultActiveStudy || null
+    )
     const [listChanged, setListChanged] = useState(false)
 
     useEffect(() => {
@@ -28,11 +34,12 @@ const StudiesList: React.FC = () => {
                     {/* <table id="patient-table"> */}
                     {/* <tbody id="patients-tbody"> */}
                     <Stack spacing={1}>
-                        {studies.map((study) => (
+                        {studies.map((study, index) => (
                             // <tr key={study.id}>
                             // <td>
-                            <Box border={1}>
+                            <Box key={index} border={1}>
                                 <StudyButton
+                                    key={study.id}
                                     defaultStudy={study}
                                     isActiveStudy={study.id === activeStudy?.id}
                                     setActiveStudy={setActiveStudy}

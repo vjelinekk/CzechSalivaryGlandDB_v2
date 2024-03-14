@@ -21,6 +21,7 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
     setEditSaved,
     setActiveComponent,
     setActivePatient,
+    idStudie,
 }) => {
     const [formData, setFormData] = useState<ParotidPatientData | null>({
         ...data,
@@ -94,6 +95,7 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 setFormState={setFormState}
                 setEditSaved={setEditSaved}
                 setActivePatient={setActivePatient}
+                idStudie={idStudie}
             />
         </form>
     )

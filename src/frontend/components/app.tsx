@@ -36,7 +36,7 @@ const app = () => {
                 <AddPatient setActiveComponent={setActiveComponent} />
             )}
             {activeComponent.component === Components.studiesList && (
-                <StudiesList />
+                <StudiesList defaultActiveStudy={activeComponent.activeStudy} />
             )}
             {activeComponent.component === Components.addStudy && (
                 <AddStudy setActiveComponent={setActiveComponent} />
@@ -61,7 +61,10 @@ const app = () => {
                 />
             )}
             {activeComponent.component === Components.study && (
-                <StudyCreation studyType={activeComponent?.studyType} />
+                <StudyCreation
+                    setActiveComponent={setActiveComponent}
+                    studyType={activeComponent?.studyType}
+                />
             )}
         </>
     )

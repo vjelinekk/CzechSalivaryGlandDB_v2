@@ -115,12 +115,25 @@ export const deleteRow = (tableName: TableNames, id: number): Promise<void> => {
 
 export const deleteRowsBy = (
     tableName: TableNames,
-    column: string,
-    value: string | number
+    columns: string[],
+    values: string[] | number[]
 ): Promise<void> => {
+    if (columns.length !== values.length) {
+        throw new Error('Columns and values must have the same length')
+    }
+    if (columns.length === 0 || values.length === 0) {
+        throw new Error('Columns and values must not be empty')
+    }
+    let whereStatement: string
+    if (columns.length === 1) {
+        whereStatement = `${columns[0]} = ?`
+    } else {
+        whereStatement = columns.map((column) => `${column} = ?`).join(' AND ')
+    }
+
     return new Promise<void>((resolve, reject) => {
-        const query = `DELETE FROM ${tableName} WHERE ${column} = ?`
-        db.run(query, [value], (err) => {
+        const query = `DELETE FROM ${tableName} WHERE ${whereStatement}`
+        db.run(query, values, (err) => {
             if (err) {
                 reject(err)
             } else {

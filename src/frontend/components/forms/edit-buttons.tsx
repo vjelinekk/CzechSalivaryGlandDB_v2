@@ -13,6 +13,7 @@ interface EditButtonsProps {
     setFormState: Dispatch<SetStateAction<FormStates>>
     setEditSaved: Dispatch<SetStateAction<EditSavedState>>
     setActivePatient: Dispatch<SetStateAction<PatientType | null>>
+    idStudie?: number
 }
 
 const EditButtons: React.FC<EditButtonsProps> = ({
@@ -22,6 +23,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     setFormState,
     setEditSaved,
     setActivePatient,
+    idStudie,
 }) => {
     const handleEditButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -47,6 +49,18 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         if (result) {
             setActivePatient(null)
         }
+    }
+
+    const handleDeleteFromStudyClick = async (
+        e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        e.preventDefault()
+        const result = await window.api.deletePatientFromStudy(
+            idStudie,
+            formData?.id
+        )
+        console.log(result)
+        setActivePatient(null)
     }
 
     const handleCancelButtonClick = (
@@ -111,6 +125,15 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 >
                     Smazat pacienta
                 </button>
+                {idStudie && (
+                    <button
+                        className="basicButton"
+                        onClick={handleDeleteFromStudyClick}
+                        style={{ background: 'red' }}
+                    >
+                        Odebrat z studie
+                    </button>
+                )}
             </div>
         )
     )
