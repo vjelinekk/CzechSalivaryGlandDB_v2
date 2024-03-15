@@ -10,14 +10,18 @@ import {
     deleteStudy,
     getPatientsInStudy,
     getStudies,
+    getStudiesByFormType,
+    getStudiesByPatientId,
     insertPatientToStudy,
     saveStudy,
+    updatePatientsStudies,
 } from '../backend/studieManager'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
     ipcAPIInsertChannels,
     ipcAPISaveChannels,
+    ipcAPIUpdateChannels,
 } from './ipcChannels'
 
 ipcMain.handle(ipcAPISaveChannels.savePatient, async (event, args) => {
@@ -37,6 +41,14 @@ ipcMain.handle(
     }
 )
 
+ipcMain.handle(
+    ipcAPIUpdateChannels.updatePatientsStudies,
+    async (event, args) => {
+        const [patientId, patientType, studies] = args
+        return await updatePatientsStudies(patientId, patientType, studies)
+    }
+)
+
 ipcMain.handle(ipcAPIGetChannels.getAllPatients, async () => {
     return await getAllPatients()
 })
@@ -53,6 +65,18 @@ ipcMain.handle(ipcAPIGetChannels.getStudies, async () => {
     return await getStudies()
 })
 
+ipcMain.handle(
+    ipcAPIGetChannels.getStudiesByFormType,
+    async (event, formType) => {
+        return await getStudiesByFormType(formType)
+    }
+)
+
+ipcMain.handle(ipcAPIGetChannels.getStudiesByPatientId, async (event, args) => {
+    const [id, patientType] = args
+    return await getStudiesByPatientId(id, patientType)
+})
+
 ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
     return await deletePatient(data)
 })
@@ -64,7 +88,7 @@ ipcMain.handle(ipcAPIDeleteChannels.deleteStudy, async (event, data) => {
 ipcMain.handle(
     ipcAPIDeleteChannels.deletePatientFromStudy,
     async (event, args) => {
-        const [studyId, patientId] = args
-        return await deletePatientFromStudy(studyId, patientId)
+        const [studyId, patientId, formType] = args
+        return await deletePatientFromStudy(studyId, patientId, formType)
     }
 )

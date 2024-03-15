@@ -88,7 +88,7 @@
 
 .tableSelect {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     /* margin-bottom: 10px; */
@@ -97,7 +97,7 @@
 .tableSelect div {
     flex: 1;
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
+    flex-direction: row; /* Stack buttons vertically */
 }
 
 .studyButtonDiv {

@@ -1,10 +1,12 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { PatientType } from './frontend/types'
+import { FormType } from './backend/constants'
+import { PatientInStudy, PatientType, Study } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
     ipcAPIInsertChannels,
     ipcAPISaveChannels,
+    ipcAPIUpdateChannels,
     ipcExportChannels,
     ipcFSChannels,
 } from './ipc/ipcChannels'
@@ -16,17 +18,45 @@ contextBridge.exposeInMainWorld('api', {
     insert: (channel: ipcAPIInsertChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, data)
     },
+    updatePatientsStudies: (
+        patientId: number,
+        patientType: FormType,
+        studies: Study[]
+    ) => {
+        return ipcRenderer.invoke(ipcAPIUpdateChannels.updatePatientsStudies, [
+            patientId,
+            patientType,
+            studies,
+        ])
+    },
     delete: (channel: ipcAPIDeleteChannels, data: JSON) => {
         return ipcRenderer.invoke(channel, data)
     },
-    deletePatientFromStudy: (studyId: number, patientId: number) => {
+    deletePatientFromStudy: (
+        studyId: number,
+        patientId: number,
+        formType: FormType
+    ) => {
         return ipcRenderer.invoke(ipcAPIDeleteChannels.deletePatientFromStudy, [
             studyId,
             patientId,
+            formType,
         ])
     },
     get: (channel: ipcAPIGetChannels, data?: JSON) => {
         return ipcRenderer.invoke(channel, data)
+    },
+    getStudiesByFormType: (formType: number) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getStudiesByFormType,
+            formType
+        )
+    },
+    getStudiesByPatientId: (patientId: number, patientType: FormType) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getStudiesByPatientId, [
+            patientId,
+            patientType,
+        ])
     },
 })
 

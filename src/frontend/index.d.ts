@@ -7,7 +7,7 @@ import {
     ipcExportChannels,
 } from '../ipc/ipcChannels'
 import { FormType } from './constants'
-import { PatientType } from './types'
+import { PatientType, Study } from './types'
 
 declare global {
     interface Window {
@@ -16,6 +16,11 @@ declare global {
                 channel: ipcAPISaveChannels,
                 data: JSON
             ) => Promise<number | null>
+            updatePatientsStudies: (
+                patientId: number,
+                patientType: FormType,
+                studies: Study[]
+            ) => Promise<boolean>
             insert: (
                 channel: ipcAPIInsertChannels,
                 data: JSON
@@ -26,12 +31,18 @@ declare global {
             ) => Promise<boolean>
             deletePatientFromStudy: (
                 studyId: number,
-                patientId: number
+                patientId: number,
+                patientType: FormType
             ) => Promise<boolean>
             get: (
                 channel: ipcAPIGetChannels,
                 formType?: FormType
             ) => Promise<PatientType[]>
+            getStudiesByFormType: (formType: FormType) => Promise<Study[]>
+            getStudiesByPatientId: (
+                id: number,
+                patientType: FormType
+            ) => Promise<Study[]>
         }
         export: {
             export: (

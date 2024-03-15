@@ -1,11 +1,20 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { ipcAPISaveChannels } from '../../../ipc/ipcChannels'
+import {
+    ipcAPIInsertChannels,
+    ipcAPISaveChannels,
+} from '../../../ipc/ipcChannels'
 import { Components, FormStates } from '../../constants'
-import { activeComponentState, PatientType } from '../../types'
+import {
+    activeComponentState,
+    PatientInStudy,
+    PatientType,
+    Study,
+} from '../../types'
 
 interface AddPatientButtonProps {
     formState: FormStates
     formData: PatientType
+    selectedStudies: Study[]
     formErrors: string[]
     setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
 }
@@ -13,6 +22,7 @@ interface AddPatientButtonProps {
 const AddPatientButton: React.FC<AddPatientButtonProps> = ({
     formState,
     formData,
+    selectedStudies,
     formErrors,
     setActiveComponent,
 }) => {
@@ -25,6 +35,24 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
             ipcAPISaveChannels.savePatient,
             JSONdata
         )
+
+        Promise.all(
+            selectedStudies.map(async (study) => {
+                const patientInStudy: PatientInStudy = {
+                    id_pacient_db: result,
+                    id_studie: study.id,
+                    typ_pacienta: formData.form_type,
+                }
+                console.log(patientInStudy)
+
+                await window.api.insert(
+                    ipcAPIInsertChannels.insertPatientToStudy,
+                    JSON.parse(JSON.stringify(patientInStudy))
+                )
+            })
+        )
+
+        console.log(selectedStudies)
 
         setActiveComponent({
             component: Components.patientsList,
