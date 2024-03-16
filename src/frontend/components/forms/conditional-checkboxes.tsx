@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PatientType } from '../../types'
 import { useSingleSelection } from '../../hooks/use-single-selection'
 import { ConditionalCheckboxOptionProps } from './conditional-checkbox-option'
@@ -20,16 +20,25 @@ const ConditionalCheckboxes: React.FC<ConditionalCheckboxesProps> = ({
     setFormData,
     children,
 }) => {
-    const { selectedOptions, handleCheckboxChange } = useSingleSelection({
-        enableSingleSelect,
-        defaultSelected: [
+    const { selectedOptions, setSelectedOptions, handleCheckboxChange } =
+        useSingleSelection({
+            enableSingleSelect,
+            defaultSelected: [
+                getDataFromPatientInterface(data, dbLabel)
+                    ? getDataFromPatientInterface(data, dbLabel).toString()
+                    : '',
+            ],
+            dbLabel,
+            setFormData,
+        })
+
+    useEffect(() => {
+        setSelectedOptions([
             getDataFromPatientInterface(data, dbLabel)
                 ? getDataFromPatientInterface(data, dbLabel).toString()
                 : '',
-        ],
-        dbLabel,
-        setFormData,
-    })
+        ])
+    }, [data])
 
     return (
         <div className="conditionalCheckboxDiv">

@@ -1,4 +1,4 @@
-import { PatientInStudy, Study } from '../frontend/types'
+import { Study } from '../frontend/types'
 import {
     deleteRow,
     deleteRowsBy,

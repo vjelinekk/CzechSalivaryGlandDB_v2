@@ -1,37 +1,37 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react'
-import { render, fireEvent, cleanup } from '@testing-library/react'
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import Menu from '../src/frontend/components/menu'
-import { components } from '../src/frontend/constants'
-import { test, expect, jest, afterEach } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals';
+import { Components } from '../src/frontend/constants';
 
-// Mock setActiveComponent function
-const mockSetActiveComponent = jest.fn()
+describe('Menu component', () => {
+    it('should call setActiveComponent with correct component name when a button is clicked', () => {
+        const setActiveComponentMock = jest.fn();
+        const { getByText } = render(
+            <Menu setActiveComponent={setActiveComponentMock} />
+        );
 
-afterEach(cleanup)
+        fireEvent.click(getByText('Seznam pacientů'));
+        expect(setActiveComponentMock).toHaveBeenCalledWith({
+            component: Components.patientsList,
+        });
 
-test('Menu renders correctly', () => {
-    const { getByText } = render(
-        <Menu setActiveComponent={mockSetActiveComponent} />
-    )
+        fireEvent.click(getByText('Přidat pacienta'));
+        expect(setActiveComponentMock).toHaveBeenCalledWith({
+            component: Components.addPatient,
+        });
 
-    // Find buttons by their text content
-    const listPatientButton = getByText('Seznam pacientů')
-    const addPatientButton = getByText('Přidat pacienta')
-    const studiesButton = getByText('Studie')
-    const addStudyButton = getByText('Přidat studii')
+        fireEvent.click(getByText('Studie'));
+        expect(setActiveComponentMock).toHaveBeenCalledWith({
+            component: Components.studiesList,
+        });
 
-    // Simulate button clicks
-    fireEvent.click(listPatientButton)
-    fireEvent.click(addPatientButton)
-    fireEvent.click(studiesButton)
-    fireEvent.click(addStudyButton)
-
-    // Check if setActiveComponent was called with the correct arguments
-    expect(mockSetActiveComponent).toHaveBeenCalledWith(components.patientsList)
-    expect(mockSetActiveComponent).toHaveBeenCalledWith(components.addPatient)
-    expect(mockSetActiveComponent).toHaveBeenCalledWith(components.studiesList)
-    expect(mockSetActiveComponent).toHaveBeenCalledWith(components.addStudy)
-})
+        fireEvent.click(getByText('Přidat studii'));
+        expect(setActiveComponentMock).toHaveBeenCalledWith({
+            component: Components.addStudy,
+        });
+    });
+});

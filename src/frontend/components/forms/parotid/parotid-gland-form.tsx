@@ -37,10 +37,15 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
         defaultSelectedStudies || []
     )
 
+    const [databaseSelectedStudies, setDatabaseSelectedStudies] = useState<
+        Study[]
+    >(defaultSelectedStudies || [])
+
     const [studiesChanged, setStudiesChanged] = useState(false)
 
     useEffect(() => {
         setSelectedStudies(defaultSelectedStudies || [])
+        setDatabaseSelectedStudies(defaultSelectedStudies || [])
     }, [defaultSelectedStudies])
 
     const { formErrors, formState, setFormErrors, setFormState } = useGlandForm(
@@ -117,6 +122,9 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 databaseFormData={databaseFormData}
                 setDatabaseFormData={setDatabaseFormData}
                 selectedStudies={selectedStudies}
+                setSelectedStudies={setSelectedStudies}
+                databaseSelectedStudies={databaseSelectedStudies}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudies}
                 studiesChanged={studiesChanged}
                 formState={formState}
                 formErrors={formErrors}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GlandComponentProps } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 
@@ -12,6 +12,14 @@ const Notes: React.FC<GlandComponentProps> = ({
             ? (getDataFromPatientInterface(formData, 'poznamky') as string)
             : ''
     )
+
+    useEffect(() => {
+        setNotes(
+            getDataFromPatientInterface(formData, 'poznamky')
+                ? (getDataFromPatientInterface(formData, 'poznamky') as string)
+                : ''
+        )
+    }, [formData])
 
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNotes(e.target.value)

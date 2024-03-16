@@ -3,6 +3,7 @@ import { PatientType } from '../types'
 
 interface SingleSelectionHook {
     selectedOptions: string[]
+    setSelectedOptions: Dispatch<React.SetStateAction<string[]>>
     handleCheckboxChange: (label: string) => void
 }
 
@@ -71,5 +72,5 @@ export const useSingleSelection = ({
         }
     }
 
-    return { selectedOptions, handleCheckboxChange }
+    return { selectedOptions, setSelectedOptions, handleCheckboxChange }
 }

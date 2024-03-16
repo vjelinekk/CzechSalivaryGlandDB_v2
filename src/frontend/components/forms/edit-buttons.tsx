@@ -13,6 +13,9 @@ interface EditButtonsProps {
     databaseFormData: PatientType
     setDatabaseFormData: Dispatch<SetStateAction<PatientType>>
     selectedStudies: Study[]
+    setSelectedStudies: Dispatch<SetStateAction<Study[]>>
+    databaseSelectedStudies: Study[]
+    setDatabaseSelectedStudies: Dispatch<SetStateAction<Study[]>>
     studiesChanged: boolean
     formErrors: string[]
     setFormState: Dispatch<SetStateAction<FormStates>>
@@ -28,6 +31,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     databaseFormData,
     setDatabaseFormData,
     selectedStudies,
+    setSelectedStudies,
+    databaseSelectedStudies,
+    setDatabaseSelectedStudies,
     studiesChanged,
     formErrors,
     setFormState,
@@ -80,6 +86,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e.preventDefault()
         setFormState(FormStates.view)
         setFormData(databaseFormData)
+        setSelectedStudies(databaseSelectedStudies)
     }
 
     const handleSaveButtonClick = async (
@@ -109,6 +116,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         })
 
         setDatabaseFormData(formData)
+        setDatabaseSelectedStudies(selectedStudies)
     }
 
     return (
