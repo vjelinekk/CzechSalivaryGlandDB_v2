@@ -27,6 +27,7 @@ export interface GlandFormProps {
     editSaved?: EditSavedState
     setEditSaved?: Dispatch<SetStateAction<EditSavedState>>
     setActivePatient?: Dispatch<SetStateAction<PatientType | null>>
+    defaultSelectedStudies?: Study[]
     idStudie?: number
 }
 

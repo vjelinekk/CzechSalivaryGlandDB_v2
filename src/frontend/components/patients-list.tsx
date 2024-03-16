@@ -53,6 +53,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     })
     const [selectedPatients, setSelectedPatients] = useState<PatientType[]>([])
     const [study, setStudy] = useState<Study | null>({ typ_studie: studyType })
+    const [patientsStudies, setPatientsStudies] = useState<Study[]>([])
     const currentIdStudie = useRef(idStudie)
 
     useEffect(() => {
@@ -80,6 +81,17 @@ const PatientsList: React.FC<PatientsListProps> = ({
             setPatients(loadedPatients)
         }
 
+        const getPatientsStudies = async () => {
+            if (activePatient) {
+                const studies = await window.api.getStudiesByPatientId(
+                    activePatient.id,
+                    activePatient.form_type
+                )
+
+                setPatientsStudies(studies)
+            }
+        }
+
         if (idStudie) {
             if (currentIdStudie.current !== idStudie) {
                 setActivePatient(null)
@@ -88,6 +100,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
         }
 
         getAllPatients()
+        getPatientsStudies()
     }, [editSaved, activePatient, idStudie])
 
     const handleExport = async () => {
@@ -225,6 +238,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     <ParotidGlandForm
                         key={activePatient.id}
                         defaultFormState={FormStates.view}
+                        defaultSelectedStudies={patientsStudies}
                         data={activePatient}
                         editSaved={editSaved}
                         setEditSaved={setEditSaved}
@@ -236,6 +250,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         <SublingualGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
                             data={activePatient}
                             editSaved={editSaved}
                             setEditSaved={setEditSaved}
@@ -247,6 +262,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         <SubmandibularGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
                             data={activePatient}
                             editSaved={editSaved}
                             setEditSaved={setEditSaved}

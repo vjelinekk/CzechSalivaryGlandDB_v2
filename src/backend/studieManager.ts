@@ -1,3 +1,4 @@
+import { Study } from '../frontend/types'
 import {
     deleteRow,
     deleteRowsBy,
@@ -13,6 +14,7 @@ import {
     studieColumns,
     TableNames,
 } from './constants'
+import db from './dbManager'
 import { RowRecordType } from './types'
 
 const tableName = TableNames.studie
@@ -62,13 +64,42 @@ export const insertPatientToStudy = async (
     }
 }
 
+export const updatePatientsStudies = async (
+    patientId: number,
+    patientType: FormType,
+    studies: Study[]
+): Promise<boolean> => {
+    try {
+        await deleteRowsBy(
+            TableNames.jeVeStudii,
+            [
+                jeVeStudiiColumns.id_pacient_db.columnName,
+                jeVeStudiiColumns.typ_pacienta.columnName,
+            ],
+            [patientId, patientType]
+        )
+        await Promise.all(
+            studies.map((study) => {
+                return insertPatientToStudy({
+                    id_studie: study.id,
+                    id_pacient_db: patientId,
+                    typ_pacienta: patientType,
+                })
+            })
+        )
+        return true
+    } catch (err) {
+        return false
+    }
+}
+
 export const getPatientsInStudy = async (
     idStudie: number
 ): Promise<RowRecordType[]> => {
     const patientsInStudy = await getRowsBy(
         TableNames.jeVeStudii,
-        'id_studie',
-        idStudie
+        [jeVeStudiiColumns.id_studie.columnName],
+        [idStudie]
     )
 
     const patients = await Promise.all(
@@ -113,6 +144,43 @@ export const getStudies = async (): Promise<RowRecordType[]> => {
     }
 }
 
+export const getStudiesByFormType = async (
+    formType: number
+): Promise<RowRecordType[]> => {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT * FROM ${TableNames.studie} WHERE ${studieColumns.typ_studie.columnName} = ? OR ${studieColumns.typ_studie.columnName} = ?`,
+            [formType, 4],
+            (err, rows) => {
+                if (err) {
+                    reject([])
+                }
+                resolve(rows as RowRecordType[])
+            }
+        )
+    })
+}
+
+export const getStudiesByPatientId = async (
+    patientId: number,
+    patientType: FormType
+): Promise<RowRecordType[]> => {
+    const studies = await getRowsBy(
+        TableNames.jeVeStudii,
+        [
+            jeVeStudiiColumns.id_pacient_db.columnName,
+            jeVeStudiiColumns.typ_pacienta.columnName,
+        ],
+        [patientId, patientType]
+    )
+
+    return await Promise.all(
+        studies.map(async (study: { id_studie: number }) => {
+            return await getRow(TableNames.studie, study.id_studie)
+        })
+    )
+}
+
 export const deletePatientFromAllStudies = async (
     patientId: number
 ): Promise<boolean> => {
@@ -130,7 +198,8 @@ export const deletePatientFromAllStudies = async (
 
 export const deletePatientFromStudy = async (
     studyId: number,
-    patientId: number
+    patientId: number,
+    patientType: FormType
 ): Promise<boolean> => {
     try {
         await deleteRowsBy(
@@ -138,8 +207,9 @@ export const deletePatientFromStudy = async (
             [
                 jeVeStudiiColumns.id_studie.columnName,
                 jeVeStudiiColumns.id_pacient_db.columnName,
+                jeVeStudiiColumns.typ_pacienta.columnName,
             ],
-            [studyId, patientId]
+            [studyId, patientId, patientType]
         )
         return true
     } catch (err) {

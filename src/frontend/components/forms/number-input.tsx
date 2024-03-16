@@ -21,6 +21,10 @@ const NumberInput: React.FC<NumberInputProps> = ({
 }) => {
     const [value, setValue] = useState<number | ''>(data ? Number(data) : '')
 
+    useEffect(() => {
+        setValue(data ? Number(data) : '')
+    }, [data])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(Number(e.target.value) ? Number(e.target.value) : '')
         setFormData((prev) => {

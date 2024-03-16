@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { CommonFormInputProps } from '../../props'
 
 interface TextInputProps extends CommonFormInputProps {
@@ -18,6 +18,10 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
     const [error, setError] = useState(false)
     const [inputValue, setInputValue] = useState(data ? data : '')
+
+    useEffect(() => {
+        setInputValue(data ? data : '')
+    }, [data])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)

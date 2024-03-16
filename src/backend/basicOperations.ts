@@ -53,12 +53,25 @@ export const getAllRows = (tableName: TableNames): Promise<RowRecordType[]> => {
 
 export const getRowsBy = (
     tableName: TableNames,
-    column: string,
-    value: string | number
+    columns: string[],
+    values: string[] | number[]
 ): Promise<RowRecordType[]> => {
-    const query = `SELECT * FROM ${tableName} WHERE ${column} = ?`
+    if (columns.length !== values.length) {
+        throw new Error('Columns and values must have the same length')
+    }
+    if (columns.length === 0 || values.length === 0) {
+        throw new Error('Columns and values must not be empty')
+    }
+    let whereStatement: string
+    if (columns.length === 1) {
+        whereStatement = `${columns[0]} = ?`
+    } else {
+        whereStatement = columns.map((column) => `${column} = ?`).join(' AND ')
+    }
+
+    const query = `SELECT * FROM ${tableName} WHERE ${whereStatement}`
     return new Promise((resolve, reject) => {
-        db.all(query, [value], (err, rows) => {
+        db.all(query, values, (err, rows) => {
             if (err) {
                 reject(err)
             }

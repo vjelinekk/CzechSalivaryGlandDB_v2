@@ -5,7 +5,7 @@ import ConditionalCheckboxOption from './conditional-checkbox-option'
 import TextInput from './text-input'
 import NumberInput from './number-input'
 import { GlandComponentProps } from '../../types'
-import isCzechAlphabet from '../../utils/isCzechAlphabet'
+import isValidName from '../../utils/isValidName'
 import isPID from '../../utils/isPID'
 import calculatePackYears from '../../utils/calculatePackYears'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
@@ -28,7 +28,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={getDataFromPatientInterface(formData, dbLabels.jmeno)}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
-                    validation={isCzechAlphabet}
+                    validation={isValidName}
                     disabled={disabled}
                 />
                 <TextInput
@@ -40,7 +40,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     )}
                     setFormData={setFormData}
                     setFormErrors={setFormErrors}
-                    validation={isCzechAlphabet}
+                    validation={isValidName}
                     disabled={disabled}
                 />
                 <TextInput

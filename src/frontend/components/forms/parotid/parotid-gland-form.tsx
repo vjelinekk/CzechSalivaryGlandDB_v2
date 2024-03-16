@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonalData from '../personal-data'
 import ParotidGlandDiagnosis from './parotid-gland-diagnosis'
-import { GlandFormProps, ParotidPatientData } from '../../../types'
+import { GlandFormProps, ParotidPatientData, Study } from '../../../types'
 import { FormStates, FormType } from '../../../constants'
 import ParotidGlandTherapy from './parotid-gland-therapy'
 import Histopathology from '../histopathology'
@@ -13,6 +13,7 @@ import AddPatientButton from '../add-patient-button'
 import EditButtons from '../edit-buttons'
 import { useGlandForm } from '../../../hooks/use-gland-form'
 import EditResult from '../edit-result'
+import AvailableStudies from '../available-studies'
 
 const ParotidGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -22,11 +23,30 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
     setActiveComponent,
     setActivePatient,
     idStudie,
+    defaultSelectedStudies,
 }) => {
     const [formData, setFormData] = useState<ParotidPatientData | null>({
         ...data,
         form_type: FormType.priusni,
     })
+
+    const [databaseFormData, setDatabaseFormData] =
+        useState<ParotidPatientData | null>(data)
+
+    const [selectedStudies, setSelectedStudies] = useState<Study[]>(
+        defaultSelectedStudies || []
+    )
+
+    const [databaseSelectedStudies, setDatabaseSelectedStudies] = useState<
+        Study[]
+    >(defaultSelectedStudies || [])
+
+    const [studiesChanged, setStudiesChanged] = useState(false)
+
+    useEffect(() => {
+        setSelectedStudies(defaultSelectedStudies || [])
+        setDatabaseSelectedStudies(defaultSelectedStudies || [])
+    }, [defaultSelectedStudies])
 
     const { formErrors, formState, setFormErrors, setFormState } = useGlandForm(
         {
@@ -82,14 +102,30 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
+            <AvailableStudies
+                formType={formData.form_type}
+                selectedStudies={selectedStudies}
+                setStudiesChanged={setStudiesChanged}
+                setSelectedStudies={setSelectedStudies}
+                disabled={formState === FormStates.view}
+            />
             <AddPatientButton
                 formState={formState}
+                selectedStudies={selectedStudies}
                 formData={formData}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
             />
             <EditButtons
                 formData={formData}
+                setFormData={setFormData}
+                databaseFormData={databaseFormData}
+                setDatabaseFormData={setDatabaseFormData}
+                selectedStudies={selectedStudies}
+                setSelectedStudies={setSelectedStudies}
+                databaseSelectedStudies={databaseSelectedStudies}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudies}
+                studiesChanged={studiesChanged}
                 formState={formState}
                 formErrors={formErrors}
                 setFormState={setFormState}

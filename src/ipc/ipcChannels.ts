@@ -7,6 +7,10 @@ export enum ipcAPIInsertChannels {
     insertPatientToStudy = 'insertPatientToStudy',
 }
 
+export enum ipcAPIUpdateChannels {
+    updatePatientsStudies = 'updatePatientsStudies',
+}
+
 export enum ipcAPIDeleteChannels {
     deletePatient = 'deletePatient',
     deleteStudy = 'deleteStudy',
@@ -18,6 +22,8 @@ export enum ipcAPIGetChannels {
     getPatientsByType = 'getPatientsByType',
     getPatientsInStudy = 'getPatientsInStudy',
     getStudies = 'getStudies',
+    getStudiesByFormType = 'getStudiesByFormType',
+    getStudiesByPatientId = 'getStudiesByPatientId',
 }
 
 export enum ipcExportChannels {

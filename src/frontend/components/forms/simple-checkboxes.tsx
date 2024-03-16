@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SimpleCheckboxItem from './simple-checkbox-item'
 import { useSingleSelection } from '../../hooks/use-single-selection'
 import { PatientType } from '../../types'
@@ -21,14 +21,27 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
     options,
     disabled,
 }) => {
-    const { selectedOptions, handleCheckboxChange } = useSingleSelection({
-        enableSingleSelect,
-        defaultSelected: getDataFromPatientInterface(data, dbLabel)
-            ? (getDataFromPatientInterface(data, dbLabel) as string).split(',')
-            : [''],
-        dbLabel,
-        setFormData,
-    })
+    const { selectedOptions, setSelectedOptions, handleCheckboxChange } =
+        useSingleSelection({
+            enableSingleSelect,
+            defaultSelected: getDataFromPatientInterface(data, dbLabel)
+                ? (getDataFromPatientInterface(data, dbLabel) as string).split(
+                      ','
+                  )
+                : [''],
+            dbLabel,
+            setFormData,
+        })
+
+    useEffect(() => {
+        setSelectedOptions(
+            getDataFromPatientInterface(data, dbLabel)
+                ? (getDataFromPatientInterface(data, dbLabel) as string).split(
+                      ','
+                  )
+                : ['']
+        )
+    }, [data])
 
     return (
         <>

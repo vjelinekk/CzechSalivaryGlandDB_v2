@@ -4,11 +4,19 @@ import {
     ipcAPISaveChannels,
 } from '../../../ipc/ipcChannels'
 import { FormStates } from '../../constants'
-import { EditSavedState, PatientType } from '../../types'
+import { EditSavedState, PatientType, Study } from '../../types'
 
 interface EditButtonsProps {
     formState: FormStates
     formData: PatientType
+    setFormData: Dispatch<SetStateAction<PatientType | null>>
+    databaseFormData: PatientType
+    setDatabaseFormData: Dispatch<SetStateAction<PatientType>>
+    selectedStudies: Study[]
+    setSelectedStudies: Dispatch<SetStateAction<Study[]>>
+    databaseSelectedStudies: Study[]
+    setDatabaseSelectedStudies: Dispatch<SetStateAction<Study[]>>
+    studiesChanged: boolean
     formErrors: string[]
     setFormState: Dispatch<SetStateAction<FormStates>>
     setEditSaved: Dispatch<SetStateAction<EditSavedState>>
@@ -19,6 +27,14 @@ interface EditButtonsProps {
 const EditButtons: React.FC<EditButtonsProps> = ({
     formState,
     formData,
+    setFormData,
+    databaseFormData,
+    setDatabaseFormData,
+    selectedStudies,
+    setSelectedStudies,
+    databaseSelectedStudies,
+    setDatabaseSelectedStudies,
+    studiesChanged,
     formErrors,
     setFormState,
     setEditSaved,
@@ -57,7 +73,8 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e.preventDefault()
         const result = await window.api.deletePatientFromStudy(
             idStudie,
-            formData?.id
+            formData?.id,
+            formData?.form_type
         )
         console.log(result)
         setActivePatient(null)
@@ -68,6 +85,8 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     ) => {
         e.preventDefault()
         setFormState(FormStates.view)
+        setFormData(databaseFormData)
+        setSelectedStudies(databaseSelectedStudies)
     }
 
     const handleSaveButtonClick = async (
@@ -80,12 +99,24 @@ const EditButtons: React.FC<EditButtonsProps> = ({
             JSONdata
         )
 
+        if (studiesChanged) {
+            const updated = await window.api.updatePatientsStudies(
+                formData.id,
+                formData.form_type,
+                selectedStudies
+            )
+            console.log(updated)
+        }
+
         setEditSaved((prevEditSaved) => {
             return {
                 done: !prevEditSaved.done,
                 saved: result !== null,
             }
         })
+
+        setDatabaseFormData(formData)
+        setDatabaseSelectedStudies(selectedStudies)
     }
 
     return (
