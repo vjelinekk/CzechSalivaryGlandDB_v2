@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { FormType } from './backend/constants'
-import { PatientInStudy, PatientType, Study } from './frontend/types'
+import { PatientType, Study } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
