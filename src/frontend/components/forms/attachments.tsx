@@ -32,7 +32,12 @@ const Attachments: React.FC<GlandComponentProps> = ({
                 {formData?.attachments
                     ?.split(',')
                     .map((path, index) => (
-                        <Attachment key={index} fileName={path} />
+                        <Attachment
+                            key={index}
+                            fileName={path}
+                            setFormData={setFormData}
+                            disabled={disabled}
+                        />
                     ))}
             </div>
             <button

@@ -93,8 +93,8 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 disabled={formState === FormStates.view}
             />
             <Attachments
-                setFormData={setFormData}
                 formData={formData}
+                setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
             <Notes

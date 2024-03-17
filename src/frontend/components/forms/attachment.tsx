@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
+import { PatientType } from '../../types'
 
 interface AttachmentProps {
     fileName: string
+    setFormData: Dispatch<SetStateAction<PatientType>>
+    disabled: boolean
 }
 
-const Attachment: React.FC<AttachmentProps> = ({ fileName }) => {
+const Attachment: React.FC<AttachmentProps> = ({
+    fileName,
+    setFormData,
+    disabled,
+}) => {
     const [fileIcon, setFileIcon] = useState<string>('')
 
     const handleButtonClick = async (
@@ -12,6 +20,23 @@ const Attachment: React.FC<AttachmentProps> = ({ fileName }) => {
     ) => {
         e.preventDefault()
         window.fs.open(fileName)
+    }
+
+    const handleDeleteAttachment = async (
+        e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        e.preventDefault()
+        setFormData((prevFormData) => {
+            const prevAttachments = prevFormData?.attachments || ''
+            const newAttachments = prevAttachments
+                .split(',')
+                .filter((path) => path !== fileName)
+                .join(',')
+            return {
+                ...prevFormData,
+                attachments: newAttachments ? newAttachments : null,
+            }
+        })
     }
 
     useEffect(() => {
@@ -34,6 +59,17 @@ const Attachment: React.FC<AttachmentProps> = ({ fileName }) => {
                     />
                 )}
                 {fileName.split('/').pop()}
+            </button>
+            <button
+                className="basicButton"
+                style={{
+                    height: '100%',
+                    backgroundColor: disabled ? 'grey' : 'red',
+                }}
+                onClick={handleDeleteAttachment}
+                disabled={disabled}
+            >
+                <CloseIcon />
             </button>
         </div>
     )
