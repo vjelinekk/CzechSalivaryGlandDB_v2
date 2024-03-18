@@ -1,3 +1,4 @@
+import { PatientType } from '../frontend/types'
 import {
     deleteRow,
     getAllRows,
@@ -5,7 +6,14 @@ import {
     insertRow,
     updateRow,
 } from './basicOperations'
-import { FormType, TableNames } from './constants'
+import {
+    FormType,
+    podcelistniColumns,
+    podjazykoveColumns,
+    priusniColumns,
+    TableNames,
+} from './constants'
+import db from './dbManager'
 import { deletePatientFromAllStudies } from './studieManager'
 import { RowRecordType } from './types'
 
@@ -137,6 +145,61 @@ export const getPatient = async (
     }
 
     return patient
+}
+
+export const searchPatientsByNameSurnameRC = async (
+    search: string
+): Promise<PatientType[] | null> => {
+    const patients: PatientType[] = []
+
+    return new Promise((resolve, reject) => {
+        const queryPodcelistni = `SELECT * FROM ${TableNames.podcelistni} WHERE CONCAT(${podcelistniColumns.jmeno.columnName}, ' ', ${podcelistniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podcelistniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryPodjazykove = `SELECT * FROM ${TableNames.podjazykove} WHERE CONCAT(${podjazykoveColumns.jmeno.columnName}, ' ', ${podjazykoveColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podjazykoveColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryPriusni = `SELECT * FROM ${TableNames.priusni} WHERE CONCAT(${priusniColumns.jmeno.columnName}, ' ', ${priusniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${priusniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+
+        const promises = [
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(queryPodcelistni, (err, rows: PatientType[]) => {
+                    if (err) {
+                        console.log(err)
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(queryPodjazykove, (err, rows: PatientType[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(queryPriusni, (err, rows: PatientType[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
+        ]
+
+        // Wait for all queries to complete
+        Promise.all(promises)
+            .then(() => {
+                resolve(patients)
+            })
+            .catch((err) => {
+                reject(err)
+            })
+    })
 }
 
 export const deletePatient = async (

@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
 import { ipcAPIDeleteChannels, ipcAPISaveChannels } from '../../ipc/ipcChannels'
+import { studyTypeToStringMap } from '../constants'
 
 interface StudyButtonProps {
     defaultStudy: Study
@@ -110,7 +111,8 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                     }
                     className={`patientButton ${isActiveStudy ? 'selected' : ''}`}
                 >
-                    {study.nazev_studie}
+                    {study.nazev_studie} (
+                    {studyTypeToStringMap[study.typ_studie]})
                 </Button>
             )}
             {editStudyName ? (

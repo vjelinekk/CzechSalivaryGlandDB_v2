@@ -52,6 +52,12 @@ contextBridge.exposeInMainWorld('api', {
             formType
         )
     },
+    searchPatientsByNameSurnameRC: (search: string) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.searchPatientsByNameSurnameRC,
+            search
+        )
+    },
     getStudiesByPatientId: (patientId: number, patientType: FormType) => {
         return ipcRenderer.invoke(ipcAPIGetChannels.getStudiesByPatientId, [
             patientId,

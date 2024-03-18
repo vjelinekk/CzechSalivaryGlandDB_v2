@@ -43,6 +43,9 @@ declare global {
                 id: number,
                 patientType: FormType
             ) => Promise<Study[]>
+            searchPatientsByNameSurnameRC: (
+                search: string
+            ) => Promise<PatientType[]>
         }
         export: {
             export: (

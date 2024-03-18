@@ -34,6 +34,13 @@ export const formTypeToBasicStringMap: { [key: number]: string } = {
     3: 'priusni',
 }
 
+export const studyTypeToStringMap: { [key: number]: string } = {
+    1: 'podčelistní',
+    2: 'podjazyková',
+    3: 'příušní',
+    4: 'speciální',
+}
+
 export enum dbLabels {
     jmeno = 'jmeno',
     prijmeni = 'prijmeni',

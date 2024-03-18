@@ -1,4 +1,5 @@
 import React, {
+    ChangeEvent,
     Dispatch,
     SetStateAction,
     useEffect,
@@ -54,33 +55,34 @@ const PatientsList: React.FC<PatientsListProps> = ({
     const [selectedPatients, setSelectedPatients] = useState<PatientType[]>([])
     const [study, setStudy] = useState<Study | null>({ typ_studie: studyType })
     const [patientsStudies, setPatientsStudies] = useState<Study[]>([])
+    const [searched, setSearched] = useState<boolean>(false)
     const currentIdStudie = useRef(idStudie)
 
-    useEffect(() => {
-        const getAllPatients = async () => {
-            let loadedPatients: PatientType[] = []
+    const getAllPatients = async () => {
+        let loadedPatients: PatientType[] = []
 
-            if (!idStudie) {
-                if (!studyType || studyType === StudyTypes.special) {
-                    loadedPatients = await window.api.get(
-                        ipcAPIGetChannels.getAllPatients
-                    )
-                } else if (studyType) {
-                    loadedPatients = await window.api.get(
-                        ipcAPIGetChannels.getPatientsByType,
-                        studyTypeToFormTypeMap[studyType]
-                    )
-                }
-            } else {
+        if (!idStudie) {
+            if (!studyType || studyType === StudyTypes.special) {
                 loadedPatients = await window.api.get(
-                    ipcAPIGetChannels.getPatientsInStudy,
-                    idStudie
+                    ipcAPIGetChannels.getAllPatients
+                )
+            } else if (studyType) {
+                loadedPatients = await window.api.get(
+                    ipcAPIGetChannels.getPatientsByType,
+                    studyTypeToFormTypeMap[studyType]
                 )
             }
-
-            setPatients(loadedPatients)
+        } else {
+            loadedPatients = await window.api.get(
+                ipcAPIGetChannels.getPatientsInStudy,
+                idStudie
+            )
         }
 
+        setPatients(loadedPatients)
+    }
+
+    useEffect(() => {
         const getPatientsStudies = async () => {
             if (activePatient) {
                 const studies = await window.api.getStudiesByPatientId(
@@ -99,7 +101,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
             }
         }
 
-        getAllPatients()
+        if (!searched) {
+            getAllPatients()
+        }
         getPatientsStudies()
     }, [editSaved, activePatient, idStudie])
 
@@ -147,6 +151,24 @@ const PatientsList: React.FC<PatientsListProps> = ({
             component: Components.studiesList,
             activeStudy: { ...study, id: studyId },
         })
+    }
+
+    const handlePatientSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+        const search = e.target.value
+
+        if (search === '') {
+            getAllPatients()
+            setSearched(false)
+            return
+        }
+
+        const foundPatients =
+            await window.api.searchPatientsByNameSurnameRC(search)
+
+        if (foundPatients) {
+            setPatients(foundPatients)
+            setSearched(true)
+        }
     }
 
     return (
@@ -202,7 +224,11 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         </button>
                     </div>
                 </div>
-                <input id="search" placeholder="Vyhledat..." />
+                <input
+                    id="search"
+                    placeholder="Vyhledat..."
+                    onChange={handlePatientSearch}
+                />
                 <div className="wrapper">
                     <table id="patient-table">
                         <tbody id="patients-tbody">
