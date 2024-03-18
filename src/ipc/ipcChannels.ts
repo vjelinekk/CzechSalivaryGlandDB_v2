@@ -24,6 +24,7 @@ export enum ipcAPIGetChannels {
     getStudies = 'getStudies',
     getStudiesByFormType = 'getStudiesByFormType',
     getStudiesByPatientId = 'getStudiesByPatientId',
+    searchPatientsByNameSurnameRC = 'searchPatientsByNameSurnameRC',
 }
 
 export enum ipcExportChannels {

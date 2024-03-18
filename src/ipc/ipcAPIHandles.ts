@@ -2,6 +2,7 @@ import { ipcMain } from 'electron'
 import {
     deletePatient,
     getAllPatients,
+    searchPatientsByNameSurnameRC,
     getPatientsByType,
     savePatient,
 } from '../backend/patientsManager'
@@ -52,6 +53,17 @@ ipcMain.handle(
 ipcMain.handle(ipcAPIGetChannels.getAllPatients, async () => {
     return await getAllPatients()
 })
+
+ipcMain.handle(
+    ipcAPIGetChannels.searchPatientsByNameSurnameRC,
+    async (event, search) => {
+        try {
+            return await searchPatientsByNameSurnameRC(search)
+        } catch (err) {
+            return null
+        }
+    }
+)
 
 ipcMain.handle(ipcAPIGetChannels.getPatientsByType, async (event, formType) => {
     return await getPatientsByType(formType)
