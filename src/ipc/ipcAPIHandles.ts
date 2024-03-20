@@ -5,6 +5,7 @@ import {
     searchPatientsByNameSurnameRC,
     getPatientsByType,
     savePatient,
+    getFilteredPatients,
 } from '../backend/patientsManager'
 import {
     deletePatientFromStudy,
@@ -104,3 +105,8 @@ ipcMain.handle(
         return await deletePatientFromStudy(studyId, patientId, formType)
     }
 )
+
+ipcMain.handle(ipcAPIGetChannels.getFilteredPatients, async (event, args) => {
+    const [filter, studyId] = args
+    return await getFilteredPatients(filter, studyId)
+})

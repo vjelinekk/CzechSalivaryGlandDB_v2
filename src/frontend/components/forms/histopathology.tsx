@@ -245,7 +245,7 @@ const Histopathology: React.FC<GlandComponentProps> = ({
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="MALT-lymfom"
+                    label="jiné"
                     disabled={disabled}
                     setFormData={setFormData}
                 />

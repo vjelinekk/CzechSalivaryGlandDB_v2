@@ -1167,6 +1167,12 @@ export enum FormType {
     priusni = 3,
 }
 
+export const formTypeToTableName: { [key: number]: TableNames } = {
+    1: TableNames.podcelistni,
+    2: TableNames.podjazykove,
+    3: TableNames.priusni,
+}
+
 export enum StudyType {
     podcelistni = 1,
     podjazykove = 2,

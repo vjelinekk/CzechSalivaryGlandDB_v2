@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Components, StudyTypes } from '../constants'
+import { Components, StudyType } from '../constants'
 import { activeComponentState } from '../types'
 
 interface AddStudyProps {
@@ -7,7 +7,7 @@ interface AddStudyProps {
 }
 
 const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
-    const handleButtonClick = (studyType: StudyTypes) => {
+    const handleButtonClick = (studyType: StudyType) => {
         setActiveComponent({ component: Components.study, studyType })
     }
 
@@ -17,7 +17,7 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         className="mainButton"
-                        onClick={() => handleButtonClick(StudyTypes.parotid)}
+                        onClick={() => handleButtonClick(StudyType.parotid)}
                     >
                         Nová studie Příušních žláz
                     </button>
@@ -25,7 +25,7 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         className="mainButton"
-                        onClick={() => handleButtonClick(StudyTypes.sublingual)}
+                        onClick={() => handleButtonClick(StudyType.sublingual)}
                     >
                         Nová studie Podjazykových žláz
                     </button>
@@ -34,7 +34,7 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
                     <button
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(StudyTypes.submandibular)
+                            handleButtonClick(StudyType.submandibular)
                         }
                     >
                         Nová studie Podčelistních žláz
@@ -43,7 +43,7 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         className="mainButton"
-                        onClick={() => handleButtonClick(StudyTypes.special)}
+                        onClick={() => handleButtonClick(StudyType.special)}
                     >
                         Nová studie Speciální studie
                     </button>

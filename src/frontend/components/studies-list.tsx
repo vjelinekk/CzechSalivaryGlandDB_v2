@@ -54,7 +54,12 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                     {/* </table> */}
                 </div>
             </div>
-            {activeStudy && <PatientsList idStudie={activeStudy?.id} />}
+            {activeStudy && (
+                <PatientsList
+                    idStudie={activeStudy?.id}
+                    studyType={activeStudy.typ_studie}
+                />
+            )}
         </>
     )
 }

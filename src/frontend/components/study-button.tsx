@@ -9,6 +9,11 @@ import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
 import { ipcAPIDeleteChannels, ipcAPISaveChannels } from '../../ipc/ipcChannels'
 import { studyTypeToStringMap } from '../constants'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
 
 interface StudyButtonProps {
     defaultStudy: Study
@@ -25,6 +30,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
 }) => {
     const [editStudyName, setEditStudyName] = useState(false)
     const [study, setStudy] = useState<Study>(defaultStudy)
+    const [openDeleteStudyDialog, setOpenDeleteStudyDialog] = useState(false)
 
     const handleStudyNameChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -33,31 +39,25 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     }
 
     const saveStudyName = async () => {
-        const prompt = window.confirm(
-            `Opravdu chcete změnit název studie na ${study.nazev_studie}?`
-        )
-
-        if (!prompt) {
-            setStudy((prev) => ({
-                ...prev,
-                nazev_studie: defaultStudy.nazev_studie,
-            }))
-            setEditStudyName((prev) => !prev)
-            return
-        }
-
         const JSONdata = JSON.parse(JSON.stringify(study))
         const result = await window.api.save(
             ipcAPISaveChannels.saveStudy,
             JSONdata
         )
 
-        if (!result) {
-            window.alert('Nepodařilo se uložit studii')
-        }
+        console.log(result)
 
         setEditStudyName((prev) => !prev)
         setListChanged((prev) => !prev)
+    }
+
+    const handleCancelEditStudyName = () => {
+        setStudy((prev) => ({
+            ...prev,
+            nazev_studie: defaultStudy.nazev_studie,
+        }))
+        setEditStudyName((prev) => !prev)
+        return
     }
 
     const handleStudyNameSave = async (
@@ -66,26 +66,19 @@ const StudyButton: React.FC<StudyButtonProps> = ({
         if (e.key === 'Enter') {
             saveStudyName()
         }
+        if (e.key === 'Escape') {
+            handleCancelEditStudyName()
+        }
     }
 
     const handleDeleteStudy = async () => {
-        const prompt = window.confirm(
-            `Opravdu chcete smazat studii ${study.nazev_studie}?`
-        )
-
-        if (!prompt) {
-            return
-        }
-
         const JSONdata = JSON.parse(JSON.stringify(study))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deleteStudy,
             JSONdata
         )
 
-        if (!result) {
-            window.alert('Nepodařilo se smazat studii')
-        }
+        console.log(result)
 
         setListChanged((prev) => !prev)
         setActiveStudy(null)
@@ -120,9 +113,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                     <IconButton onClick={() => saveStudyName()}>
                         <CheckIcon />
                     </IconButton>
-                    <IconButton
-                        onClick={() => setEditStudyName((prev) => !prev)}
-                    >
+                    <IconButton onClick={() => handleCancelEditStudyName()}>
                         <CloseIcon />
                     </IconButton>
                 </>
@@ -131,9 +122,25 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                     <EditIcon />
                 </IconButton>
             )}
-            <IconButton onClick={handleDeleteStudy}>
+            <IconButton onClick={() => setOpenDeleteStudyDialog(true)}>
                 <DeleteIcon />
             </IconButton>
+            <Dialog open={openDeleteStudyDialog}>
+                <DialogTitle>Opravdu chcete smazat tuto studii?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Tato akce je nevratná.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenDeleteStudyDialog(false)}>
+                        Zrušit
+                    </Button>
+                    <Button color="error" onClick={handleDeleteStudy}>
+                        Smazat
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

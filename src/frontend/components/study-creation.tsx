@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { StudyTypes } from '../constants'
+import { StudyType } from '../constants'
 import { activeComponentState } from '../types'
 import PatientsList from './patients-list'
 
 interface StudyCreationProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
-    studyType: StudyTypes
+    studyType: StudyType
 }
 
 const StudyCreation: React.FC<StudyCreationProps> = ({

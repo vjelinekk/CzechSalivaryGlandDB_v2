@@ -46,6 +46,10 @@ declare global {
             searchPatientsByNameSurnameRC: (
                 search: string
             ) => Promise<PatientType[]>
+            getFilteredPatients: (
+                filter: FilteredColumns,
+                studyId?: number
+            ) => Promise<PatientType[]>
         }
         export: {
             export: (
