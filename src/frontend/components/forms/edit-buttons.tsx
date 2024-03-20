@@ -1,10 +1,16 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
     ipcAPIDeleteChannels,
     ipcAPISaveChannels,
 } from '../../../ipc/ipcChannels'
 import { FormStates } from '../../constants'
 import { EditSavedState, PatientType, Study } from '../../types'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
 
 interface EditButtonsProps {
     formState: FormStates
@@ -41,6 +47,10 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     setActivePatient,
     idStudie,
 }) => {
+    const [openDelePatientDialog, setOpenDeletePatientDialog] = useState(false)
+    const [openDeleteFromStudyDialog, setOpenDeleteFromStudyDialog] =
+        useState(false)
+
     const handleEditButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setFormState(FormStates.edit)
@@ -50,12 +60,10 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        const confirmDeletion = window.confirm(
-            'Opravdu chcete smazat pacienta?'
-        )
-        if (!confirmDeletion) {
-            return
-        }
+        setOpenDeletePatientDialog(true)
+    }
+
+    const handleDeleteClick = async () => {
         const JSONdata = JSON.parse(JSON.stringify(formData))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deletePatient,
@@ -71,6 +79,10 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
+        setOpenDeleteFromStudyDialog(true)
+    }
+
+    const handleDeleteFromStudy = async () => {
         const result = await window.api.deletePatientFromStudy(
             idStudie,
             formData?.id,
@@ -156,14 +168,60 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 >
                     Smazat pacienta
                 </button>
+                <Dialog open={openDelePatientDialog}>
+                    <DialogTitle>Opravdu chcete smazat pacienta?</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Tato akce je nevratná.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={() => setOpenDeletePatientDialog(false)}
+                        >
+                            Zrušit
+                        </Button>
+                        <Button color="error" onClick={handleDeleteClick}>
+                            Smazat
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 {idStudie && (
-                    <button
-                        className="basicButton"
-                        onClick={handleDeleteFromStudyClick}
-                        style={{ background: 'red' }}
-                    >
-                        Odebrat z studie
-                    </button>
+                    <>
+                        <button
+                            className="basicButton"
+                            onClick={handleDeleteFromStudyClick}
+                            style={{ background: 'red' }}
+                        >
+                            Odebrat z studie
+                        </button>
+                        <Dialog open={openDeleteFromStudyDialog}>
+                            <DialogTitle>
+                                Opravdu chcete odebrat pacienta ze studie?
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Pacienta je možné po odebrání znovu přidat
+                                    do studie.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    onClick={() =>
+                                        setOpenDeleteFromStudyDialog(false)
+                                    }
+                                >
+                                    Zrušit
+                                </Button>
+                                <Button
+                                    color="error"
+                                    onClick={handleDeleteFromStudy}
+                                >
+                                    Odebrat
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </>
                 )}
             </div>
         )

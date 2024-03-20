@@ -54,7 +54,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="RČ"
+                    label="RČ (bez lomítka)"
                     dbLabel={dbLabels.rodne_cislo}
                     data={getDataFromPatientInterface(
                         formData,

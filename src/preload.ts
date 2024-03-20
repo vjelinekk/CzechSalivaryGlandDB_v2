@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { FormType } from './backend/constants'
-import { PatientType, Study } from './frontend/types'
+import { FilteredColumns, PatientType, Study } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
@@ -62,6 +62,12 @@ contextBridge.exposeInMainWorld('api', {
         return ipcRenderer.invoke(ipcAPIGetChannels.getStudiesByPatientId, [
             patientId,
             patientType,
+        ])
+    },
+    getFilteredPatients: (filter: FilteredColumns, studyId?: number) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getFilteredPatients, [
+            filter,
+            studyId,
         ])
     },
 })

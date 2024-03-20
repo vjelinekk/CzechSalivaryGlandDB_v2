@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
-import { Components, FormStates, FormType, StudyTypes } from './constants'
+import { Components, FormStates, FormType, StudyType } from './constants'
 
 export interface activeComponentState {
     component: Components
     activePatient?: PatientType | null
-    studyType?: StudyTypes | null
+    studyType?: StudyType | null
     activeStudy?: Study | null
 }
 
@@ -34,7 +34,7 @@ export interface GlandFormProps {
 export interface PatientData {
     [key: string]: string | number | FormType
     id?: number
-    form_type: FormType
+    form_type?: FormType
     attachments?: string
     jmeno?: string
     prijmeni?: string
@@ -138,7 +138,7 @@ export interface SubmandibularPatientData extends PatientData {
 export interface Study {
     id?: number
     nazev_studie?: string
-    typ_studie?: StudyTypes
+    typ_studie?: StudyType
 }
 
 export interface PatientInStudy {
@@ -154,3 +154,10 @@ export type PatientType =
     | ParotidPatientData
     | SubmandibularPatientData
     | SublingualPatientData
+
+export interface FilteredColumns {
+    [key: string]: string[] | FormType[]
+    form_type: FormType[]
+    typ_terapie: string[]
+    histopatologie_vysledek: string[]
+}

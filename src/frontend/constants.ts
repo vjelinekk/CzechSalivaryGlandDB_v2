@@ -9,7 +9,7 @@ export enum Components {
     study = 'study',
 }
 
-export enum StudyTypes {
+export enum StudyType {
     submandibular = 1,
     sublingual = 2,
     parotid = 3,

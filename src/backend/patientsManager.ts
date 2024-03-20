@@ -1,4 +1,4 @@
-import { PatientType } from '../frontend/types'
+import { FilteredColumns, PatientType } from '../frontend/types'
 import {
     deleteRow,
     getAllRows,
@@ -8,6 +8,8 @@ import {
 } from './basicOperations'
 import {
     FormType,
+    formTypeToTableName,
+    jeVeStudiiColumns,
     podcelistniColumns,
     podjazykoveColumns,
     priusniColumns,
@@ -145,6 +147,126 @@ export const getPatient = async (
     }
 
     return patient
+}
+
+export const getFilteredPatients = async (
+    filter: FilteredColumns,
+    idStudie?: number
+): Promise<PatientType[] | null> => {
+    if (idStudie) {
+        return getFilteredPatientsFromStudy(filter, idStudie)
+    } else {
+        return await getFilteredPatientsFromAllPatients(filter)
+    }
+}
+
+const getFilteredPatientsFromStudy = async (
+    filter: FilteredColumns,
+    idStudie: number
+): Promise<PatientType[]> => {
+    const filteredPatients: PatientType[] = []
+    const tablesToSelectFrom = getTablesToSelectFrom(filter)
+    const { whereStatement, values } = getFilterWhereStatement(filter)
+
+    const promises = tablesToSelectFrom.map((tableName) => {
+        return new Promise<void>((resolveQuery, rejectQuery) => {
+            const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.jeVeStudii} ON ${tableName}.id = ${jeVeStudiiColumns.id_pacient_db.columnName} WHERE ${jeVeStudiiColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
+
+            db.all(query, [idStudie, ...values], (err, rows: PatientType[]) => {
+                if (err) {
+                    rejectQuery(err)
+                } else {
+                    filteredPatients.push(...rows)
+                    resolveQuery()
+                }
+            })
+        })
+    })
+
+    try {
+        await Promise.all(promises)
+        return filteredPatients
+    } catch (err) {
+        return []
+    }
+}
+
+const getFilteredPatientsFromAllPatients = async (
+    filter: FilteredColumns
+): Promise<PatientType[]> => {
+    const filteredPatients: PatientType[] = []
+    const tablesToSelectFrom = getTablesToSelectFrom(filter)
+    const { whereStatement, values } = getFilterWhereStatement(filter)
+
+    const promises = tablesToSelectFrom.map((tableName) => {
+        return new Promise<void>((resolveQuery, rejectQuery) => {
+            const query = `SELECT * FROM ${tableName} ${whereStatement.length > 0 ? `WHERE ${whereStatement}` : ''}`
+
+            db.all(query, values, (err, rows: PatientType[]) => {
+                if (err) {
+                    rejectQuery(err)
+                } else {
+                    filteredPatients.push(...rows)
+                    resolveQuery()
+                }
+            })
+        })
+    })
+
+    try {
+        await Promise.all(promises)
+        return filteredPatients
+    } catch (err) {
+        return []
+    }
+}
+
+const getTablesToSelectFrom = (filter: FilteredColumns): TableNames[] => {
+    const tablesToSelectFrom: TableNames[] = []
+
+    if (filter.form_type.length === 0) {
+        tablesToSelectFrom.push(
+            TableNames.podcelistni,
+            TableNames.podjazykove,
+            TableNames.priusni
+        )
+    } else {
+        filter.form_type.forEach((formType) => {
+            tablesToSelectFrom.push(formTypeToTableName[formType])
+        })
+    }
+
+    return tablesToSelectFrom
+}
+
+const getFilterWhereStatement = (
+    filter: FilteredColumns
+): { whereStatement: string; values: string[] } => {
+    let whereStatement = ''
+    const values: string[] = []
+
+    // For typ_terapie
+    if (filter.typ_terapie.length > 0) {
+        const typTerapieConditions = filter.typ_terapie
+            .map(() => 'typ_terapie = ?')
+            .join(' OR ')
+        whereStatement += `(${typTerapieConditions})`
+        values.push(...filter.typ_terapie)
+    }
+
+    // For histopatologie_vysledek
+    if (filter.histopatologie_vysledek.length > 0) {
+        const histopatologieConditions = filter.histopatologie_vysledek
+            .map(() => 'histopatologie_vysledek = ?')
+            .join(' OR ')
+        if (whereStatement !== '') {
+            whereStatement += ' OR '
+        }
+        whereStatement += `(${histopatologieConditions})`
+        values.push(...filter.histopatologie_vysledek)
+    }
+
+    return { whereStatement, values }
 }
 
 export const searchPatientsByNameSurnameRC = async (

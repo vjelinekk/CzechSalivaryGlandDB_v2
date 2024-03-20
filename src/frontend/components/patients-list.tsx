@@ -14,7 +14,7 @@ import {
 } from '../../ipc/ipcChannels'
 import {
     FormStates,
-    StudyTypes,
+    StudyType,
     FormType,
     studyTypeToFormTypeMap,
     Components,
@@ -22,6 +22,7 @@ import {
 import {
     activeComponentState,
     EditSavedState,
+    FilteredColumns,
     PatientInStudy,
     PatientType,
     Study,
@@ -30,10 +31,17 @@ import ParotidGlandForm from './forms/parotid/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
 import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
 import PatientButton from './patient-button'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import FiltrationMenu from './filtration-menu'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
-    studyType?: StudyTypes
+    studyType?: StudyType
     idStudie?: number
     setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
 }
@@ -56,30 +64,74 @@ const PatientsList: React.FC<PatientsListProps> = ({
     const [study, setStudy] = useState<Study | null>({ typ_studie: studyType })
     const [patientsStudies, setPatientsStudies] = useState<Study[]>([])
     const [searched, setSearched] = useState<boolean>(false)
+    const [openEmptyNameAlert, setOpenEmptyNameAlert] = useState(false)
+    const [openFiltrationMenu, setOpenFiltrationMenu] = useState(false)
+    const [filteredColumns, setFilteredColumns] = useState<FilteredColumns>({
+        form_type: studyType
+            ? studyType === StudyType.special
+                ? []
+                : [studyTypeToFormTypeMap[studyType]]
+            : [],
+        histopatologie_vysledek: [],
+        typ_terapie: [],
+    })
+    const [isFiltered, setIsFiltered] = useState(false)
     const currentIdStudie = useRef(idStudie)
+
+    useEffect(() => {
+        if (studyType) {
+            setFilteredColumns((prev) => ({
+                ...prev,
+                form_type: studyType
+                    ? studyType === StudyType.special
+                        ? []
+                        : [studyTypeToFormTypeMap[studyType]]
+                    : [],
+            }))
+        }
+    }, [studyType])
 
     const getAllPatients = async () => {
         let loadedPatients: PatientType[] = []
 
-        if (!idStudie) {
-            if (!studyType || studyType === StudyTypes.special) {
-                loadedPatients = await window.api.get(
-                    ipcAPIGetChannels.getAllPatients
-                )
-            } else if (studyType) {
-                loadedPatients = await window.api.get(
-                    ipcAPIGetChannels.getPatientsByType,
-                    studyTypeToFormTypeMap[studyType]
-                )
-            }
-        } else {
-            loadedPatients = await window.api.get(
-                ipcAPIGetChannels.getPatientsInStudy,
+        if (isFiltered) {
+            loadedPatients = await window.api.getFilteredPatients(
+                filteredColumns,
                 idStudie
             )
+        } else {
+            if (!idStudie) {
+                if (!studyType || studyType === StudyType.special) {
+                    loadedPatients = await window.api.get(
+                        ipcAPIGetChannels.getAllPatients
+                    )
+                } else if (studyType) {
+                    loadedPatients = await window.api.get(
+                        ipcAPIGetChannels.getPatientsByType,
+                        studyTypeToFormTypeMap[studyType]
+                    )
+                }
+            } else {
+                loadedPatients = await window.api.get(
+                    ipcAPIGetChannels.getPatientsInStudy,
+                    idStudie
+                )
+            }
         }
 
-        setPatients(loadedPatients)
+        setPatients(
+            loadedPatients.sort((a, b) => {
+                // First, compare by 'jmeno'
+                const jmenoComparison = a.jmeno.localeCompare(b.jmeno)
+
+                // If 'jmeno' is equal, compare by 'prijmeni'
+                if (jmenoComparison === 0) {
+                    return a.prijmeni.localeCompare(b.prijmeni)
+                }
+
+                return jmenoComparison
+            })
+        )
     }
 
     useEffect(() => {
@@ -105,7 +157,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
             getAllPatients()
         }
         getPatientsStudies()
-    }, [editSaved, activePatient, idStudie])
+    }, [editSaved, activePatient, idStudie, filteredColumns, isFiltered])
 
     const handleExport = async () => {
         await window.export.export(ipcExportChannels.export, selectedPatients)
@@ -119,20 +171,11 @@ const PatientsList: React.FC<PatientsListProps> = ({
     }
 
     const handleCreateStudy = async () => {
-        if (!study?.nazev_studie) {
-            window.alert('Název studie nesmí být prázdný')
-            return
-        }
         const JSONdata = JSON.parse(JSON.stringify(study))
         const studyId = await window.api.save(
             ipcAPISaveChannels.saveStudy,
             JSONdata
         )
-
-        if (!studyId) {
-            window.alert('Nepodařilo se vytvořit studii')
-            return
-        }
 
         selectedPatients.forEach(async (patient) => {
             const patientInStudy: PatientInStudy = {
@@ -162,8 +205,15 @@ const PatientsList: React.FC<PatientsListProps> = ({
             return
         }
 
-        const foundPatients =
-            await window.api.searchPatientsByNameSurnameRC(search)
+        const foundPatients = patients.filter((patient) => {
+            const fullName =
+                `${patient.jmeno || ''} ${patient.prijmeni || ''}`.toLowerCase()
+            const rodneCislo = patient.rodne_cislo || ''
+            return (
+                fullName.includes(search.toLowerCase()) ||
+                rodneCislo.toLowerCase().includes(search.toLowerCase())
+            )
+        })
 
         if (foundPatients) {
             setPatients(foundPatients)
@@ -174,7 +224,15 @@ const PatientsList: React.FC<PatientsListProps> = ({
     return (
         <>
             <div id="main" className="dataTable">
-                {(studyType && (
+                <FiltrationMenu
+                    openFilterMenu={openFiltrationMenu}
+                    setOpenFilterMenu={setOpenFiltrationMenu}
+                    filteredColumns={filteredColumns}
+                    setFilteredColumns={setFilteredColumns}
+                    studyType={studyType}
+                    setIsFiltered={setIsFiltered}
+                />
+                {(studyType && !idStudie && (
                     <div style={{ margin: '1rem' }}>
                         <input
                             type="text"
@@ -190,24 +248,60 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         />
                         <button
                             className="tableButton"
-                            onClick={handleCreateStudy}
+                            onClick={() => {
+                                if (!study?.nazev_studie) {
+                                    setOpenEmptyNameAlert(true)
+                                    return
+                                }
+                                handleCreateStudy()
+                            }}
                         >
                             Vytvořit novou studii
                         </button>
+                        <Dialog open={openEmptyNameAlert}>
+                            <DialogTitle>
+                                Název studie nesmí být prázdný
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Byl zadán prázdný název studie
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    onClick={() => setOpenEmptyNameAlert(false)}
+                                >
+                                    Rozumím
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
                     </div>
                 )) || (
                     <div>
-                        <button onClick={handleExport} className="tableButton">
+                        <button
+                            onClick={handleExport}
+                            style={{ backgroundColor: '#29a75e' }}
+                            className="tableButton"
+                        >
                             Exportovat
                         </button>
                         <button
                             onClick={handleExportAnonymized}
+                            style={{ backgroundColor: '#2c6e47' }}
                             className="tableButton"
                         >
                             Exportovat anonymizovaně
                         </button>
                     </div>
                 )}
+                <div>
+                    <button
+                        className="tableButton"
+                        onClick={() => setOpenFiltrationMenu(true)}
+                    >
+                        Filtrovat
+                    </button>
+                </div>
                 <div className="tableSelect">
                     <div>
                         <button
