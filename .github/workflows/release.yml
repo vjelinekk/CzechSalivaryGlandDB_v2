@@ -26,12 +26,12 @@ jobs:
             - run: npm run publish
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    release_arm64:
-        runs-on: self-hosted
-        steps:
-            - name: Check out repository code
-              uses: actions/checkout@v4
-            - run: npm install
-            - run: npm run publish
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    release_arm64:
+#        runs-on: self-hosted
+#        steps:
+#            - name: Check out repository code
+#              uses: actions/checkout@v4
+#            - run: npm install
+#            - run: npm run publish
+#              env:
+#                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
