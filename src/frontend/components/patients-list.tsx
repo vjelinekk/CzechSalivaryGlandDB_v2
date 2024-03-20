@@ -205,7 +205,11 @@ const PatientsList: React.FC<PatientsListProps> = ({
             return
         }
 
-        const foundPatients = patients.filter((patient) => {
+        const allPatients = await window.api.get(
+            ipcAPIGetChannels.getAllPatients
+        )
+
+        const foundPatients = allPatients.filter((patient) => {
             const fullName =
                 `${patient.jmeno || ''} ${patient.prijmeni || ''}`.toLowerCase()
             const rodneCislo = patient.rodne_cislo || ''

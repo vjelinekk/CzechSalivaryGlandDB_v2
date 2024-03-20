@@ -17,19 +17,43 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
     )
     const [listChanged, setListChanged] = useState(false)
 
-    useEffect(() => {
-        const getStudies = async () => {
-            const studies = await window.api.get(ipcAPIGetChannels.getStudies)
-            setStudies(studies)
-        }
+    const getStudies = async () => {
+        const studies = await window.api.get(ipcAPIGetChannels.getStudies)
+        setStudies(studies)
+    }
 
+    useEffect(() => {
         getStudies()
     }, [listChanged])
+
+    const handleStudiesSearch = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const search = event.target.value.toLowerCase()
+
+        if (search === '') {
+            getStudies()
+        }
+
+        const allStudies: Study[] = await window.api.get(
+            ipcAPIGetChannels.getStudies
+        )
+
+        const filteredStudies = allStudies.filter((study) =>
+            study.nazev_studie.toLowerCase().includes(search)
+        )
+
+        setStudies(filteredStudies)
+    }
 
     return (
         <>
             <div id="main" className="dataTable">
-                <input id="search" placeholder="Vyhledat..." />
+                <input
+                    id="search"
+                    placeholder="Vyhledat..."
+                    onChange={handleStudiesSearch}
+                />
                 <div className="wrapper">
                     {/* <table id="patient-table"> */}
                     {/* <tbody id="patients-tbody"> */}
