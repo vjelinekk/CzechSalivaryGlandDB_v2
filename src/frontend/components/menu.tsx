@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
 import { activeComponentState } from '../types'
-import SsidChartIcon from '@mui/icons-material/SsidChart'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
