@@ -7,6 +7,7 @@ export enum Components {
     sublingualGlandForm = 'sublingual-gland-form',
     submandibularGlandForm = 'submandibular-gland-form',
     study = 'study',
+    kaplanMeier = 'kaplan-meier',
 }
 
 export enum StudyType {
@@ -152,4 +153,37 @@ export const studyTypeToFormTypeMap: { [key: number]: FormType } = {
     1: FormType.podcelistni,
     2: FormType.podjazykove,
     3: FormType.priusni,
+}
+
+export enum KaplanMeierType {
+    survival = 'survival',
+    recidive = 'recidive',
+}
+
+export const kmGroupColorMap: { [key: string]: string } = {
+    'acinocelulární karcinom': '#FF5733', // Red
+    'sekretorický karcinom': '#33FF57', // Green
+    'mukoepidermoidní karcinom': '#007FFF', // Blue
+    'adenoidně cystický karcinom': '#FFD700', // Gold
+    'polymorfní adenokarcinom': '#8A2BE2', // BlueViolet
+    'epiteliální myoepiteliální karcinom': '#FF4500', // OrangeRed
+    'hyalinizující karcinom ze světlých buněk': '#FFA500', // Orange
+    'bazocelulární adenokarcinom': '#9932CC', // DarkOrchid
+    'sebaceózní adenokarcinom': '#2E8B57', // SeaGreen
+    'intraduktální karcinom': '#FF1493', // DeepPink
+    'salivární karcinom NOS': '#800000', // Maroon
+    'salivární duktální karcinom': '#4169E1', // RoyalBlue
+    'myoepiteliální karcinom': '#A52A2A', // Brown
+    'karcinom z pleomorfniho adenomu': '#00CED1', // DarkTurquoise
+    karcinosarkom: '#FF8C00', // DarkOrange
+    'špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní':
+        '#9400D3', // DarkViolet
+    'lymfoepiteliální karcinom': '#228B22', // ForestGreen
+    'skvamocelulární karcinom': '#FF0000', // Red
+    'mikrosekretorický adenokarcinom': '#7CFC00', // LawnGreen
+    'sklerózující mikrocystický adenokarcinom': '#FF69B4', // HotPink
+    'mucinózní adenokarcinom': '#9932CC', // DarkOrchid
+    asialoblastom: '#4682B4', // SteelBlue
+    'MALT-lymfom': '#808000', // Olive
+    jiné: '#000000', // Black
 }

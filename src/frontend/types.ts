@@ -161,3 +161,21 @@ export interface FilteredColumns {
     typ_terapie: string[]
     histopatologie_vysledek: string[]
 }
+
+export interface KaplanMeierPatientData {
+    start_date: string
+    event_date: string
+}
+
+export interface KaplanMeierData {
+    [key: string]: KaplanMeierPatientData[]
+}
+
+export interface KaplanMeierCurveData {
+    [key: string]: KaplanMeierCurveRecord[]
+}
+
+export interface KaplanMeierCurveRecord {
+    time: number
+    probability: number
+}

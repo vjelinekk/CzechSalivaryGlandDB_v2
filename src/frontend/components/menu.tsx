@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
 import { activeComponentState } from '../types'
+import SsidChartIcon from '@mui/icons-material/SsidChart'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
@@ -76,6 +77,20 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             className="icon"
                         />
                         Přidat studii
+                    </button>
+                </li>
+                <li>
+                    <button
+                        onClick={() =>
+                            handleButtonClick(Components.kaplanMeier)
+                        }
+                    >
+                        <img
+                            id="kaplan_meier"
+                            src="../img/chart.png"
+                            className="icon"
+                        />
+                        Kaplan-Meier
                     </button>
                 </li>
             </ul>

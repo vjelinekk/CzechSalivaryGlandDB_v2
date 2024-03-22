@@ -6,6 +6,7 @@ import {
     getPatientsByType,
     savePatient,
     getFilteredPatients,
+    getKaplanMeierData,
 } from '../backend/patientsManager'
 import {
     deletePatientFromStudy,
@@ -109,4 +110,9 @@ ipcMain.handle(
 ipcMain.handle(ipcAPIGetChannels.getFilteredPatients, async (event, args) => {
     const [filter, studyId] = args
     return await getFilteredPatients(filter, studyId)
+})
+
+ipcMain.handle(ipcAPIGetChannels.getKaplanMeierData, async (event, args) => {
+    const [kaplanMeierType, filter] = args
+    return await getKaplanMeierData(kaplanMeierType, filter)
 })

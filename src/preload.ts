@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { FormType } from './backend/constants'
+import { KaplanMeierType } from './frontend/constants'
 import { FilteredColumns, PatientType, Study } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
@@ -68,6 +69,15 @@ contextBridge.exposeInMainWorld('api', {
         return ipcRenderer.invoke(ipcAPIGetChannels.getFilteredPatients, [
             filter,
             studyId,
+        ])
+    },
+    getKaplanMeierData: (
+        kaplanMeierType: KaplanMeierType,
+        filter: FilteredColumns
+    ) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getKaplanMeierData, [
+            kaplanMeierType,
+            filter,
         ])
     },
 })
