@@ -78,6 +78,20 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                         Přidat studii
                     </button>
                 </li>
+                <li>
+                    <button
+                        onClick={() =>
+                            handleButtonClick(Components.kaplanMeier)
+                        }
+                    >
+                        <img
+                            id="kaplan_meier"
+                            src="../img/chart.png"
+                            className="icon"
+                        />
+                        Kaplan-Meier
+                    </button>
+                </li>
             </ul>
         </div>
     )

@@ -1,4 +1,10 @@
-import { FilteredColumns, PatientType } from '../frontend/types'
+import { KaplanMeierType } from '../frontend/constants'
+import {
+    FilteredColumns,
+    KaplanMeierData,
+    KaplanMeierPatientData,
+    PatientType,
+} from '../frontend/types'
 import {
     deleteRow,
     getAllRows,
@@ -267,6 +273,64 @@ const getFilterWhereStatement = (
     }
 
     return { whereStatement, values }
+}
+
+export const getKaplanMeierData = async (
+    kaplanMeierType: KaplanMeierType,
+    filter: FilteredColumns
+): Promise<KaplanMeierData | null> => {
+    const tablesToSelectFrom = getTablesToSelectFrom(filter)
+
+    const kaplanMeierData: KaplanMeierData = {}
+
+    const promises = tablesToSelectFrom.flatMap((tableName) => {
+        return filter.histopatologie_vysledek.map((histopatologieVysledek) => {
+            return new Promise<void>((resolveQuery, rejectQuery) => {
+                let query = ''
+                if (kaplanMeierType === KaplanMeierType.survival) {
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                } else {
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                }
+
+                db.all(
+                    query,
+                    [histopatologieVysledek],
+                    (err, rows: PatientType[]) => {
+                        if (err) {
+                            rejectQuery(err)
+                        } else {
+                            kaplanMeierData[histopatologieVysledek] = [
+                                ...(kaplanMeierData[histopatologieVysledek] ||
+                                    []),
+                                ...rows.map((row) => {
+                                    const patientData: KaplanMeierPatientData =
+                                        {
+                                            start_date:
+                                                row.rok_diagnozy as string,
+                                            event_date:
+                                                kaplanMeierType ===
+                                                KaplanMeierType.survival
+                                                    ? (row.datum_umrti as string)
+                                                    : (row.datum_prokazani_recidivy as string),
+                                        }
+                                    return patientData
+                                }),
+                            ]
+                            resolveQuery()
+                        }
+                    }
+                )
+            })
+        })
+    })
+
+    try {
+        await Promise.all(promises)
+        return kaplanMeierData
+    } catch (err) {
+        return null
+    }
 }
 
 export const searchPatientsByNameSurnameRC = async (

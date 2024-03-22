@@ -18,6 +18,7 @@ import '../css/sidebar.css'
 import '../css/pop_up.css'
 import '../css/switch.css'
 import '../css/table.css'
+import KaplanMeier from './kaplan-meier'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -65,6 +66,9 @@ const app = () => {
                     setActiveComponent={setActiveComponent}
                     studyType={activeComponent?.studyType}
                 />
+            )}
+            {activeComponent.component === Components.kaplanMeier && (
+                <KaplanMeier />
             )}
         </>
     )

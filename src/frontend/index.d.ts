@@ -7,7 +7,7 @@ import {
     ipcExportChannels,
 } from '../ipc/ipcChannels'
 import { FormType } from './constants'
-import { PatientType, Study } from './types'
+import { KaplanMeierData, PatientType, Study } from './types'
 
 declare global {
     interface Window {
@@ -50,6 +50,10 @@ declare global {
                 filter: FilteredColumns,
                 studyId?: number
             ) => Promise<PatientType[]>
+            getKaplanMeierData: (
+                kaplanMeierType: KaplanMeierType,
+                filter: FilteredColumns
+            ) => Promise<KaplanMeierData>
         }
         export: {
             export: (
