@@ -8,6 +8,7 @@ export enum Components {
     submandibularGlandForm = 'submandibular-gland-form',
     study = 'study',
     kaplanMeier = 'kaplan-meier',
+    import = 'import',
 }
 
 export enum StudyType {

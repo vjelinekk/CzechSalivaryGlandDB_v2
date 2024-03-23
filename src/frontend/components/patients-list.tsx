@@ -2,6 +2,7 @@ import React, {
     ChangeEvent,
     Dispatch,
     SetStateAction,
+    useContext,
     useEffect,
     useRef,
     useState,
@@ -38,6 +39,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import FiltrationMenu from './filtration-menu'
+import { ImportContext } from './import-context'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -77,6 +79,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     })
     const [isFiltered, setIsFiltered] = useState(false)
     const currentIdStudie = useRef(idStudie)
+    const { imported, setImported } = useContext(ImportContext)
 
     useEffect(() => {
         if (studyType) {
@@ -90,6 +93,13 @@ const PatientsList: React.FC<PatientsListProps> = ({
             }))
         }
     }, [studyType])
+
+    useEffect(() => {
+        if (imported) {
+            getAllPatients()
+            setImported(false)
+        }
+    }, [imported])
 
     const getAllPatients = async () => {
         let loadedPatients: PatientType[] = []
@@ -122,11 +132,15 @@ const PatientsList: React.FC<PatientsListProps> = ({
         setPatients(
             loadedPatients.sort((a, b) => {
                 // First, compare by 'jmeno'
-                const jmenoComparison = a.jmeno.localeCompare(b.jmeno)
+                const jmenoA = a.jmeno || '' // Use empty string if jmeno is undefined
+                const jmenoB = b.jmeno || '' // Use empty string if jmeno is undefined
+                const jmenoComparison = jmenoA.localeCompare(jmenoB)
 
                 // If 'jmeno' is equal, compare by 'prijmeni'
                 if (jmenoComparison === 0) {
-                    return a.prijmeni.localeCompare(b.prijmeni)
+                    const prijmeniA = a.prijmeni || '' // Use empty string if prijmeni is undefined
+                    const prijmeniB = b.prijmeni || '' // Use empty string if prijmeni is undefined
+                    return prijmeniA.localeCompare(prijmeniB)
                 }
 
                 return jmenoComparison

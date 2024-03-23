@@ -34,6 +34,10 @@ export enum ipcExportChannels {
     exportAnonymized = 'exportAnonymized',
 }
 
+export enum ipcImportChannels {
+    import = 'import',
+}
+
 export enum ipcFSChannels {
     save = 'save',
     getFileIcon = 'getFileIcon',

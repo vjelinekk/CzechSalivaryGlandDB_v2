@@ -61,6 +61,9 @@ declare global {
                 patients: PatientType[]
             ) => Promise<void>
         }
+        import: {
+            import: () => Promise<void>
+        }
         fs: {
             save: () => Promise<string | null>
             getFileIcon: (fileName: string) => Promise<string>
