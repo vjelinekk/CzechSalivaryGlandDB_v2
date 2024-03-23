@@ -10,6 +10,7 @@ import {
     ipcAPIUpdateChannels,
     ipcExportChannels,
     ipcFSChannels,
+    ipcImportChannels,
 } from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
@@ -85,6 +86,12 @@ contextBridge.exposeInMainWorld('api', {
 contextBridge.exposeInMainWorld('export', {
     export: (channel: ipcExportChannels, patients: PatientType[]) => {
         return ipcRenderer.invoke(channel, patients)
+    },
+})
+
+contextBridge.exposeInMainWorld('import', {
+    import: () => {
+        return ipcRenderer.invoke(ipcImportChannels.import)
     },
 })
 

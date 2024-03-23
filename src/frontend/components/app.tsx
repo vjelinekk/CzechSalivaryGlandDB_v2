@@ -19,6 +19,7 @@ import '../css/pop_up.css'
 import '../css/switch.css'
 import '../css/table.css'
 import KaplanMeier from './kaplan-meier'
+import ImportProvider from './import-context'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -26,7 +27,7 @@ const app = () => {
     )
 
     return (
-        <>
+        <ImportProvider>
             <Menu setActiveComponent={setActiveComponent} />
             {activeComponent.component === Components.patientsList && (
                 <PatientsList
@@ -70,7 +71,7 @@ const app = () => {
             {activeComponent.component === Components.kaplanMeier && (
                 <KaplanMeier />
             )}
-        </>
+        </ImportProvider>
     )
 }
 

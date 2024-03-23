@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
 import { activeComponentState } from '../types'
+import ImportButton from './import-button'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
@@ -91,6 +92,9 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                         />
                         Kaplan-Meier
                     </button>
+                </li>
+                <li>
+                    <ImportButton />
                 </li>
             </ul>
         </div>
