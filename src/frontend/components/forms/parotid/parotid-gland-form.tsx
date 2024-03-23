@@ -30,6 +30,8 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
         form_type: FormType.priusni,
     })
 
+    console.log(formData)
+
     const [databaseFormData, setDatabaseFormData] =
         useState<ParotidPatientData | null>(data)
 
