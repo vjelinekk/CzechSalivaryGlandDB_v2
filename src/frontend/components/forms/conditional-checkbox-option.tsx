@@ -58,7 +58,7 @@ const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
         if (child.props.dbLabel !== undefined) {
             setFormData((prev) => {
                 if (prev) {
-                    delete prev[child.props.dbLabel]
+                    prev[child.props.dbLabel] = null
                     return { ...prev }
                 }
                 return prev
