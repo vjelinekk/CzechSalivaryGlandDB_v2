@@ -42,4 +42,5 @@ export enum ipcFSChannels {
     save = 'save',
     getFileIcon = 'getFileIcon',
     open = 'open',
+    getFileName = 'getFileName',
 }

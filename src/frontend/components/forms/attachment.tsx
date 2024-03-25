@@ -3,17 +3,18 @@ import CloseIcon from '@mui/icons-material/Close'
 import { PatientType } from '../../types'
 
 interface AttachmentProps {
-    fileName: string
+    filePath: string
     setFormData: Dispatch<SetStateAction<PatientType>>
     disabled: boolean
 }
 
 const Attachment: React.FC<AttachmentProps> = ({
-    fileName,
+    filePath,
     setFormData,
     disabled,
 }) => {
     const [fileIcon, setFileIcon] = useState<string>('')
+    const [fileName, setFileName] = useState<string>('')
 
     const handleButtonClick = async (
         e: React.MouseEvent<HTMLButtonElement>
@@ -30,7 +31,7 @@ const Attachment: React.FC<AttachmentProps> = ({
             const prevAttachments = prevFormData?.attachments || ''
             const newAttachments = prevAttachments
                 .split(',')
-                .filter((path) => path !== fileName)
+                .filter((path) => path !== filePath)
                 .join(',')
             return {
                 ...prevFormData,
@@ -41,11 +42,17 @@ const Attachment: React.FC<AttachmentProps> = ({
 
     useEffect(() => {
         const loadFileIcon = async () => {
-            const fileIcon = await window.fs.getFileIcon(fileName)
+            const fileIcon = await window.fs.getFileIcon(filePath)
             setFileIcon(fileIcon)
         }
 
+        const loadFileName = async () => {
+            const fileName = await window.fs.getFileName(filePath)
+            setFileName(fileName)
+        }
+
         loadFileIcon()
+        loadFileName()
     }, [])
 
     return (

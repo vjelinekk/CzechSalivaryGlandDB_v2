@@ -129,8 +129,6 @@ const PatientsList: React.FC<PatientsListProps> = ({
             }
         }
 
-        console.log(loadedPatients)
-
         setPatients(
             loadedPatients.sort((a, b) => {
                 // First, compare by 'jmeno'
