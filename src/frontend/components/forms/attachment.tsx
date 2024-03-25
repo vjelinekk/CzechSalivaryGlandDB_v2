@@ -65,7 +65,7 @@ const Attachment: React.FC<AttachmentProps> = ({
                         alt="file icon"
                     />
                 )}
-                {fileName.split('/').pop()}
+                {fileName}
             </button>
             <button
                 className="basicButton"
