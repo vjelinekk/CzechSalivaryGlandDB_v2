@@ -15,8 +15,19 @@ import {
     StudieColumns,
 } from './types'
 import { columnToSQL } from './utils'
+import path from 'path'
+import { app } from 'electron'
 
-const db = new sqlite3.Database('db.sqlite')
+const getDBPath = (filename: string): string => {
+    let base = app.getAppPath()
+    if (app.isPackaged) {
+        base = base.replace('/app.asar', '')
+    }
+    return path.resolve(base, `${filename}.sqlite`)
+}
+
+console.log(getDBPath('db'))
+const db = new sqlite3.Database(getDBPath('db'))
 
 const createTable = (
     tableName: TableNames,
