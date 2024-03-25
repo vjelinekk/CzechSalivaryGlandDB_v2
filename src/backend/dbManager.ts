@@ -20,8 +20,10 @@ import { app } from 'electron'
 
 const getDBPath = (filename: string): string => {
     let base = app.getAppPath()
+    console.log(base)
     if (app.isPackaged) {
-        base = base.replace('/app.asar', '')
+        base = base.replace(`${path.sep}app.asar`, '')
+        console.log(base)
     }
     return path.resolve(base, `${filename}.sqlite`)
 }
