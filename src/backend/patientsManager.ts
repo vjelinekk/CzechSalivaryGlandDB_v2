@@ -176,7 +176,7 @@ const getFilteredPatientsFromStudy = async (
 
     const promises = tablesToSelectFrom.map((tableName) => {
         return new Promise<void>((resolveQuery, rejectQuery) => {
-            const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.jeVeStudii} ON ${tableName}.id = ${jeVeStudiiColumns.id_pacient_db.columnName} WHERE ${jeVeStudiiColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
+            const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.jeVeStudii} ON ${tableName}.id = ${jeVeStudiiColumns.id_pacient_db.columnName} AND ${tableName}.form_type = ${jeVeStudiiColumns.typ_pacienta.columnName} WHERE ${jeVeStudiiColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
 
             db.all(query, [idStudie, ...values], (err, rows: PatientType[]) => {
                 if (err) {

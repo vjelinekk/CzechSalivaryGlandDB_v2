@@ -34,7 +34,7 @@ const Attachments: React.FC<GlandComponentProps> = ({
                     .map((path, index) => (
                         <Attachment
                             key={index}
-                            fileName={path}
+                            filePath={path}
                             setFormData={setFormData}
                             disabled={disabled}
                         />

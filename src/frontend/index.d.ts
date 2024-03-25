@@ -67,6 +67,7 @@ declare global {
         fs: {
             save: () => Promise<string | null>
             getFileIcon: (fileName: string) => Promise<string>
+            getFileName: (filePath: string) => Promise<string>
             open: (filePath: string) => void
         }
     }

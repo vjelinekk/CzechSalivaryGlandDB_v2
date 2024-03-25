@@ -102,6 +102,9 @@ contextBridge.exposeInMainWorld('fs', {
     getFileIcon: (fileName: string) => {
         return ipcRenderer.invoke(ipcFSChannels.getFileIcon, fileName)
     },
+    getFileName: (filePath: string) => {
+        return ipcRenderer.invoke(ipcFSChannels.getFileName, filePath)
+    },
     open: (filePath: string) => {
         ipcRenderer.invoke(ipcFSChannels.open, filePath)
     },
