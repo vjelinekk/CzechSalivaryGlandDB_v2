@@ -15,6 +15,7 @@ import {
     TableNames,
 } from './constants'
 import db from './dbManager'
+import { decryptPatientData } from './patientsManager'
 import { RowRecordType } from './types'
 
 const tableName = TableNames.studie
@@ -102,7 +103,7 @@ export const getPatientsInStudy = async (
         [idStudie]
     )
 
-    const patients = await Promise.all(
+    let patients = await Promise.all(
         patientsInStudy.map(
             async (patientInStudy: {
                 id_pacient_db: number
@@ -132,6 +133,8 @@ export const getPatientsInStudy = async (
             }
         )
     )
+
+    patients = decryptPatientData(patients)
 
     return patients
 }
