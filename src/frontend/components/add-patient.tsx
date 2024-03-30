@@ -29,17 +29,6 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                 </li>
                 <li>
                     <button
-                        id="add-sublingual-gland"
-                        className="mainButton"
-                        onClick={() =>
-                            handleButtonClick(Components.sublingualGlandForm)
-                        }
-                    >
-                        Podjazyková žláza
-                    </button>
-                </li>
-                <li>
-                    <button
                         id="add-submandibular-gland"
                         className="mainButton"
                         onClick={() =>
@@ -47,6 +36,17 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                         }
                     >
                         Podčelistní žláza
+                    </button>
+                </li>
+                <li>
+                    <button
+                        id="add-sublingual-gland"
+                        className="mainButton"
+                        onClick={() =>
+                            handleButtonClick(Components.sublingualGlandForm)
+                        }
+                    >
+                        Podjazyková žláza
                     </button>
                 </li>
             </ul>
