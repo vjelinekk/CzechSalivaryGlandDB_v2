@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3'
 import {
     jeVeStudiiColumns,
+    passwordColumns,
     podcelistniColumns,
     podjazykoveColumns,
     priusniColumns,
@@ -9,6 +10,7 @@ import {
 } from './constants'
 import {
     JeVeStudiiColumns,
+    PasswordColumns,
     PodcelistniColumns,
     PodjazykoveColumns,
     PriusniColumns,
@@ -39,6 +41,7 @@ const createTable = (
         | PriusniColumns
         | JeVeStudiiColumns
         | StudieColumns
+        | PasswordColumns
 ) => {
     const columnDefinitions = Object.values(columns).map(
         ({ columnName, columnType }) => columnToSQL(columnName, columnType)
@@ -55,6 +58,7 @@ db.serialize(() => {
     createTable(TableNames.priusni, priusniColumns)
     createTable(TableNames.studie, studieColumns)
     createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
+    createTable(TableNames.password, passwordColumns)
 })
 
 export default db

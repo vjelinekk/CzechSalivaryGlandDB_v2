@@ -70,5 +70,18 @@ declare global {
             getFileName: (filePath: string) => Promise<string>
             open: (filePath: string) => void
         }
+        encryption: {
+            setEncryptionKey: (key: string) => void
+            isPasswordSet: () => Promise<boolean | null>
+            isEncryptionEnabled: () => Promise<boolean | null>
+            insertPasswordRow: (
+                password: string,
+                usingEncryption: boolean
+            ) => Promise<void>
+            insertPassword: (password: string) => Promise<void>
+            insertUsingEncryption: (enabled: boolean) => Promise<void>
+            validatePassword: (password: string) => Promise<boolean>
+            generateEncryptionKey: () => Promise<string>
+        }
     }
 }

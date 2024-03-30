@@ -1,10 +1,23 @@
 import crypto from 'crypto'
-import 'dotenv/config'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const algorithm = 'aes-256-cbc'
-const encryptionKey = process.env.ENCRYPTION_KEY
+let encryptionKey: string
+
+export const setEncryptionKey = (key: string) => {
+    encryptionKey = key
+}
+
+export const generateEncryptionKey = (): string => {
+    return crypto.randomBytes(32).toString('hex')
+}
 
 export const encrypt = (text: string): { encrypted: string; iv: Buffer } => {
+    if (encryptionKey === '') {
+        return { encrypted: text, iv: Buffer.from('') }
+    }
+
     try {
         const iv = crypto.randomBytes(16)
         const cipher = crypto.createCipheriv(
@@ -21,6 +34,10 @@ export const encrypt = (text: string): { encrypted: string; iv: Buffer } => {
 }
 
 export const decrypt = (text: string, iv: Buffer): string => {
+    if (encryptionKey === '') {
+        return text
+    }
+
     try {
         const encryptedText = Buffer.from(text, 'hex')
         const decipher = crypto.createDecipheriv(

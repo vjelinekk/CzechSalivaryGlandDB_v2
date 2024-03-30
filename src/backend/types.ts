@@ -129,9 +129,22 @@ export interface JeVeStudiiColumns {
     PRIMARY_KEY: ColumnDefinition
 }
 
+export interface PasswordColumns {
+    id: ColumnDefinition
+    password: ColumnDefinition
+    using_encryption: ColumnDefinition
+    PRIMARY_KEY: ColumnDefinition
+}
+
 export interface JeVeStudiiType {
     id: number
     id_studie: number
     id_pacient_db: number
     typ_pacienta: string
+}
+
+export interface PasswordType {
+    id?: number
+    password?: string
+    using_encryption?: boolean
 }

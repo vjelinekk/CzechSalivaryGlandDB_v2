@@ -8,6 +8,7 @@ import {
     ipcAPIInsertChannels,
     ipcAPISaveChannels,
     ipcAPIUpdateChannels,
+    ipcEncryptionChannels,
     ipcExportChannels,
     ipcFSChannels,
     ipcImportChannels,
@@ -107,5 +108,44 @@ contextBridge.exposeInMainWorld('fs', {
     },
     open: (filePath: string) => {
         ipcRenderer.invoke(ipcFSChannels.open, filePath)
+    },
+})
+
+contextBridge.exposeInMainWorld('encryption', {
+    setEncryptionKey: (key: string) => {
+        return ipcRenderer.invoke(ipcEncryptionChannels.setEncryptionKey, key)
+    },
+    isPasswordSet: () => {
+        return ipcRenderer.invoke(ipcEncryptionChannels.isPasswordSet)
+    },
+    isEncryptionEnabled: () => {
+        return ipcRenderer.invoke(ipcEncryptionChannels.isEncryptionEnabled)
+    },
+    insertPasswordRow: (password: string, usingEncryption: boolean) => {
+        return ipcRenderer.invoke(ipcEncryptionChannels.insertPasswordRow, [
+            password,
+            usingEncryption,
+        ])
+    },
+    insertPassword: (password: string) => {
+        return ipcRenderer.invoke(
+            ipcEncryptionChannels.insertPassword,
+            password
+        )
+    },
+    insertUsingEncryption: (enabled: boolean) => {
+        return ipcRenderer.invoke(
+            ipcEncryptionChannels.insertUsingEncryption,
+            enabled
+        )
+    },
+    validatePassword: (password: string) => {
+        return ipcRenderer.invoke(
+            ipcEncryptionChannels.validatePassword,
+            password
+        )
+    },
+    generateEncryptionKey: () => {
+        return ipcRenderer.invoke(ipcEncryptionChannels.generateEncryptionKey)
     },
 })

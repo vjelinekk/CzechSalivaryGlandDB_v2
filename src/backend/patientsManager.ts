@@ -60,7 +60,7 @@ export const decryptPatientData = (
     })
 }
 
-const encryptPatientData = (patientData: PatientType): PatientType => {
+export const encryptPatientData = (patientData: PatientType): PatientType => {
     const encryptedPatient: PatientType = { ...patientData }
 
     if (patientData.jmeno) {
