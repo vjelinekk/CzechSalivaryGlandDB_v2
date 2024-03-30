@@ -25,19 +25,19 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         className="mainButton"
-                        onClick={() => handleButtonClick(StudyType.sublingual)}
-                    >
-                        Nová studie Podjazykových žláz
-                    </button>
-                </li>
-                <li>
-                    <button
-                        className="mainButton"
                         onClick={() =>
                             handleButtonClick(StudyType.submandibular)
                         }
                     >
                         Nová studie Podčelistních žláz
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className="mainButton"
+                        onClick={() => handleButtonClick(StudyType.sublingual)}
+                    >
+                        Nová studie Podjazykových žláz
                     </button>
                 </li>
                 <li>
