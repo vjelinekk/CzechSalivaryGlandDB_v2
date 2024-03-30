@@ -23,7 +23,7 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     const workbook = new Workbook()
     await workbook.xlsx.readFile(filePath)
 
-    const worksheet = workbook.getWorksheet(1) // Assuming data is in the first worksheet
+    const worksheet = workbook.getWorksheet(1)
 
     const data: PatientType[] = []
 

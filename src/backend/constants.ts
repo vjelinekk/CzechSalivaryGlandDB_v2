@@ -1,5 +1,6 @@
 import {
     JeVeStudiiColumns,
+    PasswordColumns,
     PodcelistniColumns,
     PodjazykoveColumns,
     PriusniColumns,
@@ -12,6 +13,7 @@ export enum TableNames {
     priusni = 'form_priusni',
     studie = 'studie',
     jeVeStudii = 'je_ve_studii',
+    password = 'password',
 }
 
 export const podcelistniColumns: PodcelistniColumns = {
@@ -1154,6 +1156,25 @@ export const jeVeStudiiColumns: JeVeStudiiColumns = {
     FOREIGN_KEY: {
         columnName: 'FOREIGN KEY',
         columnType: '(id_studie) REFERENCES studie(id_studie)',
+    },
+    PRIMARY_KEY: {
+        columnName: 'PRIMARY KEY',
+        columnType: '(id AUTOINCREMENT)',
+    },
+}
+
+export const passwordColumns: PasswordColumns = {
+    id: {
+        columnName: 'id',
+        columnType: 'INTEGER UNIQUE',
+    },
+    password: {
+        columnName: 'password',
+        columnType: 'TEXT',
+    },
+    using_encryption: {
+        columnName: 'using_encryption',
+        columnType: 'INTEGER',
     },
     PRIMARY_KEY: {
         columnName: 'PRIMARY KEY',

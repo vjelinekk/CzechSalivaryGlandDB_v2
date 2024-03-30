@@ -44,3 +44,14 @@ export enum ipcFSChannels {
     open = 'open',
     getFileName = 'getFileName',
 }
+
+export enum ipcEncryptionChannels {
+    setEncryptionKey = 'setEncryptionKey',
+    isPasswordSet = 'isPasswordSet',
+    isEncryptionEnabled = 'isEncryptionEnabled',
+    insertPasswordRow = 'insertPasswordRow',
+    insertPassword = 'insertPassword',
+    insertUsingEncryption = 'insertUsingEncryption',
+    validatePassword = 'validatePassword',
+    generateEncryptionKey = 'generateEncryptionKey',
+}

@@ -22,8 +22,70 @@ import {
     TableNames,
 } from './constants'
 import db from './dbManager'
+import { decrypt, encrypt } from './encryption'
 import { deletePatientFromAllStudies } from './studieManager'
 import { RowRecordType } from './types'
+
+export const decryptPatientData = (
+    patientData: PatientType[]
+): PatientType[] => {
+    return patientData.map((patient) => {
+        const decryptedPatient: PatientType = { ...patient }
+
+        if (patient.jmeno) {
+            const [encryptedName, iv] = patient.jmeno.split(':')
+            decryptedPatient.jmeno = decrypt(
+                encryptedName,
+                Buffer.from(iv, 'hex')
+            )
+        }
+
+        if (patient.prijmeni) {
+            const [encryptedSurname, iv] = patient.prijmeni.split(':')
+            decryptedPatient.prijmeni = decrypt(
+                encryptedSurname,
+                Buffer.from(iv, 'hex')
+            )
+        }
+
+        if (patient.rodne_cislo) {
+            const [encryptedRC, iv] = patient.rodne_cislo.split(':')
+            decryptedPatient.rodne_cislo = decrypt(
+                encryptedRC,
+                Buffer.from(iv, 'hex')
+            )
+        }
+
+        return decryptedPatient
+    })
+}
+
+export const encryptPatientData = (patientData: PatientType): PatientType => {
+    const encryptedPatient: PatientType = { ...patientData }
+
+    if (patientData.jmeno) {
+        const { encrypted: encryptedName, iv } = encrypt(
+            patientData.jmeno as string
+        )
+        encryptedPatient.jmeno = encryptedName + ':' + iv.toString('hex')
+    }
+
+    if (patientData.prijmeni) {
+        const { encrypted: encryptedSurname, iv } = encrypt(
+            patientData.prijmeni as string
+        )
+        encryptedPatient.prijmeni = encryptedSurname + ':' + iv.toString('hex')
+    }
+
+    if (patientData.rodne_cislo) {
+        const { encrypted: encryptedRC, iv } = encrypt(
+            patientData.rodne_cislo as string
+        )
+        encryptedPatient.rodne_cislo = encryptedRC + ':' + iv.toString('hex')
+    }
+
+    return encryptedPatient
+}
 
 export const insertPatient = async (
     data: RowRecordType
@@ -31,13 +93,15 @@ export const insertPatient = async (
     const formType = data.form_type as FormType
     let result
 
+    const patientData: PatientType = encryptPatientData(data as PatientType)
+
     try {
         if (formType === FormType.podcelistni) {
-            result = await insertRow(TableNames.podcelistni, data)
+            result = await insertRow(TableNames.podcelistni, patientData)
         } else if (formType === FormType.podjazykove) {
-            result = await insertRow(TableNames.podjazykove, data)
+            result = await insertRow(TableNames.podjazykove, patientData)
         } else if (formType === FormType.priusni) {
-            result = await insertRow(TableNames.priusni, data)
+            result = await insertRow(TableNames.priusni, patientData)
         }
     } catch (err) {
         result = null
@@ -50,6 +114,7 @@ export const updatePatient = async (
     data: Record<string, string | number | string[]>
 ): Promise<number | null> => {
     const formType = data.form_type
+    const patientData: PatientType = encryptPatientData(data as PatientType)
 
     try {
         let result
@@ -57,19 +122,19 @@ export const updatePatient = async (
             result = await updateRow(
                 TableNames.podcelistni,
                 data.id as number,
-                data
+                patientData
             )
         } else if (formType === FormType.podjazykove) {
             result = await updateRow(
                 TableNames.podjazykove,
                 data.id as number,
-                data
+                patientData
             )
         } else if (formType === FormType.priusni) {
             result = await updateRow(
                 TableNames.priusni,
                 data.id as number,
-                data
+                patientData
             )
         }
 
@@ -111,6 +176,8 @@ export const getAllPatients = async () => {
         patients = null
     }
 
+    patients = decryptPatientData(patients)
+
     return patients
 }
 
@@ -130,6 +197,8 @@ export const getPatientsByType = async (
     } catch (err) {
         patients = null
     }
+
+    patients = decryptPatientData(patients)
 
     return patients
 }
@@ -152,6 +221,10 @@ export const getPatient = async (
         patient = null
     }
 
+    if (patient) {
+        patient = decryptPatientData([patient])[0]
+    }
+
     return patient
 }
 
@@ -170,7 +243,7 @@ const getFilteredPatientsFromStudy = async (
     filter: FilteredColumns,
     idStudie: number
 ): Promise<PatientType[]> => {
-    const filteredPatients: PatientType[] = []
+    let filteredPatients: PatientType[] = []
     const tablesToSelectFrom = getTablesToSelectFrom(filter)
     const { whereStatement, values } = getFilterWhereStatement(filter)
 
@@ -191,6 +264,7 @@ const getFilteredPatientsFromStudy = async (
 
     try {
         await Promise.all(promises)
+        filteredPatients = decryptPatientData(filteredPatients)
         return filteredPatients
     } catch (err) {
         return []
@@ -200,7 +274,7 @@ const getFilteredPatientsFromStudy = async (
 const getFilteredPatientsFromAllPatients = async (
     filter: FilteredColumns
 ): Promise<PatientType[]> => {
-    const filteredPatients: PatientType[] = []
+    let filteredPatients: PatientType[] = []
     const tablesToSelectFrom = getTablesToSelectFrom(filter)
     const { whereStatement, values } = getFilterWhereStatement(filter)
 
@@ -221,6 +295,7 @@ const getFilteredPatientsFromAllPatients = async (
 
     try {
         await Promise.all(promises)
+        filteredPatients = decryptPatientData(filteredPatients)
         return filteredPatients
     } catch (err) {
         return []

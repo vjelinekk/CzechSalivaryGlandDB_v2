@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Menu from './menu'
 import PatientsList from './patients-list'
 import AddPatient from './add-patient'
@@ -20,13 +20,16 @@ import '../css/switch.css'
 import '../css/table.css'
 import KaplanMeier from './kaplan-meier'
 import ImportProvider from './import-context'
+import LoginForm from './login-form'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
         Components.patientsList
     )
 
-    return (
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+    return isLoggedIn ? (
         <ImportProvider>
             <Menu setActiveComponent={setActiveComponent} />
             {activeComponent.component === Components.patientsList && (
@@ -72,6 +75,8 @@ const app = () => {
                 <KaplanMeier />
             )}
         </ImportProvider>
+    ) : (
+        <LoginForm setIsLoggedIn={setIsLoggedIn} />
     )
 }
 
