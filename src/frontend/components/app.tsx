@@ -29,6 +29,8 @@ const app = () => {
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
+    console.log(isLoggedIn)
+
     return isLoggedIn ? (
         <ImportProvider>
             <Menu setActiveComponent={setActiveComponent} />
