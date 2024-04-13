@@ -252,7 +252,7 @@ const Histopathology: React.FC<GlandComponentProps> = ({
             </ConditionalCheckboxes>
             <h2>Specifikace histologického typu</h2>
             <NumberInput
-                label="Velikost nádoru - největší rozměr (cm)"
+                label="Velikost nádoru - největší rozměr (mm)"
                 dbLabel={dbLabels.velikost_nadoru_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,

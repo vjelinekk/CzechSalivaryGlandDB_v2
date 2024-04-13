@@ -122,7 +122,7 @@ const SublingualGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                         options={[
                             'RT',
-                            'CT',
+                            'CHRT',
                             'CH',
                             'Protonová terapie',
                             'Nebyla indikována',
