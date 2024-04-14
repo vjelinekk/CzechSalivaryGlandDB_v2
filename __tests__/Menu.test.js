@@ -4,6 +4,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import Menu from '../src/frontend/components/menu'
+import ImportProvider from '../src/frontend/components/import-context'
 import { describe, expect, it, jest } from '@jest/globals'
 import { Components } from '../src/frontend/constants'
 
@@ -11,7 +12,9 @@ describe('Menu component', () => {
     it('should call setActiveComponent with correct component name when a button is clicked', () => {
         const setActiveComponentMock = jest.fn()
         const { getByText } = render(
-            <Menu setActiveComponent={setActiveComponentMock} />
+            <ImportProvider>
+                <Menu setActiveComponent={setActiveComponentMock} />
+            </ImportProvider>
         )
 
         fireEvent.click(getByText('Seznam pacientů'))
