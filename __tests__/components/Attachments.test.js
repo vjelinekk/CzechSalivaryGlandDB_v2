@@ -1,11 +1,11 @@
-import { beforeEach, describe, expect, jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { beforeEach, describe, expect, jest } from '@jest/globals'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import Attachments from '../../src/frontend/components/forms/attachments'
 
 describe('Attachments component', () => {
     const formDataMock = {
-        attachments: 'test.txt'
+        attachments: 'test.txt',
     }
     const setFormDataMock = jest.fn()
 
@@ -13,7 +13,7 @@ describe('Attachments component', () => {
         window.fs = {
             getFileName: jest.fn().mockReturnValue('test.txt'),
             getFileIcon: jest.fn().mockReturnValue('test'),
-            save: jest.fn().mockReturnValue('new.txt')
+            save: jest.fn().mockReturnValue('new.txt'),
         }
 
         await act(async () => {
@@ -28,10 +28,12 @@ describe('Attachments component', () => {
     })
 
     test('should render component correctly', async () => {
-        expect(screen.getByText('Přidat přílohu')).toBeInTheDocument();
+        expect(screen.getByText('Přidat přílohu')).toBeInTheDocument()
 
-        const attachmentButton = screen.getByRole('button', { name: /test.txt/})
-        expect(attachmentButton).toBeInTheDocument();
+        const attachmentButton = screen.getByRole('button', {
+            name: /test.txt/,
+        })
+        expect(attachmentButton).toBeInTheDocument()
     })
 
     test('should add attachment', async () => {
@@ -40,6 +42,6 @@ describe('Attachments component', () => {
             fireEvent.click(addButton)
         })
 
-        expect(window.fs.save).toHaveBeenCalled();
+        expect(window.fs.save).toHaveBeenCalled()
     })
 })

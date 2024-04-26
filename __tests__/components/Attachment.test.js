@@ -1,12 +1,12 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Attachment from '../../src/frontend/components/forms/attachment';
-import { expect, jest } from '@jest/globals';
-import { act } from 'react-dom/test-utils';
+import React from 'react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import Attachment from '../../src/frontend/components/forms/attachment'
+import { expect, jest } from '@jest/globals'
+import { act } from 'react-dom/test-utils'
 
 describe('Attachment component', () => {
-    const filePathMock = 'example/filepath.txt';
-    const setFormDataMock = jest.fn();
+    const filePathMock = 'example/filepath.txt'
+    const setFormDataMock = jest.fn()
 
     beforeEach(async () => {
         window.fs = {
@@ -14,7 +14,7 @@ describe('Attachment component', () => {
             getFileName: jest.fn().mockReturnValue('filepath.txt'),
             open: jest.fn(),
         }
-    });
+    })
 
     test('renders the file name correctly', async () => {
         await act(async () => {
@@ -24,11 +24,11 @@ describe('Attachment component', () => {
                     setFormData={setFormDataMock}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        expect(screen.getByText('filepath.txt')).toBeInTheDocument();
-    });
+        expect(screen.getByText('filepath.txt')).toBeInTheDocument()
+    })
 
     test('calls handleButtonClick when button is clicked', async () => {
         await act(async () => {
@@ -38,17 +38,17 @@ describe('Attachment component', () => {
                     setFormData={setFormDataMock}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        const fileOpen = jest.spyOn(window.fs, 'open');
+        const fileOpen = jest.spyOn(window.fs, 'open')
 
         await act(async () => {
-            fireEvent.click(screen.getByText('filepath.txt'));
+            fireEvent.click(screen.getByText('filepath.txt'))
         })
 
-        expect(fileOpen).toHaveBeenCalled();
-    });
+        expect(fileOpen).toHaveBeenCalled()
+    })
 
     test('calls handleDeleteAttachment when delete button is clicked', async () => {
         await act(async () => {
@@ -58,16 +58,16 @@ describe('Attachment component', () => {
                     setFormData={setFormDataMock}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        const deleteButton = screen.getByTestId('delete-attachment-button');
+        const deleteButton = screen.getByTestId('delete-attachment-button')
         await act(async () => {
-            fireEvent.click(deleteButton);
+            fireEvent.click(deleteButton)
         })
 
-        expect(setFormDataMock).toHaveBeenCalled();
-    });
+        expect(setFormDataMock).toHaveBeenCalled()
+    })
 
     test('disables the delete button when disabled prop is true', async () => {
         await act(async () => {
@@ -77,10 +77,10 @@ describe('Attachment component', () => {
                     setFormData={setFormDataMock}
                     disabled={true}
                 />
-            );
+            )
         })
 
-        const deleteButton = screen.getByTestId('delete-attachment-button');
-        expect(deleteButton).toBeDisabled();    
-    });
-});
+        const deleteButton = screen.getByTestId('delete-attachment-button')
+        expect(deleteButton).toBeDisabled()
+    })
+})

@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import React from 'react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import AvailableStudies from '../../src/frontend/components/forms/available-studies'
-import { act } from 'react-dom/test-utils';
-import { beforeEach, jest } from '@jest/globals';
+import { act } from 'react-dom/test-utils'
+import { beforeEach, jest } from '@jest/globals'
 import { FormType } from '../../src/frontend/constants'
 
 describe('AvailableStudies', () => {
@@ -10,7 +10,7 @@ describe('AvailableStudies', () => {
         { id: 1, nazev_studie: 'Study 1' },
         { id: 2, nazev_studie: 'Study 2' },
         { id: 3, nazev_studie: 'Study 3' },
-    ];
+    ]
 
     beforeEach(() => {
         window.api = {
@@ -28,12 +28,12 @@ describe('AvailableStudies', () => {
                     setSelectedStudies={jest.fn()}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        expect(screen.getByText('Studie')).toBeInTheDocument();
-        expect(screen.getByRole('table')).toBeInTheDocument();
-    });
+        expect(screen.getByText('Studie')).toBeInTheDocument()
+        expect(screen.getByRole('table')).toBeInTheDocument()
+    })
 
     test('displays the list of studies', async () => {
         await act(async () => {
@@ -45,17 +45,17 @@ describe('AvailableStudies', () => {
                     setSelectedStudies={jest.fn()}
                     disabled={false}
                 />
-            );
+            )
         })
 
         mockStudies.forEach((study) => {
-            expect(screen.getByText(study.nazev_studie)).toBeInTheDocument();
-        });
-    });
+            expect(screen.getByText(study.nazev_studie)).toBeInTheDocument()
+        })
+    })
 
     test('handles checkbox change', async () => {
-        const setSelectedStudies = jest.fn();
-        const setStudiesChanged = jest.fn();
+        const setSelectedStudies = jest.fn()
+        const setStudiesChanged = jest.fn()
 
         await act(async () => {
             render(
@@ -66,16 +66,18 @@ describe('AvailableStudies', () => {
                     setSelectedStudies={setSelectedStudies}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        const cell = screen.getByRole('cell', { name: 'Study 1' });
-        const checkbox = cell.querySelector('input[type="checkbox"]');
+        const cell = screen.getByRole('cell', { name: 'Study 1' })
+        const checkbox = cell.querySelector('input[type="checkbox"]')
         await act(async () => {
-            fireEvent.click(checkbox);
+            fireEvent.click(checkbox)
         })
 
-        expect(setSelectedStudies).toHaveBeenCalledWith([{ id: 1, nazev_studie: 'Study 1' }]);
-        expect(setStudiesChanged).toHaveBeenCalledWith(true);
-    });
-});
+        expect(setSelectedStudies).toHaveBeenCalledWith([
+            { id: 1, nazev_studie: 'Study 1' },
+        ])
+        expect(setStudiesChanged).toHaveBeenCalledWith(true)
+    })
+})

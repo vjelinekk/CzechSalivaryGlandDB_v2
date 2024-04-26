@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import TNMClassificationCalculator from '../../src/frontend/components/forms/tnm-classification-calculator';
-import { expect } from '@jest/globals';
+import React from 'react'
+import { render, fireEvent, screen } from '@testing-library/react'
+import TNMClassificationCalculator from '../../src/frontend/components/forms/tnm-classification-calculator'
+import { expect } from '@jest/globals'
 
 describe('TNMClassificationCalculator component', () => {
     test('renders T-klasifikace checkboxes', () => {
@@ -10,9 +10,9 @@ describe('TNMClassificationCalculator component', () => {
             nLabel: '',
             mLabel: '',
             tnmLabel: '',
-        };
-        const setFormDataMock = jest.fn();
-        const disabled = false;
+        }
+        const setFormDataMock = jest.fn()
+        const disabled = false
 
         render(
             <TNMClassificationCalculator
@@ -24,9 +24,9 @@ describe('TNMClassificationCalculator component', () => {
                 setFormData={setFormDataMock}
                 disabled={disabled}
             />
-        );
+        )
 
-        const allCheckboxes = screen.getAllByRole('checkbox');
-        expect(allCheckboxes).toHaveLength(18);
-    });
-});
+        const allCheckboxes = screen.getAllByRole('checkbox')
+        expect(allCheckboxes).toHaveLength(18)
+    })
+})

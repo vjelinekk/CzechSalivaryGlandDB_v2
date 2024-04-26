@@ -61,7 +61,9 @@ describe('StudyButton component', () => {
 
         // Assertion: Study name is updated
         expect(
-            screen.getByText(`New Test Study (${studyTypeToStringMap[StudyType.parotid]})`)
+            screen.getByText(
+                `New Test Study (${studyTypeToStringMap[StudyType.parotid]})`
+            )
         ).toBeInTheDocument()
 
         // Cancel study name edit
@@ -75,7 +77,9 @@ describe('StudyButton component', () => {
 
         // Assertion: Edit mode is deactivated
         expect(
-            screen.getByText(`Test Study (${studyTypeToStringMap[StudyType.parotid]})`)
+            screen.getByText(
+                `Test Study (${studyTypeToStringMap[StudyType.parotid]})`
+            )
         ).toBeInTheDocument()
     })
 
@@ -110,7 +114,9 @@ describe('StudyButton component', () => {
         })
 
         expect(
-            screen.queryByRole('dialog', { name: 'Opravdu chcete smazat tuto studii?' })
-        ).not.toBeVisible();
+            screen.queryByRole('dialog', {
+                name: 'Opravdu chcete smazat tuto studii?',
+            })
+        ).not.toBeVisible()
     })
 })

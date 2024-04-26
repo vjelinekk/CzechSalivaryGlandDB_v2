@@ -1,8 +1,8 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import React from 'react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import ConditionalCheckboxOption from '../../src/frontend/components/forms/conditional-checkbox-option'
-import { describe, expect } from '@jest/globals';
-import { act } from 'react-dom/test-utils';
+import { describe, expect } from '@jest/globals'
+import { act } from 'react-dom/test-utils'
 
 describe('ConditionalCheckboxOption component', () => {
     test('should render correctly', async () => {
@@ -14,19 +14,19 @@ describe('ConditionalCheckboxOption component', () => {
                     setChecked={jest.fn()}
                     disabled={false}
                 />
-            );
+            )
         })
 
-        const checkboxText = screen.getByText('Test');
-        expect(checkboxText).toBeInTheDocument();
+        const checkboxText = screen.getByText('Test')
+        expect(checkboxText).toBeInTheDocument()
 
-        const checkbox = screen.getByRole('checkbox');
-        expect(checkbox).toBeInTheDocument();
+        const checkbox = screen.getByRole('checkbox')
+        expect(checkbox).toBeInTheDocument()
 
-        expect(checkbox).toHaveProperty('checked', false);
+        expect(checkbox).toHaveProperty('checked', false)
         await act(async () => {
-            fireEvent.click(checkbox);
+            fireEvent.click(checkbox)
         })
-        expect(checkbox).toHaveProperty('checked', true);
+        expect(checkbox).toHaveProperty('checked', true)
     })
 })
