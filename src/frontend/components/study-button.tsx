@@ -110,19 +110,31 @@ const StudyButton: React.FC<StudyButtonProps> = ({
             )}
             {editStudyName ? (
                 <>
-                    <IconButton onClick={() => saveStudyName()}>
+                    <IconButton
+                        aria-label="Check"
+                        onClick={() => saveStudyName()}
+                    >
                         <CheckIcon />
                     </IconButton>
-                    <IconButton onClick={() => handleCancelEditStudyName()}>
+                    <IconButton
+                        aria-label="Close"
+                        onClick={() => handleCancelEditStudyName()}
+                    >
                         <CloseIcon />
                     </IconButton>
                 </>
             ) : (
-                <IconButton onClick={() => setEditStudyName((prev) => !prev)}>
+                <IconButton
+                    aria-label="Edit"
+                    onClick={() => setEditStudyName((prev) => !prev)}
+                >
                     <EditIcon />
                 </IconButton>
             )}
-            <IconButton onClick={() => setOpenDeleteStudyDialog(true)}>
+            <IconButton
+                aria-label="Delete"
+                onClick={() => setOpenDeleteStudyDialog(true)}
+            >
                 <DeleteIcon />
             </IconButton>
             <Dialog open={openDeleteStudyDialog}>

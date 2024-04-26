@@ -41,7 +41,10 @@ const ConditionalCheckboxes: React.FC<ConditionalCheckboxesProps> = ({
     }, [data])
 
     return (
-        <div className="conditionalCheckboxDiv">
+        <div
+            data-testid="conditional-checkboxes"
+            className="conditionalCheckboxDiv"
+        >
             {title && <h3 className="conditionalCheckboxTitle">{title}</h3>}
             {children.map((child, index) => {
                 return React.cloneElement(child, {

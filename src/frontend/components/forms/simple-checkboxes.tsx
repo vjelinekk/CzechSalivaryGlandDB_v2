@@ -46,7 +46,7 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
     return (
         <>
             {title && <h3>{title}</h3>}
-            <div className="checkboxDiv">
+            <div data-testid="simple-checkboxes" className="checkboxDiv">
                 {options.map((option) => (
                     <SimpleCheckboxItem
                         key={option}
