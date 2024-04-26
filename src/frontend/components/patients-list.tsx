@@ -258,6 +258,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             type="text"
                             className="studyNameInput"
                             placeholder="Název studie"
+                            data-testid="study-name-input"
                             value={study?.nazev_studie || ''}
                             onChange={(e) =>
                                 setStudy((prevStudy) => ({
@@ -344,7 +345,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     onChange={handlePatientSearch}
                 />
                 <div className="wrapper">
-                    <table id="patient-table">
+                    <table data-testid="patients-list" id="patient-table">
                         <tbody id="patients-tbody">
                             {patients.map((patient, index) => (
                                 <tr key={index}>

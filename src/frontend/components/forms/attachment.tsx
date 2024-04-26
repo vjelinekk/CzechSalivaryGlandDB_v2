@@ -69,6 +69,7 @@ const Attachment: React.FC<AttachmentProps> = ({
             </button>
             <button
                 className="basicButton"
+                data-testid="delete-attachment-button"
                 style={{
                     height: '100%',
                     backgroundColor: disabled ? 'grey' : 'red',

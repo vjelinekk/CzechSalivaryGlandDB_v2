@@ -23,6 +23,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
             <p>{label}: </p>
             <input
                 type="date"
+                data-testid="date-picker"
                 className="textInput"
                 onChange={handleChange}
                 value={data ? data : ''}
