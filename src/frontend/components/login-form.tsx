@@ -14,6 +14,9 @@ import {
     Radio,
     FormControl,
     FormLabel,
+    Typography,
+    List,
+    ListItem,
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
@@ -117,6 +120,27 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
             {isEncryptionEnabled === null ? (
                 <DialogContent>
                     <Stack spacing={2}>
+                        <Alert severity="info">
+                            <AlertTitle>Zásady pro práci s databází</AlertTitle>
+                            <List>
+                                <ListItem>
+                                    Pokud hodláte pracovat s reálnými daty
+                                    pacientů je nutné zvolit zabezpečenou verzi
+                                    databáze.
+                                </ListItem>
+                                <ListItem>
+                                    Přidávání nově diagnostikovaných pacientů,
+                                    musí probíhat v souladu s platnými zákony a
+                                    na základě souhlasu pacienta.
+                                </ListItem>
+                                <ListItem>
+                                    Při retrospektivním přidávání pacientů je
+                                    nutné, aby byli jasně definované důvody proč
+                                    jsou zvolené osobní údaje uloženy v
+                                    databázi.
+                                </ListItem>
+                            </List>
+                        </Alert>
                         <form onSubmit={handleUseEncryptionSubmit}>
                             <FormControl>
                                 <FormLabel>

@@ -20,7 +20,7 @@ const Attachment: React.FC<AttachmentProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        window.fs.open(fileName)
+        window.fs.open(filePath)
     }
 
     const handleDeleteAttachment = async (
