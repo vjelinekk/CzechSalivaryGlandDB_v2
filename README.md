@@ -2,7 +2,7 @@
 
 Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univerizě v Plzni, sloužící k zjednodušení shromažďování a analýze dat pacientů s nádory velkých slinných žláz.
 
-# Obsah
+## Obsah
 
 - [Czech Salivary Gland Database](#czech-salivary-gland-database)
   - [Uživatelská příručka](#uživatelská-příručka)
