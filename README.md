@@ -1,6 +1,6 @@
 # Czech Salivary Gland Database
 
-Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromažďování a analýze dat pacientů s nádory velkých slinných žláz.
+Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univerizě v Plzni, sloužící k zjednodušení shromažďování a analýze dat pacientů s nádory velkých slinných žláz.
 
 ## Uživatelská příručka
 
@@ -22,9 +22,9 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
     - _Ne_: možnost zvolte pouze v případě, že aplikaci chcete jen testovat a nebudete ukládat reálná data.
 5. V případě, že jste zvolili možnost _Ano_ je Vám nyní zobrazeno toto dialogové okno:
 6. ![](/readme_images/login_form_phase_2.png)
-7. V dialogovém okně si nastavte heslo pomocí, kterého se budete do aplikaci při každém jejím spuštění přihlašovat. **Heslo nesmíte zapomenout jinak přijdete o přístup k datům.**
+7. V dialogovém okně si nastavte heslo pomocí, kterého se budete do aplikace při každém jejím spuštění přihlašovat. **Heslo nesmíte zapomenout jinak přijdete o přístup k datům.**
 8. Dále je pro Vás vygenerován šifrovací klíč. Ten si uschovejte na bezpečné místo. **V případě ztráty šifrovacího klíče nebude možné zobrazit osobní údaje o pacientech.**
-9. Nyní už stačí kliknout na tlačítko _Přihlásit se_.
+9. Nyní už jen stačí kliknout na tlačítko _Přihlásit se_.
 
 ### Základní popis uživatelského rozhraní aplikace
 
@@ -52,27 +52,27 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 3. Následně umožníte editaci stisknutím tlačítka _Editovat_, které se nachází v pravém horním rohu:
 4. ![](/readme_images/editace_pacienta.png)
 5. Nyní můžete libovolně editovat údaje o zvoleném pacientovi.
-6. V případě, že chcete provedené změny uložit stisknete tlačítko _Uložit změny_. Jestliže změny nechcete uložit stačí stisknout tlačítko _Zrušit editaci_.
+6. V případě, že chcete provedené změny uložit stiskněte tlačítko _Uložit změny_. Jestliže změny nechcete uložit stačí stisknout tlačítko _Zrušit editaci_.
 7. ![](/readme_images/pacient_edit.png)
 
 ### Mazání pacientů
 
-1. Pokud chcete smazat pacientu musíte se nacházet v části _Seznam pacientů_ nebo _Studie_, kde máte zobrazený seznam pacientů ve studii.
+1. Pokud chcete smazat pacienta musíte se nacházet v části _Seznam pacientů_ nebo _Studie_, kde máte zobrazený seznam pacientů ve studii.
 2. Následně zvolte pacienta, kterého chcete smazat a klikněte na tlačítko _Smazat pacienta_ v pravém horním rohu.
 3. ![](/readme_images/editace_pacienta.png)
 4. Po kliknutí na toto tlačítko je Vám zobrazeno dialogové okno, které se ptá na to, zda opravdu chce pacienta smazat:
 5. ![](/readme_images/potvrzeni_mazani_pacienta.png)
-6. Poté co kliknete na tlačítko _SMAZAT_ bude pacient odstraněn z databáze.
+6. Poté, co kliknete na tlačítko _SMAZAT_ bude pacient odstraněn z databáze.
 
 ### Vyhledávání a filtrace v seznamu pacientů
 
--   Pokud se nacházíte v části aplikace _Seznam pacientů_ nebo _Studie_, kde máte zobrazený seznam pacientů ve studii můžete vyhledávat pacienta podle **jména, příjmení a rodného čísla** pomocí vstupního pole, které je označeno názvem _Vyhledat..._:
+-   Pokud se nacházíte v části aplikace _Seznam pacientů_ nebo _Studie_, kde máte zobrazený seznam pacientů, ve studii můžete vyhledávat pacienta podle **jména, příjmení a rodného čísla** pomocí vstupního pole, které je označeno názvem _Vyhledat..._:
 -   ![](/readme_images/seznam_detail.png)
 -   Dále je možné filtrovat pacienty pomocí kliknutím na tlačítko _Filtrovat_
     -   To Vám zobrazí filtrační menu:
     -   ![](/readme_images/filtracni_menu.png)
-    -   V tomto menu můžete nastavit podle jakých hodnot chcete pacienty filtrovat a následně kliknutím na tlačítko _ULOŽIT FILTR_ se aplikuje vámi nastavený filtr.
-    -   Pokud chcete filtr smazat stačí kliknout na tlačítko _RESETOVAT FILTR_
+    -   V tomto menu můžete nastavit, podle jakých hodnot chcete pacienty filtrovat, a následně kliknutím na tlačítko _ULOŽIT FILTR_ se aplikuje vámi nastavený filtr.
+    -   Pokud chcete filtr smazat, stačí kliknout na tlačítko _RESETOVAT FILTR_
 
 ### Export pacientů
 
@@ -80,15 +80,15 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 2. Nyní musíte zvolit pacienty pro export a to buď klikáním na boxy u jednotlivých pacientů, nebo v případě exportu všech pacientů v seznamu stisknutím tlačítka _Označit vše_:
 3. ![](/readme_images/seznam_detail.png)
 4. Po zvolení pacientů pro export si můžete vybrat mezi normálním a anonymizovaným exportem.
-5. Kliknutím na jedno z těchto tlačítek se Vám zobrazí dialogové okno vygenerované Vaším operačním systémem, ve kterém nadefinujete adresář kam chcete exportované data uložit.
+5. Kliknutím na jedno z těchto tlačítek se Vám zobrazí dialogové okno vygenerované Vaším operačním systémem, ve kterém nadefinujete adresář kam chcete exportovaná data uložit.
 6. Následně jsou data uložena do Vámi určeného adresáře ve formátu `.xls`. A pro každý typ žlázy je vytvořen jeden soubor.
 
 ### Přidávání studií
 
 1. Přesuňte se do části menu _Přidat studii_.
-2. Nyní můžete zvolit pro, kterou žlázu chcete studii vytvořit (speciální studii může obsahovat všechny žlázy):
+2. Nyní můžete zvolit pro, kterou žlázu chcete studii vytvořit (speciální studie může obsahovat všechny žlázy):
 3. ![](/readme_images/volba_studie.png)
-4. Po tom co provedete volbu typu studie je vám zobrazen seznam pacientů, které je možné do daného typu studie zařadit:
+4. Po tom, co provedete volbu typu studie, bude vám zobrazen seznam pacientů, které je možné do daného typu studie zařadit:
 5. ![](/readme_images/tvorba_studie.png)
 6. Nyní můžete zvolit klikáním na boxy u jednotlivých pacientů nebo tlačítkem _Označit vše_ pacienty, které chcete vložit do studie.
 7. Následně zadejte název studie do vstupního pole a klikněte na tlačítko _Vytvořit novou studii_
@@ -97,19 +97,19 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 
 ### Editace studií
 
--   Pokud chcete editovat studii musíte se nacházet v části _Studie_.
+-   Pokud chcete editovat studii, musíte se nacházet v části _Studie_.
 -   Zde pomocí tlačítka s ikonou tužky můžete měnit název studie a pomocí tlačítka s ikonou koše můžete smazat studii:
 -   ![](/readme_images/studie_edit.png) 
-- V případě editace názvu studie se místo aktuálního názvu zobrazí vstupní pole do kterého můžete zadat nový název: 
+- V případě editace názvu studie se místo aktuálního názvu zobrazí vstupní pole, do kterého můžete zadat nový název: 
 - ![](/readme_images/editace_studie_2.png) 
 - Stisknutím tlačítka s ikonou _fajfky_ uložíte nový název a kliknutím na tlačítko s ikonou křížku zrušíte editaci názvu studie. 
-- Pokud kliknete na tlačítko s ikonou koše zobrazí se Vám dialogové okno, které Vás žádá o potvrzení smazání studie: 
+- Pokud kliknete na tlačítko s ikonou koše, zobrazí se Vám dialogové okno, které Vás žádá o potvrzení smazání studie: 
 - ![](/readme_images/mazani_studie.png) 
-- Pokud kliknete na tlačítko _SMAZAT_ bude studie odstraněna z databáze.
+- Pokud kliknete na tlačítko _SMAZAT_, bude studie odstraněna z databáze.
 
 ### Odebírání pacientů ze studie
 
--   Pacienty můžete odebírat ze studie jak v části _Seznam pacientů_, tak v části _Studie_
+-   Pacienty můžete odebírat ze studie jak v části _Seznam pacientů_, tak v části _Studie_.
 
 #### Odebírání pacientů ze studie v části _Seznam pacientů_
 
@@ -117,11 +117,11 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 2. Vyberte pacienta, kterého chcete odebrat z nějaké studie.
 3. Dojděte na konec formuláře pacienta.
 4. Klikněte na tlačítko _Editovat_ v pravém horním rohu.
-5. V části formuláře _Studie_ odeberte vybrané studie, u kterých nechcete aby byl pacient jejich součástí:
+5. V části formuláře _Studie_ odeberte vybrané studie, u kterých nechcete, aby byl pacient jejich součástí:
 6. ![](/readme_images/sezna_odebrani_ze_studie.png)
 7. Následně klikněte na tlačítko _Uložit změny_ v pravém horním rohu a pacient bude odstraněn z vybraných studií.
 
-#### Odebírání pacientů ze studie v částí _Studie_
+#### Odebírání pacientů ze studie v části _Studie_
 
 1. Přejděte do části _Studie_.
 2. Vyberte studii, ze které chcete pacienty odebrat.
@@ -135,7 +135,7 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 
 ### Přidávání pacienta do existující studie
 
-1. Přejděte do části _Seznam pacientů_
+1. Přejděte do části _Seznam pacientů_.
 2. Vyberte pacienta, kterého chcete přidat do existující studie.
 3. Dojděte na konec formuláře vybraného pacienta a klikněte na tlačítko _Editovat_ v pravém horním rohu:
 4. ![](/readme_images/pridani_do_ex_studie.png)
@@ -144,16 +144,16 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 
 ### Zobrazení křivek přežití/recidivy
 
-1. Přejděte do části _Kaplan-Meier_
+1. Přejděte do části _Kaplan-Meier_.
 2. Vyberte typ křivky a histopatologické typy nádoru, pro které chcete zobrazit křivku:
 3. ![](/readme_images/kaplan-meier.png)
 4. Po zvolení typu křivky a určení skupin podle histopatologického typu nádoru jsou vykresleny křivky pomocí Kaplan-Meierovy metody.
 5. Křivky jsou vykresleny jenom pro pacienty, kteří mají definovaný:
-    - v případě křivky přežití: _Histopatologie_, _Rok diagnózy_ a _Datum úmrtí_
-    - v případě křivky recidivy: _Histopatologie_, _Rok diagnózy_ a _Datum prokázání recidivy_
+    - v případě křivky přežití: _Histopatologie_, _Rok diagnózy_ a _Datum úmrtí_,
+    - v případě křivky recidivy: _Histopatologie_, _Rok diagnózy_ a _Datum prokázání recidivy_.
 
 ### Importování dat
 
 1. Klikněte na tlačítko _Importovat data_ v menu aplikace.
-2. Následně je zobrazeno dialogové okno vygenerované operačním systémem pomocí, kterého určíte soubor ze, kterého chcete importovat data.
+2. Následně se zobrazí dialogové okno vygenerované operačním systémem, pomocí kterého určíte soubor, ze kterého chcete importovat data.
 3. Po zvolení souboru se provede import dat.
