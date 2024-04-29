@@ -182,8 +182,10 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 3. Po zvolení souboru se provede import dat.
 
 ## Vlastní překlad zdrojového kódu
-1. Pokud již nemáte, nejprve musíte nainstalovat [`NodeJS` a `NPM`](https://nodejs.org/en/download).
-2. Nainstalujte potřebné knihovny pomocí příkazu:
+1. Pokud již nemáte, nejprve musíte nainstalovat [`NodeJS`](https://nodejs.org/en/download). Zároveň s `NodeJS` bude automatický nainstalováno `NPM`.
+2. Ověření úspěšné instalace, lze provést pomocí příkazu:
+> npm --version
+3. Nainstalujte potřebné knihovny pomocí příkazu:
 > npm install
 2. Přeložte zdrojový kód pomocí příkazu:
 > npm run make
