@@ -189,4 +189,4 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 3. Ve složce `out` jsou nyní vygenerované přeložené soubory.
 
 ## Licence
-Program je licencován pod https://www.gnu.org/licenses/gpl-3.0.html#license-text.
+Program je licencován pod [GNU General Public License V3](./LICENSE)
