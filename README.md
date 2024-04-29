@@ -22,6 +22,7 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
   - [Zobrazení křivek přežití/recidivy](#zobrazení-křivek-přežitírecidivy)
   - [Importování dat](#importování-dat)
 - [Vlastní překlad zdrojového kódu](#vlastní-překlad-zdrojového-kódu)
+- [Licence](#licence)
 
 
 ## Uživatelská příručka
