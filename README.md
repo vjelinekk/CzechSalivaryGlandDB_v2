@@ -186,7 +186,11 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 > npm install
 2. Přeložte zdrojový kód pomocí příkazu:
 > npm run make
-3. Ve složce `out` jsou nyní vygenerované přeložené soubory.
+3. Ve složce `out` jsou nyní vygenerovány dva adresáře:
+  1. `csgdb-win32-x64`
+    - Adresář obsahuje sestavený soubor `csgdb.exe`, který lze spustit.
+  3. `make`
+    - Adresář na cestě `\make\squirrel.windows\x64\` obsahuje instalační soubory aplikace.
 
 ## Licence
-Program je licencován pod [GNU General Public License V3](./LICENSE)
+Software je licencován pod [GNU General Public License V3](./LICENSE)
