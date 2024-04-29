@@ -186,3 +186,6 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 2. Přeložte zdrojový kód pomocí příkazu:
 > npm run make
 3. Ve složce `out` jsou nyní vygenerované přeložené soubory.
+
+## Licence
+Program je licencován pod https://www.gnu.org/licenses/gpl-3.0.html#license-text.
