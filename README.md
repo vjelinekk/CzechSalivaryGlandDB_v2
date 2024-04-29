@@ -100,7 +100,13 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 
 -   Pokud chcete editovat studii musíte se nacházet v části _Studie_.
 -   Zde pomocí tlačítka s ikonou tužky můžete měnit název studie a pomocí tlačítka s ikonou koše můžete smazat studii:
-    ![](/readme_images/studie_edit.png) - V případě editace názvu studie se místo aktuálního názvu zobrazí vstupní pole do kterého můžete zadat nový název: - ![](/readme_images/editace_studie_2.png) - Stisknutím tlačítka s ikonou _fajfky_ uložíte nový název a kliknutím na tlačítko s ikonou křížku zrušíte editaci názvu studie. - Pokud kliknete na tlačítko s ikonou koše zobrazí se Vám dialogové okno, které Vás žádá o potvrzení smazání studie: - ![](/readme_images/mazani_studie.png) - Pokud kliknete na tlačítko _SMAZAT_ bude studie odstraněna z databáze.
+    ![](/readme_images/studie_edit.png)
+    - V případě editace názvu studie se místo aktuálního názvu zobrazí vstupní pole do kterého můžete zadat nový název:
+       - ![](/readme_images/editace_studie_2.png)
+    -  Stisknutím tlačítka s ikonou _fajfky_ uložíte nový název a kliknutím na tlačítko s ikonou křížku zrušíte editaci názvu studie.
+    -  Pokud kliknete na tlačítko s ikonou koše zobrazí se Vám dialogové okno, které Vás žádá o potvrzení smazání studie:
+    -  ![](/readme_images/mazani_studie.png)
+    -  Pokud kliknete na tlačítko _SMAZAT_ bude studie odstraněna z databáze.
 
 ### Odebírání pacientů ze studie
 
