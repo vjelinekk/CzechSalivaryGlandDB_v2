@@ -50,10 +50,10 @@ Czech Salivary Gland Database je nástroj sloužící k zjednodušení shromaž�
 1. Pokud chcete editovat data o pacientovi musíte se přesunout do části _Seznam pacientů_ nebo _Studie_ (kde máte zobrazený seznam pacientů ve studii) a zde najít konkrétního pacienta.
 2. Zde zvolíte, kterého pacienta chcete editovat.
 3. Následně umožníte editaci stisknutím tlačítka _Editovat_, které se nachází v pravém horním rohu:
-   ![](/readme_images/editace_pacienta.png)
+![](/readme_images/editace_pacienta.png)
 4. Nyní můžete libovolně editovat údaje o zvoleném pacientovi.
 5. V případě, že chcete provedené změny uložit stisknete tlačítko _Uložit změny_. Jestliže změny nechcete uložit stačí stisknout tlačítko _Zrušit editaci_.
-   ![](/readme_images/pacient_edit.png)
+![](/readme_images/pacient_edit.png)
 
 ### Mazání pacientů
 
