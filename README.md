@@ -4,24 +4,24 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 
 ## Obsah
 
-- [Czech Salivary Gland Database](#czech-salivary-gland-database)
-  - [Uživatelská příručka](#uživatelská-příručka)
-    - [Instalace aplikace](#instalace-aplikace)
-    - [První spuštění aplikace](#první-spuštění-aplikace)
-    - [Základní popis uživatelského rozhraní aplikace](#základní-popis-uživatelského-rozhraní-aplikace)
-    - [Přidávání pacientů](#přidávání-pacientů)
-    - [Editace dat o pacientovi](#editace-dat-o-pacientovi)
-    - [Mazání pacientů](#mazání-pacientů)
-    - [Vyhledávání a filtrace v seznamu pacientů](#vyhledávání-a-filtrace-v-seznamu-pacientů)
-    - [Export pacientů](#export-pacientů)
-    - [Přidávání studií](#přidávání-studií)
-    - [Editace studií](#editace-studií)
-    - [Odebírání pacientů ze studie](#odebírání-pacientů-ze-studie)
-      - [Odebírání pacientů ze studie v části Seznam pacientů](#odebírání-pacientů-ze-studie-v-části-seznam-pacientů)
-      - [Odebírání pacientů ze studie v části Studie](#odebírání-pacientů-ze-studie-v-části-studie)
-    - [Přidávání pacienta do existující studie](#přidávání-pacienta-do-existující-studie)
-    - [Zobrazení křivek přežití/recidivy](#zobrazení-křivek-přežitírecidivy)
-    - [Importování dat](#importování-dat)
+- [Uživatelská příručka](#uživatelská-příručka)
+  - [Instalace aplikace](#instalace-aplikace)
+  - [První spuštění aplikace](#první-spuštění-aplikace)
+  - [Základní popis uživatelského rozhraní aplikace](#základní-popis-uživatelského-rozhraní-aplikace)
+  - [Přidávání pacientů](#přidávání-pacientů)
+  - [Editace dat o pacientovi](#editace-dat-o-pacientovi)
+  - [Mazání pacientů](#mazání-pacientů)
+  - [Vyhledávání a filtrace v seznamu pacientů](#vyhledávání-a-filtrace-v-seznamu-pacientů)
+  - [Export pacientů](#export-pacientů)
+  - [Přidávání studií](#přidávání-studií)
+  - [Editace studií](#editace-studií)
+  - [Odebírání pacientů ze studie](#odebírání-pacientů-ze-studie)
+    - [Odebírání pacientů ze studie v části Seznam pacientů](#odebírání-pacientů-ze-studie-v-části-seznam-pacientů)
+    - [Odebírání pacientů ze studie v části Studie](#odebírání-pacientů-ze-studie-v-části-studie)
+  - [Přidávání pacienta do existující studie](#přidávání-pacienta-do-existující-studie)
+  - [Zobrazení křivek přežití/recidivy](#zobrazení-křivek-přežitírecidivy)
+  - [Importování dat](#importování-dat)
+- [Vlastní překlad zdrojového kódu](#vlastní-překlad-zdrojového-kódu)
 
 
 ## Uživatelská příručka
@@ -179,3 +179,10 @@ Czech Salivary Gland Database je nástroj vyvíjený na Západočeské univeriz�
 1. Klikněte na tlačítko _Importovat data_ v menu aplikace.
 2. Následně se zobrazí dialogové okno vygenerované operačním systémem, pomocí kterého určíte soubor, ze kterého chcete importovat data.
 3. Po zvolení souboru se provede import dat.
+
+## Vlastní překlad zdrojového kódu
+1. Nainstalujte potřebné knihovny pomocí příkazu:
+> npm install
+2. Přeložte zdrojový kód pomocí příkazu:
+> npm run make
+3. Ve složce `out` jsou nyní vygenerované přeložené soubory.
