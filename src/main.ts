@@ -13,6 +13,9 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
+    // Disable menu
+    Menu.setApplicationMenu(null)
+
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         height: 600,
@@ -33,8 +36,6 @@ const createWindow = (): void => {
         mainWindow.webContents.openDevTools()
     }
 }
-
-Menu.setApplicationMenu(null)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

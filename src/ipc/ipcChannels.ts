@@ -55,3 +55,8 @@ export enum ipcEncryptionChannels {
     validatePassword = 'validatePassword',
     generateEncryptionKey = 'generateEncryptionKey',
 }
+
+export enum ipcBackUpChannels {
+    backUp = 'backUp',
+    loadBackUp = 'loadBackUp',
+}

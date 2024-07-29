@@ -1,7 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
+import LoadBackUpButton from './load-back-up-button'
 import { activeComponentState } from '../types'
+import BackUpButton from './back-up-button'
 import ImportButton from './import-button'
+import { Divider } from '@mui/material'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
@@ -10,7 +13,12 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
+        setActiveButton(componentName)
     }
+
+    const [activeButton, setActiveButton] = React.useState<Components>(
+        Components.patientsList
+    )
 
     return (
         <div id="sidebar">
@@ -26,6 +34,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="list-patient"
+                        className={
+                            activeButton === Components.patientsList
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() =>
                             handleButtonClick(Components.patientsList)
                         }
@@ -41,6 +54,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="add-patient"
+                        className={
+                            activeButton === Components.addPatient
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() => handleButtonClick(Components.addPatient)}
                     >
                         <img
@@ -54,6 +72,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="studies-btn"
+                        className={
+                            activeButton === Components.studiesList
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() =>
                             handleButtonClick(Components.studiesList)
                         }
@@ -69,6 +92,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="add-study"
+                        className={
+                            activeButton === Components.addStudy
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() => handleButtonClick(Components.addStudy)}
                     >
                         <img
@@ -81,6 +109,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 </li>
                 <li>
                     <button
+                        className={
+                            activeButton === Components.kaplanMeier
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() =>
                             handleButtonClick(Components.kaplanMeier)
                         }
@@ -93,8 +126,15 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                         Kaplan-Meier
                     </button>
                 </li>
+                <Divider />
                 <li>
                     <ImportButton />
+                </li>
+                <li>
+                    <BackUpButton />
+                </li>
+                <li>
+                    <LoadBackUpButton />
                 </li>
             </ul>
         </div>

@@ -26,12 +26,20 @@
     background: transparent;
     border: none;
     padding: 0.5em;
+    margin: 0.3em;
     font-size: 1em;
     cursor: pointer;
     transition: 0.35s;
 }
 
 #sidebar button:hover {
+    box-shadow:
+        0 0 0 0.1em #000000,
+        -0.9em 0.1em 0 0 var(--mainColor),
+        -0.9em -0.1em var(--mainColor);
+}
+
+.button-active {
     box-shadow:
         0 0 0 0.1em #000000,
         -0.9em 0.1em 0 0 var(--mainColor),
