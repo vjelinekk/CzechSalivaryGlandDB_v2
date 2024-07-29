@@ -8,6 +8,7 @@ import {
     ipcAPIInsertChannels,
     ipcAPISaveChannels,
     ipcAPIUpdateChannels,
+    ipcBackUpChannels,
     ipcEncryptionChannels,
     ipcExportChannels,
     ipcFSChannels,
@@ -147,5 +148,14 @@ contextBridge.exposeInMainWorld('encryption', {
     },
     generateEncryptionKey: () => {
         return ipcRenderer.invoke(ipcEncryptionChannels.generateEncryptionKey)
+    },
+})
+
+contextBridge.exposeInMainWorld('backUp', {
+    backUp: () => {
+        return ipcRenderer.invoke(ipcBackUpChannels.backUp)
+    },
+    loadBackUp: () => {
+        return ipcRenderer.invoke(ipcBackUpChannels.loadBackUp)
     },
 })

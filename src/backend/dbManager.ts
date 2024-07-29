@@ -22,15 +22,12 @@ import { app } from 'electron'
 
 const getDBPath = (filename: string): string => {
     let base = app.getAppPath()
-    console.log(base)
     if (app.isPackaged) {
         base = base.replace(`${path.sep}app.asar`, '')
-        console.log(base)
     }
     return path.resolve(base, `${filename}.sqlite`)
 }
 
-console.log(getDBPath('db'))
 const db = new sqlite3.Database(getDBPath('db'))
 
 const createTable = (

@@ -83,5 +83,9 @@ declare global {
             validatePassword: (password: string) => Promise<boolean>
             generateEncryptionKey: () => Promise<string>
         }
+        backUp: {
+            backUp: () => Promise<void>
+            loadBackUp: () => Promise<void>
+        }
     }
 }
