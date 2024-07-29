@@ -58,7 +58,9 @@ export const useSingleSelection = ({
                     updatedFormData[dbLabel] = label + ','
                 } else {
                     if (stringSplit?.includes(label)) {
-                        stringSplit.filter((option) => option !== label)
+                        updatedFormData[dbLabel] = stringSplit
+                            .filter((option) => option !== label)
+                            .join(',')
                     } else {
                         updatedFormData[dbLabel] += label + ','
                     }
