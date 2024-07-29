@@ -14,7 +14,6 @@ import {
     Radio,
     FormControl,
     FormLabel,
-    Typography,
     List,
     ListItem,
 } from '@mui/material'
