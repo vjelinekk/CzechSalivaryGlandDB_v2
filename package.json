@@ -4,6 +4,9 @@
     "version": "1.0.0",
     "description": "Aplikace pro správu databáze pacientů s nádory slinných žláz",
     "main": ".webpack/main",
+    "engines": {
+        "node": "18.20.7"
+    },
     "scripts": {
         "start": "electron-forge start",
         "package": "electron-forge package",
