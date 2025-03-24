@@ -16,9 +16,11 @@ import {
     FormType,
     formTypeToTableName,
     jeVeStudiiColumns,
+    paroditBenignColumns,
     podcelistniColumns,
     podjazykoveColumns,
     priusniColumns,
+    submandibularBenignColumns,
     TableNames,
 } from './constants'
 import db from './dbManager'
@@ -96,13 +98,13 @@ export const insertPatient = async (
     const patientData: PatientType = encryptPatientData(data as PatientType)
 
     try {
-        if (formType === FormType.podcelistni) {
-            result = await insertRow(TableNames.podcelistni, patientData)
-        } else if (formType === FormType.podjazykove) {
-            result = await insertRow(TableNames.podjazykove, patientData)
-        } else if (formType === FormType.priusni) {
-            result = await insertRow(TableNames.priusni, patientData)
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return null
         }
+
+        await insertRow(tableName, patientData)
     } catch (err) {
         result = null
     }
@@ -113,30 +115,21 @@ export const insertPatient = async (
 export const updatePatient = async (
     data: Record<string, string | number | string[]>
 ): Promise<number | null> => {
-    const formType = data.form_type
+    const formType = data.form_type as FormType
     const patientData: PatientType = encryptPatientData(data as PatientType)
 
     try {
-        let result
-        if (formType === FormType.podcelistni) {
-            result = await updateRow(
-                TableNames.podcelistni,
-                data.id as number,
-                patientData
-            )
-        } else if (formType === FormType.podjazykove) {
-            result = await updateRow(
-                TableNames.podjazykove,
-                data.id as number,
-                patientData
-            )
-        } else if (formType === FormType.priusni) {
-            result = await updateRow(
-                TableNames.priusni,
-                data.id as number,
-                patientData
-            )
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return null
         }
+
+        const result = await updateRow(
+            tableName,
+            data.id as number,
+            patientData
+        )
 
         return result
     } catch (err) {
@@ -170,8 +163,18 @@ export const getAllPatients = async () => {
         const podcelistni = await getAllRows(TableNames.podcelistni)
         const podjazykove = await getAllRows(TableNames.podjazykove)
         const priusni = await getAllRows(TableNames.priusni)
+        const submandibularBenign = await getAllRows(
+            TableNames.submandibularBenign
+        )
+        const parotidBenign = await getAllRows(TableNames.parotidBenign)
 
-        patients.push(...podcelistni, ...podjazykove, ...priusni)
+        patients.push(
+            ...podcelistni,
+            ...podjazykove,
+            ...priusni,
+            ...submandibularBenign,
+            ...parotidBenign
+        )
     } catch (err) {
         patients = null
     }
@@ -187,13 +190,9 @@ export const getPatientsByType = async (
     let patients
 
     try {
-        if (formType === FormType.podcelistni) {
-            patients = await getAllRows(TableNames.podcelistni)
-        } else if (formType === FormType.podjazykove) {
-            patients = await getAllRows(TableNames.podjazykove)
-        } else if (formType === FormType.priusni) {
-            patients = await getAllRows(TableNames.priusni)
-        }
+        const tableName = formTypeToTableName[formType]
+
+        patients = await getAllRows(tableName)
     } catch (err) {
         patients = null
     }
@@ -210,13 +209,9 @@ export const getPatient = async (
     let patient
 
     try {
-        if (formType === FormType.podcelistni) {
-            patient = await getRow(TableNames.podcelistni, id)
-        } else if (formType === FormType.podjazykove) {
-            patient = await getRow(TableNames.podjazykove, id)
-        } else if (formType === FormType.priusni) {
-            patient = await getRow(TableNames.priusni, id)
-        }
+        const tableName = formTypeToTableName[formType]
+
+        patient = await getRow(tableName, id)
     } catch (err) {
         patient = null
     }
@@ -417,6 +412,8 @@ export const searchPatientsByNameSurnameRC = async (
         const queryPodcelistni = `SELECT * FROM ${TableNames.podcelistni} WHERE CONCAT(${podcelistniColumns.jmeno.columnName}, ' ', ${podcelistniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podcelistniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
         const queryPodjazykove = `SELECT * FROM ${TableNames.podjazykove} WHERE CONCAT(${podjazykoveColumns.jmeno.columnName}, ' ', ${podjazykoveColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podjazykoveColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
         const queryPriusni = `SELECT * FROM ${TableNames.priusni} WHERE CONCAT(${priusniColumns.jmeno.columnName}, ' ', ${priusniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${priusniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const querySubmandibularBenign = `SELECT * FROM ${TableNames.submandibularBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${submandibularBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryParotidBenign = `SELECT * FROM ${TableNames.parotidBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${paroditBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${paroditBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
 
         const promises = [
             new Promise<void>((resolveQuery, rejectQuery) => {
@@ -450,6 +447,26 @@ export const searchPatientsByNameSurnameRC = async (
                     }
                 })
             }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(querySubmandibularBenign, (err, rows: PatientType[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(queryParotidBenign, (err, rows: PatientType[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
         ]
 
         // Wait for all queries to complete
@@ -466,20 +483,18 @@ export const searchPatientsByNameSurnameRC = async (
 export const deletePatient = async (
     data: Record<string, string | number | string[]>
 ): Promise<boolean> => {
-    const formType = data.form_type
+    const formType = data.form_type as FormType
     const id = data.id as number
 
     try {
-        if (formType === FormType.podcelistni) {
-            await deleteRow(TableNames.podcelistni, id)
-            await deletePatientFromAllStudies(id)
-        } else if (formType === FormType.podjazykove) {
-            await deleteRow(TableNames.podjazykove, id)
-            await deletePatientFromAllStudies(id)
-        } else if (formType === FormType.priusni) {
-            await deleteRow(TableNames.priusni, id)
-            await deletePatientFromAllStudies(id)
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return false
         }
+
+        await deleteRow(tableName, id)
+        await deletePatientFromAllStudies(id)
 
         return true
     } catch (err) {
