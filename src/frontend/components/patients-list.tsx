@@ -28,9 +28,9 @@ import {
     PatientType,
     Study,
 } from '../types'
-import ParotidGlandForm from './forms/parotid/parotid-gland-form'
+import ParotidGlandForm from './forms/parotid/malignant/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
-import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
+import SubmandibularGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
 import PatientButton from './patient-button'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'

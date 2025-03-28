@@ -1,11 +1,11 @@
 import React from 'react'
-import { GlandComponentProps } from '../../../types'
-import { dbLabels } from '../../../constants'
-import DatePicker from '../date-picker'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import SimpleCheckboxes from '../simple-checkboxes'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
+import { GlandComponentProps } from '../../../../types'
+import { dbLabels } from '../../../../constants'
+import DatePicker from '../../date-picker'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import SimpleCheckboxes from '../../simple-checkboxes'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 
 const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
