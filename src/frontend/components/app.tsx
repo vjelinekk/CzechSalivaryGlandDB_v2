@@ -6,9 +6,9 @@ import AddPatientBenign from './add-patient-benign'
 import AddPatientMalignant from './add-patient-malignant'
 import StudiesList from './studies-list'
 import AddStudy from './add-study'
-import ParotidGlandForm from './forms/parotid/parotid-gland-form'
+import ParotidGlandForm from './forms/parotid/malignant/parotid-gland-form'
 import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
-import SubmandibularGlandForm from './forms/submandibular/submandibular-gland-form'
+import SubmandibularGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
 import StudyCreation from './study-creation'
 import { Components, FormStates } from '../constants'
 import { useActiveComponent } from '../hooks/use-active-component'
@@ -23,6 +23,8 @@ import '../css/table.css'
 import KaplanMeier from './kaplan-meier'
 import ImportProvider from './import-context'
 import LoginForm from './login-form'
+import ParotidBenignGlandForm from './forms/parotid/benign/parotid-benign-gland-form'
+import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -66,9 +68,20 @@ const app = () => {
                     defaultFormState={FormStates.add}
                 />
             )}
-            {activeComponent.component ===
-                Components.submandibularGlandForm && (
+            {activeComponent.component === Components.submandibularGlandForm && (
                 <SubmandibularGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
+            )}
+            {activeComponent.component === Components.parotidBenignGlandForm && (
+                <ParotidBenignGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
+            )}
+            {activeComponent.component === Components.submandibularBenignGlandForm && (
+                <SubmandibularBenignGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
