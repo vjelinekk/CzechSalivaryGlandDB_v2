@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Menu from './menu'
 import PatientsList from './patients-list'
 import AddPatient from './add-patient'
+import AddPatientBenign from './add-patient-benign'
+import AddPatientMalignant from './add-patient-malignant'
 import StudiesList from './studies-list'
 import AddStudy from './add-study'
 import ParotidGlandForm from './forms/parotid/parotid-gland-form'
@@ -39,6 +41,12 @@ const app = () => {
             )}
             {activeComponent.component === Components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
+            )}
+            {activeComponent.component === Components.addPatientMalignant && (
+                <AddPatientMalignant setActiveComponent={setActiveComponent} />
+            )}
+            {activeComponent.component === Components.addPatientBenign && (
+                <AddPatientBenign setActiveComponent={setActiveComponent} />
             )}
             {activeComponent.component === Components.studiesList && (
                 <StudiesList defaultActiveStudy={activeComponent.activeStudy} />

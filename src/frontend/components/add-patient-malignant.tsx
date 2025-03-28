@@ -8,7 +8,7 @@ interface AddPatientProps {
     >
 }
 
-const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
+const AddPatientMalignant: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }
@@ -18,24 +18,35 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
             <ul>
                 <li>
                     <button
-                        id="add-malignant-patient"
+                        id="add-parotid-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.addPatientMalignant)
+                            handleButtonClick(Components.parotidGlandForm)
                         }
                     >
-                        Zhoubný nádor
+                        Příušní žláza
                     </button>
                 </li>
                 <li>
                     <button
-                        id="add-benign-patient"
+                        id="add-submandibular-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.addPatientBenign)
+                            handleButtonClick(Components.submandibularGlandForm)
                         }
                     >
-                        Nezhoubný nádor
+                        Podčelistní žláza
+                    </button>
+                </li>
+                <li>
+                    <button
+                        id="add-sublingual-gland"
+                        className="mainButton"
+                        onClick={() =>
+                            handleButtonClick(Components.sublingualGlandForm)
+                        }
+                    >
+                        Podjazyková žláza
                     </button>
                 </li>
             </ul>
@@ -43,4 +54,4 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
     )
 }
 
-export default AddPatient
+export default AddPatientMalignant
