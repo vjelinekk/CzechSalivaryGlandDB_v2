@@ -7,7 +7,7 @@ import SimpleCheckboxes from '../../simple-checkboxes'
 import ConditionalCheckboxes from '../../conditional-checkboxes'
 import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 
-const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
+const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -616,4 +616,4 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default ParotidGlandDiagnosis
+export default ParotidMalignantGlandDiagnosis

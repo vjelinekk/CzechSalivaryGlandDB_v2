@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { FormStates, FormType } from '../../../constants'
-import { GlandFormProps, Study, SublingualPatientData } from '../../../types'
-import Attachments from '../attachments'
-import Dispensarization from '../dispensarization-malignant'
-import Notes from '../notes'
-import PersonalData from '../personal-data'
-import TNMClassification from '../tnm-classification'
-import SublingualGlandTherapy from './sublingual-gland-therapy'
-import SublingualGlandDiagnosis from './sublingual-gland-diagnosis'
-import Histopathology from '../histopathology-malignant'
-import AddPatientButton from '../add-patient-button'
-import EditButtons from '../edit-buttons'
-import { useGlandForm } from '../../../hooks/use-gland-form'
-import EditResult from '../edit-result'
-import AvailableStudies from '../available-studies'
+import { FormStates, FormType } from '../../../../constants'
+import { GlandFormProps, Study, SublingualPatientData } from '../../../../types'
+import Attachments from '../../attachments'
+import Dispensarization from '../../dispensarization-malignant'
+import Notes from '../../notes'
+import PersonalData from '../../personal-data'
+import TNMClassification from '../../tnm-classification'
+import SublingualMalignantGlandTherapy from './sublingual-malignant-gland-therapy'
+import SublingualMalignantGlandDiagnosis from './sublingual-malignant-gland-diagnosis'
+import HistopathologyMalignant from '../../histopathology-malignant'
+import AddPatientButton from '../../add-patient-button'
+import EditButtons from '../../edit-buttons'
+import { useGlandForm } from '../../../../hooks/use-gland-form'
+import EditResult from '../../edit-result'
+import AvailableStudies from '../../available-studies'
 
-const SublingualGlandForm: React.FC<GlandFormProps> = ({
+const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
     defaultFormState,
     editSaved,
@@ -64,17 +64,17 @@ const SublingualGlandForm: React.FC<GlandFormProps> = ({
                 setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <SublingualGlandDiagnosis
+            <SublingualMalignantGlandDiagnosis
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
-            <SublingualGlandTherapy
+            <SublingualMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
@@ -134,4 +134,4 @@ const SublingualGlandForm: React.FC<GlandFormProps> = ({
     )
 }
 
-export default SublingualGlandForm
+export default SublingualMalignantGlandForm

@@ -12,14 +12,14 @@ import AvailableStudies from '../../available-studies'
 import Dispensarization from '../../dispensarization-malignant'
 import EditButtons from '../../edit-buttons'
 import EditResult from '../../edit-result'
-import Histopathology from '../../histopathology-malignant'
+import HistopathologyMalignant from '../../histopathology-malignant'
 import Notes from '../../notes'
 import PersonalData from '../../personal-data'
 import TNMClassification from '../../tnm-classification'
 import SubmandibularMalignantGlandDiagnosis from './submandibular-malignant-gland-diagnosis'
-import SubmandibularGlandTherapy from './submandibular-malignant-gland-therapy'
+import SubmandibularMalignantGlandTherapy from './submandibular-malignant-gland-therapy'
 
-const SubmandibularGlandForm: React.FC<GlandFormProps> = ({
+const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
     defaultFormState,
     editSaved,
@@ -73,12 +73,12 @@ const SubmandibularGlandForm: React.FC<GlandFormProps> = ({
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
-            <SubmandibularGlandTherapy
+            <SubmandibularMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
             />
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
                 disabled={formState === FormStates.view}
@@ -138,4 +138,4 @@ const SubmandibularGlandForm: React.FC<GlandFormProps> = ({
     )
 }
 
-export default SubmandibularGlandForm
+export default SubmandibularMalignantGlandForm

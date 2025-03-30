@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PersonalData from '../../personal-data'
-import ParotidGlandDiagnosis from './parotid-gland-diagnosis'
+import ParotidMalignantGlandDiagnosis from './parotid-malignant-gland-diagnosis'
 import { GlandFormProps, ParotidPatientData, Study } from '../../../../types'
 import { FormStates, FormType } from '../../../../constants'
-import ParotidGlandTherapy from './parotid-gland-therapy'
-import Histopathology from '../../histopathology-malignant'
+import ParotidMalignantGlandTherapy from './parotid-malignant-gland-therapy'
+import HistopathologyMalignant from '../../histopathology-malignant'
 import TNMClassification from '../../tnm-classification'
 import Dispensarization from '../../dispensarization-malignant'
 import Attachments from '../../attachments'
@@ -15,7 +15,7 @@ import { useGlandForm } from '../../../../hooks/use-gland-form'
 import EditResult from '../../edit-result'
 import AvailableStudies from '../../available-studies'
 
-const ParotidGlandForm: React.FC<GlandFormProps> = ({
+const ParotidMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
     defaultFormState,
     editSaved,
@@ -64,19 +64,19 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <ParotidGlandDiagnosis
+            <ParotidMalignantGlandDiagnosis
                 formData={formData}
                 setFormData={setFormData}
                 setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <ParotidGlandTherapy
+            <ParotidMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
                 setFormErrors={setFormErrors}
@@ -137,4 +137,4 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
     )
 }
 
-export default ParotidGlandForm
+export default ParotidMalignantGlandForm

@@ -7,7 +7,7 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
 
-const SubmandibularGlandTherapy: React.FC<GlandComponentProps> = ({
+const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -163,4 +163,4 @@ const SubmandibularGlandTherapy: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default SubmandibularGlandTherapy
+export default SubmandibularMalignantGlandTherapy

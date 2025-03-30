@@ -28,9 +28,9 @@ import {
     PatientType,
     Study,
 } from '../types'
-import ParotidGlandForm from './forms/parotid/malignant/parotid-gland-form'
-import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
-import SubmandibularGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
+import ParotidMalignantGlandForm from './forms/parotid/malignant/parotid-malignant-gland-form'
+import SublingualMalignantGlandForm from './forms/sublingual/malignant/sublingual-malignant-gland-form'
+import SubmandibularMalignantGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
 import PatientButton from './patient-button'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -376,7 +376,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
             </div>
             {activePatient &&
                 ((activePatient.form_type === FormType.priusni && (
-                    <ParotidGlandForm
+                    <ParotidMalignantGlandForm
                         key={activePatient.id}
                         defaultFormState={FormStates.view}
                         defaultSelectedStudies={patientsStudies}
@@ -388,7 +388,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     />
                 )) ||
                     (activePatient.form_type === FormType.podjazykove && (
-                        <SublingualGlandForm
+                        <SublingualMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
                             defaultSelectedStudies={patientsStudies}
@@ -400,7 +400,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         />
                     )) ||
                     (activePatient.form_type === FormType.podcelistni && (
-                        <SubmandibularGlandForm
+                        <SubmandibularMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
                             defaultSelectedStudies={patientsStudies}

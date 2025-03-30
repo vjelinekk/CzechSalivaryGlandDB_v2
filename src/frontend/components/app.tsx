@@ -6,12 +6,17 @@ import AddPatientBenign from './add-patient-benign'
 import AddPatientMalignant from './add-patient-malignant'
 import StudiesList from './studies-list'
 import AddStudy from './add-study'
-import ParotidGlandForm from './forms/parotid/malignant/parotid-gland-form'
-import SublingualGlandForm from './forms/sublingual/sublingual-gland-form'
-import SubmandibularGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
+import ParotidMalignantGlandForm from './forms/parotid/malignant/parotid-malignant-gland-form'
+import SublingualMalignantGlandForm from './forms/sublingual/malignant/sublingual-malignant-gland-form'
+import SubmandibularMalignantGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
+import ParotidBenignGlandForm from './forms/parotid/benign/parotid-benign-gland-form'
+import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 import StudyCreation from './study-creation'
 import { Components, FormStates } from '../constants'
 import { useActiveComponent } from '../hooks/use-active-component'
+import KaplanMeier from './kaplan-meier'
+import ImportProvider from './import-context'
+import LoginForm from './login-form'
 
 // CSS imports
 import '../css/form_style.css'
@@ -20,11 +25,6 @@ import '../css/sidebar.css'
 import '../css/pop_up.css'
 import '../css/switch.css'
 import '../css/table.css'
-import KaplanMeier from './kaplan-meier'
-import ImportProvider from './import-context'
-import LoginForm from './login-form'
-import ParotidBenignGlandForm from './forms/parotid/benign/parotid-benign-gland-form'
-import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -56,21 +56,23 @@ const app = () => {
             {activeComponent.component === Components.addStudy && (
                 <AddStudy setActiveComponent={setActiveComponent} />
             )}
-            {activeComponent.component === Components.parotidGlandForm && (
-                <ParotidGlandForm
-                    setActiveComponent={setActiveComponent}
-                    defaultFormState={FormStates.add}
-                />
-            )}
-            {activeComponent.component === Components.sublingualGlandForm && (
-                <SublingualGlandForm
+            {activeComponent.component ===
+                Components.parotidMalignantGlandForm && (
+                <ParotidMalignantGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
             )}
             {activeComponent.component ===
-                Components.submandibularGlandForm && (
-                <SubmandibularGlandForm
+                Components.sublingualMalignantGlandForm && (
+                <SublingualMalignantGlandForm
+                    setActiveComponent={setActiveComponent}
+                    defaultFormState={FormStates.add}
+                />
+            )}
+            {activeComponent.component ===
+                Components.submandibularMalignantGlandForm && (
+                <SubmandibularMalignantGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />

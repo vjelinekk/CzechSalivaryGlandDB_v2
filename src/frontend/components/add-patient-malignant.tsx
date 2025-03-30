@@ -23,7 +23,9 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                         id="add-parotid-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.parotidGlandForm)
+                            handleButtonClick(
+                                Components.parotidMalignantGlandForm
+                            )
                         }
                     >
                         Příušní žláza
@@ -34,7 +36,9 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                         id="add-submandibular-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.submandibularGlandForm)
+                            handleButtonClick(
+                                Components.submandibularMalignantGlandForm
+                            )
                         }
                     >
                         Podčelistní žláza
@@ -45,7 +49,9 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                         id="add-sublingual-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.sublingualGlandForm)
+                            handleButtonClick(
+                                Components.sublingualMalignantGlandForm
+                            )
                         }
                     >
                         Podjazyková žláza

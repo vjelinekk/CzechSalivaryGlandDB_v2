@@ -1,13 +1,13 @@
 import React from 'react'
-import { dbLabels } from '../../../constants'
-import { GlandComponentProps } from '../../../types'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import DatePicker from '../date-picker'
-import SimpleCheckboxes from '../simple-checkboxes'
+import { dbLabels } from '../../../../constants'
+import { GlandComponentProps } from '../../../../types'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import DatePicker from '../../date-picker'
+import SimpleCheckboxes from '../../simple-checkboxes'
 
-const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
+const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -607,4 +607,4 @@ const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default SublingualGlandDiagnosis
+export default SublingualMalignantGlandDiagnosis
