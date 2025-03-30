@@ -6,6 +6,7 @@ import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
+import TextInput from '../../text-input'
 
 const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
@@ -115,221 +116,57 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label="acinocelulární karcinom"
+                            label="pleomorfní adenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sekretorický karcinom"
+                            label="pleomorfní adenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mukoepidermoidní karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.mukoepidermoidni_karcinom_core
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'low grade',
-                                    'intermediate grade',
-                                    'high grade',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="adenoidně cystický karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.adenoidne_cysticky_karcinom_core
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    's převahou tubulární/kribriformní složky',
-                                    '>30% solidní složky',
-                                    'high grade',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="polymorfní adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={dbLabels.polymorfni_adenokarcinom_core}
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'klasický',
-                                    'kribriformní',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="epiteliální myoepiteliální karcinom"
+                            label="papilární cystadenolymfom (Warthinův tumor)"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="hyalinizující karcinom ze světlých buněk"
+                            label="bazocelulární adenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="bazocelulární adenokarcinom"
+                            label="myoepiteliom"
+                            disabled={disabled}
+                            setFormData={setFormData}
+                        />            
+                        <ConditionalCheckboxOption
+                            label="onkocytom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sebaceózní adenokarcinom"
+                            label="kanalikulární adenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="intraduktální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={dbLabels.intraduktalni_karcinom_core}
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'podobný vmezeřenému vývodu',
-                                    'apokrinní',
-                                    'onkocytární',
-                                    'smíšený',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="salivární karcinom NOS"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={dbLabels.salivarni_karcinom_nos_core}
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'onkocytární adenokarcinom',
-                                    'adenokarcinom intestinálního typu',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="salivární duktální karcinom"
+                            label="sebaceózní adenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="myoepiteliální karcinom"
+                            label="duktální papilom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="karcinom z pleomorfního adenomu"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.karcinom_z_pleomorfniho_adenomu_core
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'intrakapsulární',
-                                    'minimálně invazivní',
-                                    'invazivní',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="karcinosarkom"
+                            label="debaceózní lymfadenom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.spatne_diferencovany_karcinom_core
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'nediferencovaný karcinom',
-                                    'velkobuněčný neuroendokrinní karcinom',
-                                    'malobuněčný neuroendokrinní karcinom',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="lymfoepiteliální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="skvamocelulární karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="mikrosekretorický adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="sklerózující mikrocystický adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="mucinózní adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="asialoblastom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="MALT-lymfom"
+                            label="keratocystom"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -337,7 +174,18 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label="jiné"
                             disabled={disabled}
                             setFormData={setFormData}
-                        />
+                        >
+                            <TextInput
+                                label="Specifikace histologického typu"
+                                dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                                data={getDataFromPatientInterface(
+                                    formData,
+                                    dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                                )}
+                                setFormData={setFormData}
+                                disabled={disabled}
+                            />
+                        </ConditionalCheckboxOption>
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -365,236 +213,77 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
-                        <ConditionalCheckboxOption
-                            label="acinocelulární karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="sekretorický karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="mukoepidermoidní karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.mukoepidermoidni_karcinom_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'low grade',
-                                    'intermediate grade',
-                                    'high grade',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="adenoidně cystický karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.adenoidne_cysticky_karcinom_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    's převahou tubulární/kribriformní složky',
-                                    '>30% solidní složky',
-                                    'high grade',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="polymorfní adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.polymorfni_adenokarcinom_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'klasický',
-                                    'kribriformní',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="epiteliální myoepiteliální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="hyalinizující karcinom ze světlých buněk"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="bazocelulární adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="sebaceózní adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="intraduktální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.intraduktalni_karcinom_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'podobný vmezeřenému vývodu',
-                                    'apokrinní',
-                                    'onkocytární',
-                                    'smíšený',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="salivární karcinom NOS"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.salivarni_karcinom_nos_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'onkocytární adenokarcinom',
-                                    'adenokarcinom intestinálního typu',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="salivární duktální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="myoepiteliální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="karcinom z pleomorfního adenomu"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.karcinom_z_pleomorfniho_adenomu_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'intrakapsulární',
-                                    'minimálně invazivní',
-                                    'invazivní',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="karcinosarkom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <SimpleCheckboxes
-                                dbLabel={
-                                    dbLabels.spatne_diferencovany_karcinom_otevrena
-                                }
-                                data={formData}
-                                setFormData={setFormData}
-                                enableSingleSelect={true}
-                                options={[
-                                    'nediferencovaný karcinom',
-                                    'velkobuněčný neuroendokrinní karcinom',
-                                    'malobuněčný neuroendokrinní karcinom',
-                                    'subtyp nebyl určen',
-                                ]}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
-                        <ConditionalCheckboxOption
-                            label="lymfoepiteliální karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="skvamocelulární karcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="mikrosekretorický adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="sklerózující mikrocystický adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="mucinózní adenokarcinom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="asialoblastom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="MALT-lymfom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="MALT-lymfom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
+                <ConditionalCheckboxOption
+                    label="pleomorfní adenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="pleomorfní adenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="papilární cystadenolymfom (Warthinův tumor)"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="bazocelulární adenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="myoepiteliom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />            
+                <ConditionalCheckboxOption
+                    label="onkocytom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="kanalikulární adenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="sebaceózní adenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="duktální papilom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="debaceózní lymfadenom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="keratocystom"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                />
+                <ConditionalCheckboxOption
+                    label="jiné"
+                    disabled={disabled}
+                    setFormData={setFormData}
+                >
+                    <TextInput
+                        label="Specifikace histologického typu"
+                        dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                        data={getDataFromPatientInterface(
+                            formData,
+                            dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                        )}
+                        setFormData={setFormData}
+                        disabled={disabled}
+                    />
+                </ConditionalCheckboxOption>
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
