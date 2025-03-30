@@ -375,7 +375,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 </div>
             </div>
             {activePatient &&
-                ((activePatient.form_type === FormType.priusni && (
+                ((activePatient.form_type === FormType.parotidMalignant && (
                     <ParotidMalignantGlandForm
                         key={activePatient.id}
                         defaultFormState={FormStates.view}
@@ -387,7 +387,8 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         idStudie={idStudie}
                     />
                 )) ||
-                    (activePatient.form_type === FormType.podjazykove && (
+                    (activePatient.form_type ===
+                        FormType.sublingualMalignant && (
                         <SublingualMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
@@ -399,7 +400,8 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             idStudie={idStudie}
                         />
                     )) ||
-                    (activePatient.form_type === FormType.podcelistni && (
+                    (activePatient.form_type ===
+                        FormType.submandibularMalignant && (
                         <SubmandibularMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}

@@ -1226,12 +1226,20 @@ export const submandibularBenignColumns: SubmandibularBenignColumns = {
         columnName: 'core_vysledek',
         columnType: 'TEXT',
     },
+    core_vysledek_jine: {
+        columnName: 'core_vysledek_jine',
+        columnType: 'TEXT',
+    },
     otevrena_biopsie: {
         columnName: 'otevrena_biopsie',
         columnType: 'TEXT',
     },
     otevrena_vysledek: {
         columnName: 'otevrena_vysledek',
+        columnType: 'TEXT',
+    },
+    otevrena_vysledek_jine: {
+        columnName: 'otevrena_vysledek_jine',
         columnType: 'TEXT',
     },
     datum_zahajeni_lecby: {
@@ -1269,6 +1277,10 @@ export const submandibularBenignColumns: SubmandibularBenignColumns = {
     velikost_nadoru_histopatologie: {
         columnName: 'velikost_nadoru_histopatologie',
         columnType: 'INTEGER',
+    },
+    velikost_nadoru_neurcena_histopatologie: {
+        columnName: 'velikost_nadoru_neurcena_histopatologie',
+        columnType: 'TEXT',
     },
     okraj_resekce_histopatologie: {
         columnName: 'okraj_resekce_histopatologie',

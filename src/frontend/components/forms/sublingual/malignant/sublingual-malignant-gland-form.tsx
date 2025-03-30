@@ -27,7 +27,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
 }) => {
     const [formData, setFormData] = useState<SublingualPatientData | null>({
         ...data,
-        form_type: FormType.podjazykove,
+        form_type: FormType.sublingualMalignant,
     })
 
     const [databaseFormData, setDatabaseFormData] =

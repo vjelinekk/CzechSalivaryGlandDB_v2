@@ -27,7 +27,7 @@ const DispensarizationBenign: React.FC<GlandComponentProps> = ({
             <ConditionalCheckboxes
                 title="Doporučeno další sledování"
                 data={formData}
-                dbLabel={dbLabels.recidiva}
+                dbLabel={dbLabels.doporuceno_dalsi_sledovani}
                 enableSingleSelect={true}
                 setFormData={setFormData}
                 disabled={disabled}
@@ -76,7 +76,7 @@ const DispensarizationBenign: React.FC<GlandComponentProps> = ({
                     <ConditionalCheckboxes
                         title="Recidiva"
                         data={formData}
-                        dbLabel={dbLabels.datum_prokazani_perzistence}
+                        dbLabel={dbLabels.recidiva}
                         enableSingleSelect={true}
                         setFormData={setFormData}
                         disabled={disabled}

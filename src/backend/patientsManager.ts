@@ -104,7 +104,7 @@ export const insertPatient = async (
             return null
         }
 
-        await insertRow(tableName, patientData)
+        result = await insertRow(tableName, patientData)
     } catch (err) {
         result = null
     }

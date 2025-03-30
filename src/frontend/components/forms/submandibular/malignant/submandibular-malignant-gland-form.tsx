@@ -31,7 +31,7 @@ const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
 }) => {
     const [formData, setFormData] = useState<SubmandibularPatientData | null>({
         ...data,
-        form_type: FormType.podcelistni,
+        form_type: FormType.submandibularMalignant,
     })
 
     const [databaseFormData, setDatabaseFormData] =

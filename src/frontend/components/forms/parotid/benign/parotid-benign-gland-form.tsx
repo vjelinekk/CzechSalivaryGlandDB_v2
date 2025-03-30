@@ -26,7 +26,7 @@ const ParotidBenignGlandForm: React.FC<GlandFormProps> = ({
 }) => {
     const [formData, setFormData] = useState<ParotidPatientData | null>({
         ...data,
-        form_type: FormType.priusni,
+        form_type: FormType.parotidBenign,
     })
 
     const [databaseFormData, setDatabaseFormData] =
