@@ -32,6 +32,8 @@ export const formTypeToStringMap: { [key: number]: string } = {
     1: 'podčelistní',
     2: 'podjazyková',
     3: 'příušní',
+    4: 'podčelistní',
+    5: 'příušní',
 }
 
 export const formTypeToBasicStringMap: { [key: number]: string } = {

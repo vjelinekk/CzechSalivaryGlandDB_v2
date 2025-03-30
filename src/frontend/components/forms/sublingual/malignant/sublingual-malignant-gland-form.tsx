@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FormStates, FormType } from '../../../../constants'
-import { GlandFormProps, Study, SublingualPatientData } from '../../../../types'
+import {
+    GlandFormProps,
+    Study,
+    SublingualMalignantPatientData,
+} from '../../../../types'
 import Attachments from '../../attachments'
 import Dispensarization from '../../dispensarization-malignant'
 import Notes from '../../notes'
@@ -25,13 +29,14 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     idStudie,
     defaultSelectedStudies,
 }) => {
-    const [formData, setFormData] = useState<SublingualPatientData | null>({
-        ...data,
-        form_type: FormType.sublingualMalignant,
-    })
+    const [formData, setFormData] =
+        useState<SublingualMalignantPatientData | null>({
+            ...data,
+            form_type: FormType.sublingualMalignant,
+        })
 
     const [databaseFormData, setDatabaseFormData] =
-        useState<SublingualPatientData | null>(data)
+        useState<SublingualMalignantPatientData | null>(data)
 
     const [selectedStudies, setSelectedStudies] = useState<Study[]>(
         defaultSelectedStudies || []
