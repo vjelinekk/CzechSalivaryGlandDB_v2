@@ -1,14 +1,18 @@
 export enum Components {
-    patientsList = 'patients-list',
-    addPatient = 'add-patient',
-    studiesList = 'studies-list',
-    addStudy = 'add-study',
-    parotidGlandForm = 'parotid-gland-form',
-    sublingualGlandForm = 'sublingual-gland-form',
-    submandibularGlandForm = 'submandibular-gland-form',
-    study = 'study',
-    kaplanMeier = 'kaplan-meier',
-    import = 'import',
+    patientsList,
+    addPatient,
+    addPatientBenign,
+    addPatientMalignant,
+    studiesList,
+    addStudy,
+    parotidMalignantGlandForm,
+    parotidBenignGlandForm,
+    sublingualMalignantGlandForm,
+    submandibularMalignantGlandForm,
+    submandibularBenignGlandForm,
+    study,
+    kaplanMeier,
+    import,
 }
 
 export enum StudyType {

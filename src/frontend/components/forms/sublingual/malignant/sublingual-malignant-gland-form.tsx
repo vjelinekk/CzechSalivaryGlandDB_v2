@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import PersonalData from '../personal-data'
-import ParotidGlandDiagnosis from './parotid-gland-diagnosis'
-import { GlandFormProps, ParotidPatientData, Study } from '../../../types'
-import { FormStates, FormType } from '../../../constants'
-import ParotidGlandTherapy from './parotid-gland-therapy'
-import Histopathology from '../histopathology'
-import TNMClassification from '../tnm-classification'
-import Dispensarization from '../dispensarization'
-import Attachments from '../attachments'
-import Notes from '../notes'
-import AddPatientButton from '../add-patient-button'
-import EditButtons from '../edit-buttons'
-import { useGlandForm } from '../../../hooks/use-gland-form'
-import EditResult from '../edit-result'
-import AvailableStudies from '../available-studies'
+import { FormStates, FormType } from '../../../../constants'
+import { GlandFormProps, Study, SublingualPatientData } from '../../../../types'
+import Attachments from '../../attachments'
+import Dispensarization from '../../dispensarization-malignant'
+import Notes from '../../notes'
+import PersonalData from '../../personal-data'
+import TNMClassification from '../../tnm-classification'
+import SublingualMalignantGlandTherapy from './sublingual-malignant-gland-therapy'
+import SublingualMalignantGlandDiagnosis from './sublingual-malignant-gland-diagnosis'
+import HistopathologyMalignant from '../../histopathology-malignant'
+import AddPatientButton from '../../add-patient-button'
+import EditButtons from '../../edit-buttons'
+import { useGlandForm } from '../../../../hooks/use-gland-form'
+import EditResult from '../../edit-result'
+import AvailableStudies from '../../available-studies'
 
-const ParotidGlandForm: React.FC<GlandFormProps> = ({
+const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
     defaultFormState,
     editSaved,
@@ -25,13 +25,13 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
     idStudie,
     defaultSelectedStudies,
 }) => {
-    const [formData, setFormData] = useState<ParotidPatientData | null>({
+    const [formData, setFormData] = useState<SublingualPatientData | null>({
         ...data,
-        form_type: FormType.priusni,
+        form_type: FormType.podjazykove,
     })
 
     const [databaseFormData, setDatabaseFormData] =
-        useState<ParotidPatientData | null>(data)
+        useState<SublingualPatientData | null>(data)
 
     const [selectedStudies, setSelectedStudies] = useState<Study[]>(
         defaultSelectedStudies || []
@@ -64,22 +64,19 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <ParotidGlandDiagnosis
+            <SublingualMalignantGlandDiagnosis
                 formData={formData}
                 setFormData={setFormData}
-                setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <ParotidGlandTherapy
+            <SublingualMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
-                setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
-                setFormErrors={setFormErrors}
                 disabled={formState === FormStates.view}
             />
             <TNMClassification
@@ -93,8 +90,8 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
                 disabled={formState === FormStates.view}
             />
             <Attachments
-                formData={formData}
                 setFormData={setFormData}
+                formData={formData}
                 disabled={formState === FormStates.view}
             />
             <Notes
@@ -105,14 +102,14 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
             <AvailableStudies
                 formType={formData.form_type}
                 selectedStudies={selectedStudies}
-                setStudiesChanged={setStudiesChanged}
                 setSelectedStudies={setSelectedStudies}
+                setStudiesChanged={setStudiesChanged}
                 disabled={formState === FormStates.view}
             />
             <AddPatientButton
                 formState={formState}
-                selectedStudies={selectedStudies}
                 formData={formData}
+                selectedStudies={selectedStudies}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
             />
@@ -137,4 +134,4 @@ const ParotidGlandForm: React.FC<GlandFormProps> = ({
     )
 }
 
-export default ParotidGlandForm
+export default SublingualMalignantGlandForm

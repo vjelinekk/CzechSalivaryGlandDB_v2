@@ -1,13 +1,13 @@
 import React from 'react'
-import { dbLabels } from '../../../constants'
-import { GlandComponentProps } from '../../../types'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import DatePicker from '../date-picker'
-import SimpleCheckboxes from '../simple-checkboxes'
+import { dbLabels } from '../../../../constants'
+import { GlandComponentProps } from '../../../../types'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import DatePicker from '../../date-picker'
+import SimpleCheckboxes from '../../simple-checkboxes'
 
-const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
+const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -31,7 +31,7 @@ const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['C081']}
+                options={['C080']}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -41,6 +41,15 @@ const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 options={['Vpravo', 'Vlevo', 'Oboustranně']}
+                disabled={disabled}
+            />
+            <SimpleCheckboxes
+                title="Funkce n. VII dle H-B (předoperačně)"
+                dbLabel={dbLabels.funkce_n_vii_dle_h_b_predoperacne}
+                data={formData}
+                setFormData={setFormData}
+                enableSingleSelect={true}
+                options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -607,4 +616,4 @@ const SublingualGlandDiagnosis: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default SublingualGlandDiagnosis
+export default SubmandibularMalignantGlandDiagnosis

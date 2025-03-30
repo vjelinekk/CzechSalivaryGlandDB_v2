@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import ParotidGlandTherapy from '../../src/frontend/components/forms/parotid/parotid-gland-therapy'
+import ParotidMalignantGlandTherapy from '../../src/frontend/components/forms/parotid/malignant/parotid-malignant-gland-therapy.tsx'
 
 describe('ParotidGlandTherapy', () => {
     const formData = {} // Mocked formData
@@ -7,7 +7,7 @@ describe('ParotidGlandTherapy', () => {
 
     test('renders section headings and various input components', () => {
         render(
-            <ParotidGlandTherapy
+            <ParotidMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={false}
@@ -32,7 +32,7 @@ describe('ParotidGlandTherapy', () => {
 
     test('disables input components when disabled prop is true', () => {
         render(
-            <ParotidGlandTherapy
+            <ParotidMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={true}

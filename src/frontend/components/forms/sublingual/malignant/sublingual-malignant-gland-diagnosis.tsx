@@ -1,13 +1,13 @@
 import React from 'react'
-import { GlandComponentProps } from '../../../types'
-import { dbLabels } from '../../../constants'
-import DatePicker from '../date-picker'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import SimpleCheckboxes from '../simple-checkboxes'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
+import { dbLabels } from '../../../../constants'
+import { GlandComponentProps } from '../../../../types'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import DatePicker from '../../date-picker'
+import SimpleCheckboxes from '../../simple-checkboxes'
 
-const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
+const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -31,7 +31,7 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['C07']}
+                options={['C081']}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -41,15 +41,6 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 options={['Vpravo', 'Vlevo', 'Oboustranně']}
-                disabled={disabled}
-            />
-            <SimpleCheckboxes
-                title="Funkce n. VII dle H-B (předoperačně)"
-                dbLabel={dbLabels.funkce_n_vii_dle_h_b_predoperacne}
-                data={formData}
-                setFormData={setFormData}
-                enableSingleSelect={true}
-                options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -616,4 +607,4 @@ const ParotidGlandDiagnosis: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default ParotidGlandDiagnosis
+export default SublingualMalignantGlandDiagnosis

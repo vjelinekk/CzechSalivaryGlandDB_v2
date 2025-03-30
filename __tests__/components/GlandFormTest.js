@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import ParotidGlandForm from '../../src/frontend/components/forms/parotid/parotid-gland-form'
-import SublingualGlandForm from '../../src/frontend/components/forms/sublingual/sublingual-gland-form'
-import SubmandibularGlandForm from '../../src/frontend/components/forms/submandibular/submandibular-gland-form'
+import ParotidMalignantGlandForm from '../../src/frontend/components/forms/parotid/malignant/parotid-malignant-gland-form.tsx'
+import SublingualMalignantGlandForm from '../../src/frontend/components/forms/sublingual/malignant/sublingual-malignant-gland-form.tsx'
+import SubmandibularMalignantGlandForm from '../../src/frontend/components/forms/submandibular/malignant/submandibular-malignant-gland-form.tsx'
 import { expect } from '@jest/globals'
 
 describe('ParotidGlandForm', () => {
@@ -21,7 +21,7 @@ describe('ParotidGlandForm', () => {
         }
 
         render(
-            <ParotidGlandForm
+            <ParotidMalignantGlandForm
                 data={data}
                 defaultFormState={defaultFormState}
                 editSaved={editSaved}
@@ -43,7 +43,7 @@ describe('ParotidGlandForm', () => {
         }
 
         render(
-            <SublingualGlandForm
+            <SublingualMalignantGlandForm
                 data={data}
                 defaultFormState={defaultFormState}
                 editSaved={editSaved}
@@ -65,7 +65,7 @@ describe('ParotidGlandForm', () => {
         }
 
         render(
-            <SubmandibularGlandForm
+            <SubmandibularMalignantGlandForm
                 data={data}
                 defaultFormState={defaultFormState}
                 editSaved={editSaved}

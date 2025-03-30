@@ -8,7 +8,9 @@ interface AddPatientProps {
     >
 }
 
-const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
+const addPatientBenign: React.FC<AddPatientProps> = ({
+    setActiveComponent,
+}) => {
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }
@@ -18,24 +20,26 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
             <ul>
                 <li>
                     <button
-                        id="add-malignant-patient"
+                        id="add-parotid-benign-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.addPatientMalignant)
+                            handleButtonClick(Components.parotidBenignGlandForm)
                         }
                     >
-                        Zhoubný nádor
+                        Příušní žláza
                     </button>
                 </li>
                 <li>
                     <button
-                        id="add-benign-patient"
+                        id="add-submandibular-benign-gland"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.addPatientBenign)
+                            handleButtonClick(
+                                Components.submandibularBenignGlandForm
+                            )
                         }
                     >
-                        Nezhoubný nádor
+                        Podčelistní žláza
                     </button>
                 </li>
             </ul>
@@ -43,4 +47,4 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
     )
 }
 
-export default AddPatient
+export default addPatientBenign

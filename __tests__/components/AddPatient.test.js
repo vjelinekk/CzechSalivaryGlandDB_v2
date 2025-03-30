@@ -3,19 +3,18 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import AddPatient from '../../src/frontend/components/add-patient'
 import { Components } from '../../src/frontend/constants'
 
-const PRIUSNI = 'Příušní žláza'
-const PODCELISTNI = 'Podčelistní žláza'
-const PODJAZYKOVA = 'Podjazyková žláza'
+const MALIGNANT = 'Zhoubný nádor'
+const BENIGN = 'Nezhoubný nádor'
 
-const glands = [PRIUSNI, PODCELISTNI, PODJAZYKOVA]
+const tumorTypes = [MALIGNANT, BENIGN]
 
 describe('AddPatient component', () => {
     test('should render correctly', () => {
         const setActiveComponentMock = jest.fn()
         render(<AddPatient setActiveComponent={setActiveComponentMock} />)
 
-        glands.forEach((gland) => {
-            expect(screen.getByText(gland)).toBeInTheDocument()
+        tumorTypes.forEach((type) => {
+            expect(screen.getByText(type)).toBeInTheDocument()
         })
     })
 
@@ -23,19 +22,14 @@ describe('AddPatient component', () => {
         const setActiveComponentMock = jest.fn()
         render(<AddPatient setActiveComponent={setActiveComponentMock} />)
 
-        fireEvent.click(screen.getByText(PRIUSNI))
+        fireEvent.click(screen.getByText(MALIGNANT))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
-            component: Components.parotidGlandForm,
+            component: Components.addPatientMalignant,
         })
 
-        fireEvent.click(screen.getByText(PODCELISTNI))
+        fireEvent.click(screen.getByText(BENIGN))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
-            component: Components.submandibularGlandForm,
-        })
-
-        fireEvent.click(screen.getByText(PODJAZYKOVA))
-        expect(setActiveComponentMock).toHaveBeenCalledWith({
-            component: Components.sublingualGlandForm,
+            component: Components.addPatientMalignant,
         })
     })
 })

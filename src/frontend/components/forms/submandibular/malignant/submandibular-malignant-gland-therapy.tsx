@@ -1,13 +1,13 @@
 import React from 'react'
-import { dbLabels } from '../../../constants'
-import { GlandComponentProps } from '../../../types'
-import getDataFromPatientInterface from '../../../utils/getDataFromPatientInterface'
-import ConditionalCheckboxOption from '../conditional-checkbox-option'
-import ConditionalCheckboxes from '../conditional-checkboxes'
-import DatePicker from '../date-picker'
-import SimpleCheckboxes from '../simple-checkboxes'
+import { dbLabels } from '../../../../constants'
+import { GlandComponentProps } from '../../../../types'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import DatePicker from '../../date-picker'
+import SimpleCheckboxes from '../../simple-checkboxes'
 
-const SublingualGlandTherapy: React.FC<GlandComponentProps> = ({
+const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -114,6 +114,15 @@ const SublingualGlandTherapy: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
+                        title="Funkce n. VII dle H-B (pooperačně)"
+                        data={formData}
+                        dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
+                        setFormData={setFormData}
+                        enableSingleSelect={true}
+                        disabled={disabled}
+                        options={['I', 'II', 'III', 'IV', 'V', 'VI']}
+                    />
+                    <SimpleCheckboxes
                         title="Adjuvantní terapie"
                         data={formData}
                         dbLabel={dbLabels.adjuvantni_terapie}
@@ -154,4 +163,4 @@ const SublingualGlandTherapy: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default SublingualGlandTherapy
+export default SubmandibularMalignantGlandTherapy

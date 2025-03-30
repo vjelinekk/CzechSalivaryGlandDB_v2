@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import Histopathology from '../../src/frontend/components/forms/histopathology'
+import HistopathologyMalignant from '../../src/frontend/components/forms/histopathology-malignant.tsx'
 
 describe('Histopathology component', () => {
     const formData = {} // Mocked formData
@@ -7,7 +7,7 @@ describe('Histopathology component', () => {
 
     test('renders section headings and various input components', () => {
         render(
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
                 disabled={false}
@@ -60,7 +60,7 @@ describe('Histopathology component', () => {
 
     test('disables input components when disabled prop is true', () => {
         render(
-            <Histopathology
+            <HistopathologyMalignant
                 formData={formData}
                 setFormData={setFormData}
                 disabled={true}

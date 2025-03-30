@@ -8,7 +8,7 @@ import SimpleCheckboxes from './simple-checkboxes'
 import TextInput from './text-input'
 import NumberInput from './number-input'
 
-const Histopathology: React.FC<GlandComponentProps> = ({
+const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
@@ -374,4 +374,4 @@ const Histopathology: React.FC<GlandComponentProps> = ({
     )
 }
 
-export default Histopathology
+export default HistopathologyMalignant
