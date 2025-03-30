@@ -55,15 +55,19 @@ const createTable = (
     )
 }
 
-db.serialize(() => {
-    createTable(TableNames.podcelistni, podcelistniColumns)
-    createTable(TableNames.podjazykove, podjazykoveColumns)
-    createTable(TableNames.priusni, priusniColumns)
-    createTable(TableNames.submandibularBenign, submandibularBenignColumns)
-    createTable(TableNames.parotidBenign, paroditBenignColumns)
-    createTable(TableNames.studie, studieColumns)
-    createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
-    createTable(TableNames.password, passwordColumns)
-})
+export const createTables = () => {
+    db.serialize(() => {
+        createTable(TableNames.podcelistni, podcelistniColumns)
+        createTable(TableNames.podjazykove, podjazykoveColumns)
+        createTable(TableNames.priusni, priusniColumns)
+        createTable(TableNames.submandibularBenign, submandibularBenignColumns)
+        createTable(TableNames.parotidBenign, paroditBenignColumns)
+        createTable(TableNames.studie, studieColumns)
+        createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
+        createTable(TableNames.password, passwordColumns)
+    })
+}
+
+createTables()
 
 export default db
