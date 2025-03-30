@@ -113,6 +113,64 @@ export interface PriusniColumns extends CommonColumns {
     jine_pooperacni_komplikace: ColumnDefinition
 }
 
+export interface BenignColumns {
+    [key: string]: ColumnDefinition
+    id: ColumnDefinition
+    form_type: ColumnDefinition
+    attachments: ColumnDefinition
+    jmeno: ColumnDefinition
+    prijmeni: ColumnDefinition
+    id_pacient: ColumnDefinition
+    rodne_cislo: ColumnDefinition
+    vek_pri_diagnoze: ColumnDefinition
+    pohlavi: ColumnDefinition
+    kraj: ColumnDefinition
+    jine_nadorove_onemocneni_v_oa: ColumnDefinition
+    specifikace_mista_vyskytu_jineho_karcinomu: ColumnDefinition
+    jine_onemocneni_velkych_slinnych_zlaz_v_oa: ColumnDefinition
+    specifikace_onemocneni: ColumnDefinition
+    koureni: ColumnDefinition
+    pocet_cigaret_denne: ColumnDefinition
+    jak_dlouho_kouri: ColumnDefinition
+    pocet_balickoroku: ColumnDefinition
+    abusus_alkoholu: ColumnDefinition
+    rok_diagnozy: ColumnDefinition
+    strana_nalezu: ColumnDefinition
+    funkce_n_vii_dle_h_b_predoperacne: ColumnDefinition
+    diagnosticke_metody: ColumnDefinition
+    fnab: ColumnDefinition
+    vysledek_fnab: ColumnDefinition
+    core_biopsie: ColumnDefinition
+    core_vysledek: ColumnDefinition
+    otevrena_biopsie: ColumnDefinition
+    otevrena_vysledek: ColumnDefinition
+    datum_zahajeni_lecby: ColumnDefinition
+    typ_terapie: ColumnDefinition
+    rozsah_chirurgicke_lecby: ColumnDefinition
+    funkce_n_vii_dle_h_b_pooperacne: ColumnDefinition
+    pooperacni_komplikace: ColumnDefinition
+    jine_pooperacni_komplikace: ColumnDefinition
+    histopatologie_vysledek: ColumnDefinition
+    histopatologie_vysledek_jine: ColumnDefinition
+    velikost_nadoru_histopatologie: ColumnDefinition
+    okraj_resekce_histopatologie: ColumnDefinition
+    datum_prvni_kontroly_po_lecbe: ColumnDefinition
+    doporuceno_dalsi_sledovani: ColumnDefinition
+    perzistence: ColumnDefinition
+    datum_prokazani_perzistence: ColumnDefinition
+    recidiva: ColumnDefinition
+    datum_prokazani_recidivy: ColumnDefinition
+    stav: ColumnDefinition
+    datum_umrti: ColumnDefinition
+    posledni_kontrola: ColumnDefinition
+    planovana_kontrola: ColumnDefinition
+    poznamky: ColumnDefinition
+    PRIMARY_KEY: ColumnDefinition
+}
+
+export type SubmandibularBenignColumns = BenignColumns
+export type ParotidBenignColumns = BenignColumns
+
 export interface StudieColumns {
     id: ColumnDefinition
     nazev_studie: ColumnDefinition

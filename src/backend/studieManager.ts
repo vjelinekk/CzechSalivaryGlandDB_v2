@@ -129,6 +129,22 @@ export const getPatientsInStudy = async (
                         patientInStudy.id_pacient_db
                     )
                     return patient
+                } else if (
+                    patientInStudy.typ_pacienta === FormType.submandibularBenign
+                ) {
+                    const patient = await getRow(
+                        TableNames.submandibularBenign,
+                        patientInStudy.id_pacient_db
+                    )
+                    return patient
+                } else if (
+                    patientInStudy.typ_pacienta === FormType.parotidBenign
+                ) {
+                    const patient = await getRow(
+                        TableNames.parotidBenign,
+                        patientInStudy.id_pacient_db
+                    )
+                    return patient
                 }
             }
         )

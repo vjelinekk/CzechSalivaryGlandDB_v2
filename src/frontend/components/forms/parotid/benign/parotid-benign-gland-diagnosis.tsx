@@ -172,10 +172,10 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         >
                             <TextInput
                                 label="Specifikace histologického typu"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                                dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
-                                    dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                                    dbLabels.core_vysledek_jine
                                 )}
                                 setFormData={setFormData}
                                 disabled={disabled}
@@ -265,10 +265,10 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         >
                             <TextInput
                                 label="Specifikace histologického typu"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                                dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
-                                    dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                                    dbLabels.otevrena_vysledek_jine
                                 )}
                                 setFormData={setFormData}
                                 disabled={disabled}

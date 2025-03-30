@@ -1,20 +1,24 @@
 import sqlite3 from 'sqlite3'
 import {
     jeVeStudiiColumns,
+    paroditBenignColumns,
     passwordColumns,
     podcelistniColumns,
     podjazykoveColumns,
     priusniColumns,
     studieColumns,
+    submandibularBenignColumns,
     TableNames,
 } from './constants'
 import {
     JeVeStudiiColumns,
+    ParotidBenignColumns,
     PasswordColumns,
     PodcelistniColumns,
     PodjazykoveColumns,
     PriusniColumns,
     StudieColumns,
+    SubmandibularBenignColumns,
 } from './types'
 import { columnToSQL } from './utils'
 import path from 'path'
@@ -36,6 +40,8 @@ const createTable = (
         | PodcelistniColumns
         | PodjazykoveColumns
         | PriusniColumns
+        | SubmandibularBenignColumns
+        | ParotidBenignColumns
         | JeVeStudiiColumns
         | StudieColumns
         | PasswordColumns
@@ -53,6 +59,8 @@ db.serialize(() => {
     createTable(TableNames.podcelistni, podcelistniColumns)
     createTable(TableNames.podjazykove, podjazykoveColumns)
     createTable(TableNames.priusni, priusniColumns)
+    createTable(TableNames.submandibularBenign, submandibularBenignColumns)
+    createTable(TableNames.parotidBenign, paroditBenignColumns)
     createTable(TableNames.studie, studieColumns)
     createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
     createTable(TableNames.password, passwordColumns)

@@ -80,10 +80,10 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 >
                     <TextInput
                         label="Specifikace histologického typu"
-                        dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                        dbLabel={dbLabels.histopatologie_vysledek_jine}
                         data={getDataFromPatientInterface(
                             formData,
-                            dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                            dbLabels.histopatologie_vysledek_jine
                         )}
                         setFormData={setFormData}
                         disabled={disabled}

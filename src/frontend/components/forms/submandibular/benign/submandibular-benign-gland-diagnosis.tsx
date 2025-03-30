@@ -121,11 +121,6 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="pleomorfní adenom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
                             label="papilární cystadenolymfom (Warthinův tumor)"
                             disabled={disabled}
                             setFormData={setFormData}
@@ -177,10 +172,10 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         >
                             <TextInput
                                 label="Specifikace histologického typu"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                                dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
-                                    dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                                    dbLabels.core_vysledek_jine
                                 )}
                                 setFormData={setFormData}
                                 disabled={disabled}
@@ -275,10 +270,10 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         >
                             <TextInput
                                 label="Specifikace histologického typu"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace} // TODO: fix this in database
+                                dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
-                                    dbLabels.jine_pooperacni_komplikace // TODO: fix this in database
+                                    dbLabels.otevrena_vysledek_jine
                                 )}
                                 setFormData={setFormData}
                                 disabled={disabled}

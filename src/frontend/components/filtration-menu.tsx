@@ -107,21 +107,23 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                 <FormGroup sx={{ flexDirection: 'row' }}>
                                     <FiltrationCheckbox
                                         label="Podčelistní"
-                                        dbValue={FormType.podcelistni}
+                                        dbValue={
+                                            FormType.submandibularMalignant
+                                        }
                                         filterLabel="form_type"
                                         filteredColumns={filteredColumns}
                                         setFilteredColumns={setFilteredColumns}
                                     />
                                     <FiltrationCheckbox
                                         label="Podjazykové"
-                                        dbValue={FormType.podjazykove}
+                                        dbValue={FormType.sublingualMalignant}
                                         filterLabel="form_type"
                                         filteredColumns={filteredColumns}
                                         setFilteredColumns={setFilteredColumns}
                                     />
                                     <FiltrationCheckbox
                                         label="Příušní"
-                                        dbValue={FormType.priusni}
+                                        dbValue={FormType.parotidMalignant}
                                         filterLabel="form_type"
                                         filteredColumns={filteredColumns}
                                         setFilteredColumns={setFilteredColumns}
