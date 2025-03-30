@@ -26,7 +26,10 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 disabled={disabled}
             />
-            <i>Pozn: u chirurgické léčby datum operace / u nechirurgické zahájení sledování</i>
+            <i>
+                Pozn: u chirurgické léčby datum operace / u nechirurgické
+                zahájení sledování
+            </i>
             <ConditionalCheckboxes
                 title="Typ terapie"
                 data={formData}

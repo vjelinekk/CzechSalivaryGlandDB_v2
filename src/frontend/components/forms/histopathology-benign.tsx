@@ -42,7 +42,7 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                     label="myoepiteliom"
                     disabled={disabled}
                     setFormData={setFormData}
-                />            
+                />
                 <ConditionalCheckboxOption
                     label="onkocytom"
                     disabled={disabled}

@@ -8,7 +8,9 @@ interface AddPatientProps {
     >
 }
 
-const AddPatientMalignant: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
+const AddPatientMalignant: React.FC<AddPatientProps> = ({
+    setActiveComponent,
+}) => {
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }

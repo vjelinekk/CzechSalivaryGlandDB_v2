@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { FormStates, FormType } from '../../../../constants'
 import { useGlandForm } from '../../../../hooks/use-gland-form'
-import { GlandFormProps, Study, SubmandibularPatientData } from '../../../../types'
+import {
+    GlandFormProps,
+    Study,
+    SubmandibularPatientData,
+} from '../../../../types'
 import AddPatientButton from '../../add-patient-button'
 import Attachments from '../../attachments'
 import AvailableStudies from '../../available-studies'
-import Dispensarization from '../../dispensarization-malignant'
 import EditButtons from '../../edit-buttons'
 import EditResult from '../../edit-result'
-import Histopathology from '../../histopathology-malignant'
 import Notes from '../../notes'
 import PersonalData from '../../personal-data'
-import TNMClassification from '../../tnm-classification'
 import SubmandibularBenignGlandDiagnosis from './submandibular-benign-gland-diagnosis'
 import SubmandibularBenignGlandTherapy from './submandibular-benign-gland-therapy'
 import HistopathologyBenign from '../../histopathology-benign'

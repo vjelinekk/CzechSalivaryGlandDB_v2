@@ -68,19 +68,22 @@ const app = () => {
                     defaultFormState={FormStates.add}
                 />
             )}
-            {activeComponent.component === Components.submandibularGlandForm && (
+            {activeComponent.component ===
+                Components.submandibularGlandForm && (
                 <SubmandibularGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
             )}
-            {activeComponent.component === Components.parotidBenignGlandForm && (
+            {activeComponent.component ===
+                Components.parotidBenignGlandForm && (
                 <ParotidBenignGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
                 />
             )}
-            {activeComponent.component === Components.submandibularBenignGlandForm && (
+            {activeComponent.component ===
+                Components.submandibularBenignGlandForm && (
                 <SubmandibularBenignGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
