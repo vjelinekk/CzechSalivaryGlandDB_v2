@@ -4,7 +4,7 @@ import { useGlandForm } from '../../../../hooks/use-gland-form'
 import {
     GlandFormProps,
     Study,
-    SubmandibularPatientData,
+    SubmandibularBenignPatientData,
 } from '../../../../types'
 import AddPatientButton from '../../add-patient-button'
 import Attachments from '../../attachments'
@@ -28,13 +28,14 @@ const SubmandibularBenignGlandForm: React.FC<GlandFormProps> = ({
     idStudie,
     defaultSelectedStudies,
 }) => {
-    const [formData, setFormData] = useState<SubmandibularPatientData | null>({
-        ...data,
-        form_type: FormType.submandibularBenign,
-    })
+    const [formData, setFormData] =
+        useState<SubmandibularBenignPatientData | null>({
+            ...data,
+            form_type: FormType.submandibularBenign,
+        })
 
     const [databaseFormData, setDatabaseFormData] =
-        useState<SubmandibularPatientData | null>(data)
+        useState<SubmandibularBenignPatientData | null>(data)
 
     const [selectedStudies, setSelectedStudies] = useState<Study[]>(
         defaultSelectedStudies || []

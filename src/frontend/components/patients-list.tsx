@@ -31,6 +31,7 @@ import {
 import ParotidMalignantGlandForm from './forms/parotid/malignant/parotid-malignant-gland-form'
 import SublingualMalignantGlandForm from './forms/sublingual/malignant/sublingual-malignant-gland-form'
 import SubmandibularMalignantGlandForm from './forms/submandibular/malignant/submandibular-malignant-gland-form'
+import ParotidBenignGlandForm from './forms/parotid/benign/parotid-benign-gland-form'
 import PatientButton from './patient-button'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -360,8 +361,11 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                                     patient.form_type
                                             }
                                             setActivePatient={setActivePatient}
-                                            isSelected={selectedPatients.includes(
-                                                patient
+                                            isSelected={selectedPatients.some(
+                                                (p) =>
+                                                    p.id === patient.id &&
+                                                    p.form_type ===
+                                                        patient.form_type
                                             )}
                                             setSelectedPatients={
                                                 setSelectedPatients
@@ -402,6 +406,31 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     )) ||
                     (activePatient.form_type ===
                         FormType.submandibularMalignant && (
+                        <SubmandibularMalignantGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    )) ||
+                    (activePatient.form_type === FormType.parotidBenign && (
+                        <ParotidBenignGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    )) ||
+                    (activePatient.form_type ===
+                        FormType.submandibularBenign && (
                         <SubmandibularMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}

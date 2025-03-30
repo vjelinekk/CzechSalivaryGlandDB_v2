@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import PersonalData from '../../personal-data'
 import ParotidMalignantGlandDiagnosis from './parotid-malignant-gland-diagnosis'
-import { GlandFormProps, ParotidPatientData, Study } from '../../../../types'
+import {
+    GlandFormProps,
+    ParotidMalignantPatientData,
+    Study,
+} from '../../../../types'
 import { FormStates, FormType } from '../../../../constants'
 import ParotidMalignantGlandTherapy from './parotid-malignant-gland-therapy'
 import HistopathologyMalignant from '../../histopathology-malignant'
@@ -25,13 +29,14 @@ const ParotidMalignantGlandForm: React.FC<GlandFormProps> = ({
     idStudie,
     defaultSelectedStudies,
 }) => {
-    const [formData, setFormData] = useState<ParotidPatientData | null>({
-        ...data,
-        form_type: FormType.parotidMalignant,
-    })
+    const [formData, setFormData] =
+        useState<ParotidMalignantPatientData | null>({
+            ...data,
+            form_type: FormType.parotidMalignant,
+        })
 
     const [databaseFormData, setDatabaseFormData] =
-        useState<ParotidPatientData | null>(data)
+        useState<ParotidMalignantPatientData | null>(data)
 
     const [selectedStudies, setSelectedStudies] = useState<Study[]>(
         defaultSelectedStudies || []
