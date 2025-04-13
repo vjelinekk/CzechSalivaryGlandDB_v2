@@ -111,7 +111,7 @@ export const getPatientsInStudy = async (
             }) => {
                 if (patientInStudy.typ_pacienta === FormType.podcelistni) {
                     const patient = await getRow(
-                        TableNames.podcelistni,
+                        TableNames.submandibularMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
@@ -119,13 +119,13 @@ export const getPatientsInStudy = async (
                     patientInStudy.typ_pacienta === FormType.podjazykove
                 ) {
                     const patient = await getRow(
-                        TableNames.podjazykove,
+                        TableNames.sublingualMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
                 } else if (patientInStudy.typ_pacienta === FormType.priusni) {
                     const patient = await getRow(
-                        TableNames.priusni,
+                        TableNames.parotidMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient

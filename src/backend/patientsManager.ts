@@ -17,16 +17,24 @@ import {
     formTypeToTableName,
     jeVeStudiiColumns,
     paroditBenignColumns,
-    podcelistniColumns,
-    podjazykoveColumns,
-    priusniColumns,
+    submandibularMalignantColumns,
+    sublingualMalignantColumns,
+    parotidMalignantColumns,
     submandibularBenignColumns,
     TableNames,
 } from './constants'
 import db from './dbManager'
 import { decrypt, encrypt } from './encryption'
 import { deletePatientFromAllStudies } from './studieManager'
-import { RowRecordType } from './types'
+import {
+    ParotidBenignColumns,
+    ParotidMalignantColumns,
+    PlannedPatientsMap,
+    RowRecordType,
+    SublingualMalignantColumns,
+    SubmandibularBenignColumns,
+    SubmandibularMalignantColumns,
+} from './types'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -160,9 +168,9 @@ export const getAllPatients = async () => {
     let patients = []
 
     try {
-        const podcelistni = await getAllRows(TableNames.podcelistni)
-        const podjazykove = await getAllRows(TableNames.podjazykove)
-        const priusni = await getAllRows(TableNames.priusni)
+        const podcelistni = await getAllRows(TableNames.submandibularMalignant)
+        const podjazykove = await getAllRows(TableNames.sublingualMalignant)
+        const priusni = await getAllRows(TableNames.parotidMalignant)
         const submandibularBenign = await getAllRows(
             TableNames.submandibularBenign
         )
@@ -302,9 +310,9 @@ const getTablesToSelectFrom = (filter: FilteredColumns): TableNames[] => {
 
     if (filter.form_type.length === 0) {
         tablesToSelectFrom.push(
-            TableNames.podcelistni,
-            TableNames.podjazykove,
-            TableNames.priusni
+            TableNames.submandibularMalignant,
+            TableNames.sublingualMalignant,
+            TableNames.parotidMalignant
         )
     } else {
         filter.form_type.forEach((formType) => {
@@ -409,9 +417,9 @@ export const searchPatientsByNameSurnameRC = async (
     const patients: PatientType[] = []
 
     return new Promise((resolve, reject) => {
-        const queryPodcelistni = `SELECT * FROM ${TableNames.podcelistni} WHERE CONCAT(${podcelistniColumns.jmeno.columnName}, ' ', ${podcelistniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podcelistniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
-        const queryPodjazykove = `SELECT * FROM ${TableNames.podjazykove} WHERE CONCAT(${podjazykoveColumns.jmeno.columnName}, ' ', ${podjazykoveColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podjazykoveColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
-        const queryPriusni = `SELECT * FROM ${TableNames.priusni} WHERE CONCAT(${priusniColumns.jmeno.columnName}, ' ', ${priusniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${priusniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryPodcelistni = `SELECT * FROM ${TableNames.submandibularMalignant} WHERE CONCAT(${submandibularMalignantColumns.jmeno.columnName}, ' ', ${submandibularMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryPodjazykove = `SELECT * FROM ${TableNames.sublingualMalignant} WHERE CONCAT(${sublingualMalignantColumns.jmeno.columnName}, ' ', ${sublingualMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${sublingualMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryPriusni = `SELECT * FROM ${TableNames.parotidMalignant} WHERE CONCAT(${parotidMalignantColumns.jmeno.columnName}, ' ', ${parotidMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${parotidMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
         const querySubmandibularBenign = `SELECT * FROM ${TableNames.submandibularBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${submandibularBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
         const queryParotidBenign = `SELECT * FROM ${TableNames.parotidBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${paroditBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${paroditBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
 
@@ -500,4 +508,82 @@ export const deletePatient = async (
     } catch (err) {
         return false
     }
+}
+
+export const getPlannedPatientsBetweenDates = async (
+    startDate: Date,
+    endDate: Date
+): Promise<PlannedPatientsMap> => {
+    const createPlannedPatientsQuery = (
+        tableName: TableNames,
+        columns:
+            | SubmandibularMalignantColumns
+            | SubmandibularBenignColumns
+            | SublingualMalignantColumns
+            | ParotidMalignantColumns
+            | ParotidBenignColumns
+    ) => {
+        return `
+        SELECT ${columns.id.columnName}, ${columns.jmeno.columnName}, ${columns.prijmeni.columnName}, ${columns.rodne_cislo.columnName}, ${columns.planovana_kontrola.columnName} 
+        FROM ${tableName} 
+        WHERE ${columns.planovana_kontrola.columnName} BETWEEN ? AND ?
+        `
+    }
+
+    const tableColumnsMap = {
+        [TableNames.submandibularMalignant]: submandibularMalignantColumns,
+        [TableNames.sublingualMalignant]: sublingualMalignantColumns,
+        [TableNames.parotidMalignant]: parotidMalignantColumns,
+        [TableNames.submandibularBenign]: submandibularBenignColumns,
+        [TableNames.parotidBenign]: paroditBenignColumns,
+    }
+
+    // Format the date to YYYY-MM-DD
+    const startDateFormatted = startDate.toISOString().split('T')[0]
+    const endDateFormatted = endDate.toISOString().split('T')[0]
+
+    const queries = Object.entries(tableColumnsMap).map(
+        ([tableName, columns]) => ({
+            query: createPlannedPatientsQuery(tableName as TableNames, columns),
+            params: [startDateFormatted, endDateFormatted],
+        })
+    )
+
+    // show queries
+    queries.forEach(({ query, params }) => {
+        console.log(`Query: ${query}, Params: ${params}`)
+    })
+
+    const results = await Promise.all(
+        queries.map(
+            ({ query, params }) =>
+                new Promise((resolve, reject) => {
+                    db.all(query, params, (err, rows) => {
+                        if (err) {
+                            reject(err)
+                            console.log(err)
+                        } else {
+                            resolve(rows)
+                        }
+                    })
+                })
+        )
+    )
+
+    const plannedPatients: PatientType[] = results.flat() as PatientType[]
+    const decryptedPatients = decryptPatientData(plannedPatients)
+
+    // go over all patients and create create an map where key is the date and values are the patients
+    const plannedPatientsMap: PlannedPatientsMap = {}
+    decryptedPatients.forEach((patient) => {
+        const plannedCheckDate = patient.planovana_kontrola as string
+
+        if (!plannedPatientsMap[plannedCheckDate]) {
+            plannedPatientsMap[plannedCheckDate] = []
+        }
+
+        plannedPatientsMap[plannedCheckDate].push(patient)
+    })
+
+    return plannedPatientsMap
 }

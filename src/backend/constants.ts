@@ -2,17 +2,17 @@ import {
     JeVeStudiiColumns,
     ParotidBenignColumns,
     PasswordColumns,
-    PodcelistniColumns,
-    PodjazykoveColumns,
-    PriusniColumns,
+    SubmandibularMalignantColumns,
+    SublingualMalignantColumns,
+    ParotidMalignantColumns,
     StudieColumns,
     SubmandibularBenignColumns,
 } from './types'
 
 export enum TableNames {
-    podcelistni = 'form_podcelistni',
-    podjazykove = 'form_podjazykove',
-    priusni = 'form_priusni',
+    submandibularMalignant = 'form_podcelistni',
+    sublingualMalignant = 'form_podjazykove',
+    parotidMalignant = 'form_priusni',
     submandibularBenign = 'form_submandibular_benign',
     parotidBenign = 'form_parotid_benign',
     studie = 'studie',
@@ -20,7 +20,7 @@ export enum TableNames {
     password = 'password',
 }
 
-export const podcelistniColumns: PodcelistniColumns = {
+export const submandibularMalignantColumns: SubmandibularMalignantColumns = {
     id: {
         columnName: 'id',
         columnType: 'INTEGER UNIQUE',
@@ -387,7 +387,7 @@ export const podcelistniColumns: PodcelistniColumns = {
     },
 }
 
-export const podjazykoveColumns: PodjazykoveColumns = {
+export const sublingualMalignantColumns: SublingualMalignantColumns = {
     id: {
         columnName: 'id',
         columnType: 'INTEGER UNIQUE',
@@ -746,7 +746,7 @@ export const podjazykoveColumns: PodjazykoveColumns = {
     },
 }
 
-export const priusniColumns: PriusniColumns = {
+export const parotidMalignantColumns: ParotidMalignantColumns = {
     id: {
         columnName: 'id',
         columnType: 'INTEGER UNIQUE',
@@ -1417,9 +1417,9 @@ export enum FormType {
 }
 
 export const formTypeToTableName: { [key: number]: TableNames } = {
-    1: TableNames.podcelistni,
-    2: TableNames.podjazykove,
-    3: TableNames.priusni,
+    1: TableNames.submandibularMalignant,
+    2: TableNames.sublingualMalignant,
+    3: TableNames.parotidMalignant,
     4: TableNames.submandibularBenign,
     5: TableNames.parotidBenign,
 }

@@ -3,9 +3,9 @@ import {
     jeVeStudiiColumns,
     paroditBenignColumns,
     passwordColumns,
-    podcelistniColumns,
-    podjazykoveColumns,
-    priusniColumns,
+    submandibularMalignantColumns,
+    sublingualMalignantColumns,
+    parotidMalignantColumns,
     studieColumns,
     submandibularBenignColumns,
     TableNames,
@@ -14,9 +14,9 @@ import {
     JeVeStudiiColumns,
     ParotidBenignColumns,
     PasswordColumns,
-    PodcelistniColumns,
-    PodjazykoveColumns,
-    PriusniColumns,
+    SubmandibularMalignantColumns,
+    SublingualMalignantColumns,
+    ParotidMalignantColumns,
     StudieColumns,
     SubmandibularBenignColumns,
 } from './types'
@@ -37,9 +37,9 @@ const db = new sqlite3.Database(getDBPath('db'))
 const createTable = (
     tableName: TableNames,
     columns:
-        | PodcelistniColumns
-        | PodjazykoveColumns
-        | PriusniColumns
+        | SubmandibularMalignantColumns
+        | SublingualMalignantColumns
+        | ParotidMalignantColumns
         | SubmandibularBenignColumns
         | ParotidBenignColumns
         | JeVeStudiiColumns
@@ -57,9 +57,12 @@ const createTable = (
 
 export const createTables = () => {
     db.serialize(() => {
-        createTable(TableNames.podcelistni, podcelistniColumns)
-        createTable(TableNames.podjazykove, podjazykoveColumns)
-        createTable(TableNames.priusni, priusniColumns)
+        createTable(
+            TableNames.submandibularMalignant,
+            submandibularMalignantColumns
+        )
+        createTable(TableNames.sublingualMalignant, sublingualMalignantColumns)
+        createTable(TableNames.parotidMalignant, parotidMalignantColumns)
         createTable(TableNames.submandibularBenign, submandibularBenignColumns)
         createTable(TableNames.parotidBenign, paroditBenignColumns)
         createTable(TableNames.studie, studieColumns)
