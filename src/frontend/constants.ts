@@ -41,6 +41,8 @@ export const formTypeToBasicStringMap: { [key: number]: string } = {
     1: 'podcelistni',
     2: 'podjazykova',
     3: 'priusni',
+    4: 'podcelistni_benigni',
+    5: 'priusni_benigni',
 }
 
 export const studyTypeToStringMap: { [key: number]: string } = {
