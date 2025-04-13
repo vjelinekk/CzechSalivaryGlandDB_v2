@@ -53,7 +53,27 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 </li>
                 <li>
                     <button
-                        id="add-patient"
+                        id="list-patient"
+                        className={
+                            activeButton === Components.plannedChecks
+                                ? 'button-active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleButtonClick(Components.plannedChecks)
+                        }
+                    >
+                        <img
+                            id="pacienti"
+                            src="../img/schedule.png"
+                            className="icon"
+                        />
+                        Plánované kontroly
+                    </button>
+                </li>
+                <li>
+                    <button
+                        id="planned-checks"
                         className={
                             activeButton === Components.addPatient
                                 ? 'button-active'

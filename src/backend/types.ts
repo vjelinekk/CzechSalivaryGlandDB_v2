@@ -1,3 +1,5 @@
+import { PatientType } from '../frontend/types'
+
 export type RowRecordType = Record<string, string | number>
 
 interface ColumnDefinition {
@@ -99,14 +101,14 @@ export interface CommonColumns {
     PRIMARY_KEY: ColumnDefinition
 }
 
-export interface PodcelistniColumns extends CommonColumns {
+export interface SubmandibularMalignantColumns extends CommonColumns {
     funkce_n_vii_dle_h_b_predoperacne: ColumnDefinition
     funkce_n_vii_dle_h_b_pooperacne: ColumnDefinition
 }
 
-export type PodjazykoveColumns = CommonColumns
+export type SublingualMalignantColumns = CommonColumns
 
-export interface PriusniColumns extends CommonColumns {
+export interface ParotidMalignantColumns extends CommonColumns {
     funkce_n_vii_dle_h_b_predoperacne: ColumnDefinition
     funkce_n_vii_dle_h_b_pooperacne: ColumnDefinition
     pooperacni_komplikace: ColumnDefinition
@@ -205,4 +207,8 @@ export interface PasswordType {
     id?: number
     password?: string
     using_encryption?: boolean
+}
+
+export interface PlannedPatientsMap {
+    [key: string]: PatientType[]
 }

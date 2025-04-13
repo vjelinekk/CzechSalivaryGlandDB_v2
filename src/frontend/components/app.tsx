@@ -25,6 +25,7 @@ import '../css/sidebar.css'
 import '../css/pop_up.css'
 import '../css/switch.css'
 import '../css/table.css'
+import PlannedChecks from './planned-checks'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -40,6 +41,9 @@ const app = () => {
                 <PatientsList
                     defaultActivePatient={activeComponent.activePatient}
                 />
+            )}
+            {activeComponent.component === Components.plannedChecks && (
+                <PlannedChecks setActiveComponent={setActiveComponent} />
             )}
             {activeComponent.component === Components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />

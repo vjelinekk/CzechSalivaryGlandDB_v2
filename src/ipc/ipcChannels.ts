@@ -27,6 +27,7 @@ export enum ipcAPIGetChannels {
     getFilteredPatients = 'getFilteredPatients',
     getKaplanMeierData = 'getKaplanMeierData',
     searchPatientsByNameSurnameRC = 'searchPatientsByNameSurnameRC',
+    getPlannedPatientsBetweenDates = 'getPlannedPatientsBetweenDates',
 }
 
 export enum ipcExportChannels {

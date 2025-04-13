@@ -73,6 +73,8 @@
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.13",
         "@mui/material": "^5.15.13",
+        "@mui/x-date-pickers": "^5.0.20",
+        "date-fns": "^2.30.0",
         "dotenv": "^16.4.5",
         "electron-squirrel-startup": "^1.0.0",
         "exceljs": "^4.4.0",

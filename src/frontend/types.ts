@@ -240,3 +240,12 @@ export interface KaplanMeierCurveRecord {
     time: number
     probability: number
 }
+
+export interface PlannedPatientsMap {
+    [key: string]: PatientType[]
+}
+
+export interface PlannedDay {
+    date: Date
+    patients: PatientType[]
+}

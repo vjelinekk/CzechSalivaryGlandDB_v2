@@ -1,5 +1,6 @@
 export enum Components {
     patientsList,
+    plannedChecks,
     addPatient,
     addPatientBenign,
     addPatientMalignant,

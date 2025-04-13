@@ -83,6 +83,12 @@ contextBridge.exposeInMainWorld('api', {
             filter,
         ])
     },
+    getPlannedPatientsBetweenDates: (startDate: Date, endDate: Date) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getPlannedPatientsBetweenDates,
+            [startDate, endDate]
+        )
+    },
 })
 
 contextBridge.exposeInMainWorld('export', {
