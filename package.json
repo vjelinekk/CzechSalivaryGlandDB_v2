@@ -1,7 +1,7 @@
 {
     "name": "csgdb",
     "productName": "csgdb",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Aplikace pro správu databáze pacientů s nádory slinných žláz",
     "main": ".webpack/main",
     "engines": {
