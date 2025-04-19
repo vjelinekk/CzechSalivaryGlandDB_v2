@@ -1,23 +1,23 @@
 import sqlite3 from 'sqlite3'
 import {
-    jeVeStudiiColumns,
-    paroditBenignColumns,
+    isInStudyColumns,
+    parotidBenignColumns,
     passwordColumns,
     submandibularMalignantColumns,
     sublingualMalignantColumns,
     parotidMalignantColumns,
-    studieColumns,
+    studyColumns,
     submandibularBenignColumns,
     TableNames,
 } from './constants'
 import {
-    JeVeStudiiColumns,
+    IsInStudyColumns,
     ParotidBenignColumns,
     PasswordColumns,
     SubmandibularMalignantColumns,
     SublingualMalignantColumns,
     ParotidMalignantColumns,
-    StudieColumns,
+    StudyColumns,
     SubmandibularBenignColumns,
 } from './types'
 import { columnToSQL } from './utils'
@@ -42,8 +42,8 @@ const createTable = (
         | ParotidMalignantColumns
         | SubmandibularBenignColumns
         | ParotidBenignColumns
-        | JeVeStudiiColumns
-        | StudieColumns
+        | IsInStudyColumns
+        | StudyColumns
         | PasswordColumns
 ) => {
     const columnDefinitions = Object.values(columns).map(
@@ -64,9 +64,9 @@ export const createTables = () => {
         createTable(TableNames.sublingualMalignant, sublingualMalignantColumns)
         createTable(TableNames.parotidMalignant, parotidMalignantColumns)
         createTable(TableNames.submandibularBenign, submandibularBenignColumns)
-        createTable(TableNames.parotidBenign, paroditBenignColumns)
-        createTable(TableNames.studie, studieColumns)
-        createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
+        createTable(TableNames.parotidBenign, parotidBenignColumns)
+        createTable(TableNames.studies, studyColumns)
+        createTable(TableNames.isInStudy, isInStudyColumns)
         createTable(TableNames.password, passwordColumns)
     })
 }

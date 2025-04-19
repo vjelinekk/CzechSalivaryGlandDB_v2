@@ -1,10 +1,10 @@
 import React from 'react'
 import { Components } from '../constants'
-import { activeComponentState } from '../types'
+import { ActiveComponentState } from '../types'
 
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
-        React.SetStateAction<activeComponentState>
+        React.SetStateAction<ActiveComponentState>
     >
 }
 

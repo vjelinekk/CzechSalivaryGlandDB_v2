@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Components, FormStates, FormType, StudyType } from './constants'
 
-export interface activeComponentState {
+export interface ActiveComponentState {
     component: Components
     activePatient?: PatientType | null
     studyType?: StudyType | null
@@ -23,7 +23,7 @@ export interface GlandComponentProps {
 export interface GlandFormProps {
     data?: PatientData
     defaultFormState: FormStates
-    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
     editSaved?: EditSavedState
     setEditSaved?: Dispatch<SetStateAction<EditSavedState>>
     setActivePatient?: Dispatch<SetStateAction<PatientType | null>>

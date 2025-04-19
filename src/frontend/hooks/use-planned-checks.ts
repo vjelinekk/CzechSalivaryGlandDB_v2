@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PlannedDay, PlannedPatientsMap } from '../types'
 
-export const usePlanedChecks = () => {
+export const usePlannedChecks = () => {
     const [startDate, setStartDate] = useState<Date | null>(new Date())
     const [endDate, setEndDate] = useState<Date | null>(
         new Date(new Date().setMonth(new Date().getMonth() + 1))
