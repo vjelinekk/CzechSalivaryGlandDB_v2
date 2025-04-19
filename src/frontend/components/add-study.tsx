@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components, StudyType } from '../constants'
-import { activeComponentState } from '../types'
+import { ActiveComponentState } from '../types'
 
 interface AddStudyProps {
-    setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {

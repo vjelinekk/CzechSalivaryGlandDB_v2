@@ -1,17 +1,17 @@
 import { useState, Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
-import { activeComponentState } from '../types'
+import { ActiveComponentState } from '../types'
 
 interface ActiveComponentHook {
-    activeComponent: activeComponentState
-    setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
+    activeComponent: ActiveComponentState
+    setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 export const useActiveComponent = (
     initialComponent: Components
 ): ActiveComponentHook => {
     const [activeComponent, setActiveComponent] =
-        useState<activeComponentState>({ component: initialComponent })
+        useState<ActiveComponentState>({ component: initialComponent })
 
     return {
         activeComponent,

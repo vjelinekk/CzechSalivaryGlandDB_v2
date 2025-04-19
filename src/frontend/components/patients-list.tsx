@@ -21,7 +21,7 @@ import {
     Components,
 } from '../constants'
 import {
-    activeComponentState,
+    ActiveComponentState,
     EditSavedState,
     FilteredColumns,
     PatientInStudy,
@@ -46,7 +46,7 @@ interface PatientsListProps {
     defaultActivePatient?: PatientType
     studyType?: StudyType
     idStudie?: number
-    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 const PatientsList: React.FC<PatientsListProps> = ({

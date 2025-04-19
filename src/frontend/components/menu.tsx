@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
 import LoadBackUpButton from './load-back-up-button'
-import { activeComponentState } from '../types'
+import { ActiveComponentState } from '../types'
 import BackUpButton from './back-up-button'
 import ImportButton from './import-button'
 import { Divider } from '@mui/material'
 
 interface MenuProps {
-    setActiveComponent: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {

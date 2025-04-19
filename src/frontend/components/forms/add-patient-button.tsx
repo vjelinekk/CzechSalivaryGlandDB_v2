@@ -5,7 +5,7 @@ import {
 } from '../../../ipc/ipcChannels'
 import { Components, FormStates } from '../../constants'
 import {
-    activeComponentState,
+    ActiveComponentState,
     PatientInStudy,
     PatientType,
     Study,
@@ -16,7 +16,7 @@ interface AddPatientButtonProps {
     formData: PatientType
     selectedStudies: Study[]
     formErrors: string[]
-    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 const AddPatientButton: React.FC<AddPatientButtonProps> = ({

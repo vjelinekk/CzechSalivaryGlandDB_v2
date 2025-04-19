@@ -1,5 +1,5 @@
 import React from 'react'
-import { activeComponentState } from '../types'
+import { ActiveComponentState } from '../types'
 import {
     Box,
     Button,
@@ -17,21 +17,21 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { cs } from 'date-fns/locale'
-import { usePlanedChecks } from '../hooks/use-planned-checks'
+import { usePlannedChecks } from '../hooks/use-planned-checks'
 
 interface PlannedChecksProps {
     setActiveComponent: React.Dispatch<
-        React.SetStateAction<activeComponentState>
+        React.SetStateAction<ActiveComponentState>
     >
 }
 
-// TODO: Decide if we will enable clicking on the patients to open their details
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PlannedChecks: React.FC<PlannedChecksProps> = ({
+    // TODO: Decide if we will enable clicking on the patients to open their details
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setActiveComponent,
 }) => {
     const { plannedDaysRows, startDate, setStartDate, endDate, setEndDate } =
-        usePlanedChecks()
+        usePlannedChecks()
 
     const handleExportPDF = async () => {
         // TODO: Implement PDF export functionality

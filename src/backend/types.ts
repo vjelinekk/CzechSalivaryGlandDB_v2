@@ -173,14 +173,14 @@ export interface BenignColumns {
 export type SubmandibularBenignColumns = BenignColumns
 export type ParotidBenignColumns = BenignColumns
 
-export interface StudieColumns {
+export interface StudyColumns {
     id: ColumnDefinition
     nazev_studie: ColumnDefinition
     typ_studie: ColumnDefinition
     PRIMARY_KEY: ColumnDefinition
 }
 
-export interface JeVeStudiiColumns {
+export interface IsInStudyColumns {
     id: ColumnDefinition
     id_studie: ColumnDefinition
     id_pacient_db: ColumnDefinition
@@ -196,7 +196,7 @@ export interface PasswordColumns {
     PRIMARY_KEY: ColumnDefinition
 }
 
-export interface JeVeStudiiType {
+export interface IsInStudyType {
     id: number
     id_studie: number
     id_pacient_db: number
