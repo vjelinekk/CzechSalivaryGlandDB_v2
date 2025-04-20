@@ -25,6 +25,8 @@ import {
 } from './constants'
 import db from './dbManager'
 import { decrypt, encrypt } from './encryption'
+import { MalignantPatient } from './entities/malignant-patient.entity'
+import { Patient } from './entities/patient.entity'
 import { deletePatientFromAllStudies } from './studieManager'
 import {
     ParotidBenignColumns,
@@ -148,6 +150,10 @@ export const updatePatient = async (
 export const savePatient = async (
     data: RowRecordType
 ): Promise<number | null> => {
+    console.log(data);
+    const res = await Patient.insert(data);
+    console.log(res);
+
     try {
         const patient = await getPatient(
             data.id as number,
@@ -165,6 +171,9 @@ export const savePatient = async (
 }
 
 export const getAllPatients = async () => {
+    const patient = await Patient.find();
+    console.log(patient);
+
     let patients = []
 
     try {
