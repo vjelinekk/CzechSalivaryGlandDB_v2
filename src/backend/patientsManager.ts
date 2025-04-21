@@ -1,9 +1,10 @@
-import { KaplanMeierType } from '../frontend/constants'
+import { KaplanMeierType, FormType } from '../frontend/constants'
 import {
     FilteredColumns,
     KaplanMeierData,
     KaplanMeierPatientData,
     PatientType,
+    TumorType,
 } from '../frontend/types'
 import {
     deleteRow,
@@ -13,7 +14,6 @@ import {
     updateRow,
 } from './basicOperations'
 import {
-    FormType,
     formTypeToTableName,
     isInStudyColumns,
     parotidBenignColumns,
@@ -312,16 +312,50 @@ const getFilteredPatientsFromAllPatients = async (
 const getTablesToSelectFrom = (filter: FilteredColumns): TableNames[] => {
     const tablesToSelectFrom: TableNames[] = []
 
-    if (filter.form_type.length === 0) {
+    if (
+        filter.typ_nadoru === TumorType.MALIGNANT &&
+        filter.form_type.length === 0
+    ) {
         tablesToSelectFrom.push(
             TableNames.submandibularMalignant,
             TableNames.sublingualMalignant,
             TableNames.parotidMalignant
         )
-    } else {
+    }
+
+    if (
+        filter.typ_nadoru === TumorType.MALIGNANT &&
+        filter.form_type.length > 0
+    ) {
         filter.form_type.forEach((formType) => {
             tablesToSelectFrom.push(formTypeToTableName[formType])
         })
+    }
+
+    if (
+        filter.typ_nadoru === TumorType.BENIGN &&
+        filter.form_type.length === 0
+    ) {
+        tablesToSelectFrom.push(
+            TableNames.submandibularBenign,
+            TableNames.parotidBenign
+        )
+    }
+
+    if (filter.typ_nadoru === TumorType.BENIGN && filter.form_type.length > 0) {
+        filter.form_type.forEach((formType) => {
+            tablesToSelectFrom.push(formTypeToTableName[formType])
+        })
+    }
+
+    if (filter.typ_nadoru === null) {
+        tablesToSelectFrom.push(
+            TableNames.submandibularMalignant,
+            TableNames.sublingualMalignant,
+            TableNames.parotidMalignant,
+            TableNames.submandibularBenign,
+            TableNames.parotidBenign
+        )
     }
 
     return tablesToSelectFrom
@@ -348,10 +382,46 @@ const getFilterWhereStatement = (
             .map(() => 'histopatologie_vysledek = ?')
             .join(' OR ')
         if (whereStatement !== '') {
-            whereStatement += ' OR '
+            whereStatement += ' AND '
         }
         whereStatement += `(${histopathologyConditions})`
         values.push(...filter.histopatologie_vysledek)
+    }
+
+    // For perzistence
+    if (filter.perzistence) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `perzistence = ?`
+        values.push(filter.perzistence)
+    }
+
+    // For recidiva
+    if (filter.recidiva) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `recidiva = ?`
+        values.push(filter.recidiva)
+    }
+
+    // For stav
+    if (filter.stav) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `stav = ?`
+        values.push(filter.stav)
+    }
+
+    // For pohlavi
+    if (filter.pohlavi) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `pohlavi = ?`
+        values.push(filter.pohlavi)
     }
 
     return { whereStatement, values }
