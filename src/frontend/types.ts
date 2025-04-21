@@ -216,11 +216,32 @@ export type PatientType =
     | SubmandibularBenignPatientData
     | ParoditBenignPatientData
 
+export enum TumorType {
+    MALIGNANT = 1,
+    BENIGN = 2,
+}
+
+export enum FilterColumn {
+    FORM_TYPE = 'form_type',
+    TYP_NADORU = 'typ_nadoru',
+    TYP_TERAPIE = 'typ_terapie',
+    HISTOPATOLOGIE_VYSLEDEK = 'histopatologie_vysledek',
+    PERZISTENCE = 'perzistence',
+    RECIDIVA = 'recidiva',
+    STAV = 'stav',
+    POHLAVI = 'pohlavi',
+}
+
 export interface FilteredColumns {
-    [key: string]: string[] | FormType[]
-    form_type: FormType[]
-    typ_terapie: string[]
-    histopatologie_vysledek: string[]
+    [key: string]: string | string[] | FormType[] | TumorType
+    [FilterColumn.FORM_TYPE]: FormType[]
+    [FilterColumn.TYP_NADORU]: TumorType
+    [FilterColumn.TYP_TERAPIE]: string[]
+    [FilterColumn.HISTOPATOLOGIE_VYSLEDEK]: string[]
+    [FilterColumn.PERZISTENCE]: string
+    [FilterColumn.RECIDIVA]: string
+    [FilterColumn.STAV]: string
+    [FilterColumn.POHLAVI]: string
 }
 
 export interface KaplanMeierPatientData {

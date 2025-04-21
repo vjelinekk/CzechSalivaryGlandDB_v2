@@ -23,10 +23,12 @@ import {
 import {
     ActiveComponentState,
     EditSavedState,
+    FilterColumn,
     FilteredColumns,
     PatientInStudy,
     PatientType,
     Study,
+    TumorType,
 } from '../types'
 import ParotidMalignantGlandForm from './forms/parotid/malignant/parotid-malignant-gland-form'
 import SublingualMalignantGlandForm from './forms/sublingual/malignant/sublingual-malignant-gland-form'
@@ -73,13 +75,23 @@ const PatientsList: React.FC<PatientsListProps> = ({
     const [openEmptyNameAlert, setOpenEmptyNameAlert] = useState(false)
     const [openFiltrationMenu, setOpenFiltrationMenu] = useState(false)
     const [filteredColumns, setFilteredColumns] = useState<FilteredColumns>({
-        form_type: studyType
+        [FilterColumn.FORM_TYPE]: studyType
             ? studyType === StudyType.special
                 ? []
                 : [studyTypeToFormTypeMap[studyType]]
             : [],
-        histopatologie_vysledek: [],
-        typ_terapie: [],
+        [FilterColumn.TYP_NADORU]: studyType
+            ? studyType !== StudyType.special
+                ? TumorType.MALIGNANT
+                : null
+            : null,
+        [FilterColumn.HISTOPATOLOGIE_VYSLEDEK]: [],
+        [FilterColumn.FORM_TYPE]: [],
+        [FilterColumn.TYP_TERAPIE]: [],
+        [FilterColumn.PERZISTENCE]: null,
+        [FilterColumn.RECIDIVA]: null,
+        [FilterColumn.STAV]: null,
+        [FilterColumn.POHLAVI]: null,
     })
     const [isFiltered, setIsFiltered] = useState(false)
     const currentIdStudie = useRef(idStudie)
@@ -87,14 +99,24 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
     useEffect(() => {
         if (studyType) {
-            setFilteredColumns((prev) => ({
-                ...prev,
+            setFilteredColumns({
                 form_type: studyType
                     ? studyType === StudyType.special
                         ? []
                         : [studyTypeToFormTypeMap[studyType]]
                     : [],
-            }))
+                typ_nadoru: studyType
+                    ? studyType !== StudyType.special
+                        ? TumorType.MALIGNANT
+                        : null
+                    : null,
+                typ_terapie: [],
+                histopatologie_vysledek: [],
+                perzistence: null,
+                recidiva: null,
+                stav: null,
+                pohlavi: null,
+            })
         }
     }, [studyType])
 

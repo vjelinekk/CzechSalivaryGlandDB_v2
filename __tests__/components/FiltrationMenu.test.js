@@ -9,9 +9,14 @@ describe('FiltrationMenu component', () => {
         const setFilteredColumnsMock = jest.fn()
         const setIsFilteredMock = jest.fn()
         const filteredColumns = {
-            form_type: ['example_form_type'],
-            histopatologie_vysledek: ['example_histopatologie'],
-            typ_terapie: ['example_typ_terapie'],
+            form_type: [],
+            histopatologie_vysledek: [],
+            typ_terapie: [],
+            perzistence: null,
+            pohlavi: null,
+            recidiva: null,
+            stav: null,
+            typ_nadoru: null,
         }
 
         render(
@@ -36,6 +41,11 @@ describe('FiltrationMenu component', () => {
             form_type: [],
             histopatologie_vysledek: [],
             typ_terapie: [],
+            perzistence: null,
+            pohlavi: null,
+            recidiva: null,
+            stav: null,
+            typ_nadoru: null,
         })
 
         // Assertions for "Uložit filtr" button
