@@ -11,6 +11,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
+import { useTranslation } from 'react-i18next'
 
 interface EditButtonsProps {
     formState: FormStates
@@ -47,6 +48,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     setActivePatient,
     idStudie,
 }) => {
+    const { t } = useTranslation()
     const [openDelePatientDialog, setOpenDeletePatientDialog] = useState(false)
     const [openDeleteFromStudyDialog, setOpenDeleteFromStudyDialog] =
         useState(false)
@@ -141,7 +143,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             type="submit"
                             onClick={handleCancelButtonClick}
                         >
-                            Zrušit editaci
+                            {t('cancel-edit')}
                         </button>
                         <button
                             className="basicButton"
@@ -149,7 +151,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleSaveButtonClick}
                             disabled={formErrors.length > 0}
                         >
-                            Uložit změny
+                             {t('save-changes')}
                         </button>
                     </>
                 )}
@@ -158,7 +160,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         className="basicButton"
                         onClick={handleEditButtonClick}
                     >
-                        Editovat
+                        {t('edit-patient')}
                     </button>
                 )}
                 <button
@@ -166,23 +168,21 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                     className="basicButton"
                     style={{ background: 'red' }}
                 >
-                    Smazat pacienta
+                    {t('delete-patient')}
                 </button>
                 <Dialog open={openDelePatientDialog}>
-                    <DialogTitle>Opravdu chcete smazat pacienta?</DialogTitle>
+                    <DialogTitle>{t('confirm-delete-patient')}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Tato akce je nevratná.
+                            {t('delete-patient-warning')}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button
-                            onClick={() => setOpenDeletePatientDialog(false)}
-                        >
-                            Zrušit
+                        <Button onClick={() => setOpenDeletePatientDialog(false)}>
+                            {t('cancel')}
                         </Button>
                         <Button color="error" onClick={handleDeleteClick}>
-                            Smazat
+                            {t('delete')}
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -193,31 +193,23 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleDeleteFromStudyClick}
                             style={{ background: 'red' }}
                         >
-                            Odebrat z studie
+                            {t('remove-from-study')}
                         </button>
                         <Dialog open={openDeleteFromStudyDialog}>
                             <DialogTitle>
-                                Opravdu chcete odebrat pacienta ze studie?
+                                {t('confirm-remove-from-study')}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Pacienta je možné po odebrání znovu přidat
-                                    do studie.
+                                    {t('remove-from-study-warning')}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
-                                <Button
-                                    onClick={() =>
-                                        setOpenDeleteFromStudyDialog(false)
-                                    }
-                                >
-                                    Zrušit
+                                <Button onClick={() => setOpenDeleteFromStudyDialog(false)}>
+                                    {t('cancel')}
                                 </Button>
-                                <Button
-                                    color="error"
-                                    onClick={handleDeleteFromStudy}
-                                >
-                                    Odebrat
+                                <Button color="error" onClick={handleDeleteFromStudy}>
+                                    {t('remove')}
                                 </Button>
                             </DialogActions>
                         </Dialog>

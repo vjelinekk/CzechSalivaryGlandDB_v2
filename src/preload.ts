@@ -116,6 +116,7 @@ contextBridge.exposeInMainWorld('fs', {
     open: (filePath: string) => {
         ipcRenderer.invoke(ipcFSChannels.open, filePath)
     },
+    loadJson: (filePath: string) => ipcRenderer.invoke('loadJson', filePath),
 })
 
 contextBridge.exposeInMainWorld('encryption', {

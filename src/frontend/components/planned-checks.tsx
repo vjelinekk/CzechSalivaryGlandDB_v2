@@ -18,6 +18,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { cs } from 'date-fns/locale'
 import { usePlannedChecks } from '../hooks/use-planned-checks'
+import { useTranslation } from 'react-i18next'
 
 interface PlannedChecksProps {
     setActiveComponent: React.Dispatch<
@@ -30,6 +31,7 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setActiveComponent,
 }) => {
+    const { t } = useTranslation()
     const { plannedDaysRows, startDate, setStartDate, endDate, setEndDate } =
         usePlannedChecks()
 
@@ -65,14 +67,14 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
                 >
                     <Stack direction="row" spacing={2} alignItems="center">
                         <DatePicker
-                            label="Od"
+                            label={t('from')}
                             value={startDate}
                             onChange={(newValue) => setStartDate(newValue)}
                             renderInput={(params) => <TextField {...params} />}
                         />
                         <Typography>–</Typography>
                         <DatePicker
-                            label="Do"
+                            label={t('to')}
                             value={endDate}
                             onChange={(newValue) => setEndDate(newValue)}
                             renderInput={(params) => <TextField {...params} />}
@@ -85,7 +87,7 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
                     startIcon={<PictureAsPdfIcon />}
                     onClick={handleExportPDF}
                 >
-                    Export PDF
+                    {t('export-pdf')}
                 </Button>
             </Stack>
 
@@ -143,7 +145,7 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
 
             {plannedDaysRows.length === 0 && (
                 <Typography variant="h6" align="center" sx={{ mt: 4 }}>
-                    Žádné plánované kontroly v tomto období
+                    {t('no-planned-checks')}
                 </Typography>
             )}
         </Box>

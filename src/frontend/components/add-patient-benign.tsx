@@ -1,6 +1,7 @@
 import React from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
+import { useTranslation } from 'react-i18next'
 
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
@@ -8,9 +9,11 @@ interface AddPatientProps {
     >
 }
 
-const addPatientBenign: React.FC<AddPatientProps> = ({
+const AddPatientBenign: React.FC<AddPatientProps> = ({
     setActiveComponent,
 }) => {
+    const { t } = useTranslation()
+
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }
@@ -26,7 +29,7 @@ const addPatientBenign: React.FC<AddPatientProps> = ({
                             handleButtonClick(Components.parotidBenignGlandForm)
                         }
                     >
-                        Příušní žláza
+                        {t('parotid-gland')}
                     </button>
                 </li>
                 <li>
@@ -39,7 +42,7 @@ const addPatientBenign: React.FC<AddPatientProps> = ({
                             )
                         }
                     >
-                        Podčelistní žláza
+                        {t('submandibular-gland')}
                     </button>
                 </li>
             </ul>
@@ -47,4 +50,4 @@ const addPatientBenign: React.FC<AddPatientProps> = ({
     )
 }
 
-export default addPatientBenign
+export default AddPatientBenign

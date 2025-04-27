@@ -43,6 +43,7 @@ import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import FiltrationMenu from './filtration-menu'
 import { ImportContext } from './import-context'
+import { useTranslation } from 'react-i18next'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -57,6 +58,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     idStudie,
     setActiveComponent,
 }) => {
+    const { t } = useTranslation()
     const [patients, setPatients] = useState<PatientType[]>([])
     const [patientsToSearchFrom, setPatientsToSearchFrom] = useState<
         PatientType[]
@@ -280,7 +282,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         <input
                             type="text"
                             className="studyNameInput"
-                            placeholder="Název studie"
+                            placeholder={t('study-name-placeholder')}
                             data-testid="study-name-input"
                             value={study?.nazev_studie || ''}
                             onChange={(e) =>
@@ -300,22 +302,22 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 handleCreateStudy()
                             }}
                         >
-                            Vytvořit novou studii
+                            {t('create-study-button')}
                         </button>
                         <Dialog open={openEmptyNameAlert}>
                             <DialogTitle>
-                                Název studie nesmí být prázdný
+                                {t('empty-study-name-alert-title')}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Byl zadán prázdný název studie
+                                    {t('empty-study-name-alert-text')}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
                                 <Button
                                     onClick={() => setOpenEmptyNameAlert(false)}
                                 >
-                                    Rozumím
+                                    {t('understand')}
                                 </Button>
                             </DialogActions>
                         </Dialog>
@@ -327,14 +329,14 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             style={{ backgroundColor: '#29a75e' }}
                             className="tableButton"
                         >
-                            Exportovat
+                            {t("export")}
                         </button>
                         <button
                             onClick={handleExportAnonymized}
                             style={{ backgroundColor: '#2c6e47' }}
                             className="tableButton"
                         >
-                            Exportovat anonymizovaně
+                           {t("export-anonymized")}
                         </button>
                     </div>
                 )}
@@ -343,7 +345,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         className="tableButton"
                         onClick={() => setOpenFiltrationMenu(true)}
                     >
-                        Filtrovat
+                        {t('filter')}
                     </button>
                 </div>
                 <div className="tableSelect">
@@ -352,19 +354,19 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             className="tableButton"
                             onClick={() => setSelectedPatients(patients)}
                         >
-                            Označit vše
+                            {t('select-all')}
                         </button>
                         <button
                             className="tableButton"
                             onClick={() => setSelectedPatients([])}
                         >
-                            Zrušit označení
+                            {t('deselect-all')}
                         </button>
                     </div>
                 </div>
                 <input
                     id="search"
-                    placeholder="Vyhledat..."
+                    placeholder={t('search')}
                     onChange={handlePatientSearch}
                 />
                 <div className="wrapper">

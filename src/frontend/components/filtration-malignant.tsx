@@ -7,6 +7,7 @@ import Checkbox from '@mui/material/Checkbox'
 import ListSubheader from '@mui/material/ListSubheader'
 import { FilterColumn, FilteredColumns } from '../types'
 import FiltrationCheckbox from './filtration-checkbox'
+import { useTranslation } from 'react-i18next'
 
 interface FiltrationMalignantProps {
     filteredColumns: FilteredColumns
@@ -17,32 +18,33 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
     filteredColumns,
     setFilteredColumns,
 }) => {
+    const { t } = useTranslation()
     return (
         <>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Typ terapie
+                    {t('terapy-type')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Chirurgická"
+                            label={t('chirurgical')}
                             dbValue="Chirurgická"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="Nechirurgická"
+                            label={t('non-surgical')}
                             dbValue="Nechirurgická"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="Nebyla indikována"
+                            label={t('not-indicated')}
                             dbValue="Nebyla indikována"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
@@ -53,14 +55,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Pohlaví
+                    {t('gender')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Muž"
+                            label= {t('male')}
                             dbValue="Muž"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -68,7 +70,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Žena"
+                            label= {t('female')}
                             dbValue="Žena"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -80,14 +82,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Perzistence
+                    {t('persistence')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Ano"
+                            label= {t('yes')}
                             dbValue="Ano"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -95,7 +97,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Ne"
+                            label= {t('no')}
                             dbValue="Ne"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -107,14 +109,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Recidiva
+                    {t('recurrence')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Ano"
+                            label= {t('yes')}
                             dbValue="Ano"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -122,7 +124,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Ne"
+                            label= {t('no')}
                             dbValue="Ne"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -134,14 +136,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Stav
+                    {t('status')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Žije"
+                            label= {t('alive')}
                             dbValue="Žije"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
@@ -149,7 +151,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Zemřel"
+                            label= {t('deceased')}
                             dbValue="Zemřel"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
@@ -161,133 +163,133 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Histopatologie
+                    {t('histopathology-lower-case')}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup>
                         <FiltrationCheckbox
-                            label="acinocelulární karcinom"
+                            label={t('acinocellular-carcinoma')}
                             dbValue="acinocelulární karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="sekretorický karcinom"
+                            label={t('secretory-carcinoma')}
                             dbValue="sekretorický karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="mukoepidermoidní karcinom"
+                            label={t('mucoepidermoid-carcinoma')}
                             dbValue="mukoepidermoidní karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="adenoidně cystický karcinom"
+                            label={t('adenoid-cystic-carcinoma')}
                             dbValue="adenoidně cystický karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="polymorfní adenokarcinom"
+                            label={t('polymorphous-adenocarcinoma')}
                             dbValue="polymorfní adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="epiteliální myoepiteliální karcinom"
+                            label={t('epithelial-myoepithelial-carcinoma')}
                             dbValue="epiteliální myoepiteliální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="hyalinizující karcinom ze světlých buněk"
+                            label={t('hyalinizing-carcinoma-of-clear-cells')}
                             dbValue="hyalinizující karcinom ze světlých buněk"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="bazocelulární adenokarcinom"
+                            label={t('basal-cell-adenocarcinoma')}
                             dbValue="bazocelulární adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="sebaceózní adenokarcinom"
+                            label={t('sebaceous-adenocarcinoma')}
                             dbValue="sebaceózní adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="intraduktální karcinom"
+                            label={t('intraductal-carcinoma')}
                             dbValue="intraduktální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="salivární karcinom NOS"
+                            label={t('salivary-carcinoma-nos')}
                             dbValue="salivární karcinom NOS"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="salivární duktální karcinom"
+                            label={t('salivary-ductal-carcinoma')}
                             dbValue="salivární duktální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="myoepiteliální karcinom"
+                            label={t('myoepithelial-carcinoma')}
                             dbValue="myoepiteliální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="karcinom z pleomorfniho adenomu"
+                            label={t('carcinoma-from-pleomorphic-adenoma')}
                             dbValue="karcinom z pleomorfniho adenomu"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="karcinosarkom"
+                            label={t('carcinosarcoma')}
                             dbValue="karcinosarkom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
+                            label={t('poorly-differentiated-carcinoma')}
                             dbValue="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="lymfoepiteliální karcinom"
+                            label={t('lymphoepithelial-carcinoma')}
                             dbValue="lymfoepiteliální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="skvamocelulární karcinom"
+                            label={t('squamous-cell-carcinoma')}
                             dbValue="skvamocelulární karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -295,49 +297,49 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FormControlLabel
                             control={<Checkbox />}
-                            label="mikrosekretorický adenokarcinom"
+                            label={t('microsecretory-adenocarcinoma')}
                         />
                         <FormControlLabel
                             control={<Checkbox />}
-                            label="sklerózující mikrocystický adenokarcinom"
+                            label={t('sclerosing-microcystic-adenocarcinoma')}
                         />
                         <FiltrationCheckbox
-                            label="mikrosekretorický adenokarcinom"
+                            label={t('microsecretory-adenocarcinoma')}
                             dbValue="mikrosekretorický adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="sklerózující mikrocystický adenokarcinom"
+                            label={t('sclerosing-microcystic-adenocarcinoma')}
                             dbValue="sklerózující mikrocystický adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="mucinózní adenokarcinom"
+                            label={t('mucinous-adenocarcinoma')}
                             dbValue="mucinózní adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="asialoblastom"
+                            label={t('asialoblastoma')}
                             dbValue="asialoblastom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="MALT-lymfom"
+                            label={t('malt-lymphoma')}
                             dbValue="MALT-lymfom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="jiné"
+                            label={t('other')}
                             dbValue="jiné"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}

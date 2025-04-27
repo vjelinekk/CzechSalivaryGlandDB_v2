@@ -1,6 +1,7 @@
 import React from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
+import { useTranslation } from 'react-i18next'
 
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
@@ -9,6 +10,8 @@ interface AddPatientProps {
 }
 
 const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
+    const { t } = useTranslation()
+
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
     }
@@ -24,7 +27,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                             handleButtonClick(Components.addPatientMalignant)
                         }
                     >
-                        Zhoubný nádor
+                        {t('malignant-tumor')}
                     </button>
                 </li>
                 <li>
@@ -32,10 +35,10 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                         id="add-benign-patient"
                         className="mainButton"
                         onClick={() =>
-                            handleButtonClick(Components.addPatientBenign)
+                            handleButtonClick(Components.AddPatientBenign)
                         }
                     >
-                        Nezhoubný nádor
+                        {t('benign-tumor')}
                     </button>
                 </li>
             </ul>

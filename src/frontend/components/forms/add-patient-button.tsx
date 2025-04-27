@@ -10,6 +10,7 @@ import {
     PatientType,
     Study,
 } from '../../types'
+import { useTranslation } from 'react-i18next'
 
 interface AddPatientButtonProps {
     formState: FormStates
@@ -26,6 +27,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
     formErrors,
     setActiveComponent,
 }) => {
+    const { t } = useTranslation()
     const handleButtonClick = async (
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
@@ -70,7 +72,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
                         disabled={formErrors.length > 0}
                         onClick={handleButtonClick}
                     >
-                        Přidat pacienta
+                     {t('add-patient')}   
                     </button>
                 </div>
             </>

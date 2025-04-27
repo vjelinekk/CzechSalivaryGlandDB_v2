@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GlandComponentProps } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 
@@ -7,6 +8,8 @@ const Notes: React.FC<GlandComponentProps> = ({
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     const [notes, setNotes] = useState<string>(
         getDataFromPatientInterface(formData, 'poznamky')
             ? (getDataFromPatientInterface(formData, 'poznamky') as string)
@@ -30,7 +33,7 @@ const Notes: React.FC<GlandComponentProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>Poznámky</h1>
+            <h1>{t('notes')}</h1>
             <div className="textareaDiv">
                 <textarea
                     disabled={disabled}

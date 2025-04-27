@@ -2,7 +2,7 @@ export enum Components {
     patientsList,
     plannedChecks,
     addPatient,
-    addPatientBenign,
+    AddPatientBenign,
     addPatientMalignant,
     studiesList,
     addStudy,
@@ -14,6 +14,7 @@ export enum Components {
     study,
     kaplanMeier,
     import,
+    setLanguage,
 }
 
 export enum StudyType {

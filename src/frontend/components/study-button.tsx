@@ -14,6 +14,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
+import { useTranslation } from 'react-i18next'
 
 interface StudyButtonProps {
     defaultStudy: Study
@@ -28,6 +29,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     setActiveStudy,
     setListChanged,
 }) => {
+    const { t } = useTranslation() // Hook pro překlady
     const [editStudyName, setEditStudyName] = useState(false)
     const [study, setStudy] = useState<Study>(defaultStudy)
     const [openDeleteStudyDialog, setOpenDeleteStudyDialog] = useState(false)
@@ -138,18 +140,18 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                 <DeleteIcon />
             </IconButton>
             <Dialog open={openDeleteStudyDialog}>
-                <DialogTitle>Opravdu chcete smazat tuto studii?</DialogTitle>
+                <DialogTitle>{t('delete-study-title')}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Tato akce je nevratná.
+                        {t('delete-study-warning')}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenDeleteStudyDialog(false)}>
-                        Zrušit
+                        {t('cancel')}
                     </Button>
                     <Button color="error" onClick={handleDeleteStudy}>
-                        Smazat
+                        {t('delete-study')}
                     </Button>
                 </DialogActions>
             </Dialog>

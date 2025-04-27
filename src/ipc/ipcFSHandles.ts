@@ -1,6 +1,7 @@
 import { app, dialog, ipcMain, shell } from 'electron'
 import { ipcFSChannels } from './ipcChannels'
 import path from 'path'
+import fs from 'fs/promises';
 
 ipcMain.handle(ipcFSChannels.save, async () => {
     const result = await dialog.showOpenDialog({
@@ -27,3 +28,14 @@ ipcMain.handle(ipcFSChannels.getFileName, async (event, filePath) => {
 ipcMain.handle(ipcFSChannels.open, async (event, filePath) => {
     shell.openPath(filePath)
 })
+
+ipcMain.handle(ipcFSChannels.loadJson, async (event, filePath) => {
+    try {
+        const fileContent = await fs.readFile(filePath, 'utf-8');
+        const json = JSON.parse(fileContent);
+        return json;
+    } catch (error) {
+        console.error('Error loading JSON:', error);
+        throw new Error('Failed to load JSON');
+    }
+});

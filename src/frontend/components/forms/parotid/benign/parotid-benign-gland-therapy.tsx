@@ -1,23 +1,26 @@
-import React from 'react'
-import { dbLabels } from '../../../../constants'
-import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
-import { GlandComponentProps } from '../../../../types'
-import DatePicker from '../../date-picker'
-import ConditionalCheckboxes from '../../conditional-checkboxes'
-import ConditionalCheckboxOption from '../../conditional-checkbox-option'
-import SimpleCheckboxes from '../../simple-checkboxes'
-import TextInput from '../../text-input'
+import React from 'react';
+import { useTranslation } from 'react-i18next'; // Import translation
+import { dbLabels } from '../../../../constants';
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface';
+import { GlandComponentProps } from '../../../../types';
+import DatePicker from '../../date-picker';
+import ConditionalCheckboxes from '../../conditional-checkboxes';
+import ConditionalCheckboxOption from '../../conditional-checkbox-option';
+import SimpleCheckboxes from '../../simple-checkboxes';
+import TextInput from '../../text-input';
 
 const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation();
+
     return (
         <div className="sectionDiv">
-            <h1>TERAPIE</h1>
+            <h1>{t('therapy')}</h1>
             <DatePicker
-                label="Datum zahájení léčby"
+                label={t('treatment-start-date')}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -27,11 +30,10 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <i>
-                Pozn: u chirurgické léčby datum operace / u nechirurgické
-                zahájení sledování
+                {t('note-surgical-treatment')}
             </i>
             <ConditionalCheckboxes
-                title="Typ terapie"
+                title={t('therapy-type')}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -39,34 +41,34 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Chirurgická"
+                    label={t('surgical')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Rozsah chirurgické léčby"
+                        title={t('surgical-scope')}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            'Parotidektomie I–IV (VII)',
-                            'Parotidektomie I–IV',
-                            'Parotidektomie I–IV (VII, S, MM)',
-                            'Parotidektomie I–II (PES)',
-                            'Parotidektomie III–IV (Deep lobe parotidectomy)',
-                            'Parotidektomie I',
-                            'Parotidektomie II',
-                            'Parotidektomie I–II–III',
-                            'Parotidektomie V',
-                            'ECD I',
-                            'ECD II',
-                            'ECD V',
+                            t('parotidectomy-i-iv'),
+                            t('parotidectomy-i-iv-vii'),
+                            t('parotidectomy-i-iv-vii-s-mm'),
+                            t('parotidectomy-i-ii-pes'),
+                            t('parotidectomy-iii-iv'),
+                            t('parotidectomy-i'),
+                            t('parotidectomy-ii'),
+                            t('parotidectomy-i-ii-iii'),
+                            t('parotidectomy-v'),
+                            t('ecd-i'),
+                            t('ecd-ii'),
+                            t('ecd-v')
                         ]}
                     />
                     <SimpleCheckboxes
-                        title="Funkce n. VII dle H-B (pooperačně)"
+                        title={t('n-vii-function-hb-postoperative')}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -75,7 +77,7 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title="Jiné pooperační komplikace"
+                        title={t('other-postoperative-complications')}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -83,27 +85,27 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label="Nejsou"
+                            label={t('none')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Syndrom Freyové"
+                            label={t('freys-syndrome')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Slinná píštěl"
+                            label={t('salivary-fistula')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Jiné"
+                            label={t('other')}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label="Upřesnění jiné komplikace"
+                                label={t('specify-other-complications')}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -117,12 +119,12 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
 
                 <ConditionalCheckboxOption
-                    label="Nechirurgická-sledování"
+                    label={t('non-surgical-monitoring')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="Nebyla indikována"
+                    label={t('not-indicated')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

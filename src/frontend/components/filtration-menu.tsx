@@ -11,6 +11,7 @@ import ListItem from '@mui/material/ListItem'
 import FormControl from '@mui/material/FormControl'
 import FormGroup from '@mui/material/FormGroup'
 import ListSubheader from '@mui/material/ListSubheader'
+import { useTranslation } from 'react-i18next'
 import { FilterColumn, FilteredColumns, TumorType } from '../types'
 import FiltrationCheckbox from './filtration-checkbox'
 import { FormType, StudyType } from '../constants'
@@ -34,6 +35,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
     studyType,
     setIsFiltered,
 }) => {
+    const { t } = useTranslation()
     const initialFilter = useRef<FilteredColumns>(filteredColumns)
 
     useEffect(() => {
@@ -87,12 +89,8 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                     >
                         <CloseIcon />
                     </IconButton>
-                    <Typography
-                        sx={{ ml: 2, flex: 1 }}
-                        variant="h6"
-                        component="div"
-                    >
-                        Filtrační menu
+                    <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                        {t('filtration-menu')}
                     </Typography>
                     <Button
                         color="warning"
@@ -121,7 +119,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                             setIsFiltered(false)
                         }}
                     >
-                        Resetovat filtr
+                        {t('reset-filter')}
                     </Button>
                     <Button
                         onClick={() => {
@@ -132,7 +130,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                         variant="contained"
                         color="success"
                     >
-                        Uložit filtr
+                        {t('save-filter')}
                     </Button>
                 </Toolbar>
             </AppBar>
@@ -141,14 +139,14 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                     <>
                         <ListSubheader disableSticky>
                             <Typography variant="h6" fontWeight="bold">
-                                Typ nádoru
+                                {t('tumor-type')}
                             </Typography>
                         </ListSubheader>
                         <ListItem>
                             <FormControl component="fieldset">
                                 <FormGroup sx={{ flexDirection: 'row' }}>
                                     <FiltrationCheckbox
-                                        label="Nezhoubný"
+                                        label={t('benign')}
                                         dbValue={TumorType.BENIGN}
                                         filterLabel={FilterColumn.TYP_NADORU}
                                         filteredColumns={filteredColumns}
@@ -156,7 +154,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                         isSingleCheckGroup={true}
                                     />
                                     <FiltrationCheckbox
-                                        label="Zhoubný"
+                                        label={t('malignant')}
                                         dbValue={TumorType.MALIGNANT}
                                         filterLabel={FilterColumn.TYP_NADORU}
                                         filteredColumns={filteredColumns}
@@ -167,66 +165,36 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                             </FormControl>
                         </ListItem>
                         {filteredColumns.typ_nadoru !== null &&
-                            filteredColumns.typ_nadoru ===
-                                TumorType.MALIGNANT && (
+                            filteredColumns.typ_nadoru === TumorType.MALIGNANT && (
                                 <>
                                     <ListSubheader disableSticky>
-                                        <Typography
-                                            variant="h6"
-                                            fontWeight="bold"
-                                        >
-                                            Typ žlázy
+                                        <Typography variant="h6" fontWeight="bold">
+                                            {t('gland-type')}
                                         </Typography>
                                     </ListSubheader>
                                     <ListItem>
                                         <FormControl component="fieldset">
-                                            <FormGroup
-                                                sx={{ flexDirection: 'row' }}
-                                            >
+                                            <FormGroup sx={{ flexDirection: 'row' }}>
                                                 <FiltrationCheckbox
-                                                    label="Podčelistní"
-                                                    dbValue={
-                                                        FormType.submandibularMalignant
-                                                    }
-                                                    filterLabel={
-                                                        FilterColumn.FORM_TYPE
-                                                    }
-                                                    filteredColumns={
-                                                        filteredColumns
-                                                    }
-                                                    setFilteredColumns={
-                                                        setFilteredColumns
-                                                    }
+                                                    label={t('submandibular')}
+                                                    dbValue={FormType.submandibularMalignant}
+                                                    filterLabel={FilterColumn.FORM_TYPE}
+                                                    filteredColumns={filteredColumns}
+                                                    setFilteredColumns={setFilteredColumns}
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Podjazykové"
-                                                    dbValue={
-                                                        FormType.sublingualMalignant
-                                                    }
-                                                    filterLabel={
-                                                        FilterColumn.FORM_TYPE
-                                                    }
-                                                    filteredColumns={
-                                                        filteredColumns
-                                                    }
-                                                    setFilteredColumns={
-                                                        setFilteredColumns
-                                                    }
+                                                    label={t('sublingual')}
+                                                    dbValue={FormType.sublingualMalignant}
+                                                    filterLabel={FilterColumn.FORM_TYPE}
+                                                    filteredColumns={filteredColumns}
+                                                    setFilteredColumns={setFilteredColumns}
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Příušní"
-                                                    dbValue={
-                                                        FormType.parotidMalignant
-                                                    }
-                                                    filterLabel={
-                                                        FilterColumn.FORM_TYPE
-                                                    }
-                                                    filteredColumns={
-                                                        filteredColumns
-                                                    }
-                                                    setFilteredColumns={
-                                                        setFilteredColumns
-                                                    }
+                                                    label={t('parotid')}
+                                                    dbValue={FormType.parotidMalignant}
+                                                    filterLabel={FilterColumn.FORM_TYPE}
+                                                    filteredColumns={filteredColumns}
+                                                    setFilteredColumns={setFilteredColumns}
                                                 />
                                             </FormGroup>
                                         </FormControl>
@@ -237,47 +205,26 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                             filteredColumns.typ_nadoru === TumorType.BENIGN && (
                                 <>
                                     <ListSubheader disableSticky>
-                                        <Typography
-                                            variant="h6"
-                                            fontWeight="bold"
-                                        >
-                                            Typ žlázy
+                                        <Typography variant="h6" fontWeight="bold">
+                                            {t('gland-type')}
                                         </Typography>
                                     </ListSubheader>
                                     <ListItem>
                                         <FormControl component="fieldset">
-                                            <FormGroup
-                                                sx={{ flexDirection: 'row' }}
-                                            >
+                                            <FormGroup sx={{ flexDirection: 'row' }}>
                                                 <FiltrationCheckbox
-                                                    label="Podčelistní"
-                                                    dbValue={
-                                                        FormType.submandibularBenign
-                                                    }
-                                                    filterLabel={
-                                                        FilterColumn.FORM_TYPE
-                                                    }
-                                                    filteredColumns={
-                                                        filteredColumns
-                                                    }
-                                                    setFilteredColumns={
-                                                        setFilteredColumns
-                                                    }
+                                                    label={t('submandibular')}
+                                                    dbValue={FormType.submandibularBenign}
+                                                    filterLabel={FilterColumn.FORM_TYPE}
+                                                    filteredColumns={filteredColumns}
+                                                    setFilteredColumns={setFilteredColumns}
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Příušní"
-                                                    dbValue={
-                                                        FormType.parotidBenign
-                                                    }
-                                                    filterLabel={
-                                                        FilterColumn.FORM_TYPE
-                                                    }
-                                                    filteredColumns={
-                                                        filteredColumns
-                                                    }
-                                                    setFilteredColumns={
-                                                        setFilteredColumns
-                                                    }
+                                                    label={t('parotid')}
+                                                    dbValue={FormType.parotidBenign}
+                                                    filterLabel={FilterColumn.FORM_TYPE}
+                                                    filteredColumns={filteredColumns}
+                                                    setFilteredColumns={setFilteredColumns}
                                                 />
                                             </FormGroup>
                                         </FormControl>
@@ -289,7 +236,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                 {filteredColumns.typ_nadoru === null && (
                     <ListItem>
                         <Typography variant="body1" color="text.secondary">
-                            Další filtry se zobrazí po výběru typu nádoru.
+                            {t('select-tumor-type-message')}
                         </Typography>
                     </ListItem>
                 )}
