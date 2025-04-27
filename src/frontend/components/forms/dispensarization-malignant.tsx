@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { dbLabels } from '../../constants'
 import { GlandComponentProps } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
@@ -11,11 +12,13 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>DISPENZARIZACE</h1>
+            <h1>{t('dispensarization-title')}</h1>
             <DatePicker
-                label="Datum první kontroly po léčbě"
+                label={t('date-first-control')}
                 dbLabel={dbLabels.datum_prvni_kontroly_po_lecbe}
                 data={getDataFromPatientInterface(
                     formData,
@@ -24,7 +27,7 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 disabled={disabled}
             />
-            <h2>Perzistence</h2>
+            <h2>{t('persistence')}</h2>
             <ConditionalCheckboxes
                 data={formData}
                 dbLabel={dbLabels.perzistence}
@@ -33,12 +36,12 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t('yes')}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
                     <DatePicker
-                        label="Datum prokázání perzistence"
+                        label={t('persistence-date')}
                         dbLabel={dbLabels.datum_prokazani_perzistence}
                         data={getDataFromPatientInterface(
                             formData,
@@ -49,17 +52,17 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t('no')}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
                 <ConditionalCheckboxOption
-                    label="Neznámo"
+                    label={t('unknown')}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
             </ConditionalCheckboxes>
-            <h2>Recidiva</h2>
+            <h2>{t('recidiva')}</h2>
             <ConditionalCheckboxes
                 data={formData}
                 dbLabel={dbLabels.recidiva}
@@ -68,12 +71,12 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t('yes')}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
                     <DatePicker
-                        label="Datum prokázání recidivy"
+                        label={t('recidiva-date')}
                         dbLabel={dbLabels.datum_prokazani_recidivy}
                         data={getDataFromPatientInterface(
                             formData,
@@ -84,17 +87,17 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t('no')}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
                 <ConditionalCheckboxOption
-                    label="Neznámo"
+                    label={t('unknown')}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
             </ConditionalCheckboxes>
-            <h2>Stav</h2>
+            <h2>{t('status')}</h2>
             <ConditionalCheckboxes
                 data={formData}
                 dbLabel={dbLabels.stav}
@@ -103,17 +106,17 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Žije"
+                    label={t('alive')}
                     setFormData={setFormData}
                     disabled={disabled}
                 ></ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Zemřel"
+                    label={t('deceased')}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
                     <DatePicker
-                        label="Datum úmrtí (pokud je dostupné)"
+                        label={t('deceased-date')}
                         dbLabel={dbLabels.datum_umrti}
                         data={getDataFromPatientInterface(
                             formData,
@@ -124,14 +127,14 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Neznámo"
+                    label={t('unknown')}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
             </ConditionalCheckboxes>
-            <h2>Kontroly</h2>
+            <h2>{t('checkups')}</h2>
             <DatePicker
-                label="Datum poslední kontroly"
+                label={t('last-checkup-date')}
                 dbLabel={dbLabels.posledni_kontrola}
                 data={getDataFromPatientInterface(
                     formData,
@@ -141,7 +144,7 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <DatePicker
-                label="Datum plánované kontroly"
+                label={t('scheduled-checkup-date')}
                 dbLabel={dbLabels.planovana_kontrola}
                 data={getDataFromPatientInterface(
                     formData,

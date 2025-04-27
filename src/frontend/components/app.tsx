@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Menu from './menu'
 import PatientsList from './patients-list'
 import AddPatient from './add-patient'
@@ -17,6 +17,8 @@ import { useActiveComponent } from '../hooks/use-active-component'
 import KaplanMeier from './kaplan-meier'
 import ImportProvider from './import-context'
 import LoginForm from './login-form'
+import SetLanguage from './set-language'
+import { initI18n } from '../i18n';
 
 // CSS imports
 import '../css/form_style.css'
@@ -33,6 +35,19 @@ const app = () => {
     )
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+      const init = async () => {
+        await initI18n();
+        setReady(true);
+      };
+      init();
+    }, []);
+  
+    if (!ready) {
+      return null;
+    }
 
     return isLoggedIn ? (
         <ImportProvider>
@@ -51,7 +66,7 @@ const app = () => {
             {activeComponent.component === Components.addPatientMalignant && (
                 <AddPatientMalignant setActiveComponent={setActiveComponent} />
             )}
-            {activeComponent.component === Components.addPatientBenign && (
+            {activeComponent.component === Components.AddPatientBenign && (
                 <AddPatientBenign setActiveComponent={setActiveComponent} />
             )}
             {activeComponent.component === Components.studiesList && (
@@ -103,6 +118,9 @@ const app = () => {
             )}
             {activeComponent.component === Components.kaplanMeier && (
                 <KaplanMeier />
+            )}
+            {activeComponent.component === Components.setLanguage && (
+                <SetLanguage />
             )}
         </ImportProvider>
     ) : (

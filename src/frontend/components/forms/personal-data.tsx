@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import SimpleCheckboxes from './simple-checkboxes'
 import ConditionalCheckboxes from './conditional-checkboxes'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
@@ -17,13 +18,15 @@ const PersonalData: React.FC<GlandComponentProps> = ({
     setFormErrors,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>ANAMNESTICKÁ/PERSONÁLNÍ DATA</h1>
+            <h1>{t('anamnestic-personal-data')}</h1>
             <div className="subsectionDiv">
-                <h2>Základní informace</h2>
+                <h2>{t('basic-information')}</h2>
                 <TextInput
-                    label="Jméno"
+                    label={t('first-name')}
                     dbLabel={dbLabels.jmeno}
                     data={getDataFromPatientInterface(formData, dbLabels.jmeno)}
                     setFormData={setFormData}
@@ -32,7 +35,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="Příjmení"
+                    label={t('surname')}
                     dbLabel={dbLabels.prijmeni}
                     data={getDataFromPatientInterface(
                         formData,
@@ -44,7 +47,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="Identifikační kód pacienta"
+                    label={t('patient-id')}
                     dbLabel={dbLabels.id_pacient}
                     data={getDataFromPatientInterface(
                         formData,
@@ -54,7 +57,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="RČ (bez lomítka)"
+                    label={t('birth-number-no-slash')}
                     dbLabel={dbLabels.rodne_cislo}
                     data={getDataFromPatientInterface(
                         formData,
@@ -66,7 +69,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <NumberInput
-                    label="Věk pacienta v době diagnózy"
+                    label={t('age-at-diagnosis')}
                     dbLabel={dbLabels.vek_pri_diagnoze}
                     data={
                         getDataFromPatientInterface(
@@ -80,57 +83,57 @@ const PersonalData: React.FC<GlandComponentProps> = ({
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
-                    title="Pohlaví pacienta"
+                    title={t('patient-gender')}
                     dbLabel={dbLabels.pohlavi}
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={['Žena', 'Muž']}
+                    options={[t('female'), t('male')]}
                     disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
-                    title="Demografické informace - kraj trvalého bydliště pacienta"
+                    title={t('demographic-info-residency-region')}
                     dbLabel={dbLabels.kraj}
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
                     options={[
-                        'Hlavní město Praha',
-                        'Středočeský kraj',
-                        'Jihočeský kraj',
-                        'Plzeňský kraj',
-                        'Karlovarský kraj',
-                        'Ústecký kraj',
-                        'Liberecký kraj',
-                        'Královéhradecký kraj',
-                        'Pardubický kraj',
-                        'Kraj Vysočina',
-                        'Jihomoravský kraj',
-                        'Zlínský kraj',
-                        'Olomoucký kraj',
-                        'Moravskoslezský kraj',
+                        t('prague'),
+                        t('central-bohemian-region'),
+                        t('south-bohemian-region'),
+                        t('pilsen-region'),
+                        t('karlovy-vary-region'),
+                        t('ustecky-region'),
+                        t('liberec-region'),
+                        t('hradec-kralove-region'),
+                        t('pardubice-region'),
+                        t('vysocina-region'),
+                        t('south-moravian-region'),
+                        t('zlin-region'),
+                        t('olomouc-region'),
+                        t('moravian-silesian-region'),
                     ]}
                     disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
-                <h2>Informace z OA</h2>
+                <h2>{t('information-from-oa')}</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
                     dbLabel={dbLabels.jine_nadorove_onemocneni_v_oa}
                     data={formData}
                     setFormData={setFormData}
-                    title="Jiné nádorové onemocnění v OA"
+                    title={t('other-cancer-in-oa')}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t('yes')}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <TextInput
-                            label="Specifikace místa výskytu jiného karcinomu"
+                            label={t('specify-other-cancer-location')}
                             dbLabel={
                                 dbLabels.specifikace_mista_vyskytu_jineho_karcinomu
                             }
@@ -143,27 +146,25 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t('no')}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
-                    dbLabel={
-                        dbLabels.jine_onemocneni_velkych_slinnych_zlaz_v_oa
-                    }
+                    dbLabel={dbLabels.jine_onemocneni_velkych_slinnych_zlaz_v_oa}
                     data={formData}
                     setFormData={setFormData}
-                    title="Jiné onemocnění velkých slinných žláz v OA"
+                    title={t('other-salivary-gland-disease-in-oa')}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t('yes')}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <TextInput
-                            label="Specifikace onemocnění:"
+                            label={t('specify-disease')}
                             dbLabel={dbLabels.specifikace_onemocneni}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -174,28 +175,28 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t('no')}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
-                <h2>Přítomnost obecných rizikových faktorů</h2>
+                <h2>{t('presence-of-general-risk-factors')}</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
                     dbLabel={dbLabels.koureni}
                     data={formData}
                     setFormData={setFormData}
-                    title="Kouření"
+                    title={t('smoking')}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t('yes')}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <NumberInput
-                            label="Počet cigaret denně"
+                            label={t('cigarettes-per-day')}
                             dbLabel={dbLabels.pocet_cigaret_denne}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -205,7 +206,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                             disabled={disabled}
                         />
                         <NumberInput
-                            label="Jak dlouho (roky)"
+                            label={t('how-long-years')}
                             dbLabel={dbLabels.jak_dlouho_kouri}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -215,7 +216,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                             disabled={disabled}
                         />
                         <NumberInput
-                            label="Počet balíčko roků"
+                            label={t('pack-years')}
                             dbLabel={dbLabels.pocet_balickoroku}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -232,23 +233,23 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t('no')}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                     <ConditionalCheckboxOption
-                        label="Nezjištěno"
+                        label={t('unknown')}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
                 <SimpleCheckboxes
-                    title="Abusus alkoholu"
+                    title={t('alcohol-abuse')}
                     dbLabel={dbLabels.abusus_alkoholu}
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={['Ano', 'Ne', 'Nezjištěno']}
+                    options={[t('yes'), t('no'), t('unknown')]}
                     disabled={disabled}
                 />
             </div>

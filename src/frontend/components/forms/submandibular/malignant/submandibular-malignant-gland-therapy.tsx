@@ -6,17 +6,19 @@ import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
+import { useTranslation } from 'react-i18next'
 
 const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
     return (
         <div className="sectionDiv">
-            <h1>TERAPIE</h1>
+            <h1>{t('therapy')}</h1>
             <DatePicker
-                label="Datum zahájení léčby"
+                label={t('treatment-start-date')}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -26,7 +28,7 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title="Typ terapie"
+                title={t('therapy-type')}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -34,25 +36,21 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Chirurgická"
+                    label={t('surgical')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Rozsah chirurgické léčby"
+                        title={t('surgical-treatment-extent')}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[
-                            'Peroorální exstirpace',
-                            'Zevní exstirpace',
-                            'Jiná',
-                        ]}
+                        options={[t('peroral-extirpation'), t('external-extirpation'), t('other')]}
                     />
                     <ConditionalCheckboxes
-                        title="Bloková krční disekce"
+                        title={t('block-neck-dissection')}
                         data={formData}
                         dbLabel={dbLabels.blokova_krcni_disekce}
                         setFormData={setFormData}
@@ -60,33 +58,30 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label="Ano"
+                            label={t('yes')}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                title="Strana blokové krční disekce"
+                                title={t('side-of-block-neck-dissection')}
                                 data={formData}
                                 dbLabel={dbLabels.strana_blokove_krcni_disekce}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={['stejnostranná', 'oboustranná']}
+                                options={[t('same-side'), t('two-sided')]}
                             />
                             <SimpleCheckboxes
-                                title="Typ ND"
+                                title={t('nd-type')}
                                 data={formData}
                                 dbLabel={dbLabels.typ_nd}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[
-                                    'Elektivní (cN0)',
-                                    'Terapeutická (cN+)',
-                                ]}
+                                options={[t('elective-cn0'), t('therapeutic-cN+')]}
                             />
                             <SimpleCheckboxes
-                                title="Rozsah ND"
+                                title={t('nd-scope')}
                                 data={formData}
                                 dbLabel={dbLabels.rozsah_nd}
                                 setFormData={setFormData}
@@ -103,18 +98,18 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                     'VA',
                                     'VB',
                                     'VI',
-                                    'Rozsah nespecifikován',
+                                    t('scope-undefined'),
                                 ]}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="Ne"
+                            label={t('no')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
-                        title="Funkce n. VII dle H-B (pooperačně)"
+                        title={t('n-vii-function-hb-postoperative')}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -123,38 +118,32 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <SimpleCheckboxes
-                        title="Adjuvantní terapie"
+                        title={t('adjuvant-therapy')}
                         data={formData}
                         dbLabel={dbLabels.adjuvantni_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[
-                            'RT',
-                            'CHRT',
-                            'CH',
-                            'Protonová terapie',
-                            'Nebyla indikována',
-                        ]}
+                        options={[t('rt'), t('chrt'), t('ch'), t('proton-therapy'), t('not-indicated')]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Nechirurgická"
+                    label={t('non-surgical')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Typ nechirurgické terapie - onkologická léčba"
+                        title={t('non-surgical-oncological-treatment')}
                         data={formData}
                         dbLabel={dbLabels.typ_nechirurgicke_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={['RT', 'CHRT', 'CH', 'Protonová terapie']}
+                        options={[t('rt'), t('chrt'), t('ch'), t('proton-therapy')]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Nebyla indikována"
+                    label={t('not-indicated')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

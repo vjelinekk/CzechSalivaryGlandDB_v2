@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FormType } from '../../constants'
 import { Study } from '../../types'
+import { useTranslation } from 'react-i18next'
 
 interface AvailableStudiesProps {
     formType: FormType
@@ -17,6 +18,7 @@ const AvailableStudies: React.FC<AvailableStudiesProps> = ({
     setSelectedStudies,
     disabled,
 }) => {
+    const { t } = useTranslation()
     const [studies, setStudies] = useState<Study[]>([])
 
     useEffect(() => {
@@ -50,7 +52,7 @@ const AvailableStudies: React.FC<AvailableStudiesProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>Studie</h1>
+            <h1>{t('studies')}</h1>
             <div className="wrapper">
                 <table id="patient-table">
                     <tbody id="patients-tbody">

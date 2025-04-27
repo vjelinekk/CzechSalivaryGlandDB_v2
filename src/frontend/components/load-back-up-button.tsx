@@ -7,8 +7,10 @@ import {
     DialogTitle,
 } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const LoadBackUpButton: React.FC = () => {
+    const { t } = useTranslation()
     const [openLoadBackUpDialog, setOpenLoadBackUpDialog] =
         React.useState(false)
 
@@ -22,19 +24,17 @@ const LoadBackUpButton: React.FC = () => {
         <>
             <button onClick={() => setOpenLoadBackUpDialog(true)}>
                 <img id="import" src="../img/restore.png" className="icon" />
-                Obnovit databázi
+                {t('restore-database')}
             </button>
             <Dialog open={openLoadBackUpDialog}>
-                <DialogTitle>Obnovení databáze</DialogTitle>
+                <DialogTitle> {t('database-restore')}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Databáze bude obnovena ze zálohy. Tento proces smaže
-                        veškerá data v databázi a nahradí je daty ze zálohy.
-                        Opravdu chcete pokračovat?
+                        {t('database-restore-warning')}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleLoadBackUpConfirm}>Rozumím</Button>
+                    <Button onClick={handleLoadBackUpConfirm}>{t('understand')}</Button>
                 </DialogActions>
             </Dialog>
         </>

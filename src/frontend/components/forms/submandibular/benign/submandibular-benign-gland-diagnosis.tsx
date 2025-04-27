@@ -7,17 +7,19 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import TextInput from '../../text-input'
+import { useTranslation } from 'react-i18next'
 
 const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
     return (
         <div className="sectionDiv">
-            <h1>DIAGNOSTIKA</h1>
+            <h1>{t('diagnosis-title')}</h1>
             <DatePicker
-                label="Rok diagnózy"
+                label={t('year-of-diagnosis')}
                 dbLabel={dbLabels.rok_diagnozy}
                 data={getDataFromPatientInterface(
                     formData,
@@ -27,16 +29,16 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Strana nálezu"
+                title={t('side-of-finding')}
                 dbLabel={dbLabels.strana_nalezu}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['Vpravo', 'Vlevo', 'Oboustranně']}
+                options={[t('side-right'), t('side-left'), t('bilateraly')]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Funkce n. VII dle H-B (předoperačně)"
+                title={t('function-of-n-vii-preoperative')}
                 dbLabel={dbLabels.funkce_n_vii_dle_h_b_predoperacne}
                 data={formData}
                 setFormData={setFormData}
@@ -45,133 +47,126 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Použité diagnostické metody"
+                title={t('diagnostic-methods-used')}
                 dbLabel={dbLabels.diagnosticke_metody}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={false}
-                options={[
-                    'UZ',
-                    'CT',
-                    'MRI',
-                    'PET/CT',
-                    'PET/MR',
-                    'Zobrazovací vyšetření nebylo provedeno',
-                ]}
+                options={[t('ultrasound'), t('ct'), t('mri'), t('pet-ct'), t('pet-mr'), t('no-imaging-exam')]}
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title="FNAB"
+                title={t('fnab')}
                 dbLabel={dbLabels.fnab}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t('yes')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Výsledek FNAB (cytopatologická klasifikace tumorů dle MSRSGC)"
+                        title={t('fnab-result-MSRSGC')}
                         dbLabel={dbLabels.vysledek_fnab}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            'I nediagnostická',
-                            'II nenádorová',
-                            'III atypie neurčeného významu',
-                            'IVa nádor benigní',
-                            'IVb nádor nejasného maligního potenciálu',
-                            'V nádor suspektní z malignity',
-                            'VI nádor maligní',
+                            t('I-fnab-result-i'),
+                            t('II-non-tumor'),
+                            t('III-atypia-of-uncertain-significance'),
+                            t('IVa-IVa-tumor-benign'),
+                            t('IVb-tumor-of-uncertain-malignant-potential'),
+                            t('V-suspect-for-malignancy'),
+                            t('VI-tumor-malignant'),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t('no')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title="CORE biopsie"
+                title={t('core-biopsy')}
                 dbLabel={dbLabels.core_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t('yes')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title="Výsledek CORE biopsie"
+                        title={t('core-biopsy-result')}
                         dbLabel={dbLabels.core_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label="pleomorfní adenom"
+                            label={t('pleomorphic-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="papilární cystadenolymfom (Warthinův tumor)"
+                            label={t('papillary-cystadenolymphoma-warthin')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="bazocelulární adenom"
+                            label={t('core-result-basal-cell-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="myoepiteliom"
+                            label={t('myoepithelioma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="onkocytom"
+                            label={t('oncocytoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="kanalikulární adenom"
+                            label={t('canalicular-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sebaceózní adenom"
+                            label={t('sebaceous-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="duktální papilom"
+                            label={t('ductal-papilloma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="debaceózní lymfadenom"
+                            label={t('debacellous-lymphadenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="keratocystom"
+                            label={t('keratocyst')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="jiné"
+                            label={t('other')}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label="Specifikace histologického typu"
+                                label={t('histological-type-specification')}
                                 dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -184,92 +179,87 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t('no')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title="Otevřená biopsie"
+                title={t('open-biopsy')}
                 dbLabel={dbLabels.otevrena_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t('yes')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title="Výsledek CORE biopsie"
+                        title={t('open-biopsy-result')}
                         dbLabel={dbLabels.otevrena_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
-                    >
+                        >
                         <ConditionalCheckboxOption
-                            label="pleomorfní adenom"
+                            label={t('pleomorphic-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="pleomorfní adenom"
+                            label={t('papillary-cystadenolymphoma-warthin')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="papilární cystadenolymfom (Warthinův tumor)"
+                            label={t('core-result-basal-cell-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="bazocelulární adenom"
+                            label={t('myoepithelioma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="myoepiteliom"
+                            label={t('oncocytoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="onkocytom"
+                            label={t('canalicular-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="kanalikulární adenom"
+                            label={t('sebaceous-adenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sebaceózní adenom"
+                            label={t('ductal-papilloma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="duktální papilom"
+                            label={t('debacellous-lymphadenoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="debaceózní lymfadenom"
+                            label={t('keratocyst')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="keratocystom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="jiné"
+                            label={t('other')}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label="Specifikace histologického typu"
+                                label={t('histological-type-specification')}
                                 dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -282,7 +272,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t('no')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

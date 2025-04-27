@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { dbLabels } from '../../constants'
 import { GlandComponentProps } from '../../types'
@@ -13,10 +14,12 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>HISTOPATOLOGIE</h1>
-            <h2>Histologický typ nádoru</h2>
+            <h1>{t('histopathology')}</h1>
+            <h2>{t('histological-type')}</h2>
             <ConditionalCheckboxes
                 dbLabel={dbLabels.histopatologie_vysledek}
                 data={formData}
@@ -24,62 +27,62 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="pleomorfní adenom"
+                    label={t('pleomorphic-adenoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="papilární cystadenolymfom (Warthinův tumor)"
+                    label={t('core-result-warthin-tumor')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="bazocelulární adenom"
+                    label={t('basal-cell-adenoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="myoepiteliom"
+                    label={t('myoepithelioma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="onkocytom"
+                    label={t('oncocytoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="kanalikulární adenom"
+                    label={t('canalicular-adenoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="sebaceózní adenom"
+                    label={t('sebaceous-adenoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="duktální papilom"
+                    label={t('ductal-papilloma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="debaceózní lymfadenom"
+                    label={t('sebaceous-lymphadenoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="keratocystom"
+                    label={t('keratocystoma')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="jiné"
+                    label={t('other')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <TextInput
-                        label="Specifikace histologického typu"
+                        label={t('histological-type-specification')}
                         dbLabel={dbLabels.histopatologie_vysledek_jine}
                         data={getDataFromPatientInterface(
                             formData,
@@ -90,9 +93,9 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
             </ConditionalCheckboxes>
-            <h2>Specifikace histologického typu</h2>
+            <h2>{t('histological-type-specification')}</h2>
             <NumberInput
-                label="Velikost nádoru - největší rozměr (mm)"
+                label={t('tumor-size-largest-dimension')}
                 dbLabel={dbLabels.velikost_nadoru_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -102,7 +105,7 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <TextInput
-                label="Velikost nádoru - nebyla určena (vysvětlit)"
+                label={t('tumor-size-not-determined-explain')}
                 dbLabel={dbLabels.velikost_nadoru_neurcena_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -112,12 +115,12 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Okraj resekce"
+                title={t('resection-margin')}
                 dbLabel={dbLabels.okraj_resekce_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['R0', 'R1']}
+                options={[t('r0'), t('r1')]}
                 disabled={disabled}
             />
         </div>
