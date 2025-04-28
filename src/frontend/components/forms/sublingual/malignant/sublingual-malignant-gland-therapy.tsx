@@ -73,10 +73,7 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[
-                                    t('same-side'),
-                                    t('two-sided'),
-                                ]}
+                                options={[t('same-side'), t('two-sided')]}
                             />
                             <SimpleCheckboxes
                                 title={t('nd-type')}

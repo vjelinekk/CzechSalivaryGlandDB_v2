@@ -52,7 +52,14 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={false}
-                options={[t('ultrasound'), t('ct'), t('mri'), t('pet-ct'), t('pet-mr'), t('no-imaging-exam')]}
+                options={[
+                    t('ultrasound'),
+                    t('ct'),
+                    t('mri'),
+                    t('pet-ct'),
+                    t('pet-mr'),
+                    t('no-imaging-exam'),
+                ]}
                 disabled={disabled}
             />
             <ConditionalCheckboxes
@@ -202,7 +209,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
-                        >
+                    >
                         <ConditionalCheckboxOption
                             label={t('pleomorphic-adenoma')}
                             disabled={disabled}

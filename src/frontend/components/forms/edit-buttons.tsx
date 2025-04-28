@@ -151,7 +151,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleSaveButtonClick}
                             disabled={formErrors.length > 0}
                         >
-                             {t('save-changes')}
+                            {t('save-changes')}
                         </button>
                     </>
                 )}
@@ -166,7 +166,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 <button
                     onClick={handleDeleteButtonClick}
                     className="basicButton"
-                    style={{ background: 'red' }}
+                    style={{ background: 'var(--colorRed)' }}
                 >
                     {t('delete-patient')}
                 </button>
@@ -178,7 +178,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpenDeletePatientDialog(false)}>
+                        <Button
+                            onClick={() => setOpenDeletePatientDialog(false)}
+                        >
                             {t('cancel')}
                         </Button>
                         <Button color="error" onClick={handleDeleteClick}>
@@ -191,7 +193,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         <button
                             className="basicButton"
                             onClick={handleDeleteFromStudyClick}
-                            style={{ background: 'red' }}
+                            style={{ background: 'var(--colorRed)' }}
                         >
                             {t('remove-from-study')}
                         </button>
@@ -205,10 +207,17 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={() => setOpenDeleteFromStudyDialog(false)}>
+                                <Button
+                                    onClick={() =>
+                                        setOpenDeleteFromStudyDialog(false)
+                                    }
+                                >
                                     {t('cancel')}
                                 </Button>
-                                <Button color="error" onClick={handleDeleteFromStudy}>
+                                <Button
+                                    color="error"
+                                    onClick={handleDeleteFromStudy}
+                                >
                                     {t('remove')}
                                 </Button>
                             </DialogActions>

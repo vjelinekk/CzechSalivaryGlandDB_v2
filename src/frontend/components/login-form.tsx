@@ -124,15 +124,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                         <Alert severity="info">
                             <AlertTitle>{t('database-policies')}</AlertTitle>
                             <List>
-                                <ListItem>
-                                    {t('database-policy-1')}
-                                </ListItem>
-                                <ListItem>
-                                    {t('database-policy-2')}
-                                </ListItem>
-                                <ListItem>
-                                    {t('database-policy-3')}
-                                </ListItem>
+                                <ListItem>{t('database-policy-1')}</ListItem>
+                                <ListItem>{t('database-policy-2')}</ListItem>
+                                <ListItem>{t('database-policy-3')}</ListItem>
                             </List>
                         </Alert>
                         <form onSubmit={handleUseEncryptionSubmit}>
@@ -200,7 +194,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                             ) : (
                                 <>
                                     <Alert severity="info">
-                                        <AlertTitle>{t('create-password')}</AlertTitle>
+                                        <AlertTitle>
+                                            {t('create-password')}
+                                        </AlertTitle>
                                         {t('password-info')}
                                     </Alert>
                                     <TextField
@@ -213,7 +209,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                         }
                                     />
                                     <Alert severity="info">
-                                        <AlertTitle>{t('create-db-key')}</AlertTitle>
+                                        <AlertTitle>
+                                            {t('create-db-key')}
+                                        </AlertTitle>
                                         {t('db-key-info')}
                                     </Alert>
                                     <Stack

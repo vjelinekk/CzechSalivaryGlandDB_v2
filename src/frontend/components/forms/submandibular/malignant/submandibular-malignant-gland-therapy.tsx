@@ -47,7 +47,11 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[t('peroral-extirpation'), t('external-extirpation'), t('other')]}
+                        options={[
+                            t('peroral-extirpation'),
+                            t('external-extirpation'),
+                            t('other'),
+                        ]}
                     />
                     <ConditionalCheckboxes
                         title={t('block-neck-dissection')}
@@ -78,7 +82,10 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[t('elective-cn0'), t('therapeutic-cN+')]}
+                                options={[
+                                    t('elective-cn0'),
+                                    t('therapeutic-cN+'),
+                                ]}
                             />
                             <SimpleCheckboxes
                                 title={t('nd-scope')}
@@ -124,7 +131,13 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[t('rt'), t('chrt'), t('ch'), t('proton-therapy'), t('not-indicated')]}
+                        options={[
+                            t('rt'),
+                            t('chrt'),
+                            t('ch'),
+                            t('proton-therapy'),
+                            t('not-indicated'),
+                        ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -139,7 +152,12 @@ const SubmandibularMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[t('rt'), t('chrt'), t('ch'), t('proton-therapy')]}
+                        options={[
+                            t('rt'),
+                            t('chrt'),
+                            t('ch'),
+                            t('proton-therapy'),
+                        ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption

@@ -1,24 +1,85 @@
+import { Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-const SetLanguage = () => {
-    const { t, i18n } = useTranslation()
+export default function LanguageSelector() {
+    const { i18n } = useTranslation()
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng)
+    }
+
     return (
-        <div className="language-selector" style={{ margin: 'auto' }}>
-            <label htmlFor="language-select">{t('select-language') + " "}</label>
-            <select id="language-select" onChange={(e) => {
-                const selectedLanguage = e.target.value;
-                i18n.changeLanguage(selectedLanguage);
-            }}>
-                <option value="en">English</option>
-                <option value="cs" selected>Čeština</option>
-                <option value="sk">Slovenčina</option>
-                <option value="de">Deutsch</option>
-                <option value="es">Español</option>
-            </select>
-        </div>
-        )
+        <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            spacing={5}
+            style={{ minHeight: '100vh' }}
+        >
+            <Grid item>
+                <img
+                    src="../img/cs.svg"
+                    alt="Czech"
+                    style={{
+                        width: 160,
+                        height: 100,
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        transition: 'all 0.5s ease',
+                        boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)',
+                    }}
+                    onClick={() => changeLanguage('cs')}
+                    onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.1)')
+                    }
+                    onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.0)')
+                    }
+                />
+            </Grid>
+            <Grid item>
+                <img
+                    src="../img/sk.png"
+                    alt="Slovak"
+                    style={{
+                        width: 160,
+                        height: 100,
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        transition: 'all 0.5s ease',
+                        boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)',
+                    }}
+                    onClick={() => changeLanguage('sk')}
+                    onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.1)')
+                    }
+                    onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.0)')
+                    }
+                />
+            </Grid>
+            <Grid item>
+                <img
+                    src="../img/en.png"
+                    alt="English"
+                    style={{
+                        width: 160,
+                        height: 100,
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+
+                        transition: 'all 0.5s ease',
+                        boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)',
+                    }}
+                    onClick={() => changeLanguage('en')}
+                    onMouseEnter={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.1)')
+                    }
+                    onMouseLeave={(e) =>
+                        (e.currentTarget.style.transform = 'scale(1.0)')
+                    }
+                />
+            </Grid>
+        </Grid>
+    )
 }
-
-
-
-export default SetLanguage;

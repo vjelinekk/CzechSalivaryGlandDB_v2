@@ -18,7 +18,7 @@ import KaplanMeier from './kaplan-meier'
 import ImportProvider from './import-context'
 import LoginForm from './login-form'
 import SetLanguage from './set-language'
-import { initI18n } from '../i18n';
+import { initI18n } from '../i18n'
 
 // CSS imports
 import '../css/form_style.css'
@@ -35,18 +35,18 @@ const app = () => {
     )
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-    const [ready, setReady] = useState(false);
+    const [ready, setReady] = useState(false)
 
     useEffect(() => {
-      const init = async () => {
-        await initI18n();
-        setReady(true);
-      };
-      init();
-    }, []);
-  
+        const init = async () => {
+            await initI18n()
+            setReady(true)
+        }
+        init()
+    }, [])
+
     if (!ready) {
-      return null;
+        return null
     }
 
     return isLoggedIn ? (

@@ -144,7 +144,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.mukoepidermoidni_karcinom_core}
+                                dbLabel={
+                                    dbLabels.mukoepidermoidni_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -163,7 +165,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.adenoidne_cysticky_karcinom_core}
+                                dbLabel={
+                                    dbLabels.adenoidne_cysticky_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -267,7 +271,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.karcinom_z_pleomorfniho_adenomu_core}
+                                dbLabel={
+                                    dbLabels.karcinom_z_pleomorfniho_adenomu_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -291,7 +297,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.spatne_diferencovany_karcinom_core}
+                                dbLabel={
+                                    dbLabels.spatne_diferencovany_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -389,7 +397,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.mukoepidermoidni_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.mukoepidermoidni_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -408,7 +418,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.adenoidne_cysticky_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.adenoidne_cysticky_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -426,7 +438,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.polymorfni_adenokarcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.polymorfni_adenokarcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -464,7 +478,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.intraduktalni_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.intraduktalni_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -484,7 +500,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.salivarni_karcinom_nos_otevrena}
+                                dbLabel={
+                                    dbLabels.salivarni_karcinom_nos_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -512,7 +530,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.karcinom_z_pleomorfniho_adenomu_otevrena}
+                                dbLabel={
+                                    dbLabels.karcinom_z_pleomorfniho_adenomu_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -536,7 +556,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.spatne_diferencovany_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.spatne_diferencovany_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}

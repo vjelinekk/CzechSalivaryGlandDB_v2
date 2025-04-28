@@ -93,7 +93,10 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[t('elective-cn0'), t('therapeutic-cnplus')]}
+                                options={[
+                                    t('elective-cn0'),
+                                    t('therapeutic-cnplus'),
+                                ]}
                             />
                             <SimpleCheckboxes
                                 title={t('nd-scope')}
@@ -200,7 +203,12 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[t('rt'), t('chrt'), t('ch'), t('proton-therapy')]}
+                        options={[
+                            t('rt'),
+                            t('chrt'),
+                            t('ch'),
+                            t('proton-therapy'),
+                        ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption

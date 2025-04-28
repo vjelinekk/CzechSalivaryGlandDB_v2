@@ -167,49 +167,49 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("salivary-ductal-carcinoma")}
+                    label={t('salivary-ductal-carcinoma')}
                     dbValue="salivární duktální karcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("myoepithelial-carcinoma")}
+                    label={t('myoepithelial-carcinoma')}
                     dbValue="myoepiteliální karcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("carcinoma-from-pleomorphic-adenoma")}
+                    label={t('carcinoma-from-pleomorphic-adenoma')}
                     dbValue="karcinom z pleomorfniho adenomu"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("carcinosarcoma")}
+                    label={t('carcinosarcoma')}
                     dbValue="karcinosarkom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("poorly-differentiated-carcinoma")}
+                    label={t('poorly-differentiated-carcinoma')}
                     dbValue="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("lymphoepithelial-carcinoma")}
+                    label={t('lymphoepithelial-carcinoma')}
                     dbValue="lymfoepiteliální karcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("squamous-cell-carcinoma")}
+                    label={t('squamous-cell-carcinoma')}
                     dbValue="skvamocelulární karcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
@@ -217,49 +217,49 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                 />
                 <FormControlLabel
                     control={<Checkbox />}
-                    label={t("microsecretory-adenocarcinoma")}
+                    label={t('microsecretory-adenocarcinoma')}
                 />
                 <FormControlLabel
                     control={<Checkbox />}
-                    label={t("sclerosing-microcystic-adenocarcinoma")}
+                    label={t('sclerosing-microcystic-adenocarcinoma')}
                 />
                 <FiltrationCheckbox
-                    label={t("microsecretory-adenocarcinoma")}
+                    label={t('microsecretory-adenocarcinoma')}
                     dbValue="mikrosekretorický adenokarcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("sclerosing-microcystic-adenocarcinoma")}
+                    label={t('sclerosing-microcystic-adenocarcinoma')}
                     dbValue="sklerózující mikrocystický adenokarcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("mucinous-adenocarcinoma")}
+                    label={t('mucinous-adenocarcinoma')}
                     dbValue="mucinózní adenokarcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("asialoblastoma")}
+                    label={t('asialoblastoma')}
                     dbValue="asialoblastom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("malt-lymphoma")}
+                    label={t('malt-lymphoma')}
                     dbValue="MALT-lymfom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t("other")}
+                    label={t('other')}
                     dbValue="jiné"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}

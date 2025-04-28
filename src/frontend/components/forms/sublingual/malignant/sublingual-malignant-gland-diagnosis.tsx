@@ -97,14 +97,14 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title= {t('core-biopsy')}
+                title={t('core-biopsy')}
                 dbLabel={dbLabels.core_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('yes')} 
+                    label={t('yes')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -132,7 +132,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.mukoepidermoidni_karcinom_core}
+                                dbLabel={
+                                    dbLabels.mukoepidermoidni_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -151,14 +153,16 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.adenoidne_cysticky_karcinom_core}
+                                dbLabel={
+                                    dbLabels.adenoidne_cysticky_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
                                     t('tubular-cribriform-dominant'),
                                     t('more-than-30-solid-component'),
-                                    t('subtype-not-specified')
+                                    t('subtype-not-specified'),
                                 ]}
                                 disabled={disabled}
                             />
@@ -255,7 +259,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.karcinom_z_pleomorfniho_adenomu_core}
+                                dbLabel={
+                                    dbLabels.karcinom_z_pleomorfniho_adenomu_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -279,7 +285,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.spatne_diferencovany_karcinom_core}
+                                dbLabel={
+                                    dbLabels.spatne_diferencovany_karcinom_core
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -335,20 +343,20 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label= {t('no')}
+                    label={t('no')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title= {t('open-biopsy')}
+                title={t('open-biopsy')}
                 dbLabel={dbLabels.otevrena_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label= {t('yes')}
+                    label={t('yes')}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -376,7 +384,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.mukoepidermoidni_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.mukoepidermoidni_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -395,7 +405,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.adenoidne_cysticky_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.adenoidne_cysticky_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -413,7 +425,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.polymorfni_adenokarcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.polymorfni_adenokarcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -451,7 +465,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.intraduktalni_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.intraduktalni_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -471,7 +487,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.salivarni_karcinom_nos_otevrena}
+                                dbLabel={
+                                    dbLabels.salivarni_karcinom_nos_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -499,7 +517,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.karcinom_z_pleomorfniho_adenomu_otevrena}
+                                dbLabel={
+                                    dbLabels.karcinom_z_pleomorfniho_adenomu_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -523,7 +543,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                dbLabel={dbLabels.spatne_diferencovany_karcinom_otevrena}
+                                dbLabel={
+                                    dbLabels.spatne_diferencovany_karcinom_otevrena
+                                }
                                 data={formData}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
@@ -579,7 +601,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label= {t('no')}
+                    label={t('no')}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

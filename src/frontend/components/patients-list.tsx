@@ -326,17 +326,19 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     <div>
                         <button
                             onClick={handleExport}
-                            style={{ backgroundColor: '#29a75e' }}
+                            style={{
+                                backgroundColor: 'var(--mainColorSuperLight)',
+                            }}
                             className="tableButton"
                         >
-                            {t("export")}
+                            {t('export')}
                         </button>
                         <button
                             onClick={handleExportAnonymized}
-                            style={{ backgroundColor: '#2c6e47' }}
+                            style={{ backgroundColor: 'var(--mainColorLight)' }}
                             className="tableButton"
                         >
-                           {t("export-anonymized")}
+                            {t('export-anonymized')}
                         </button>
                     </div>
                 )}

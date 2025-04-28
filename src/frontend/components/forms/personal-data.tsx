@@ -153,7 +153,9 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxes>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
-                    dbLabel={dbLabels.jine_onemocneni_velkych_slinnych_zlaz_v_oa}
+                    dbLabel={
+                        dbLabels.jine_onemocneni_velkych_slinnych_zlaz_v_oa
+                    }
                     data={formData}
                     setFormData={setFormData}
                     title={t('other-salivary-gland-disease-in-oa')}
