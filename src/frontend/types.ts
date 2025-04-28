@@ -270,7 +270,3 @@ export interface PlannedDay {
     date: Date
     patients: PatientType[]
 }
-
-export type JSONObject = {
-    [key: string]: string
-}

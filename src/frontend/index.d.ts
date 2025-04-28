@@ -12,7 +12,6 @@ import {
     PatientType,
     PlannedPatientsMap,
     Study,
-    JSONObject,
 } from './types'
 
 declare global {
@@ -79,7 +78,7 @@ declare global {
             getFileIcon: (fileName: string) => Promise<string>
             getFileName: (filePath: string) => Promise<string>
             open: (filePath: string) => void
-            loadJson: (filePath: string) => Promise<JSONObject>
+            loadJson: (filePath: string) => Promise<Record<string, string>>
         }
         encryption: {
             setEncryptionKey: (key: string) => void
