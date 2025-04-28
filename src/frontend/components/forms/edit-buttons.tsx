@@ -166,7 +166,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 <button
                     onClick={handleDeleteButtonClick}
                     className="basicButton"
-                    style={{ background: 'var(--colorRed)' }}
+                    style={{ background: 'red' }}
                 >
                     {t('delete-patient')}
                 </button>

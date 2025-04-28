@@ -56,7 +56,7 @@ const PatientButton: React.FC<PatientButtonProps> = ({
         patient.form_type === 2 ||
         patient.form_type === 3
     const label = isMalignant ? 'Z' : 'N'
-    const color = isMalignant ? 'var(--colorRed)' : 'var(--colorGreen)'
+    const color = isMalignant ? 'red' : 'green'
     const activeColor = '#004aad'
 
     return (
