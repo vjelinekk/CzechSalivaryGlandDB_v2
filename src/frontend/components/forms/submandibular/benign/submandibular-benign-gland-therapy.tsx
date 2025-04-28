@@ -49,7 +49,11 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={[t('peroral-extirpation'), t('external-extirpation'), t('other')]}
+                        options={[
+                            t('peroral-extirpation'),
+                            t('external-extirpation'),
+                            t('other'),
+                        ]}
                     />
                     <SimpleCheckboxes
                         title={t('n-vii-function-hb-postoperative')}
@@ -89,7 +93,9 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t('specify-other-postoperative-complication')}
+                                label={t(
+                                    'specify-other-postoperative-complication'
+                                )}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,

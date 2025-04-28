@@ -271,6 +271,6 @@ export interface PlannedDay {
     patients: PatientType[]
 }
 
-export type JSONObject = { 
-    [key: string]: string 
+export type JSONObject = {
+    [key: string]: string
 }

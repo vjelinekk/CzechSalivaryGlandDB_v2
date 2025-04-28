@@ -34,7 +34,9 @@ const LoadBackUpButton: React.FC = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleLoadBackUpConfirm}>{t('understand')}</Button>
+                    <Button onClick={handleLoadBackUpConfirm}>
+                        {t('understand')}
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>

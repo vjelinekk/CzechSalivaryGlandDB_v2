@@ -72,7 +72,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
                         disabled={formErrors.length > 0}
                         onClick={handleButtonClick}
                     >
-                     {t('add-patient')}   
+                        {t('add-patient')}
                     </button>
                 </div>
             </>

@@ -19,7 +19,9 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
         setActiveButton(componentName)
     }
 
-    const [activeButton, setActiveButton] = React.useState<Components>(Components.patientsList)
+    const [activeButton, setActiveButton] = React.useState<Components>(
+        Components.patientsList
+    )
 
     return (
         <div id="sidebar">
@@ -35,8 +37,14 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="list-patient"
-                        className={activeButton === Components.patientsList ? 'button-active' : ''}
-                        onClick={() => handleButtonClick(Components.patientsList)}
+                        className={
+                            activeButton === Components.patientsList
+                                ? 'button-active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleButtonClick(Components.patientsList)
+                        }
                     >
                         <img
                             id="pacienti"
@@ -49,8 +57,14 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="list-patient"
-                        className={activeButton === Components.plannedChecks ? 'button-active' : ''}
-                        onClick={() => handleButtonClick(Components.plannedChecks)}
+                        className={
+                            activeButton === Components.plannedChecks
+                                ? 'button-active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleButtonClick(Components.plannedChecks)
+                        }
                     >
                         <img
                             id="pacienti"
@@ -63,7 +77,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="planned-checks"
-                        className={activeButton === Components.addPatient ? 'button-active' : ''}
+                        className={
+                            activeButton === Components.addPatient
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() => handleButtonClick(Components.addPatient)}
                     >
                         <img
@@ -77,8 +95,14 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="studies-btn"
-                        className={activeButton === Components.studiesList ? 'button-active' : ''}
-                        onClick={() => handleButtonClick(Components.studiesList)}
+                        className={
+                            activeButton === Components.studiesList
+                                ? 'button-active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleButtonClick(Components.studiesList)
+                        }
                     >
                         <img
                             id="studie"
@@ -91,7 +115,11 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 <li>
                     <button
                         id="add-study"
-                        className={activeButton === Components.addStudy ? 'button-active' : ''}
+                        className={
+                            activeButton === Components.addStudy
+                                ? 'button-active'
+                                : ''
+                        }
                         onClick={() => handleButtonClick(Components.addStudy)}
                     >
                         <img
@@ -104,8 +132,14 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                 </li>
                 <li>
                     <button
-                        className={activeButton === Components.kaplanMeier ? 'button-active' : ''}
-                        onClick={() => handleButtonClick(Components.kaplanMeier)}
+                        className={
+                            activeButton === Components.kaplanMeier
+                                ? 'button-active'
+                                : ''
+                        }
+                        onClick={() =>
+                            handleButtonClick(Components.kaplanMeier)
+                        }
                     >
                         <img
                             id="kaplan_meier"
@@ -126,16 +160,20 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                     <LoadBackUpButton />
                 </li>
                 <button
-                        className={activeButton === Components.setLanguage ? 'button-active' : ''}
-                        onClick={() => handleButtonClick(Components.setLanguage)}
-                    >
-                        <img
-                            id="set-language"
-                            src="../img/language.png"
-                            className="icon"
-                        />
-                        {t('language')}
-                    </button>
+                    className={
+                        activeButton === Components.setLanguage
+                            ? 'button-active'
+                            : ''
+                    }
+                    onClick={() => handleButtonClick(Components.setLanguage)}
+                >
+                    <img
+                        id="set-language"
+                        src="../img/language.png"
+                        className="icon"
+                    />
+                    {t('language')}
+                </button>
             </ul>
         </div>
     )

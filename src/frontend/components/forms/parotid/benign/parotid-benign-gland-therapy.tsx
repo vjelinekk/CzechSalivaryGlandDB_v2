@@ -1,20 +1,20 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next'; // Import translation
-import { dbLabels } from '../../../../constants';
-import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface';
-import { GlandComponentProps } from '../../../../types';
-import DatePicker from '../../date-picker';
-import ConditionalCheckboxes from '../../conditional-checkboxes';
-import ConditionalCheckboxOption from '../../conditional-checkbox-option';
-import SimpleCheckboxes from '../../simple-checkboxes';
-import TextInput from '../../text-input';
+import React from 'react'
+import { useTranslation } from 'react-i18next' // Import translation
+import { dbLabels } from '../../../../constants'
+import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
+import { GlandComponentProps } from '../../../../types'
+import DatePicker from '../../date-picker'
+import ConditionalCheckboxes from '../../conditional-checkboxes'
+import ConditionalCheckboxOption from '../../conditional-checkbox-option'
+import SimpleCheckboxes from '../../simple-checkboxes'
+import TextInput from '../../text-input'
 
 const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
 
     return (
         <div className="sectionDiv">
@@ -29,9 +29,7 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 disabled={disabled}
             />
-            <i>
-                {t('note-surgical-treatment')}
-            </i>
+            <i>{t('note-surgical-treatment')}</i>
             <ConditionalCheckboxes
                 title={t('therapy-type')}
                 data={formData}
@@ -64,7 +62,7 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                             t('parotidectomy-v'),
                             t('ecd-i'),
                             t('ecd-ii'),
-                            t('ecd-v')
+                            t('ecd-v'),
                         ]}
                     />
                     <SimpleCheckboxes

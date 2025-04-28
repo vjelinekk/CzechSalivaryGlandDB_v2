@@ -62,7 +62,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label= {t('male')}
+                            label={t('male')}
                             dbValue="Muž"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -70,7 +70,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label= {t('female')}
+                            label={t('female')}
                             dbValue="Žena"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -89,7 +89,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label= {t('yes')}
+                            label={t('yes')}
                             dbValue="Ano"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -97,7 +97,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label= {t('no')}
+                            label={t('no')}
                             dbValue="Ne"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -116,7 +116,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label= {t('yes')}
+                            label={t('yes')}
                             dbValue="Ano"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -124,7 +124,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label= {t('no')}
+                            label={t('no')}
                             dbValue="Ne"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -143,7 +143,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label= {t('alive')}
+                            label={t('alive')}
                             dbValue="Žije"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
@@ -151,7 +151,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label= {t('deceased')}
+                            label={t('deceased')}
                             dbValue="Zemřel"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}

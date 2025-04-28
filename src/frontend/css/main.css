@@ -1,6 +1,10 @@
 :root {
     --menuSize: 1em;
     --mainColor: #004aad;
+    --mainColorLight: #0073e6;
+    --mainColorSuperLight: #4ba3fb;
+    --colorRed: #f05a7e;
+    --colorGreen: #0b8494;
     --backGroundColor: #ffffff;
 }
 

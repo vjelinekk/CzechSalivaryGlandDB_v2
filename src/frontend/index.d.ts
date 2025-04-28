@@ -12,7 +12,7 @@ import {
     PatientType,
     PlannedPatientsMap,
     Study,
-    JSONObject
+    JSONObject,
 } from './types'
 
 declare global {
