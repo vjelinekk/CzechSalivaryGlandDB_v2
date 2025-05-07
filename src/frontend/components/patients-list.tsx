@@ -72,6 +72,7 @@ interface PatientsListProps {
     studyType?: StudyType
     idStudie?: number
     setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
 const PatientsList: React.FC<PatientsListProps> = ({
@@ -79,6 +80,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     studyType,
     idStudie,
     setActiveComponent,
+    setActiveMenuButton,
 }) => {
     const [patients, setPatients] = useState<PatientType[]>([])
     const [patientsToSearchFrom, setPatientsToSearchFrom] = useState<
@@ -258,6 +260,8 @@ const PatientsList: React.FC<PatientsListProps> = ({
             component: Components.studiesList,
             activeStudy: { ...study, id: studyId },
         })
+
+        setActiveMenuButton(Components.studiesList)
     }
 
     const handlePatientSearch = async (e: ChangeEvent<HTMLInputElement>) => {

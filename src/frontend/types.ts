@@ -29,6 +29,7 @@ export interface GlandFormProps {
     setActivePatient?: Dispatch<SetStateAction<PatientType | null>>
     defaultSelectedStudies?: Study[]
     idStudie?: number
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
 export interface PatientData {

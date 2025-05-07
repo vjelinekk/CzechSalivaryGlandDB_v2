@@ -17,6 +17,7 @@ interface AddPatientButtonProps {
     selectedStudies: Study[]
     formErrors: string[]
     setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
 const AddPatientButton: React.FC<AddPatientButtonProps> = ({
@@ -25,6 +26,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
     selectedStudies,
     formErrors,
     setActiveComponent,
+    setActiveMenuButton,
 }) => {
     const handleButtonClick = async (
         e: React.MouseEvent<HTMLButtonElement>
@@ -58,6 +60,8 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
             component: Components.patientsList,
             activePatient: { ...formData, id: result },
         })
+
+        setActiveMenuButton(Components.patientsList)
     }
 
     return (
