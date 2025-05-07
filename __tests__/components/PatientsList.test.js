@@ -74,6 +74,7 @@ describe('PatientsList component', () => {
 
     test('should handle study creation', async () => {
         const setActiveComponentMock = jest.fn()
+        const setActiveMenuButtonMock = jest.fn()
 
         await act(async () => {
             render(
@@ -81,6 +82,7 @@ describe('PatientsList component', () => {
                     <PatientsList
                         studyType={StudyType.special}
                         setActiveComponent={setActiveComponentMock}
+                        setActiveMenuButton={setActiveMenuButtonMock}
                     />
                 </ImportProvider>
             )
@@ -88,7 +90,7 @@ describe('PatientsList component', () => {
 
         // Set study name
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText('Název studie'), {
+            fireEvent.change(screen.getByLabelText('Název studie'), {
                 target: { value: 'Test Study' },
             })
         })
