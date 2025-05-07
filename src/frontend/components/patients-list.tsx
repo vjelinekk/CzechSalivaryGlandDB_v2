@@ -261,7 +261,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
             activeStudy: { ...study, id: studyId },
         })
 
-        setActiveMenuButton(Components.studiesList)
+        if (setActiveMenuButton) {
+            setActiveMenuButton(Components.studiesList)
+        }
     }
 
     const handlePatientSearch = async (e: ChangeEvent<HTMLInputElement>) => {
