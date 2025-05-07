@@ -61,7 +61,9 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
             activePatient: { ...formData, id: result },
         })
 
-        setActiveMenuButton(Components.patientsList)
+        if (setActiveMenuButton) {
+            setActiveMenuButton(Components.patientsList)
+        }
     }
 
     return (
