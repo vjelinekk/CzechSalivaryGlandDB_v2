@@ -12,7 +12,7 @@ const ImportButton: React.FC = () => {
     return (
         <button onClick={handleImportButtonClick}>
             <img id="import" src="../img/import.png" className="icon" />
-        Importovat data
+            Importovat data
         </button>
     )
 }

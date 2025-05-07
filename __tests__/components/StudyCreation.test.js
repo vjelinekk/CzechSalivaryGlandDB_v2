@@ -8,6 +8,7 @@ import { expect, jest } from '@jest/globals'
 
 describe('StudyCreation component', () => {
     const setActiveComponentMock = jest.fn()
+    const setActiveMenuButtonMock = jest.fn()
 
     beforeEach(async () => {
         window.api = {
@@ -21,6 +22,7 @@ describe('StudyCreation component', () => {
                     <StudyCreation
                         setActiveComponent={setActiveComponentMock}
                         studyType={StudyType.parotid}
+                        setActiveMenuButton={setActiveMenuButtonMock}
                     />
                 </ImportProvider>
             )
@@ -32,7 +34,10 @@ describe('StudyCreation component', () => {
     })
 
     test('should call setActiveComponent when PatientsList component is clicked', async () => {
-        const studyNameInput = screen.getByTestId('study-name-input')
+        // Find the input element within the TextField component
+        const studyNameInput = screen
+            .getByTestId('study-name-input')
+            .querySelector('input')
         fireEvent.change(studyNameInput, { target: { value: 'Test' } })
         expect(studyNameInput.value).toBe('Test')
 

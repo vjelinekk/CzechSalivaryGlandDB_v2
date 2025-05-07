@@ -25,9 +25,12 @@ describe('StudiesList component', () => {
 
         // Search for a study
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText('Vyhledat...'), {
-                target: { value: 'Study1' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText('Vyhledat studii...'),
+                {
+                    target: { value: 'Study1' },
+                }
+            )
         })
 
         // Assertion: Only the matching study is rendered
@@ -36,9 +39,12 @@ describe('StudiesList component', () => {
 
         // Clear the search input
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText('Vyhledat...'), {
-                target: { value: '' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText('Vyhledat studii...'),
+                {
+                    target: { value: '' },
+                }
+            )
         })
 
         // Assertion: All studies are rendered again

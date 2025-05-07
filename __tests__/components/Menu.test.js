@@ -16,9 +16,14 @@ const menuButtons = [
 describe('Menu component', () => {
     test('renders correctly', () => {
         const setActiveComponentMock = jest.fn()
+        const setActiveMenuButtonComponentMock = jest.fn()
+
         render(
             <ImportProvider>
-                <Menu setActiveComponent={setActiveComponentMock} />
+                <Menu
+                    setActiveComponent={setActiveComponentMock}
+                    setActiveMenuButton={setActiveMenuButtonComponentMock}
+                />
             </ImportProvider>
         )
         menuButtons.forEach((button) => {
@@ -28,9 +33,14 @@ describe('Menu component', () => {
 
     test('should call setActiveComponent with correct component name when a button is clicked', () => {
         const setActiveComponentMock = jest.fn()
+        const setActiveMenuButtonComponentMock = jest.fn()
+
         render(
             <ImportProvider>
-                <Menu setActiveComponent={setActiveComponentMock} />
+                <Menu
+                    setActiveComponent={setActiveComponentMock}
+                    setActiveMenuButton={setActiveMenuButtonComponentMock}
+                />
             </ImportProvider>
         )
 

@@ -34,13 +34,17 @@ const app = () => {
 
     const [activeMenuButton, setActiveMenuButton] = useState<Components>(
         Components.patientsList
-    );
+    )
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
     return isLoggedIn ? (
         <ImportProvider>
-            <Menu setActiveComponent={setActiveComponent} activeMenuButton={activeMenuButton} setActiveMenuButton={setActiveMenuButton} />
+            <Menu
+                setActiveComponent={setActiveComponent}
+                activeMenuButton={activeMenuButton}
+                setActiveMenuButton={setActiveMenuButton}
+            />
             {activeComponent.component === Components.patientsList && (
                 <PatientsList
                     defaultActivePatient={activeComponent.activePatient}

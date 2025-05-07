@@ -3,15 +3,14 @@ import { ipcAPIGetChannels } from '../../ipc/ipcChannels'
 import { Study } from '../types'
 import StudyButton from './study-button'
 import PatientsList from './patients-list'
-import { 
-    Stack, 
-    Box, 
-    TextField, 
-    InputAdornment, 
-    Typography, 
+import {
+    Stack,
+    Box,
+    TextField,
+    InputAdornment,
+    Typography,
     Paper,
-    Container,
-    Divider
+    Divider,
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import FolderOffIcon from '@mui/icons-material/FolderOff'
@@ -58,7 +57,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
 
     return (
         <Stack direction="row" spacing={2} sx={{ p: 2, height: '100%' }}>
-            <Paper 
+            <Paper
                 elevation={3}
                 sx={{
                     p: 2,
@@ -67,13 +66,13 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                     maxWidth: '350px',
                     height: '100%',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
                 }}
             >
                 <Typography variant="h6" gutterBottom>
                     Seznam studií
                 </Typography>
-                
+
                 <TextField
                     fullWidth
                     variant="outlined"
@@ -88,9 +87,9 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                         ),
                     }}
                 />
-                
+
                 <Divider sx={{ my: 2 }} />
-                
+
                 <Box
                     sx={{
                         flexGrow: 1,
@@ -117,14 +116,19 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                                     key={index}
                                     elevation={1}
                                     sx={{
-                                        border: study.id === activeStudy?.id ? 2 : 0,
+                                        border:
+                                            study.id === activeStudy?.id
+                                                ? 2
+                                                : 0,
                                         borderColor: 'primary.main',
                                     }}
                                 >
                                     <StudyButton
                                         key={study.id}
                                         defaultStudy={study}
-                                        isActiveStudy={study.id === activeStudy?.id}
+                                        isActiveStudy={
+                                            study.id === activeStudy?.id
+                                        }
                                         setActiveStudy={setActiveStudy}
                                         setListChanged={setListChanged}
                                     />
@@ -141,21 +145,24 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                                 height: '100%',
                                 p: 3,
                                 color: 'text.secondary',
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                         >
-                            <FolderOffIcon sx={{ fontSize: 60, mb: 2, opacity: 0.7 }} />
+                            <FolderOffIcon
+                                sx={{ fontSize: 60, mb: 2, opacity: 0.7 }}
+                            />
                             <Typography variant="h6" gutterBottom>
                                 Žádné studie nenalezeny
                             </Typography>
                             <Typography variant="body2">
-                                Nebyla nalezena žádná studie. Vytvořte novou studii nebo upravte vyhledávání.
+                                Nebyla nalezena žádná studie. Vytvořte novou
+                                studii nebo upravte vyhledávání.
                             </Typography>
                         </Box>
                     )}
                 </Box>
             </Paper>
-            
+
             <Box sx={{ flexGrow: 1, height: '100%' }}>
                 {activeStudy ? (
                     <PatientsList
@@ -163,14 +170,14 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                         studyType={activeStudy.typ_studie}
                     />
                 ) : (
-                    <Paper 
-                        elevation={3} 
-                        sx={{ 
-                            height: '100%', 
-                            display: 'flex', 
-                            alignItems: 'center', 
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
                             justifyContent: 'center',
-                            p: 4
+                            p: 4,
                         }}
                     >
                         <Typography variant="h6" color="textSecondary">

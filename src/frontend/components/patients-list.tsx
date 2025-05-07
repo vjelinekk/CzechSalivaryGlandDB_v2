@@ -311,10 +311,10 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     maxWidth: '350px',
                     height: '100%',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
                 }}
             >
-                {(studyType && !idStudie) ? (
+                {studyType && !idStudie ? (
                     <Box sx={{ mb: 2 }}>
                         <Typography variant="h6" gutterBottom>
                             Nová studie
@@ -369,15 +369,26 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     </Box>
                 ) : (
                     <>
-                        <Accordion defaultExpanded={false} disableGutters elevation={0} sx={{ mb: 1 }}>
+                        <Accordion
+                            defaultExpanded={false}
+                            disableGutters
+                            elevation={0}
+                            sx={{ mb: 1 }}
+                        >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 sx={{ px: 0, minHeight: 48 }}
                             >
-                                <Typography variant="h6">Export pacientů</Typography>
+                                <Typography variant="h6">
+                                    Export pacientů
+                                </Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ p: 0 }}>
-                                <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
+                                <Stack
+                                    direction="column"
+                                    spacing={1}
+                                    sx={{ mb: 1 }}
+                                >
                                     {/* First custom button with fixed icon position */}
                                     <Box
                                         sx={{
@@ -385,18 +396,20 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                             backgroundColor: '#29a75e',
                                             borderRadius: 1,
                                             cursor: 'pointer',
-                                            '&:hover': { opacity: 0.9 }
+                                            '&:hover': { opacity: 0.9 },
                                         }}
                                         onClick={handleExport}
                                     >
-                                        <Box sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            pl: 2,
-                                            pr: 2,
-                                            py: 1,
-                                            color: 'white'
-                                        }}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                pl: 2,
+                                                pr: 2,
+                                                py: 1,
+                                                color: 'white',
+                                            }}
+                                        >
                                             <ImportExport sx={{ mr: 1 }} />
                                             <Typography>Exportovat</Typography>
                                         </Box>
@@ -409,20 +422,24 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                             backgroundColor: '#2c6e47',
                                             borderRadius: 1,
                                             cursor: 'pointer',
-                                            '&:hover': { opacity: 0.9 }
+                                            '&:hover': { opacity: 0.9 },
                                         }}
                                         onClick={handleExportAnonymized}
                                     >
-                                        <Box sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            pl: 2,
-                                            pr: 2,
-                                            py: 1,
-                                            color: 'white'
-                                        }}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                pl: 2,
+                                                pr: 2,
+                                                py: 1,
+                                                color: 'white',
+                                            }}
+                                        >
                                             <Security sx={{ mr: 1 }} />
-                                            <Typography>Exportovat anonymizovaně</Typography>
+                                            <Typography>
+                                                Exportovat anonymizovaně
+                                            </Typography>
                                         </Box>
                                     </Box>
                                 </Stack>
@@ -431,7 +448,12 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     </>
                 )}
 
-                <Accordion defaultExpanded={true} disableGutters elevation={0} sx={{ mt: 1, mb: 1 }}>
+                <Accordion
+                    defaultExpanded={true}
+                    disableGutters
+                    elevation={0}
+                    sx={{ mt: 1, mb: 1 }}
+                >
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         sx={{ px: 0, minHeight: 48 }}
@@ -446,7 +468,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 startIcon={<FilterListIcon />}
                                 onClick={() => setOpenFiltrationMenu(true)}
                                 sx={{
-                                    justifyContent: 'left'
+                                    justifyContent: 'left',
                                 }}
                             >
                                 Filtrovat
@@ -458,7 +480,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 startIcon={<CheckBoxIcon />}
                                 onClick={() => setSelectedPatients(patients)}
                                 sx={{
-                                    justifyContent: 'left'
+                                    justifyContent: 'left',
                                 }}
                             >
                                 Označit vše
@@ -470,7 +492,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 startIcon={<CheckBoxOutlineBlankIcon />}
                                 onClick={() => setSelectedPatients([])}
                                 sx={{
-                                    justifyContent: 'left'
+                                    justifyContent: 'left',
                                 }}
                             >
                                 Zrušit označení
@@ -495,7 +517,8 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 />
 
                 <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
-                    Seznam pacientů {patients.length > 0 ? `(${patients.length})` : ''}
+                    Seznam pacientů{' '}
+                    {patients.length > 0 ? `(${patients.length})` : ''}
                 </Typography>
 
                 <TableContainer
@@ -522,12 +545,20 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         },
                     }}
                 >
-                    <Table stickyHeader data-testid="patients-list" size="small">
+                    <Table
+                        stickyHeader
+                        data-testid="patients-list"
+                        size="small"
+                        sx={{ '& td, & th': { border: 0 } }} // This removes borders from all cells in the table
+                    >
                         <TableBody>
                             {patients.length === 0 ? (
                                 <TableRow>
                                     <TableCell>
-                                        <Typography align="center" sx={{ py: 2 }}>
+                                        <Typography
+                                            align="center"
+                                            sx={{ py: 2 }}
+                                        >
                                             Nebyli nalezeni žádní pacienti
                                         </Typography>
                                     </TableCell>
@@ -535,21 +566,28 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             ) : (
                                 patients.map((patient, index) => (
                                     <TableRow key={index}>
-                                        <TableCell sx={{ p: 0 }}>
+                                        <TableCell sx={{ p: 0.2, border: 0 }}>
                                             <PatientButton
                                                 key={`${patient.id}-${patient.form_type}`}
                                                 patient={patient}
                                                 isActivePatient={
-                                                    activePatient?.id === patient.id &&
-                                                    activePatient?.form_type === patient.form_type
+                                                    activePatient?.id ===
+                                                        patient.id &&
+                                                    activePatient?.form_type ===
+                                                        patient.form_type
                                                 }
-                                                setActivePatient={setActivePatient}
+                                                setActivePatient={
+                                                    setActivePatient
+                                                }
                                                 isSelected={selectedPatients.some(
                                                     (p) =>
                                                         p.id === patient.id &&
-                                                        p.form_type === patient.form_type
+                                                        p.form_type ===
+                                                            patient.form_type
                                                 )}
-                                                setSelectedPatients={setSelectedPatients}
+                                                setSelectedPatients={
+                                                    setSelectedPatients
+                                                }
                                             />
                                         </TableCell>
                                     </TableRow>
@@ -562,7 +600,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
             <Box sx={{ flexGrow: 1, height: '100%', overflowY: 'auto' }}>
                 {activePatient ? (
-                    ((activePatient.form_type === FormType.parotidMalignant && (
+                    (activePatient.form_type === FormType.parotidMalignant && (
                         <ParotidMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
@@ -574,54 +612,57 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             idStudie={idStudie}
                         />
                     )) ||
-                        (activePatient.form_type === FormType.sublingualMalignant && (
-                            <SublingualMalignantGlandForm
-                                key={activePatient.id}
-                                defaultFormState={FormStates.view}
-                                defaultSelectedStudies={patientsStudies}
-                                data={activePatient}
-                                editSaved={editSaved}
-                                setEditSaved={setEditSaved}
-                                setActivePatient={setActivePatient}
-                                idStudie={idStudie}
-                            />
-                        )) ||
-                        (activePatient.form_type === FormType.submandibularMalignant && (
-                            <SubmandibularMalignantGlandForm
-                                key={activePatient.id}
-                                defaultFormState={FormStates.view}
-                                defaultSelectedStudies={patientsStudies}
-                                data={activePatient}
-                                editSaved={editSaved}
-                                setEditSaved={setEditSaved}
-                                setActivePatient={setActivePatient}
-                                idStudie={idStudie}
-                            />
-                        )) ||
-                        (activePatient.form_type === FormType.parotidBenign && (
-                            <ParotidBenignGlandForm
-                                key={activePatient.id}
-                                defaultFormState={FormStates.view}
-                                defaultSelectedStudies={patientsStudies}
-                                data={activePatient}
-                                editSaved={editSaved}
-                                setEditSaved={setEditSaved}
-                                setActivePatient={setActivePatient}
-                                idStudie={idStudie}
-                            />
-                        )) ||
-                        (activePatient.form_type === FormType.submandibularBenign && (
-                            <SubmandibularMalignantGlandForm
-                                key={activePatient.id}
-                                defaultFormState={FormStates.view}
-                                defaultSelectedStudies={patientsStudies}
-                                data={activePatient}
-                                editSaved={editSaved}
-                                setEditSaved={setEditSaved}
-                                setActivePatient={setActivePatient}
-                                idStudie={idStudie}
-                            />
-                        )))
+                    (activePatient.form_type ===
+                        FormType.sublingualMalignant && (
+                        <SublingualMalignantGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    )) ||
+                    (activePatient.form_type ===
+                        FormType.submandibularMalignant && (
+                        <SubmandibularMalignantGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    )) ||
+                    (activePatient.form_type === FormType.parotidBenign && (
+                        <ParotidBenignGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    )) ||
+                    (activePatient.form_type ===
+                        FormType.submandibularBenign && (
+                        <SubmandibularMalignantGlandForm
+                            key={activePatient.id}
+                            defaultFormState={FormStates.view}
+                            defaultSelectedStudies={patientsStudies}
+                            data={activePatient}
+                            editSaved={editSaved}
+                            setEditSaved={setEditSaved}
+                            setActivePatient={setActivePatient}
+                            idStudie={idStudie}
+                        />
+                    ))
                 ) : (
                     <Paper
                         elevation={3}
@@ -630,7 +671,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            p: 4
+                            p: 4,
                         }}
                     >
                         <Typography variant="h6" color="textSecondary">
@@ -640,7 +681,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 )}
             </Box>
         </Stack>
-    );
+    )
 }
 
 export default PatientsList

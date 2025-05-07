@@ -18,7 +18,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
-    Button
+    Button,
 } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -64,10 +64,10 @@ interface MenuProps {
     setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
-const Menu: React.FC<MenuProps> = ({ 
+const Menu: React.FC<MenuProps> = ({
     setActiveComponent,
     activeMenuButton,
-    setActiveMenuButton
+    setActiveMenuButton,
 }) => {
     const [open, setOpen] = useState(true)
 
@@ -105,47 +105,46 @@ const Menu: React.FC<MenuProps> = ({
         {
             name: 'Seznam pacientů',
             component: Components.patientsList,
-            icon: <PeopleAltIcon />
+            icon: <PeopleAltIcon />,
         },
         {
             name: 'Plánované kontroly',
             component: Components.plannedChecks,
-            icon: <CalendarMonthIcon />
+            icon: <CalendarMonthIcon />,
         },
         {
             name: 'Přidat pacienta',
             component: Components.addPatient,
-            icon: <PersonAddIcon />
+            icon: <PersonAddIcon />,
         },
         {
             name: 'Studie',
             component: Components.studiesList,
-            icon: <FolderIcon />
+            icon: <FolderIcon />,
         },
         {
             name: 'Přidat studii',
             component: Components.addStudy,
-            icon: <CreateNewFolderIcon />
+            icon: <CreateNewFolderIcon />,
         },
         {
             name: 'Kaplan-Meier',
             component: Components.kaplanMeier,
-            icon: <ShowChartIcon />
-        }
+            icon: <ShowChartIcon />,
+        },
     ]
 
     return (
-        <StyledDrawer
-            variant="permanent"
-            open={open}
-        >
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: open ? 'space-between' : 'center',
-                p: 1,
-                backgroundColor: '#f5f5f5' // Light gray header background
-            }}>
+        <StyledDrawer variant="permanent" open={open}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: open ? 'space-between' : 'center',
+                    p: 1,
+                    backgroundColor: '#f5f5f5', // Light gray header background
+                }}
+            >
                 {open && (
                     <Box
                         component="img"
@@ -154,7 +153,10 @@ const Menu: React.FC<MenuProps> = ({
                         sx={{ height: '80%', width: '100%' }}
                     />
                 )}
-                <IconButton onClick={handleDrawerToggle} sx={{ color: '#1976d2' }}>
+                <IconButton
+                    onClick={handleDrawerToggle}
+                    sx={{ color: '#1976d2' }}
+                >
                     {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
             </Box>
@@ -163,10 +165,19 @@ const Menu: React.FC<MenuProps> = ({
 
             <List>
                 {menuItems.map((item) => (
-                    <ListItem key={item.component} disablePadding sx={{ display: 'block' }}>
-                        <Tooltip title={open ? '' : item.name} placement="right">
+                    <ListItem
+                        key={item.component}
+                        disablePadding
+                        sx={{ display: 'block' }}
+                    >
+                        <Tooltip
+                            title={open ? '' : item.name}
+                            placement="right"
+                        >
                             <ListItemButton
-                                onClick={() => handleButtonClick(item.component)}
+                                onClick={() =>
+                                    handleButtonClick(item.component)
+                                }
                                 selected={activeMenuButton === item.component}
                                 sx={{
                                     minHeight: 48,
@@ -177,11 +188,11 @@ const Menu: React.FC<MenuProps> = ({
                                         color: '#1976d2', // Primary blue text for selected item
                                         '&:hover': {
                                             backgroundColor: '#bbdefb', // Slightly darker on hover
-                                        }
+                                        },
                                     },
                                     '&:hover': {
                                         backgroundColor: '#f5f5f5', // Light gray on hover
-                                    }
+                                    },
                                 }}
                             >
                                 <ListItemIcon
@@ -189,7 +200,10 @@ const Menu: React.FC<MenuProps> = ({
                                         minWidth: 0,
                                         mr: open ? 3 : 'auto',
                                         justifyContent: 'center',
-                                        color: activeMenuButton === item.component ? '#1976d2' : '#757575' // Blue if selected, gray otherwise
+                                        color:
+                                            activeMenuButton === item.component
+                                                ? '#1976d2'
+                                                : '#757575', // Blue if selected, gray otherwise
                                     }}
                                 >
                                     {item.icon}
@@ -200,8 +214,12 @@ const Menu: React.FC<MenuProps> = ({
                                         opacity: open ? 1 : 0,
                                         '& .MuiListItemText-primary': {
                                             fontSize: '0.95rem',
-                                            fontWeight: activeMenuButton === item.component ? 500 : 400 // Bold if selected
-                                        }
+                                            fontWeight:
+                                                activeMenuButton ===
+                                                item.component
+                                                    ? 500
+                                                    : 400, // Bold if selected
+                                        },
                                     }}
                                 />
                             </ListItemButton>
@@ -214,7 +232,10 @@ const Menu: React.FC<MenuProps> = ({
 
             <List>
                 <ListItem disablePadding sx={{ display: 'block' }}>
-                    <Tooltip title={open ? '' : 'Importovat data'} placement="right">
+                    <Tooltip
+                        title={open ? '' : 'Importovat data'}
+                        placement="right"
+                    >
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -222,7 +243,7 @@ const Menu: React.FC<MenuProps> = ({
                                 px: 2.5,
                                 '&:hover': {
                                     backgroundColor: '#f5f5f5', // Light gray on hover
-                                }
+                                },
                             }}
                             onClick={handleImportButtonClick}
                         >
@@ -231,7 +252,7 @@ const Menu: React.FC<MenuProps> = ({
                                     minWidth: 0,
                                     mr: open ? 3 : 'auto',
                                     justifyContent: 'center',
-                                    color: '#757575' // Gray for utility icons
+                                    color: '#757575', // Gray for utility icons
                                 }}
                             >
                                 <ImportExport />
@@ -240,14 +261,19 @@ const Menu: React.FC<MenuProps> = ({
                                 primary="Importovat data"
                                 sx={{
                                     opacity: open ? 1 : 0,
-                                    '& .MuiListItemText-primary': { fontSize: '0.95rem' }
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                    },
                                 }}
                             />
                         </ListItemButton>
                     </Tooltip>
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
-                    <Tooltip title={open ? '' : 'Zálohovat databázi'} placement="right">
+                    <Tooltip
+                        title={open ? '' : 'Zálohovat databázi'}
+                        placement="right"
+                    >
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -255,7 +281,7 @@ const Menu: React.FC<MenuProps> = ({
                                 px: 2.5,
                                 '&:hover': {
                                     backgroundColor: '#f5f5f5', // Light gray on hover
-                                }
+                                },
                             }}
                             onClick={handleBackUpButtonClick}
                         >
@@ -264,7 +290,7 @@ const Menu: React.FC<MenuProps> = ({
                                     minWidth: 0,
                                     mr: open ? 3 : 'auto',
                                     justifyContent: 'center',
-                                    color: '#757575' // Gray for utility icons
+                                    color: '#757575', // Gray for utility icons
                                 }}
                             >
                                 <BackupIcon />
@@ -273,14 +299,19 @@ const Menu: React.FC<MenuProps> = ({
                                 primary="Zálohovat databázi"
                                 sx={{
                                     opacity: open ? 1 : 0,
-                                    '& .MuiListItemText-primary': { fontSize: '0.95rem' }
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                    },
                                 }}
                             />
                         </ListItemButton>
                     </Tooltip>
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
-                    <Tooltip title={open ? '' : 'Obnovit databázi'} placement="right">
+                    <Tooltip
+                        title={open ? '' : 'Obnovit databázi'}
+                        placement="right"
+                    >
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -288,7 +319,7 @@ const Menu: React.FC<MenuProps> = ({
                                 px: 2.5,
                                 '&:hover': {
                                     backgroundColor: '#f5f5f5', // Light gray on hover
-                                }
+                                },
                             }}
                             onClick={() => setOpenLoadBackUpDialog(true)}
                         >
@@ -297,7 +328,7 @@ const Menu: React.FC<MenuProps> = ({
                                     minWidth: 0,
                                     mr: open ? 3 : 'auto',
                                     justifyContent: 'center',
-                                    color: '#757575' // Gray for utility icons
+                                    color: '#757575', // Gray for utility icons
                                 }}
                             >
                                 <RestoreIcon />
@@ -306,7 +337,9 @@ const Menu: React.FC<MenuProps> = ({
                                 primary="Obnovit databázi"
                                 sx={{
                                     opacity: open ? 1 : 0,
-                                    '& .MuiListItemText-primary': { fontSize: '0.95rem' }
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                    },
                                 }}
                             />
                         </ListItemButton>
@@ -315,13 +348,15 @@ const Menu: React.FC<MenuProps> = ({
                         <DialogTitle>Obnovení databáze</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Databáze bude obnovena ze zálohy. Tento proces smaže
-                                veškerá data v databázi a nahradí je daty ze zálohy.
-                                Opravdu chcete pokračovat?
+                                Databáze bude obnovena ze zálohy. Tento proces
+                                smaže veškerá data v databázi a nahradí je daty
+                                ze zálohy. Opravdu chcete pokračovat?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleLoadBackUpConfirm}>Rozumím</Button>
+                            <Button onClick={handleLoadBackUpConfirm}>
+                                Rozumím
+                            </Button>
                         </DialogActions>
                     </Dialog>
                 </ListItem>
