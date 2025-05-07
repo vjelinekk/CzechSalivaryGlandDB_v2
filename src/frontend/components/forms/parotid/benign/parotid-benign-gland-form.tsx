@@ -28,6 +28,7 @@ const ParotidBenignGlandForm: React.FC<GlandFormProps> = ({
     setActivePatient,
     idStudie,
     defaultSelectedStudies,
+    setActiveMenuButton,
 }) => {
     const [formData, setFormData] = useState<ParoditBenignPatientData | null>({
         ...data,
@@ -117,6 +118,7 @@ const ParotidBenignGlandForm: React.FC<GlandFormProps> = ({
                 formData={formData}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
+                setActiveMenuButton={setActiveMenuButton}
             />
             <EditButtons
                 formData={formData}

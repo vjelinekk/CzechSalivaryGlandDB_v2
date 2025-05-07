@@ -29,6 +29,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     setActivePatient,
     idStudie,
     defaultSelectedStudies,
+    setActiveMenuButton,
 }) => {
     const [formData, setFormData] =
         useState<SublingualMalignantPatientData | null>({
@@ -121,6 +122,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
                 selectedStudies={selectedStudies}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
+                setActiveMenuButton={setActiveMenuButton}
             />
             <EditButtons
                 formData={formData}

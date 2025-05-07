@@ -28,7 +28,6 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import FolderIcon from '@mui/icons-material/Folder'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import ShowChartIcon from '@mui/icons-material/ShowChart'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import BackupIcon from '@mui/icons-material/Backup'
 import RestoreIcon from '@mui/icons-material/Restore'
 import ImportExport from '@mui/icons-material/ImportExport'
@@ -61,17 +60,20 @@ const StyledDrawer = styled(Drawer, {
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
+    activeMenuButton?: Components
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
-const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
-    const [activeButton, setActiveButton] = useState<Components>(
-        Components.patientsList
-    )
+const Menu: React.FC<MenuProps> = ({ 
+    setActiveComponent,
+    activeMenuButton,
+    setActiveMenuButton
+}) => {
     const [open, setOpen] = useState(true)
 
     const handleButtonClick = (componentName: Components) => {
         setActiveComponent({ component: componentName })
-        setActiveButton(componentName)
+        setActiveMenuButton(componentName)
     }
 
     const handleDrawerToggle = () => {
@@ -165,7 +167,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                         <Tooltip title={open ? '' : item.name} placement="right">
                             <ListItemButton
                                 onClick={() => handleButtonClick(item.component)}
-                                selected={activeButton === item.component}
+                                selected={activeMenuButton === item.component}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
@@ -187,7 +189,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                                         minWidth: 0,
                                         mr: open ? 3 : 'auto',
                                         justifyContent: 'center',
-                                        color: activeButton === item.component ? '#1976d2' : '#757575' // Blue if selected, gray otherwise
+                                        color: activeMenuButton === item.component ? '#1976d2' : '#757575' // Blue if selected, gray otherwise
                                     }}
                                 >
                                     {item.icon}
@@ -198,7 +200,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                                         opacity: open ? 1 : 0,
                                         '& .MuiListItemText-primary': {
                                             fontSize: '0.95rem',
-                                            fontWeight: activeButton === item.component ? 500 : 400 // Bold if selected
+                                            fontWeight: activeMenuButton === item.component ? 500 : 400 // Bold if selected
                                         }
                                     }}
                                 />

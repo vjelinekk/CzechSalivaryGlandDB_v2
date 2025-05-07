@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
 import { Box, Typography, Paper, Grid, Button, Divider } from '@mui/material'
@@ -6,9 +6,7 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 interface AddPatientProps {
-    setActiveComponent: React.Dispatch<
-        React.SetStateAction<ActiveComponentState>
-    >
+    setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
 }
 
 const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
