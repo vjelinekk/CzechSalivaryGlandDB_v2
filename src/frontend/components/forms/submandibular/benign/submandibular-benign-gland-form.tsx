@@ -17,6 +17,7 @@ import SubmandibularBenignGlandDiagnosis from './submandibular-benign-gland-diag
 import SubmandibularBenignGlandTherapy from './submandibular-benign-gland-therapy'
 import HistopathologyBenign from '../../histopathology-benign'
 import DispensarizationBenign from '../../dispensarization-benign'
+import FormHeader from '../../form-header'
 
 const SubmandibularBenignGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -61,6 +62,9 @@ const SubmandibularBenignGlandForm: React.FC<GlandFormProps> = ({
 
     return (
         <form className="form">
+            {formState === FormStates.add && (
+                <FormHeader formType={formData.form_type} />
+            )}
             <EditResult editSaved={editSaved} setEditSaved={setEditSaved} />
             <PersonalData
                 formData={formData}
