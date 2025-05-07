@@ -17,6 +17,7 @@ import EditResult from '../../edit-result'
 import AvailableStudies from '../../available-studies'
 import HistopathologyBenign from '../../histopathology-benign'
 import DispensarizationBenign from '../../dispensarization-benign'
+import FormHeader from '../../form-header'
 
 const ParotidBenignGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -60,6 +61,9 @@ const ParotidBenignGlandForm: React.FC<GlandFormProps> = ({
 
     return (
         <form className="form">
+            {formState === FormStates.add && (
+                <FormHeader formType={formData.form_type} />
+            )}
             <EditResult editSaved={editSaved} setEditSaved={setEditSaved} />
             <PersonalData
                 formData={formData}

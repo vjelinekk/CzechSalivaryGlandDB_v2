@@ -3,8 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import AddPatient from '../../src/frontend/components/add-patient'
 import { Components } from '../../src/frontend/constants'
 
-const MALIGNANT = 'Zhoubný nádor'
-const BENIGN = 'Nezhoubný nádor'
+const MALIGNANT = 'Zhoubný nádor (maligní)'
+const BENIGN = 'Nezhoubný nádor (benigní)'
 
 const tumorTypes = [MALIGNANT, BENIGN]
 
