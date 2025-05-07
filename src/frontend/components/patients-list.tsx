@@ -43,6 +43,29 @@ import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import FiltrationMenu from './filtration-menu'
 import { ImportContext } from './import-context'
+import {
+    Box,
+    Paper,
+    TextField,
+    TableContainer,
+    Table,
+    TableBody,
+    TableRow,
+    TableCell,
+    Typography,
+    Stack,
+    InputAdornment,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import Security from '@mui/icons-material/Security'
+import ImportExport from '@mui/icons-material/ImportExport'
+import FilterListIcon from '@mui/icons-material/FilterList'
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -265,23 +288,39 @@ const PatientsList: React.FC<PatientsListProps> = ({
     }
 
     return (
-        <>
-            <div id="main" className="dataTable">
-                <FiltrationMenu
-                    openFilterMenu={openFiltrationMenu}
-                    setOpenFilterMenu={setOpenFiltrationMenu}
-                    filteredColumns={filteredColumns}
-                    setFilteredColumns={setFilteredColumns}
-                    studyType={studyType}
-                    setIsFiltered={setIsFiltered}
-                />
-                {(studyType && !idStudie && (
-                    <div style={{ margin: '1rem' }}>
-                        <input
-                            type="text"
-                            className="studyNameInput"
-                            placeholder="Název studie"
+        <Stack direction="row" spacing={2} sx={{ p: 2, height: '100%' }}>
+            <FiltrationMenu
+                openFilterMenu={openFiltrationMenu}
+                setOpenFilterMenu={setOpenFiltrationMenu}
+                filteredColumns={filteredColumns}
+                setFilteredColumns={setFilteredColumns}
+                studyType={studyType}
+                setIsFiltered={setIsFiltered}
+            />
+
+            <Paper
+                elevation={3}
+                sx={{
+                    p: 2,
+                    width: '20%',
+                    minWidth: '280px',
+                    maxWidth: '350px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
+                {(studyType && !idStudie) ? (
+                    <Box sx={{ mb: 2 }}>
+                        <Typography variant="h6" gutterBottom>
+                            Nová studie
+                        </Typography>
+                        <TextField
+                            fullWidth
+                            label="Název studie"
+                            variant="outlined"
                             data-testid="study-name-input"
+                            margin="normal"
                             value={study?.nazev_studie || ''}
                             onChange={(e) =>
                                 setStudy((prevStudy) => ({
@@ -290,8 +329,10 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 }))
                             }
                         />
-                        <button
-                            className="tableButton"
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
                             onClick={() => {
                                 if (!study?.nazev_studie) {
                                     setOpenEmptyNameAlert(true)
@@ -299,9 +340,11 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 }
                                 handleCreateStudy()
                             }}
+                            sx={{ mt: 1 }}
                         >
                             Vytvořit novou studii
-                        </button>
+                        </Button>
+
                         <Dialog open={openEmptyNameAlert}>
                             <DialogTitle>
                                 Název studie nesmí být prázdný
@@ -319,103 +362,204 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 </Button>
                             </DialogActions>
                         </Dialog>
-                    </div>
-                )) || (
-                    <div>
-                        <button
-                            onClick={handleExport}
-                            style={{ backgroundColor: '#29a75e' }}
-                            className="tableButton"
-                        >
-                            Exportovat
-                        </button>
-                        <button
-                            onClick={handleExportAnonymized}
-                            style={{ backgroundColor: '#2c6e47' }}
-                            className="tableButton"
-                        >
-                            Exportovat anonymizovaně
-                        </button>
-                    </div>
+                    </Box>
+                ) : (
+                    <>
+                        <Accordion defaultExpanded={false} disableGutters elevation={0} sx={{ mb: 1 }}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                sx={{ px: 0, minHeight: 48 }}
+                            >
+                                <Typography variant="h6">Export pacientů</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails sx={{ p: 0 }}>
+                                <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
+                                    {/* First custom button with fixed icon position */}
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            backgroundColor: '#29a75e',
+                                            borderRadius: 1,
+                                            cursor: 'pointer',
+                                            '&:hover': { opacity: 0.9 }
+                                        }}
+                                        onClick={handleExport}
+                                    >
+                                        <Box sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            pl: 2,
+                                            pr: 2,
+                                            py: 1,
+                                            color: 'white'
+                                        }}>
+                                            <ImportExport sx={{ mr: 1 }} />
+                                            <Typography>Exportovat</Typography>
+                                        </Box>
+                                    </Box>
+
+                                    {/* Second custom button with fixed icon position */}
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            backgroundColor: '#2c6e47',
+                                            borderRadius: 1,
+                                            cursor: 'pointer',
+                                            '&:hover': { opacity: 0.9 }
+                                        }}
+                                        onClick={handleExportAnonymized}
+                                    >
+                                        <Box sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            pl: 2,
+                                            pr: 2,
+                                            py: 1,
+                                            color: 'white'
+                                        }}>
+                                            <Security sx={{ mr: 1 }} />
+                                            <Typography>Exportovat anonymizovaně</Typography>
+                                        </Box>
+                                    </Box>
+                                </Stack>
+                            </AccordionDetails>
+                        </Accordion>
+                    </>
                 )}
-                <div>
-                    <button
-                        className="tableButton"
-                        onClick={() => setOpenFiltrationMenu(true)}
+
+                <Accordion defaultExpanded={true} disableGutters elevation={0} sx={{ mt: 1, mb: 1 }}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        sx={{ px: 0, minHeight: 48 }}
                     >
-                        Filtrovat
-                    </button>
-                </div>
-                <div className="tableSelect">
-                    <div>
-                        <button
-                            className="tableButton"
-                            onClick={() => setSelectedPatients(patients)}
-                        >
-                            Označit vše
-                        </button>
-                        <button
-                            className="tableButton"
-                            onClick={() => setSelectedPatients([])}
-                        >
-                            Zrušit označení
-                        </button>
-                    </div>
-                </div>
-                <input
-                    id="search"
+                        <Typography variant="h6">Filtrace a výběr</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 0 }}>
+                        <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                startIcon={<FilterListIcon />}
+                                onClick={() => setOpenFiltrationMenu(true)}
+                                sx={{
+                                    justifyContent: 'left'
+                                }}
+                            >
+                                Filtrovat
+                            </Button>
+
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                startIcon={<CheckBoxIcon />}
+                                onClick={() => setSelectedPatients(patients)}
+                                sx={{
+                                    justifyContent: 'left'
+                                }}
+                            >
+                                Označit vše
+                            </Button>
+
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                startIcon={<CheckBoxOutlineBlankIcon />}
+                                onClick={() => setSelectedPatients([])}
+                                sx={{
+                                    justifyContent: 'left'
+                                }}
+                            >
+                                Zrušit označení
+                            </Button>
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
+
+                <TextField
+                    fullWidth
+                    variant="outlined"
                     placeholder="Vyhledat..."
                     onChange={handlePatientSearch}
+                    margin="normal"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <div className="wrapper">
-                    <table data-testid="patients-list" id="patient-table">
-                        <tbody id="patients-tbody">
-                            {patients.map((patient, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <PatientButton
-                                            key={`${patient.id}-${patient.form_type}`}
-                                            patient={patient}
-                                            isActivePatient={
-                                                activePatient?.id ===
-                                                    patient.id &&
-                                                activePatient?.form_type ===
-                                                    patient.form_type
-                                            }
-                                            setActivePatient={setActivePatient}
-                                            isSelected={selectedPatients.some(
-                                                (p) =>
-                                                    p.id === patient.id &&
-                                                    p.form_type ===
-                                                        patient.form_type
-                                            )}
-                                            setSelectedPatients={
-                                                setSelectedPatients
-                                            }
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            {activePatient &&
-                ((activePatient.form_type === FormType.parotidMalignant && (
-                    <ParotidMalignantGlandForm
-                        key={activePatient.id}
-                        defaultFormState={FormStates.view}
-                        defaultSelectedStudies={patientsStudies}
-                        data={activePatient}
-                        editSaved={editSaved}
-                        setEditSaved={setEditSaved}
-                        setActivePatient={setActivePatient}
-                        idStudie={idStudie}
-                    />
-                )) ||
-                    (activePatient.form_type ===
-                        FormType.sublingualMalignant && (
-                        <SublingualMalignantGlandForm
+
+                <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
+                    Seznam pacientů {patients.length > 0 ? `(${patients.length})` : ''}
+                </Typography>
+
+                <TableContainer
+                    component={Paper}
+                    sx={{
+                        flexGrow: 1,
+                        maxHeight: 'calc(100vh - 100px)',
+                        overflowY: 'auto',
+                        mt: 1,
+                        border: '1px solid #e0e0e0',
+                        borderRadius: 1,
+                        '&::-webkit-scrollbar': {
+                            width: '8px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: '#f1f1f1',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: '#888',
+                            borderRadius: '4px',
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            background: '#555',
+                        },
+                    }}
+                >
+                    <Table stickyHeader data-testid="patients-list" size="small">
+                        <TableBody>
+                            {patients.length === 0 ? (
+                                <TableRow>
+                                    <TableCell>
+                                        <Typography align="center" sx={{ py: 2 }}>
+                                            Nebyli nalezeni žádní pacienti
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                patients.map((patient, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell sx={{ p: 0 }}>
+                                            <PatientButton
+                                                key={`${patient.id}-${patient.form_type}`}
+                                                patient={patient}
+                                                isActivePatient={
+                                                    activePatient?.id === patient.id &&
+                                                    activePatient?.form_type === patient.form_type
+                                                }
+                                                setActivePatient={setActivePatient}
+                                                isSelected={selectedPatients.some(
+                                                    (p) =>
+                                                        p.id === patient.id &&
+                                                        p.form_type === patient.form_type
+                                                )}
+                                                setSelectedPatients={setSelectedPatients}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+
+            <Box sx={{ flexGrow: 1, height: '100%', overflowY: 'auto' }}>
+                {activePatient ? (
+                    ((activePatient.form_type === FormType.parotidMalignant && (
+                        <ParotidMalignantGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
                             defaultSelectedStudies={patientsStudies}
@@ -426,46 +570,73 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             idStudie={idStudie}
                         />
                     )) ||
-                    (activePatient.form_type ===
-                        FormType.submandibularMalignant && (
-                        <SubmandibularMalignantGlandForm
-                            key={activePatient.id}
-                            defaultFormState={FormStates.view}
-                            defaultSelectedStudies={patientsStudies}
-                            data={activePatient}
-                            editSaved={editSaved}
-                            setEditSaved={setEditSaved}
-                            setActivePatient={setActivePatient}
-                            idStudie={idStudie}
-                        />
-                    )) ||
-                    (activePatient.form_type === FormType.parotidBenign && (
-                        <ParotidBenignGlandForm
-                            key={activePatient.id}
-                            defaultFormState={FormStates.view}
-                            defaultSelectedStudies={patientsStudies}
-                            data={activePatient}
-                            editSaved={editSaved}
-                            setEditSaved={setEditSaved}
-                            setActivePatient={setActivePatient}
-                            idStudie={idStudie}
-                        />
-                    )) ||
-                    (activePatient.form_type ===
-                        FormType.submandibularBenign && (
-                        <SubmandibularMalignantGlandForm
-                            key={activePatient.id}
-                            defaultFormState={FormStates.view}
-                            defaultSelectedStudies={patientsStudies}
-                            data={activePatient}
-                            editSaved={editSaved}
-                            setEditSaved={setEditSaved}
-                            setActivePatient={setActivePatient}
-                            idStudie={idStudie}
-                        />
-                    )))}
-        </>
-    )
+                        (activePatient.form_type === FormType.sublingualMalignant && (
+                            <SublingualMalignantGlandForm
+                                key={activePatient.id}
+                                defaultFormState={FormStates.view}
+                                defaultSelectedStudies={patientsStudies}
+                                data={activePatient}
+                                editSaved={editSaved}
+                                setEditSaved={setEditSaved}
+                                setActivePatient={setActivePatient}
+                                idStudie={idStudie}
+                            />
+                        )) ||
+                        (activePatient.form_type === FormType.submandibularMalignant && (
+                            <SubmandibularMalignantGlandForm
+                                key={activePatient.id}
+                                defaultFormState={FormStates.view}
+                                defaultSelectedStudies={patientsStudies}
+                                data={activePatient}
+                                editSaved={editSaved}
+                                setEditSaved={setEditSaved}
+                                setActivePatient={setActivePatient}
+                                idStudie={idStudie}
+                            />
+                        )) ||
+                        (activePatient.form_type === FormType.parotidBenign && (
+                            <ParotidBenignGlandForm
+                                key={activePatient.id}
+                                defaultFormState={FormStates.view}
+                                defaultSelectedStudies={patientsStudies}
+                                data={activePatient}
+                                editSaved={editSaved}
+                                setEditSaved={setEditSaved}
+                                setActivePatient={setActivePatient}
+                                idStudie={idStudie}
+                            />
+                        )) ||
+                        (activePatient.form_type === FormType.submandibularBenign && (
+                            <SubmandibularMalignantGlandForm
+                                key={activePatient.id}
+                                defaultFormState={FormStates.view}
+                                defaultSelectedStudies={patientsStudies}
+                                data={activePatient}
+                                editSaved={editSaved}
+                                setEditSaved={setEditSaved}
+                                setActivePatient={setActivePatient}
+                                idStudie={idStudie}
+                            />
+                        )))
+                ) : (
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            p: 4
+                        }}
+                    >
+                        <Typography variant="h6" color="textSecondary">
+                            Vyberte pacienta ze seznamu pro zobrazení detailů
+                        </Typography>
+                    </Paper>
+                )}
+            </Box>
+        </Stack>
+    );
 }
 
 export default PatientsList
