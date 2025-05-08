@@ -7,6 +7,8 @@ import { act } from 'react-dom/test-utils'
 
 describe('AddPatientButton component', () => {
     const setActiveComponentMock = jest.fn()
+    const setActiveMenuButtonMock = jest.fn()
+
     const formDataMock = {
         // Your mock data for formData
     }
@@ -23,6 +25,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={formErrorsMock}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
         expect(screen.getByText('Přidat pacienta')).toBeInTheDocument()
@@ -41,6 +44,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={formErrorsMock}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
 
@@ -59,6 +63,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={['Error']}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
         const button = screen.getByText('Přidat pacienta')
