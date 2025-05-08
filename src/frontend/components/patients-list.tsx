@@ -66,6 +66,7 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -654,7 +655,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                     )) ||
                     (activePatient.form_type ===
                         FormType.submandibularBenign && (
-                        <SubmandibularMalignantGlandForm
+                        <SubmandibularBenignGlandForm
                             key={activePatient.id}
                             defaultFormState={FormStates.view}
                             defaultSelectedStudies={patientsStudies}

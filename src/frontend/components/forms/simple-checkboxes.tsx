@@ -34,13 +34,21 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
         })
 
     useEffect(() => {
-        setSelectedOptions(
-            getDataFromPatientInterface(data, dbLabel)
-                ? (getDataFromPatientInterface(data, dbLabel) as string).split(
-                      ','
-                  )
-                : ['']
-        )
+        const storedData = getDataFromPatientInterface(data, dbLabel)
+
+        if (enableSingleSelect) {
+            if (storedData) {
+                setSelectedOptions([storedData as string])
+            } else {
+                setSelectedOptions([])
+            }
+        } else {
+            if (storedData) {
+                setSelectedOptions((storedData as string).split(','))
+            } else {
+                setSelectedOptions([])
+            }
+        }
     }, [data])
 
     return (
