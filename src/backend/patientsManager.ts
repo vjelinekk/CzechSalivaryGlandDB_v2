@@ -601,7 +601,7 @@ export const getPlannedPatientsBetweenDates = async (
             | ParotidBenignColumns
     ) => {
         return `
-        SELECT ${columns.id.columnName}, ${columns.jmeno.columnName}, ${columns.prijmeni.columnName}, ${columns.rodne_cislo.columnName}, ${columns.planovana_kontrola.columnName} 
+        SELECT *
         FROM ${tableName} 
         WHERE ${columns.planovana_kontrola.columnName} BETWEEN ? AND ?
         `

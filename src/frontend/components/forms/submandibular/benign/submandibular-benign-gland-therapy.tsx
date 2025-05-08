@@ -6,7 +6,6 @@ import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
-import TextInput from '../../text-input'
 
 const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
@@ -84,22 +83,6 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                             disabled={disabled}
                             setFormData={setFormData}
                         />
-                        <ConditionalCheckboxOption
-                            label="Jiné"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        >
-                            <TextInput
-                                label="Upřesnění jiné komplikace"
-                                dbLabel={dbLabels.jine_pooperacni_komplikace}
-                                data={getDataFromPatientInterface(
-                                    formData,
-                                    dbLabels.jine_pooperacni_komplikace
-                                )}
-                                setFormData={setFormData}
-                                disabled={disabled}
-                            />
-                        </ConditionalCheckboxOption>
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption

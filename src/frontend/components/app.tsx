@@ -51,7 +51,10 @@ const app = () => {
                 />
             )}
             {activeComponent.component === Components.plannedChecks && (
-                <PlannedChecks setActiveComponent={setActiveComponent} />
+                <PlannedChecks
+                    setActiveComponent={setActiveComponent}
+                    setActiveMenuButton={setActiveMenuButton}
+                />
             )}
             {activeComponent.component === Components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
