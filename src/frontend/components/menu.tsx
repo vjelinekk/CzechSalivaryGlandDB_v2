@@ -28,11 +28,14 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import FolderIcon from '@mui/icons-material/Folder'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import ShowChartIcon from '@mui/icons-material/ShowChart'
+import PieChartIcon from '@mui/icons-material/PieChart';
 import BackupIcon from '@mui/icons-material/Backup'
 import RestoreIcon from '@mui/icons-material/Restore'
 import ImportExport from '@mui/icons-material/ImportExport'
 import { Language } from '@mui/icons-material'
 import { ImportContext } from './import-context'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 // Define drawer widths for open and closed states
 const drawerWidth = 240
@@ -58,8 +61,6 @@ const StyledDrawer = styled(Drawer, {
         borderRight: '1px solid #e0e0e0', // Subtle border
     },
 }))
-import { useTranslation } from 'react-i18next'
-import { appTranslationKeys } from '../translations'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
