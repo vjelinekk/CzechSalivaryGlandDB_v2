@@ -3,6 +3,35 @@ import { render, screen } from '@testing-library/react'
 import PersonalData from '../../src/frontend/components/forms/personal-data'
 import calculatePackYears from '../../src/frontend/utils/calculatePackYears'
 
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
+
+
 describe('PersonalData component', () => {
     test('renders the section headings and form inputs', () => {
         const formData = {
@@ -36,10 +65,10 @@ describe('PersonalData component', () => {
             />
         )
 
-        const sectionHeading = screen.getByText('ANAMNESTICKÁ/PERSONÁLNÍ DATA')
+        const sectionHeading = screen.getByText(i18n.t(formTranslationKeys.anamnesticPersonalData))
         expect(sectionHeading).toBeInTheDocument()
 
-        const basicInfoHeading = screen.getByText('Základní informace')
+        const basicInfoHeading = screen.getByText(i18n.t(formTranslationKeys.basicInformation))
         expect(basicInfoHeading).toBeInTheDocument()
 
         const nameInput = screen.getByText('Jméno:')
@@ -57,28 +86,28 @@ describe('PersonalData component', () => {
         const ageInput = screen.getByText('Věk pacienta v době diagnózy:')
         expect(ageInput).toBeInTheDocument()
 
-        const genderCheckbox = screen.getByText('Pohlaví pacienta')
+        const genderCheckbox = screen.getByText(i18n.t(formTranslationKeys.patientGender))
         expect(genderCheckbox).toBeInTheDocument()
 
         const demographicInfoCheckbox = screen.getByText(
-            'Demografické informace - kraj trvalého bydliště pacienta'
+            i18n.t(formTranslationKeys.demographicInfoResidencyRegion)
         )
         expect(demographicInfoCheckbox).toBeInTheDocument()
 
         const otherTumorsCheckbox = screen.getByText(
-            'Jiné nádorové onemocnění v OA'
+            i18n.t(formTranslationKeys.otherCancerInOa)
         )
         expect(otherTumorsCheckbox).toBeInTheDocument()
 
         const otherSalivaryCheckbox = screen.getByText(
-            'Jiné onemocnění velkých slinných žláz v OA'
+            i18n.t(formTranslationKeys.otherSalivaryGlandDiseaseInOa)
         )
         expect(otherSalivaryCheckbox).toBeInTheDocument()
 
-        const smokingCheckbox = screen.getByText('Kouření')
+        const smokingCheckbox = screen.getByText(i18n.t(formTranslationKeys.smoking))
         expect(smokingCheckbox).toBeInTheDocument()
 
-        const alcoholAbuseCheckbox = screen.getByText('Abusus alkoholu')
+        const alcoholAbuseCheckbox = screen.getByText(i18n.t(formTranslationKeys.alcoholAbuse))
         expect(alcoholAbuseCheckbox).toBeInTheDocument()
     })
 

@@ -2,6 +2,35 @@ import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
 import TextInput from '../../src/frontend/components/forms/text-input'
 
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
+
+
 describe('TextInput component', () => {
     test('renders label and input field', () => {
         const label = 'Test Label'
@@ -83,7 +112,7 @@ describe('TextInput component', () => {
         const inputElement = screen.getByDisplayValue('Test Data')
         fireEvent.change(inputElement, { target: { value: 'New' } })
 
-        const errorMessage = screen.getByText('Neplatný vstup')
+        const errorMessage = screen.getByText(i18n.t(formTranslationKeys.invalidInput))
         expect(errorMessage).toBeInTheDocument()
     })
 
@@ -111,7 +140,7 @@ describe('TextInput component', () => {
         const inputElement = screen.getByDisplayValue('Test Data')
         fireEvent.change(inputElement, { target: { value: 'New Value' } })
 
-        const errorMessage = screen.queryByText('Neplatný vstup')
+        const errorMessage = screen.queryByText(i18n.t(formTranslationKeys.invalidInput))
         expect(errorMessage).not.toBeInTheDocument()
     })
 })

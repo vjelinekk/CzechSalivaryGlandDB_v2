@@ -5,6 +5,35 @@ import { FormStates } from '../../src/frontend/constants'
 import { jest } from '@jest/globals'
 import { act } from 'react-dom/test-utils'
 
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys, appTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
+
+
 describe('AddPatientButton component', () => {
     const setActiveComponentMock = jest.fn()
     const formDataMock = {
@@ -25,7 +54,7 @@ describe('AddPatientButton component', () => {
                 setActiveComponent={setActiveComponentMock}
             />
         )
-        expect(screen.getByText('Přidat pacienta')).toBeInTheDocument()
+        expect(screen.getByText(i18n.t(appTranslationKeys.addPatient))).toBeInTheDocument()
     })
 
     test('should call setActiveComponent and handleButtonClick when button is clicked', async () => {
@@ -45,7 +74,7 @@ describe('AddPatientButton component', () => {
         )
 
         await act(async () => {
-            fireEvent.click(screen.getByText('Přidat pacienta'))
+            fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.addPatient)))
         })
 
         expect(setActiveComponentMock).toHaveBeenCalled()
@@ -61,7 +90,7 @@ describe('AddPatientButton component', () => {
                 setActiveComponent={setActiveComponentMock}
             />
         )
-        const button = screen.getByText('Přidat pacienta')
+        const button = screen.getByText(i18n.t(appTranslationKeys.addPatient))
         expect(button).toBeDisabled()
     })
 })

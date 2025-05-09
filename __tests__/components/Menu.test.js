@@ -4,14 +4,33 @@ import Menu from '../../src/frontend/components/menu'
 import ImportProvider from '../../src/frontend/components/import-context'
 import { Components } from '../../src/frontend/constants'
 
-const menuButtons = [
-    'Seznam pacientů',
-    'Přidat pacienta',
-    'Studie',
-    'Přidat studii',
-    'Kaplan-Meier',
-    'Importovat data',
-]
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { appTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
 
 describe('Menu component', () => {
     test('renders correctly', () => {
@@ -21,6 +40,14 @@ describe('Menu component', () => {
                 <Menu setActiveComponent={setActiveComponentMock} />
             </ImportProvider>
         )
+        const menuButtons = [
+            i18n.t(appTranslationKeys.patientList),
+            i18n.t(appTranslationKeys.addPatient),
+            i18n.t(appTranslationKeys.studies),
+            i18n.t(appTranslationKeys.addStudy),
+            i18n.t(appTranslationKeys.kaplanMeier),
+            i18n.t(appTranslationKeys.importData),
+        ]
         menuButtons.forEach((button) => {
             expect(screen.getByText(button)).toBeInTheDocument()
         })
@@ -34,27 +61,27 @@ describe('Menu component', () => {
             </ImportProvider>
         )
 
-        fireEvent.click(screen.getByText('Seznam pacientů'))
+        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.patientList)))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.patientsList,
         })
 
-        fireEvent.click(screen.getByText('Přidat pacienta'))
+        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.addPatient)))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.addPatient,
         })
 
-        fireEvent.click(screen.getByText('Studie'))
+        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.studies)))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.studiesList,
         })
 
-        fireEvent.click(screen.getByText('Přidat studii'))
+        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.addStudy)))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.addStudy,
         })
 
-        fireEvent.click(screen.getByText('Kaplan-Meier'))
+        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.kaplanMeier)))
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.kaplanMeier,
         })

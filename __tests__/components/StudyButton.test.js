@@ -4,6 +4,35 @@ import StudyButton from '../../src/frontend/components/study-button'
 import { StudyType, studyTypeToStringMap } from '../../src/frontend/constants'
 import { beforeEach, expect } from '@jest/globals'
 
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { appTranslationKeys, formTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
+
+
 describe('StudyButton component', () => {
     const mockStudy = {
         id: 1,
@@ -105,17 +134,18 @@ describe('StudyButton component', () => {
 
         // Assertion: Confirmation dialog is displayed
         expect(
-            screen.getByText('Opravdu chcete smazat tuto studii?')
+            screen.getByText(i18n.t(appTranslationKeys
+                .deleteStudyTitle))
         ).toBeInTheDocument()
 
         // Click on cancel delete button
         await act(async () => {
-            fireEvent.click(screen.getByRole('button', { name: 'Zrušit' }))
+            fireEvent.click(screen.getByRole('button', { name: i18n.t(formTranslationKeys.cancel) }))
         })
 
         expect(
             screen.queryByRole('dialog', {
-                name: 'Opravdu chcete smazat tuto studii?',
+                name: i18n.t(appTranslationKeys.deleteStudyTitle),
             })
         ).not.toBeVisible()
     })

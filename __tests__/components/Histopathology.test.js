@@ -1,6 +1,35 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import HistopathologyMalignant from '../../src/frontend/components/forms/histopathology-malignant.tsx'
 
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+
+beforeAll(async () => {
+    global.window = Object.create(window);
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs');
+            const path = require('path');
+            const fullPath = path.resolve(__dirname, '../../', filePath);
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(JSON.parse(data));
+                    }
+                });
+            });
+        },
+    };
+
+    await initI18n();
+});
+
+
 describe('Histopathology component', () => {
     const formData = {} // Mocked formData
     const setFormData = jest.fn() // Mocked setFormData function
@@ -17,15 +46,15 @@ describe('Histopathology component', () => {
         // Assert section headings
         const sectionHeadings = screen.getAllByRole('heading', { level: 1 })
         expect(sectionHeadings).toHaveLength(1) // Only one level 1 heading expected
-        expect(sectionHeadings[0]).toHaveTextContent('HISTOPATOLOGIE')
+        expect(sectionHeadings[0]).toHaveTextContent(i18n.t(formTranslationKeys.histopathology))
 
         const subsectionHeadings = screen.getAllByRole('heading', { level: 2 })
         expect(subsectionHeadings).toHaveLength(2) // Two level 2 headings expected
         expect(subsectionHeadings[0]).toHaveTextContent(
-            'Histologický typ nádoru'
+            i18n.t(formTranslationKeys.histologicalType)
         )
         expect(subsectionHeadings[1]).toHaveTextContent(
-            'Specifikace histologického typu'
+            i18n.t(formTranslationKeys.histologicalTypeSpecification)
         )
 
         // Assert ConditionalCheckboxes and their options

@@ -89,5 +89,8 @@
     "login": "Přihlásit se",
     "delete-study-title": "Opravdu chcete smazat tuto studii?",
     "delete-study-warning": "Tato akce je nevratná.",
-    "delete-study": "Smazat"
+    "delete-study": "Smazat",
+    "remove-from-study": "Odebrat ze studie",
+    "remove-from-study-confirmation": "Opravdu chcete odebrat pacienta ze studie?"
+
 }
