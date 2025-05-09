@@ -14,6 +14,7 @@ export enum Components {
     study,
     kaplanMeier,
     import,
+    descriptiveStatistics,
 }
 
 export enum StudyType {
