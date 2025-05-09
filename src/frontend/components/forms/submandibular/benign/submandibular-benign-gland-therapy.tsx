@@ -8,6 +8,7 @@ import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import TextInput from '../../text-input'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../../../translations'
 
 const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
@@ -18,9 +19,9 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>{t('therapy-title')}</h1>
+            <h1>{t(formTranslationKeys.therapyTitle)}</h1>
             <DatePicker
-                label={t('treatment-start-date')}
+                label={t(formTranslationKeys.treatmentStartDate)}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -30,7 +31,7 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title={t('therapy-type')}
+                title={t(formTranslationKeys.therapyType)}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -38,25 +39,25 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label={t('surgical')}
+                    label={t(formTranslationKeys.surgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t('surgical-scope')}
+                        title={t(formTranslationKeys.surgicalScope)}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            t('peroral-extirpation'),
-                            t('external-extirpation'),
-                            t('other'),
+                            t(formTranslationKeys.peroralExtirpation),
+                            t(formTranslationKeys.externalExtirpation),
+                            t(formTranslationKeys.other),
                         ]}
                     />
                     <SimpleCheckboxes
-                        title={t('n-vii-function-hb-postoperative')}
+                        title={t(formTranslationKeys.nVIIFunctionHBPostoperative)}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -65,7 +66,7 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title={t('other-postoperative-complications')}
+                        title={t(formTranslationKeys.otherPostoperativeComplications)}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -73,22 +74,22 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t('none')}
+                            label={t(formTranslationKeys.none)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('freys-syndrome')}
+                            label={t(formTranslationKeys.freysSyndrome)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('salivary-fistula')}
+                            label={t(formTranslationKeys.salivaryFistula)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('other')}
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -108,12 +109,12 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('non-surgical-monitoring')}
+                    label={t(formTranslationKeys.nonSurgicalMonitoring)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('not-indicated')}
+                    label={t(formTranslationKeys.notIndicated)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

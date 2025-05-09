@@ -7,6 +7,7 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../../../translations'
 
 const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
@@ -16,9 +17,9 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     const { t } = useTranslation()
     return (
         <div className="sectionDiv">
-            <h1>{t('therapy')}</h1>
+            <h1>{t(formTranslationKeys.therapy)}</h1>
             <DatePicker
-                label={t('treatment-start-date')}
+                label={t(formTranslationKeys.treatmentStartDate)}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -28,7 +29,7 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title={t('therapy-type')}
+                title={t(formTranslationKeys.therapyType)}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -36,25 +37,25 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label={t('surgical')}
+                    label={t(formTranslationKeys.surgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t('surgical-treatment-scope')}
+                        title={t(formTranslationKeys.surgicalTreatmentScope)}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            t('peroral-exstirpation'),
-                            t('external-exstirpation'),
-                            t('other'),
+                            t(formTranslationKeys.peroralExstirpation),
+                            t(formTranslationKeys.externalExstirpation),
+                            t(formTranslationKeys.other),
                         ]}
                     />
                     <ConditionalCheckboxes
-                        title={t('block-neck-dissection')}
+                        title={t(formTranslationKeys.blockNeckDissection)}
                         data={formData}
                         dbLabel={dbLabels.blokova_krcni_disekce}
                         setFormData={setFormData}
@@ -62,97 +63,97 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t('yes')}
+                            label={t(formTranslationKeys.yes)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                title={t('block-neck-dissection-side')}
+                                title={t(formTranslationKeys.blockNeckDissectionSide)}
                                 data={formData}
                                 dbLabel={dbLabels.strana_blokove_krcni_disekce}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[t('same-side'), t('two-sided')]}
+                                options={[t(formTranslationKeys.sameSide), t(formTranslationKeys.twoSided)]}
                             />
                             <SimpleCheckboxes
-                                title={t('nd-type')}
+                                title={t(formTranslationKeys.ndType)}
                                 data={formData}
                                 dbLabel={dbLabels.typ_nd}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
                                 options={[
-                                    t('elective-cN0'),
+                                    t(formTranslationKeys.electiveCN0),
                                     t('therapeutic-cN+'),
                                 ]}
                             />
                             <SimpleCheckboxes
-                                title={t('nd-scope')}
+                                title={t(formTranslationKeys.ndScope)}
                                 data={formData}
                                 dbLabel={dbLabels.rozsah_nd}
                                 setFormData={setFormData}
                                 enableSingleSelect={false}
                                 disabled={disabled}
                                 options={[
-                                    t('ia'),
-                                    t('ib'),
-                                    t('iia'),
-                                    t('iib'),
-                                    t('iii'),
-                                    t('iv'),
-                                    t('v'),
-                                    t('va'),
-                                    t('vb'),
-                                    t('vi'),
-                                    t('scope-undefined'),
+                                    t(formTranslationKeys.ia),
+                                    t(formTranslationKeys.ib),
+                                    t(formTranslationKeys.iia),
+                                    t(formTranslationKeys.iib),
+                                    t(formTranslationKeys.iii),
+                                    t(formTranslationKeys.iv),
+                                    t(formTranslationKeys.v),
+                                    t(formTranslationKeys.va),
+                                    t(formTranslationKeys.vb),
+                                    t(formTranslationKeys.vi),
+                                    t(formTranslationKeys.scopeUndefined),
                                 ]}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t('no')}
+                            label={t(formTranslationKeys.no)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
-                        title={t('adjuvant-therapy')}
+                        title={t(formTranslationKeys.adjuvantTherapy)}
                         data={formData}
                         dbLabel={dbLabels.adjuvantni_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            t('rt'),
-                            t('chrt'),
-                            t('ch'),
-                            t('proton-therapy'),
-                            t('not-indicated'),
+                            t(formTranslationKeys.rt),
+                            t(formTranslationKeys.chrt),
+                            t(formTranslationKeys.ch),
+                            t(formTranslationKeys.protonTherapy),
+                            t(formTranslationKeys.notIndicated),
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('non-surgical')}
+                    label={t(formTranslationKeys.nonSurgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t('non-surgical-therapy-oncological-treatment')}
+                        title={t(formTranslationKeys.nonSurgicalTherapyOncologicalTreatment)}
                         data={formData}
                         dbLabel={dbLabels.typ_nechirurgicke_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            t('rt'),
-                            t('chrt'),
-                            t('ch'),
-                            t('proton-therapy'),
+                            t(formTranslationKeys.rt),
+                            t(formTranslationKeys.chrt),
+                            t(formTranslationKeys.ch),
+                            t(formTranslationKeys.protonTherapy),
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('not-indicated')}
+                    label={t(formTranslationKeys.notIndicated)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

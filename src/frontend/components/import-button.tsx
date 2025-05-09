@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { ImportContext } from './import-context'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 const ImportButton: React.FC = () => {
     const { setImported } = useContext(ImportContext)
@@ -14,7 +15,7 @@ const ImportButton: React.FC = () => {
     return (
         <button onClick={handleImportButtonClick}>
             <img id="import" src="../img/import.png" className="icon" />
-            {t('import-data')}
+            {t(appTranslationKeys.importData)}
         </button>
     )
 }

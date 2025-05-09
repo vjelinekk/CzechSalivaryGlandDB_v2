@@ -8,6 +8,7 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import TextInput from '../../text-input'
+import { formTranslationKeys } from '../../../../translations'
 
 const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
@@ -18,9 +19,9 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>{t('therapy')}</h1>
+            <h1>{t(formTranslationKeys.therapy)}</h1>
             <DatePicker
-                label={t('treatment-start-date')}
+                label={t(formTranslationKeys.treatmentStartDate)}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -29,9 +30,9 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 disabled={disabled}
             />
-            <i>{t('note-surgical-treatment')}</i>
+            <i>{t(formTranslationKeys.noteSurgicalTreatment)}</i>
             <ConditionalCheckboxes
-                title={t('therapy-type')}
+                title={t(formTranslationKeys.therapyType)}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -39,34 +40,34 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label={t('surgical')}
+                    label={t(formTranslationKeys.surgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t('surgical-scope')}
+                        title={t(formTranslationKeys.surgicalScope)}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            t('parotidectomy-i-iv'),
-                            t('parotidectomy-i-iv-vii'),
-                            t('parotidectomy-i-iv-vii-s-mm'),
-                            t('parotidectomy-i-ii-pes'),
-                            t('parotidectomy-iii-iv'),
-                            t('parotidectomy-i'),
-                            t('parotidectomy-ii'),
-                            t('parotidectomy-i-ii-iii'),
-                            t('parotidectomy-v'),
-                            t('ecd-i'),
-                            t('ecd-ii'),
-                            t('ecd-v'),
+                            t(formTranslationKeys.parotidectomyI_IV),
+                            t(formTranslationKeys.parotidectomyI_IV_VII),
+                            t(formTranslationKeys.parotidectomyI_IV_VII_s_MM),
+                            t(formTranslationKeys.parotidectomyI_II_Pes),
+                            t(formTranslationKeys.parotidectomyIII_IV),
+                            t(formTranslationKeys.parotidectomyI),
+                            t(formTranslationKeys.parotidectomyII),
+                            t(formTranslationKeys.parotidectomyI_II_III),
+                            t(formTranslationKeys.parotidectomyV),
+                            t(formTranslationKeys.ecdI),
+                            t(formTranslationKeys.ecdII),
+                            t(formTranslationKeys.ecdV),
                         ]}
                     />
                     <SimpleCheckboxes
-                        title={t('n-vii-function-hb-postoperative')}
+                        title={t(formTranslationKeys.nVIIFunctionHBPostoperative)}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -75,7 +76,7 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title={t('other-postoperative-complications')}
+                        title={t(formTranslationKeys.otherPostoperativeComplications)}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -83,27 +84,27 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t('none')}
+                            label={t(formTranslationKeys.none)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('freys-syndrome')}
+                            label={t(formTranslationKeys.freysSyndrome)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('salivary-fistula')}
+                            label={t(formTranslationKeys.salivaryFistula)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('other')}
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t('specify-other-complications')}
+                                label={t(formTranslationKeys.specifyOtherComplications)}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -117,12 +118,12 @@ const ParotidBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
 
                 <ConditionalCheckboxOption
-                    label={t('non-surgical-monitoring')}
+                    label={t(formTranslationKeys.nonSurgicalMonitoring)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('not-indicated')}
+                    label={t(formTranslationKeys.notIndicated)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

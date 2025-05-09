@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys, formTranslationKeys } from '../translations'
 
 interface StudyButtonProps {
     defaultStudy: Study
@@ -140,18 +141,18 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                 <DeleteIcon />
             </IconButton>
             <Dialog open={openDeleteStudyDialog}>
-                <DialogTitle>{t('delete-study-title')}</DialogTitle>
+                <DialogTitle>{t(appTranslationKeys.deleteStudyTitle)}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t('delete-study-warning')}
+                        {t(appTranslationKeys.deleteStudyWarning)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenDeleteStudyDialog(false)}>
-                        {t('cancel')}
+                        {t(formTranslationKeys.cancel)}
                     </Button>
                     <Button color="error" onClick={handleDeleteStudy}>
-                        {t('delete-study')}
+                        {t(appTranslationKeys.deleteStudy)}
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EditSavedState } from '../../types'
+import { formTranslationKeys } from '../../translations'
 
 interface EditResultProps {
     editSaved: EditSavedState
@@ -30,13 +31,13 @@ const EditResult: React.FC<EditResultProps> = ({ editSaved, setEditSaved }) => {
     if (editSaved.saved) {
         return (
             <div className="editSuccess">
-                <p>{t('change-saved')}</p>
+                <p>{t(formTranslationKeys.changeSaved)}</p>
             </div>
         )
     } else if (editSaved.saved === false) {
         return (
             <div className="editError">
-                <p>{t('change-save-error')}</p>
+                <p>{t(formTranslationKeys.changeSaveError)}</p>
             </div>
         )
     }

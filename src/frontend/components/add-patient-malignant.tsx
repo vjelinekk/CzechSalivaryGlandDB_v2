@@ -2,6 +2,7 @@ import React from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
@@ -31,7 +32,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                             )
                         }
                     >
-                        {t('parotid-gland')}
+                        {t(appTranslationKeys.parotidGland)}
                     </button>
                 </li>
                 <li>
@@ -44,7 +45,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                             )
                         }
                     >
-                        {t('submandibular-gland')}
+                        {t(appTranslationKeys.submandibularGland)}
                     </button>
                 </li>
                 <li>
@@ -57,7 +58,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                             )
                         }
                     >
-                        {t('sublingual-gland')}
+                        {t(appTranslationKeys.sublingualGland)}
                     </button>
                 </li>
             </ul>

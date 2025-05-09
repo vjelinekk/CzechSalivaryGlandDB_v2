@@ -44,6 +44,7 @@ import Button from '@mui/material/Button'
 import FiltrationMenu from './filtration-menu'
 import { ImportContext } from './import-context'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -88,7 +89,6 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 : null
             : null,
         [FilterColumn.HISTOPATOLOGIE_VYSLEDEK]: [],
-        [FilterColumn.FORM_TYPE]: [],
         [FilterColumn.TYP_TERAPIE]: [],
         [FilterColumn.PERZISTENCE]: null,
         [FilterColumn.RECIDIVA]: null,
@@ -282,7 +282,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         <input
                             type="text"
                             className="studyNameInput"
-                            placeholder={t('study-name-placeholder')}
+                            placeholder={t(appTranslationKeys.studyNamePlaceholder)}
                             data-testid="study-name-input"
                             value={study?.nazev_studie || ''}
                             onChange={(e) =>
@@ -302,22 +302,22 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 handleCreateStudy()
                             }}
                         >
-                            {t('create-study-button')}
+                            {t(appTranslationKeys.createStudyButton)}
                         </button>
                         <Dialog open={openEmptyNameAlert}>
                             <DialogTitle>
-                                {t('empty-study-name-alert-title')}
+                                {t(appTranslationKeys.emptyStudyNameAlertTitle)}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    {t('empty-study-name-alert-text')}
+                                    {t(appTranslationKeys.emptyStudyNameAlertText)}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
                                 <Button
                                     onClick={() => setOpenEmptyNameAlert(false)}
                                 >
-                                    {t('understand')}
+                                    {t(appTranslationKeys.understand)}
                                 </Button>
                             </DialogActions>
                         </Dialog>
@@ -331,14 +331,14 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             }}
                             className="tableButton"
                         >
-                            {t('export')}
+                            {t(appTranslationKeys.export)}
                         </button>
                         <button
                             onClick={handleExportAnonymized}
                             style={{ backgroundColor: 'var(--mainColorLight)' }}
                             className="tableButton"
                         >
-                            {t('export-anonymized')}
+                            {t(appTranslationKeys.exportAnonymized)}
                         </button>
                     </div>
                 )}
@@ -347,7 +347,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         className="tableButton"
                         onClick={() => setOpenFiltrationMenu(true)}
                     >
-                        {t('filter')}
+                        {t(appTranslationKeys.filter)}
                     </button>
                 </div>
                 <div className="tableSelect">
@@ -356,19 +356,19 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             className="tableButton"
                             onClick={() => setSelectedPatients(patients)}
                         >
-                            {t('select-all')}
+                            {t(appTranslationKeys.selectAll)}
                         </button>
                         <button
                             className="tableButton"
                             onClick={() => setSelectedPatients([])}
                         >
-                            {t('deselect-all')}
+                            {t(appTranslationKeys.deselectAll)}
                         </button>
                     </div>
                 </div>
                 <input
                     id="search"
-                    placeholder={t('search')}
+                    placeholder={t(appTranslationKeys.search)}
                     onChange={handlePatientSearch}
                 />
                 <div className="wrapper">

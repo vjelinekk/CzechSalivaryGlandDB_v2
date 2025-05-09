@@ -8,6 +8,7 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 const LoadBackUpButton: React.FC = () => {
     const { t } = useTranslation()
@@ -24,18 +25,18 @@ const LoadBackUpButton: React.FC = () => {
         <>
             <button onClick={() => setOpenLoadBackUpDialog(true)}>
                 <img id="import" src="../img/restore.png" className="icon" />
-                {t('restore-database')}
+                {t(appTranslationKeys.restoreDatabase)}
             </button>
             <Dialog open={openLoadBackUpDialog}>
-                <DialogTitle> {t('database-restore')}</DialogTitle>
+                <DialogTitle> {t(appTranslationKeys.databaseRestore)}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t('database-restore-warning')}
+                        {t(appTranslationKeys.databaseRestoreWarning)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleLoadBackUpConfirm}>
-                        {t('understand')}
+                        {t(appTranslationKeys.understand)}
                     </Button>
                 </DialogActions>
             </Dialog>

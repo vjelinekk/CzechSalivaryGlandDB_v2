@@ -8,6 +8,7 @@ import SimpleCheckboxes from './simple-checkboxes'
 import TextInput from './text-input'
 import NumberInput from './number-input'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
     formData,
@@ -18,8 +19,8 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>{t('histopathology')}</h1>
-            <h2>{t('histological-type')}</h2>
+            <h1>{t(formTranslationKeys.histopathology)}</h1>
+            <h2>{t(formTranslationKeys.histologicalType)}</h2>
             <ConditionalCheckboxes
                 dbLabel={dbLabels.histopatologie_vysledek}
                 data={formData}
@@ -27,17 +28,17 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('acinic-cell-carcinoma')}
+                    label={t(formTranslationKeys.acinicCellCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('secretory-carcinoma')}
+                    label={t(formTranslationKeys.secretoryCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('mucoepidermoid-carcinoma')}
+                    label={t(formTranslationKeys.mucoepidermoidCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -49,16 +50,16 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('low-grade'),
-                            t('intermediate-grade'),
-                            t('high-grade'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.lowGrade),
+                            t(formTranslationKeys.intermediateGrade),
+                            t(formTranslationKeys.highGrade),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('adenoid-cystic-carcinoma')}
+                    label={t(formTranslationKeys.adenoidCysticCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -70,15 +71,15 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('tubular-cribriform-dominant'),
-                            t('more-than-30-solid-component'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.tubularCribriformDominant),
+                            t(formTranslationKeys.moreThan30SolidComponent),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('polymorphous-adenocarcinoma')}
+                    label={t(formTranslationKeys.polymorphousAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -90,35 +91,35 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('classic'),
-                            t('cribriform'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.classic),
+                            t(formTranslationKeys.cribriform),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('epithelial-myoepithelial-carcinoma')}
+                    label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('hyalinizing-clear-cell-carcinoma')}
+                    label={t(formTranslationKeys.hyalinizingClearCellCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('basal-cell-adenocarcinoma')}
+                    label={t(formTranslationKeys.basalCellAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('sebaceous-adenocarcinoma')}
+                    label={t(formTranslationKeys.sebaceousAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('intraductal-carcinoma')}
+                    label={t(formTranslationKeys.intraductalCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -128,17 +129,17 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('intercalated-duct-like'),
-                            t('apocrine'),
-                            t('oncocytic'),
-                            t('mixed'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.intercalatedDuctLike),
+                            t(formTranslationKeys.apocrine),
+                            t(formTranslationKeys.oncocytic),
+                            t(formTranslationKeys.mixed),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('salivary-carcinoma-nos')}
+                    label={t(formTranslationKeys.salivaryCarcinomaNos)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -148,25 +149,25 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('oncocytic-adenocarcinoma'),
-                            t('intestinal-type-adenocarcinoma'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.oncocyticAdenocarcinoma),
+                            t(formTranslationKeys.intestinalTypeAdenocarcinoma),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('salivary-duct-carcinoma')}
+                    label={t(formTranslationKeys.salivaryDuctCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('myoepithelial-carcinoma')}
+                    label={t(formTranslationKeys.myoepithelialCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('carcinoma-ex-pleomorphic-adenoma')}
+                    label={t(formTranslationKeys.carcinomaExPleomorphicAdenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -178,21 +179,21 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('intracapsular'),
-                            t('minimally-invasive'),
-                            t('invasive'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.intracapsular),
+                            t(formTranslationKeys.minimallyInvasive),
+                            t(formTranslationKeys.invasive),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('carcinosarcoma')}
+                    label={t(formTranslationKeys.carcinosarcoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('poorly-differentiated-carcinoma')}
+                    label={t(formTranslationKeys.poorlyDifferentiatedCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -204,60 +205,60 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            t('undifferentiated-carcinoma'),
-                            t('large-cell-neuroendocrine-carcinoma'),
-                            t('small-cell-neuroendocrine-carcinoma'),
-                            t('subtype-not-specified'),
+                            t(formTranslationKeys.undifferentiatedCarcinoma),
+                            t(formTranslationKeys.largeCellNeuroendocrineCarcinoma),
+                            t(formTranslationKeys.smallCellNeuroendocrineCarcinoma),
+                            t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('lymphoepithelial-carcinoma')}
+                    label={t(formTranslationKeys.lymphoepithelialCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('squamous-cell-carcinoma')}
+                    label={t(formTranslationKeys.squamousCellCarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('microsecretory-adenocarcinoma')}
+                    label={t(formTranslationKeys.microsecretoryAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('sclerosing-microcystic-adenocarcinoma')}
+                    label={t(formTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('mucinous-adenocarcinoma')}
+                    label={t(formTranslationKeys.mucinousAdenocarcinoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('asialoblastoma')}
+                    label={t(formTranslationKeys.asialoblastoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('malt-lymphoma')}
+                    label={t(formTranslationKeys.maltLymphoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('other')}
+                    label={t(formTranslationKeys.other)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
 
-            <h2>{t('histological-type-specification')}</h2>
+            <h2>{t(formTranslationKeys.histologicalTypeSpecification)}</h2>
 
             <NumberInput
-                label={t('tumor-size-largest-dimension')}
+                label={t(formTranslationKeys.tumorSizeLargestDimension)}
                 dbLabel={dbLabels.velikost_nadoru_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -268,7 +269,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
             />
 
             <TextInput
-                label={t('tumor-size-not-determined-explain')}
+                label={t(formTranslationKeys.tumorSizeNotDeterminedExplain)}
                 dbLabel={dbLabels.velikost_nadoru_neurcena_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -279,37 +280,37 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
             />
 
             <SimpleCheckboxes
-                title={t('resection-margin')}
+                title={t(formTranslationKeys.resectionMargin)}
                 dbLabel={dbLabels.okraj_resekce_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t('r0'), t('r1')]}
+                options={[t(formTranslationKeys.r0), t(formTranslationKeys.r1)]}
                 disabled={disabled}
             />
 
             <SimpleCheckboxes
-                title={t('lymphovascular-invasion')}
+                title={t(formTranslationKeys.lymphovascularInvasion)}
                 dbLabel={dbLabels.lymfovaskularni_invaze_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t('no'), t('yes')]}
+                options={[t(formTranslationKeys.no), t(formTranslationKeys.yes)]}
                 disabled={disabled}
             />
 
             <SimpleCheckboxes
-                title={t('perineural-invasion')}
+                title={t(formTranslationKeys.perineuralInvasion)}
                 dbLabel={dbLabels.perineuralni_invaze_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t('no'), t('yes')]}
+                options={[t(formTranslationKeys.no), t(formTranslationKeys.yes)]}
                 disabled={disabled}
             />
 
             <NumberInput
-                label={t('number-of-lymph-nodes-with-metastasis')}
+                label={t(formTranslationKeys.numberOfLymphNodesWithMetastasis)}
                 dbLabel={
                     dbLabels.pocet_lymfatickych_uzlin_s_metastazou_histopatologie
                 }
@@ -322,19 +323,19 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
             />
 
             <ConditionalCheckboxes
-                title={t('extranodal-spread-ene')}
+                title={t(formTranslationKeys.extranodalSpreadEne)}
                 dbLabel={dbLabels.extranodalni_sireni_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('no')}
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('yes')}
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -345,31 +346,31 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
-                        options={[t('ENEma-over-2mm'), t('ENEmi-2mm-or-less')]}
+                        options={[t(formTranslationKeys.ENEmaOver2mm), t(formTranslationKeys.ENEmi2mmOrLess)]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
             </ConditionalCheckboxes>
 
             <ConditionalCheckboxes
-                title={t('proven-distant-metastases')}
+                title={t(formTranslationKeys.provenDistantMetastases)}
                 dbLabel={dbLabels.prokazane_vzdalene_metastazy_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('no')}
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t('yes')}
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <TextInput
-                        label={t('specify-site-of-distant-metastasis')}
+                        label={t(formTranslationKeys.specifySiteOfDistantMetastasis)}
                         dbLabel={
                             dbLabels.misto_vyskytu_vzdalene_metastazy_histopatologie
                         }

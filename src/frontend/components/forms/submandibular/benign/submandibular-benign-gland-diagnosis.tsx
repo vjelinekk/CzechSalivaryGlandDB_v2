@@ -8,6 +8,7 @@ import DatePicker from '../../date-picker'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import TextInput from '../../text-input'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../../../translations'
 
 const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
@@ -17,9 +18,9 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
     const { t } = useTranslation()
     return (
         <div className="sectionDiv">
-            <h1>{t('diagnosis-title')}</h1>
+            <h1>{t(formTranslationKeys.diagnosisTitle)}</h1>
             <DatePicker
-                label={t('year-of-diagnosis')}
+                label={t(formTranslationKeys.yearOfDiagnosis)}
                 dbLabel={dbLabels.rok_diagnozy}
                 data={getDataFromPatientInterface(
                     formData,
@@ -29,16 +30,16 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title={t('side-of-finding')}
+                title={t(formTranslationKeys.sideOfFinding)}
                 dbLabel={dbLabels.strana_nalezu}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t('side-right'), t('side-left'), t('bilateraly')]}
+                options={[t(formTranslationKeys.sideRight), t(formTranslationKeys.sideLeft), t(formTranslationKeys.bilateraly)]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title={t('function-of-n-vii-preoperative')}
+                title={t(formTranslationKeys.functionOfNVIIPreoperative)}
                 dbLabel={dbLabels.funkce_n_vii_dle_h_b_predoperacne}
                 data={formData}
                 setFormData={setFormData}
@@ -47,133 +48,133 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title={t('diagnostic-methods-used')}
+                title={t(formTranslationKeys.diagnosticMethodsUsed)}
                 dbLabel={dbLabels.diagnosticke_metody}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={false}
                 options={[
-                    t('ultrasound'),
-                    t('ct'),
-                    t('mri'),
-                    t('pet-ct'),
-                    t('pet-mr'),
-                    t('no-imaging-exam'),
+                    t(formTranslationKeys.ultrasound),
+                    t(formTranslationKeys.ct),
+                    t(formTranslationKeys.mri),
+                    t(formTranslationKeys.petCt),
+                    t(formTranslationKeys.petMr),
+                    t(formTranslationKeys.noImagingExam),
                 ]}
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title={t('fnab')}
+                title={t(formTranslationKeys.fnab)}
                 dbLabel={dbLabels.fnab}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('yes')}
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t('fnab-result-MSRSGC')}
+                        title={t(formTranslationKeys.fnabResultMSRSGC)}
                         dbLabel={dbLabels.vysledek_fnab}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
                             t('I-fnab-result-i'),
-                            t('II-non-tumor'),
-                            t('III-atypia-of-uncertain-significance'),
-                            t('IVa-IVa-tumor-benign'),
-                            t('IVb-tumor-of-uncertain-malignant-potential'),
+                            t(formTranslationKeys.IINonTumor),
+                            t(formTranslationKeys.IIIAtypiaOfUncertainSignificance),
+                            t(formTranslationKeys.IVaIVaTumorBenign),
+                            t(formTranslationKeys.IVbTumorOfUncertainMalignantPotential),
                             t('V-suspect-for-malignancy'),
-                            t('VI-tumor-malignant'),
+                            t(formTranslationKeys.VITumorMalignant),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('no')}
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title={t('core-biopsy')}
+                title={t(formTranslationKeys.coreBiopsy)}
                 dbLabel={dbLabels.core_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('yes')}
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title={t('core-biopsy-result')}
+                        title={t(formTranslationKeys.coreBiopsyResult)}
                         dbLabel={dbLabels.core_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t('pleomorphic-adenoma')}
+                            label={t(formTranslationKeys.pleomorphicAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('papillary-cystadenolymphoma-warthin')}
+                            label={t(formTranslationKeys.papillaryCystadenolymphomaWarthin)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('core-result-basal-cell-adenoma')}
+                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('myoepithelioma')}
+                            label={t(formTranslationKeys.myoepithelioma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('oncocytoma')}
+                            label={t(formTranslationKeys.oncocytoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('canalicular-adenoma')}
+                            label={t(formTranslationKeys.canalicularAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('sebaceous-adenoma')}
+                            label={t(formTranslationKeys.sebaceousAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('ductal-papilloma')}
+                            label={t(formTranslationKeys.ductalPapilloma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('debacellous-lymphadenoma')}
+                            label={t(formTranslationKeys.debacellousLymphadenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('keratocyst')}
+                            label={t(formTranslationKeys.keratocyst)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('other')}
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t('histological-type-specification')}
+                                label={t(formTranslationKeys.histologicalTypeSpecification)}
                                 dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -186,87 +187,87 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('no')}
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title={t('open-biopsy')}
+                title={t(formTranslationKeys.openBiopsy)}
                 dbLabel={dbLabels.otevrena_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label={t('yes')}
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title={t('open-biopsy-result')}
+                        title={t(formTranslationKeys.openBiopsyResult)}
                         dbLabel={dbLabels.otevrena_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t('pleomorphic-adenoma')}
+                            label={t(formTranslationKeys.pleomorphicAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('papillary-cystadenolymphoma-warthin')}
+                            label={t(formTranslationKeys.papillaryCystadenolymphomaWarthin)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('core-result-basal-cell-adenoma')}
+                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('myoepithelioma')}
+                            label={t(formTranslationKeys.myoepithelioma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('oncocytoma')}
+                            label={t(formTranslationKeys.oncocytoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('canalicular-adenoma')}
+                            label={t(formTranslationKeys.canalicularAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('sebaceous-adenoma')}
+                            label={t(formTranslationKeys.sebaceousAdenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('ductal-papilloma')}
+                            label={t(formTranslationKeys.ductalPapilloma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('debacellous-lymphadenoma')}
+                            label={t(formTranslationKeys.debacellousLymphadenoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('keratocyst')}
+                            label={t(formTranslationKeys.keratocyst)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('other')}
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t('histological-type-specification')}
+                                label={t(formTranslationKeys.histologicalTypeSpecification)}
                                 dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -279,7 +280,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t('no')}
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

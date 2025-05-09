@@ -11,6 +11,7 @@ import {
     Study,
 } from '../../types'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../../translations'
 
 interface AddPatientButtonProps {
     formState: FormStates
@@ -72,7 +73,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
                         disabled={formErrors.length > 0}
                         onClick={handleButtonClick}
                     >
-                        {t('add-patient')}
+                        {t(appTranslationKeys.addPatient)}
                     </button>
                 </div>
             </>

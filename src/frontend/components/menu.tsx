@@ -6,6 +6,7 @@ import BackUpButton from './back-up-button'
 import ImportButton from './import-button'
 import { Divider } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
@@ -51,7 +52,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/pacienti_outline.png"
                             className="icon"
                         />
-                        {t('patient-list')}
+                        {t(appTranslationKeys.patientList)}
                     </button>
                 </li>
                 <li>
@@ -71,7 +72,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/schedule.png"
                             className="icon"
                         />
-                        {t('planned-checks')}
+                        {t(appTranslationKeys.plannedChecks)}
                     </button>
                 </li>
                 <li>
@@ -89,7 +90,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/pacient_pridat_outline.png"
                             className="icon"
                         />
-                        {t('add-patient')}
+                        {t(appTranslationKeys.addPatient)}
                     </button>
                 </li>
                 <li>
@@ -109,7 +110,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/studie_outline.png"
                             className="icon"
                         />
-                        {t('studies')}
+                        {t(appTranslationKeys.studies)}
                     </button>
                 </li>
                 <li>
@@ -127,7 +128,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/studie_pridat_outline.png"
                             className="icon"
                         />
-                        {t('add-study')}
+                        {t(appTranslationKeys.addStudy)}
                     </button>
                 </li>
                 <li>
@@ -146,7 +147,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                             src="../img/chart.png"
                             className="icon"
                         />
-                        {t('kaplan-meier')}
+                        {t(appTranslationKeys.kaplanMeier)}
                     </button>
                 </li>
                 <Divider />
@@ -172,7 +173,7 @@ const Menu: React.FC<MenuProps> = ({ setActiveComponent }) => {
                         src="../img/language.png"
                         className="icon"
                     />
-                    {t('language')}
+                    {t(appTranslationKeys.language)}
                 </button>
             </ul>
         </div>

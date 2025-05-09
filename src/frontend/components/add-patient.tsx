@@ -2,6 +2,7 @@ import React from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
@@ -27,7 +28,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                             handleButtonClick(Components.addPatientMalignant)
                         }
                     >
-                        {t('malignant-tumor')}
+                        {t(appTranslationKeys.malignantTumor)}
                     </button>
                 </li>
                 <li>
@@ -38,7 +39,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                             handleButtonClick(Components.AddPatientBenign)
                         }
                     >
-                        {t('benign-tumor')}
+                        {t(appTranslationKeys.benignTumor)}
                     </button>
                 </li>
             </ul>

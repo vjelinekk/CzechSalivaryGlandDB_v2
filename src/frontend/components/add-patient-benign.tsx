@@ -2,7 +2,7 @@ import React from 'react'
 import { Components } from '../constants'
 import { ActiveComponentState } from '../types'
 import { useTranslation } from 'react-i18next'
-
+import { appTranslationKeys } from '../translations'
 interface AddPatientProps {
     setActiveComponent: React.Dispatch<
         React.SetStateAction<ActiveComponentState>
@@ -29,7 +29,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                             handleButtonClick(Components.parotidBenignGlandForm)
                         }
                     >
-                        {t('parotid-gland')}
+                        {t(appTranslationKeys.parotidGland)}
                     </button>
                 </li>
                 <li>
@@ -42,7 +42,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                             )
                         }
                     >
-                        {t('submandibular-gland')}
+                        {t(appTranslationKeys.submandibularGland)}
                     </button>
                 </li>
             </ul>

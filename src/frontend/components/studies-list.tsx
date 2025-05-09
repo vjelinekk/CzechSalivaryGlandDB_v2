@@ -6,6 +6,7 @@ import PatientsList from './patients-list'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 interface StudiesListProps {
     defaultActiveStudy?: Study
 }
@@ -52,7 +53,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
             <div id="main" className="dataTable">
                 <input
                     id="search"
-                    placeholder={t('search')}
+                    placeholder={t(appTranslationKeys.search)}
                     onChange={handleStudiesSearch}
                 />
                 <div className="wrapper">

@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { CommonFormInputProps } from '../../props'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 interface TextInputProps extends CommonFormInputProps {
     label: string
@@ -66,7 +67,7 @@ const TextInput: React.FC<TextInputProps> = ({
                     value={inputValue}
                     disabled={disabled}
                 />
-                {error && <p className="error">{t('invalid-input')}</p>}
+                {error && <p className="error">{t(formTranslationKeys.invalidInput)}</p>}
             </div>
         </div>
     )

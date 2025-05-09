@@ -19,6 +19,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { cs } from 'date-fns/locale'
 import { usePlannedChecks } from '../hooks/use-planned-checks'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface PlannedChecksProps {
     setActiveComponent: React.Dispatch<
@@ -67,14 +68,14 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
                 >
                     <Stack direction="row" spacing={2} alignItems="center">
                         <DatePicker
-                            label={t('from')}
+                            label={t(appTranslationKeys.from)}
                             value={startDate}
                             onChange={(newValue) => setStartDate(newValue)}
                             renderInput={(params) => <TextField {...params} />}
                         />
                         <Typography>–</Typography>
                         <DatePicker
-                            label={t('to')}
+                            label={t(appTranslationKeys.to)}
                             value={endDate}
                             onChange={(newValue) => setEndDate(newValue)}
                             renderInput={(params) => <TextField {...params} />}
@@ -87,7 +88,7 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
                     startIcon={<PictureAsPdfIcon />}
                     onClick={handleExportPDF}
                 >
-                    {t('export-pdf')}
+                    {t(appTranslationKeys.exportPdf)}
                 </Button>
             </Stack>
 
@@ -145,7 +146,7 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
 
             {plannedDaysRows.length === 0 && (
                 <Typography variant="h6" align="center" sx={{ mt: 4 }}>
-                    {t('no-planned-checks')}
+                    {t(appTranslationKeys.noPlannedChecks)}
                 </Typography>
             )}
         </Box>

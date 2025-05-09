@@ -12,6 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 interface EditButtonsProps {
     formState: FormStates
@@ -143,7 +144,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             type="submit"
                             onClick={handleCancelButtonClick}
                         >
-                            {t('cancel-edit')}
+                            {t(formTranslationKeys.cancelEdit)}
                         </button>
                         <button
                             className="basicButton"
@@ -151,7 +152,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleSaveButtonClick}
                             disabled={formErrors.length > 0}
                         >
-                            {t('save-changes')}
+                            {t(formTranslationKeys.saveChanges)}
                         </button>
                     </>
                 )}
@@ -160,7 +161,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         className="basicButton"
                         onClick={handleEditButtonClick}
                     >
-                        {t('edit-patient')}
+                        {t(formTranslationKeys.editPatient)}
                     </button>
                 )}
                 <button
@@ -168,23 +169,23 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                     className="basicButton"
                     style={{ background: 'var(--colorRed)' }}
                 >
-                    {t('delete-patient')}
+                    {t(formTranslationKeys.deletePatient)}
                 </button>
                 <Dialog open={openDelePatientDialog}>
-                    <DialogTitle>{t('confirm-delete-patient')}</DialogTitle>
+                    <DialogTitle>{t(formTranslationKeys.confirmDeletePatient)}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            {t('delete-patient-warning')}
+                            {t(formTranslationKeys.deletePatientWarning)}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button
                             onClick={() => setOpenDeletePatientDialog(false)}
                         >
-                            {t('cancel')}
+                            {t(formTranslationKeys.cancel)}
                         </Button>
                         <Button color="error" onClick={handleDeleteClick}>
-                            {t('delete')}
+                            {t(formTranslationKeys.delete)}
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -195,15 +196,15 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleDeleteFromStudyClick}
                             style={{ background: 'var(--colorRed)' }}
                         >
-                            {t('remove-from-study')}
+                            {t(formTranslationKeys.removeFromStudy)}
                         </button>
                         <Dialog open={openDeleteFromStudyDialog}>
                             <DialogTitle>
-                                {t('confirm-remove-from-study')}
+                                {t(formTranslationKeys.confirmRemoveFromStudy)}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    {t('remove-from-study-warning')}
+                                    {t(formTranslationKeys.removeFromStudyWarning)}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
@@ -212,13 +213,13 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                         setOpenDeleteFromStudyDialog(false)
                                     }
                                 >
-                                    {t('cancel')}
+                                    {t(formTranslationKeys.cancel)}
                                 </Button>
                                 <Button
                                     color="error"
                                     onClick={handleDeleteFromStudy}
                                 >
-                                    {t('remove')}
+                                    {t(formTranslationKeys.remove)}
                                 </Button>
                             </DialogActions>
                         </Dialog>

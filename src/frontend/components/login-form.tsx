@@ -19,6 +19,7 @@ import {
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface LoginFormProps {
     setIsLoggedIn: Dispatch<SetStateAction<boolean>>
@@ -113,25 +114,25 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
         <Dialog open={true}>
             {validationFailed && (
                 <Alert severity="error">
-                    <AlertTitle>{t('error')}</AlertTitle>
-                    {t('wrong-password')}
+                    <AlertTitle>{t(appTranslationKeys.error)}</AlertTitle>
+                    {t(appTranslationKeys.wrongPassword)}
                 </Alert>
             )}
-            <DialogTitle>{t('login-title')}</DialogTitle>
+            <DialogTitle>{t(appTranslationKeys.loginTitle)}</DialogTitle>
             {isEncryptionEnabled === null ? (
                 <DialogContent>
                     <Stack spacing={2}>
                         <Alert severity="info">
-                            <AlertTitle>{t('database-policies')}</AlertTitle>
+                            <AlertTitle>{t(appTranslationKeys.databasePolicies)}</AlertTitle>
                             <List>
-                                <ListItem>{t('database-policy-1')}</ListItem>
-                                <ListItem>{t('database-policy-2')}</ListItem>
-                                <ListItem>{t('database-policy-3')}</ListItem>
+                                <ListItem>{t(appTranslationKeys.databasePolicy1)}</ListItem>
+                                <ListItem>{t(appTranslationKeys.databasePolicy2)}</ListItem>
+                                <ListItem>{t(appTranslationKeys.databasePolicy3)}</ListItem>
                             </List>
                         </Alert>
                         <form onSubmit={handleUseEncryptionSubmit}>
                             <FormControl>
-                                <FormLabel>{t('use-secure-db')}</FormLabel>
+                                <FormLabel>{t(appTranslationKeys.useSecureDb)}</FormLabel>
                                 <RadioGroup
                                     value={useEncryptionValue}
                                     onChange={(e) =>
@@ -141,17 +142,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     <FormControlLabel
                                         value="ano"
                                         control={<Radio />}
-                                        label={t('yes')}
+                                        label={t(appTranslationKeys.yes)}
                                     />
                                     {useEncryptionValue === 'ne' && (
                                         <Alert severity="warning">
-                                            {t('warning-secure-db')}
+                                            {t(appTranslationKeys.warningSecureDb)}
                                         </Alert>
                                     )}
                                     <FormControlLabel
                                         value="ne"
                                         control={<Radio />}
-                                        label={t('no')}
+                                        label={t(appTranslationKeys.no)}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -161,7 +162,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 type="submit"
                                 fullWidth
                             >
-                                {t('continue')}
+                                {t(appTranslationKeys.continue)}
                             </Button>
                         </form>
                     </Stack>
@@ -174,7 +175,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 <>
                                     <TextField
                                         type="password"
-                                        label={t('password')}
+                                        label={t(appTranslationKeys.password)}
                                         variant="filled"
                                         value={password}
                                         onChange={(e) =>
@@ -183,7 +184,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     <TextField
                                         type="password"
-                                        label={t('database-key')}
+                                        label={t(appTranslationKeys.databaseKey)}
                                         variant="filled"
                                         value={databaseKey}
                                         onChange={(e) =>
@@ -195,13 +196,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 <>
                                     <Alert severity="info">
                                         <AlertTitle>
-                                            {t('create-password')}
+                                            {t(appTranslationKeys.createPassword)}
                                         </AlertTitle>
-                                        {t('password-info')}
+                                        {t(appTranslationKeys.passwordInfo)}
                                     </Alert>
                                     <TextField
                                         type="password"
-                                        label={t('new-password')}
+                                        label={t(appTranslationKeys.newPassword)}
                                         variant="filled"
                                         value={password}
                                         onChange={(e) =>
@@ -210,9 +211,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     <Alert severity="info">
                                         <AlertTitle>
-                                            {t('create-db-key')}
+                                            {t(appTranslationKeys.createDbKey)}
                                         </AlertTitle>
-                                        {t('db-key-info')}
+                                        {t(appTranslationKeys.dbKeyInfo)}
                                     </Alert>
                                     <Stack
                                         direction="row"
@@ -245,7 +246,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 type="submit"
                                 fullWidth
                             >
-                                {t('login')}
+                                {t(appTranslationKeys.login)}
                             </Button>
                         </Stack>
                     </form>
