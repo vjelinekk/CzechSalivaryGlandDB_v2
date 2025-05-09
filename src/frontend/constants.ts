@@ -18,6 +18,7 @@ export enum Components {
     import,
     setLanguage,
     descriptiveStatistics,
+    inferenceStatistics,
 }
 
 export enum StudyType {

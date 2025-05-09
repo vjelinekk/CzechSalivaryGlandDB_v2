@@ -29,6 +29,7 @@ import '../css/switch.css'
 import '../css/table.css'
 import PlannedChecks from './planned-checks'
 import DescriptiveStatistics from './statistics/descriptive-statistics/descriptive-statistics'
+import InferenceStatistics from './statistics/inference-statistics/inference-statistics'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -142,6 +143,9 @@ const app = () => {
             )}
             {activeComponent.component === Components.setLanguage && (
                 <SetLanguage />
+            )}
+            {activeComponent.component === Components.inferenceStatistics && (
+                <InferenceStatistics />
             )}
         </ImportProvider>
     ) : (
