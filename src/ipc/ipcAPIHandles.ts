@@ -8,6 +8,7 @@ import {
     getFilteredPatients,
     getKaplanMeierData,
     getPlannedPatientsBetweenDates,
+    getChiSquareContingencyTable,
 } from '../backend/patientsManager'
 import {
     deletePatientFromStudy,
@@ -123,5 +124,13 @@ ipcMain.handle(
     async (event, args) => {
         const [startDate, endDate] = args
         return await getPlannedPatientsBetweenDates(startDate, endDate)
+    }
+)
+
+ipcMain.handle(
+    ipcAPIGetChannels.getChiSquareData,
+    async (event, args) => {
+        const [rows, columns, rowSelectedCateogries, columnSelectedCategories] = args
+        return await getChiSquareContingencyTable(rows, columns, rowSelectedCateogries, columnSelectedCategories)
     }
 )
