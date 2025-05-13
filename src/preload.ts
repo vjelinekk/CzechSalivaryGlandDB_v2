@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { FormType } from './backend/constants'
 import { KaplanMeierType } from './frontend/constants'
+import { InferenceChiSquareCategories } from './frontend/enums/statistics.enums'
 import { FilteredColumns, PatientType, Study } from './frontend/types'
 import {
     ipcAPIDeleteChannels,
@@ -89,6 +90,19 @@ contextBridge.exposeInMainWorld('api', {
             [startDate, endDate]
         )
     },
+    getChiSquareData: (
+        rows: number,
+        columns: number,
+        rowSelectedCateogries: Record<number, Record<InferenceChiSquareCategories, string[]>>,
+        columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>
+    ) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getChiSquareData, [
+            rows,
+            columns,
+            rowSelectedCateogries,
+            columnSelectedCategories,
+        ])
+    }
 })
 
 contextBridge.exposeInMainWorld('export', {

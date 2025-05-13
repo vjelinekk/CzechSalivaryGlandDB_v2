@@ -1,5 +1,6 @@
 import { KaplanMeierType, FormType } from '../frontend/constants'
 import {
+    FilterColumn,
     FilteredColumns,
     KaplanMeierData,
     KaplanMeierPatientData,
@@ -35,6 +36,7 @@ import {
     SubmandibularBenignColumns,
     SubmandibularMalignantColumns,
 } from './types'
+import { InferenceChiSquareCategories, InferenceChiSquareHistologicalTypes } from '../frontend/enums/statistics.enums'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -658,4 +660,140 @@ export const getPlannedPatientsBetweenDates = async (
     })
 
     return plannedPatientsMap
+}
+
+export const getChiSquareContingencyTable = async (
+    rows: number,
+    columns: number,
+    rowSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
+    columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>
+): Promise<number[][]> => {
+    const contingencyTable = Array.from(
+        { length: rows },
+        () => Array(columns).fill(0)
+    )
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            const rowData = rowSelectedCategories[i];
+            const columnData = columnSelectedCategories[j];
+            if (rowData && columnData) {
+                const rowDataGroupedByKeys = groupByKey(rowData);                
+                const columnDataGroupedByKeys = groupByKey(columnData);
+                
+                const rowKeys: InferenceChiSquareCategories[] = rowDataGroupedByKeys.map(item => (item.key as InferenceChiSquareCategories));
+                const columnKeys: InferenceChiSquareCategories[] = columnDataGroupedByKeys.map(item => (item.key as InferenceChiSquareCategories));
+
+                const { queries, valuesForWhere } = generateChiSquareQuery(
+                    rowKeys,
+                    columnKeys,
+                    rowDataGroupedByKeys,
+                    columnDataGroupedByKeys
+                )
+                
+                const results = await Promise.all(
+                    queries.map((query, index) => {
+                        return new Promise((resolve, reject) => {
+                            db.all(query, valuesForWhere, (err, rows) => {
+                                if (err) {
+                                    console.log(err)
+                                    console.log(rowSelectedCategories)
+                                    console.log(columnSelectedCategories)
+                                    reject(err)
+                                } else {
+                                    resolve(rows)
+                                }
+                            })
+                        })
+                    })
+                )
+
+                const totalCount = results.reduce((acc: number, row: {count: number}[]) => {
+                    return acc + row[0].count
+                }, 0);
+                
+                contingencyTable[i][j] = totalCount;
+            }
+        }
+    }
+
+    return contingencyTable
+}
+
+const generateChiSquareQuery = (
+    rowKeys: InferenceChiSquareCategories[],
+    columnKeys: InferenceChiSquareCategories[],
+    rowDataGroupedByKeys: { key: string; values: string[] }[],
+    columnDataGroupedByKeys: { key: string; values: string[] }[]
+) => {
+    const valuesForWhere = [
+        ...rowDataGroupedByKeys.flatMap((item) => item.values),
+        ...columnDataGroupedByKeys.flatMap((item) => item.values),
+    ]
+
+    const rowConditions = rowKeys.map((key, index) => {
+        const columnName = mapChiSquareKeysToDbColumns(key)
+        const values = rowDataGroupedByKeys[index].values
+        return `${columnName} IN (${values.map(() => '?').join(', ')})`
+    })
+
+    const columnConditions = columnKeys.map((key, index) => {
+        const columnName = mapChiSquareKeysToDbColumns(key)
+        const values = columnDataGroupedByKeys[index].values
+        return `${columnName} IN (${values.map(() => '?').join(', ')})`
+    })
+
+    const querySubmandibular = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.submandibularMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+    const querySublingual = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.sublingualMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+
+    const queryParotid = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.parotidMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+
+    const queries = [querySubmandibular, querySublingual, queryParotid]
+
+    return { queries, valuesForWhere }
+}
+
+
+const mapChiSquareKeysToDbColumns = (
+    key: InferenceChiSquareCategories,
+) => {
+    const dbColumns: Record<InferenceChiSquareCategories, string> = {
+        [InferenceChiSquareCategories.histologicalTypes]: submandibularMalignantColumns.histopatologie_vysledek.columnName,
+        [InferenceChiSquareCategories.tClassification]: submandibularMalignantColumns.t_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.nClassification]: submandibularMalignantColumns.n_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.mClassification]: submandibularMalignantColumns.m_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.persistence]: submandibularMalignantColumns.perzistence.columnName,
+        [InferenceChiSquareCategories.recurrence]: submandibularMalignantColumns.recidiva.columnName,
+        [InferenceChiSquareCategories.state]: submandibularMalignantColumns.stav.columnName,
+    }
+
+    return dbColumns[key]
+}
+
+const groupByKey = (data: Record<string, string[]>) => {
+    const grouped: Record<string, string[]> = {};
+
+    for (const [key, arr] of Object.entries(data)) {
+        const filtered = arr.filter(str => str.length > 0);
+        if (filtered.length > 0) {
+            grouped[key] = filtered;
+        }
+    }
+
+    return Object.entries(grouped).map(([key, values]) => ({
+        key,
+        values
+    }));
 }

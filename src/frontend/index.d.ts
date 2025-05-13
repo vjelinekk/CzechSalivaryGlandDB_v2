@@ -13,6 +13,7 @@ import {
     PlannedPatientsMap,
     Study,
 } from './types'
+import { InferenceChiSquareCategories } from './types/statistics.types'
 
 declare global {
     interface Window {
@@ -63,6 +64,13 @@ declare global {
                 startDate: Date,
                 endDate: Date
             ) => Promise<PlannedPatientsMap>
+            getChiSquareData: (
+                rows: number,
+                columns: number,
+                rowSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
+                columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
+
+            ) => Promise<number[][]>
         }
         export: {
             export: (
