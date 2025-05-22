@@ -3,34 +3,31 @@ import { render, screen } from '@testing-library/react'
 import PersonalData from '../../src/frontend/components/forms/personal-data'
 import calculatePackYears from '../../src/frontend/utils/calculatePackYears'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { formTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
-
+    await initI18n()
+})
 
 describe('PersonalData component', () => {
     test('renders the section headings and form inputs', () => {
@@ -65,10 +62,14 @@ describe('PersonalData component', () => {
             />
         )
 
-        const sectionHeading = screen.getByText(i18n.t(formTranslationKeys.anamnesticPersonalData))
+        const sectionHeading = screen.getByText(
+            i18n.t(formTranslationKeys.anamnesticPersonalData)
+        )
         expect(sectionHeading).toBeInTheDocument()
 
-        const basicInfoHeading = screen.getByText(i18n.t(formTranslationKeys.basicInformation))
+        const basicInfoHeading = screen.getByText(
+            i18n.t(formTranslationKeys.basicInformation)
+        )
         expect(basicInfoHeading).toBeInTheDocument()
 
         const nameInput = screen.getByText('Jméno:')
@@ -86,7 +87,9 @@ describe('PersonalData component', () => {
         const ageInput = screen.getByText('Věk pacienta v době diagnózy:')
         expect(ageInput).toBeInTheDocument()
 
-        const genderCheckbox = screen.getByText(i18n.t(formTranslationKeys.patientGender))
+        const genderCheckbox = screen.getByText(
+            i18n.t(formTranslationKeys.patientGender)
+        )
         expect(genderCheckbox).toBeInTheDocument()
 
         const demographicInfoCheckbox = screen.getByText(
@@ -104,10 +107,14 @@ describe('PersonalData component', () => {
         )
         expect(otherSalivaryCheckbox).toBeInTheDocument()
 
-        const smokingCheckbox = screen.getByText(i18n.t(formTranslationKeys.smoking))
+        const smokingCheckbox = screen.getByText(
+            i18n.t(formTranslationKeys.smoking)
+        )
         expect(smokingCheckbox).toBeInTheDocument()
 
-        const alcoholAbuseCheckbox = screen.getByText(i18n.t(formTranslationKeys.alcoholAbuse))
+        const alcoholAbuseCheckbox = screen.getByText(
+            i18n.t(formTranslationKeys.alcoholAbuse)
+        )
         expect(alcoholAbuseCheckbox).toBeInTheDocument()
     })
 

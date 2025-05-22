@@ -53,7 +53,9 @@ const KaplanMeierChart: React.FC<KaplanMeierChartProps> = ({
                         value:
                             selectedCurveType === KaplanMeierType.survival
                                 ? t(appTranslationKeys.chartSurvivalProbability)
-                                : t(appTranslationKeys.chartRecurrenceProbability),
+                                : t(
+                                      appTranslationKeys.chartRecurrenceProbability
+                                  ),
                         angle: -90,
                         dx: -25,
                         position: 'insideCenter',

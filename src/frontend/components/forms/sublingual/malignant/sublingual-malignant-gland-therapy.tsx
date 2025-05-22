@@ -69,13 +69,18 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                title={t(formTranslationKeys.blockNeckDissectionSide)}
+                                title={t(
+                                    formTranslationKeys.blockNeckDissectionSide
+                                )}
                                 data={formData}
                                 dbLabel={dbLabels.strana_blokove_krcni_disekce}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[t(formTranslationKeys.sameSide), t(formTranslationKeys.twoSided)]}
+                                options={[
+                                    t(formTranslationKeys.sameSide),
+                                    t(formTranslationKeys.twoSided),
+                                ]}
                             />
                             <SimpleCheckboxes
                                 title={t(formTranslationKeys.ndType)}
@@ -139,7 +144,9 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t(formTranslationKeys.nonSurgicalTherapyOncologicalTreatment)}
+                        title={t(
+                            formTranslationKeys.nonSurgicalTherapyOncologicalTreatment
+                        )}
                         data={formData}
                         dbLabel={dbLabels.typ_nechirurgicke_terapie}
                         setFormData={setFormData}

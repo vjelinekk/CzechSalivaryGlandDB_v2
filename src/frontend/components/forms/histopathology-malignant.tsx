@@ -99,7 +99,9 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                    label={t(
+                        formTranslationKeys.epithelialMyoepithelialCarcinoma
+                    )}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
@@ -206,8 +208,12 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                         options={[
                             t(formTranslationKeys.undifferentiatedCarcinoma),
-                            t(formTranslationKeys.largeCellNeuroendocrineCarcinoma),
-                            t(formTranslationKeys.smallCellNeuroendocrineCarcinoma),
+                            t(
+                                formTranslationKeys.largeCellNeuroendocrineCarcinoma
+                            ),
+                            t(
+                                formTranslationKeys.smallCellNeuroendocrineCarcinoma
+                            ),
                             t(formTranslationKeys.subtypeNotSpecified),
                         ]}
                         disabled={disabled}
@@ -229,7 +235,9 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label={t(formTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                    label={t(
+                        formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                    )}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
@@ -268,7 +276,6 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
-
             <TextInput
                 label={t(formTranslationKeys.tumorSizeNotDeterminedExplain)}
                 dbLabel={dbLabels.velikost_nadoru_neurcena_histopatologie}
@@ -280,7 +287,6 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
-
             <SimpleCheckboxes
                 title={t(formTranslationKeys.resectionMargin)}
                 dbLabel={dbLabels.okraj_resekce_histopatologie}
@@ -291,17 +297,18 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
-
             <SimpleCheckboxes
                 title={t(formTranslationKeys.lymphovascularInvasion)}
                 dbLabel={dbLabels.lymfovaskularni_invaze_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.no), t(formTranslationKeys.yes)]}
+                options={[
+                    t(formTranslationKeys.no),
+                    t(formTranslationKeys.yes),
+                ]}
                 disabled={disabled}
             />
-
 
             <SimpleCheckboxes
                 title={t(formTranslationKeys.perineuralInvasion)}
@@ -309,10 +316,12 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.no), t(formTranslationKeys.yes)]}
+                options={[
+                    t(formTranslationKeys.no),
+                    t(formTranslationKeys.yes),
+                ]}
                 disabled={disabled}
             />
-
 
             <NumberInput
                 label={t(formTranslationKeys.numberOfLymphNodesWithMetastasis)}
@@ -327,7 +336,6 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
-
             <ConditionalCheckboxes
                 title={t(formTranslationKeys.extranodalSpreadEne)}
                 dbLabel={dbLabels.extranodalni_sireni_histopatologie}
@@ -339,7 +347,6 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
-                />
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -353,12 +360,14 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
-                        options={[t(formTranslationKeys.ENEmaOver2mm), t(formTranslationKeys.ENEmi2mmOrLess)]}
+                        options={[
+                            t(formTranslationKeys.ENEmaOver2mm),
+                            t(formTranslationKeys.ENEmi2mmOrLess),
+                        ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
             </ConditionalCheckboxes>
-
 
             <ConditionalCheckboxes
                 title={t(formTranslationKeys.provenDistantMetastases)}
@@ -372,14 +381,15 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                     setFormData={setFormData}
                 />
-                />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <TextInput
-                        label={t(formTranslationKeys.specifySiteOfDistantMetastasis)}
+                        label={t(
+                            formTranslationKeys.specifySiteOfDistantMetastasis
+                        )}
                         dbLabel={
                             dbLabels.misto_vyskytu_vzdalene_metastazy_histopatologie
                         }

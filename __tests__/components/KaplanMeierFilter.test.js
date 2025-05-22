@@ -4,34 +4,31 @@ import { act } from 'react-dom/test-utils'
 import KaplanMeierFilter from '../../src/frontend/components/kaplan-meier-filter'
 import { KaplanMeierType } from '../../src/frontend/constants'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { appTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
-
+    await initI18n()
+})
 
 const mockKaplanMeierWindow = {
     api: {
@@ -58,12 +55,20 @@ describe('KaplanMeierFilter component', () => {
         })
 
         // Assertions
-        expect(screen.getByText(i18n.t(appTranslationKeys.curveTypeSelection))).toBeInTheDocument()
-        expect(screen.getByLabelText(i18n.t(appTranslationKeys.survivalCurve))).toBeInTheDocument()
-        expect(screen.getByLabelText(i18n.t(appTranslationKeys.recidiveCurve))).toBeInTheDocument()
+        expect(
+            screen.getByText(i18n.t(appTranslationKeys.curveTypeSelection))
+        ).toBeInTheDocument()
+        expect(
+            screen.getByLabelText(i18n.t(appTranslationKeys.survivalCurve))
+        ).toBeInTheDocument()
+        expect(
+            screen.getByLabelText(i18n.t(appTranslationKeys.recidiveCurve))
+        ).toBeInTheDocument()
 
         // Simulate curve type change
-        fireEvent.click(screen.getByLabelText(i18n.t(appTranslationKeys.recidiveCurve)))
+        fireEvent.click(
+            screen.getByLabelText(i18n.t(appTranslationKeys.recidiveCurve))
+        )
 
         // Assertion on callback function
         expect(setSelectedCurveType).toHaveBeenCalledWith(

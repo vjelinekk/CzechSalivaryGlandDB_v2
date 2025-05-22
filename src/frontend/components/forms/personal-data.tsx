@@ -89,13 +89,18 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={[t(formTranslationKeys.female), t(formTranslationKeys.male)]}
+                    options={[
+                        t(formTranslationKeys.female),
+                        t(formTranslationKeys.male),
+                    ]}
                     disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
-                    title={t(formTranslationKeys.demographicInfoResidencyRegion)}
+                    title={t(
+                        formTranslationKeys.demographicInfoResidencyRegion
+                    )}
                     dbLabel={dbLabels.kraj}
                     data={formData}
                     setFormData={setFormData}
@@ -134,7 +139,9 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                     >
                         <TextInput
-                            label={t(formTranslationKeys.specifyOtherCancerLocation)}
+                            label={t(
+                                formTranslationKeys.specifyOtherCancerLocation
+                            )}
                             dbLabel={
                                 dbLabels.specifikace_mista_vyskytu_jineho_karcinomu
                             }
@@ -252,7 +259,11 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={[t(formTranslationKeys.yes), t(formTranslationKeys.no), t(formTranslationKeys.unknown)]}
+                    options={[
+                        t(formTranslationKeys.yes),
+                        t(formTranslationKeys.no),
+                        t(formTranslationKeys.unknown),
+                    ]}
                     disabled={disabled}
                 />
             </div>

@@ -8,7 +8,10 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import TextInput from '../../text-input'
 import { useTranslation } from 'react-i18next'
-import { formTranslationKeys, appTranslationKeys } from '../../../../translations'
+import {
+    formTranslationKeys,
+    appTranslationKeys,
+} from '../../../../translations'
 
 const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
@@ -36,7 +39,11 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.sideRight), t(formTranslationKeys.sideLeft), t(formTranslationKeys.bilateraly)]}
+                options={[
+                    t(formTranslationKeys.sideRight),
+                    t(formTranslationKeys.sideLeft),
+                    t(formTranslationKeys.bilateraly),
+                ]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -120,22 +127,30 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultPleomorphicAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultWarthinTumor)}
+                            label={t(
+                                formTranslationKeys.coreResultWarthinTumor
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultBasalCellAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultMyoepithelioma)}
+                            label={t(
+                                formTranslationKeys.coreResultMyoepithelioma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -145,12 +160,16 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultCanalicularAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultCanalicularAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultSebaceousAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultSebaceousAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -160,12 +179,16 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultSebaceousLymphadenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultSebaceousLymphadenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultKeratocystoma)}
+                            label={t(
+                                formTranslationKeys.coreResultKeratocystoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -175,7 +198,9 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(formTranslationKeys.histologicalTypeSpecification)}
+                                label={t(
+                                    formTranslationKeys.histologicalTypeSpecification
+                                )}
                                 dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -213,22 +238,30 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultPleomorphicAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultWarthinTumor)}
+                            label={t(
+                                formTranslationKeys.coreResultWarthinTumor
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultBasalCellAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultMyoepithelioma)}
+                            label={t(
+                                formTranslationKeys.coreResultMyoepithelioma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -238,12 +271,16 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultCanalicularAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultCanalicularAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultSebaceousAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultSebaceousAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -253,12 +290,16 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultSebaceousLymphadenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultSebaceousLymphadenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultKeratocystoma)}
+                            label={t(
+                                formTranslationKeys.coreResultKeratocystoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -268,7 +309,9 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(formTranslationKeys.histologicalTypeSpecification)}
+                                label={t(
+                                    formTranslationKeys.histologicalTypeSpecification
+                                )}
                                 dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,

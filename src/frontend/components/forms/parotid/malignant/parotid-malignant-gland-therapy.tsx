@@ -79,13 +79,18 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                title={t(formTranslationKeys.sideOfBlockNeckDissection)}
+                                title={t(
+                                    formTranslationKeys.sideOfBlockNeckDissection
+                                )}
                                 data={formData}
                                 dbLabel={dbLabels.strana_blokove_krcni_disekce}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={[t(formTranslationKeys.sameSide), t(formTranslationKeys.twoSided)]}
+                                options={[
+                                    t(formTranslationKeys.sameSide),
+                                    t(formTranslationKeys.twoSided),
+                                ]}
                             />
                             <SimpleCheckboxes
                                 title={t(formTranslationKeys.ndType)}
@@ -128,7 +133,9 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
-                        title={t(formTranslationKeys.nVIIFunctionHBPostoperative)}
+                        title={t(
+                            formTranslationKeys.nVIIFunctionHBPostoperative
+                        )}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -137,7 +144,9 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title={t(formTranslationKeys.otherPostoperativeComplications)}
+                        title={t(
+                            formTranslationKeys.otherPostoperativeComplications
+                        )}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -165,7 +174,9 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(formTranslationKeys.specifyOtherComplications)}
+                                label={t(
+                                    formTranslationKeys.specifyOtherComplications
+                                )}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -198,7 +209,9 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title={t(formTranslationKeys.nonSurgicalOncologicalTreatment)}
+                        title={t(
+                            formTranslationKeys.nonSurgicalOncologicalTreatment
+                        )}
                         data={formData}
                         dbLabel={dbLabels.typ_nechirurgicke_terapie}
                         setFormData={setFormData}

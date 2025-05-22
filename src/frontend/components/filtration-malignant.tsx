@@ -186,7 +186,9 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.mucoepidermoidCarcinoma)}
+                            label={t(
+                                appTranslationKeys.mucoepidermoidCarcinoma
+                            )}
                             dbValue="mukoepidermoidní karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -200,35 +202,45 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.polymorphousAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.polymorphousAdenocarcinoma
+                            )}
                             dbValue="polymorfní adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                            label={t(
+                                appTranslationKeys.epithelialMyoepithelialCarcinoma
+                            )}
                             dbValue="epiteliální myoepiteliální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(formTranslationKeys.hyalinizingCarcinomaOfClearCells)}
+                            label={t(
+                                formTranslationKeys.hyalinizingCarcinomaOfClearCells
+                            )}
                             dbValue="hyalinizující karcinom ze světlých buněk"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.basalCellAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.basalCellAdenocarcinoma
+                            )}
                             dbValue="bazocelulární adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.sebaceousAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.sebaceousAdenocarcinoma
+                            )}
                             dbValue="sebaceózní adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -249,7 +261,9 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.salivaryDuctalCarcinoma)}
+                            label={t(
+                                appTranslationKeys.salivaryDuctalCarcinoma
+                            )}
                             dbValue="salivární duktální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -263,7 +277,9 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.carcinomaFromPleomorphicAdenoma)}
+                            label={t(
+                                appTranslationKeys.carcinomaFromPleomorphicAdenoma
+                            )}
                             dbValue="karcinom z pleomorfniho adenomu"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -277,14 +293,18 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.poorlyDifferentiatedCarcinoma)}
+                            label={t(
+                                appTranslationKeys.poorlyDifferentiatedCarcinoma
+                            )}
                             dbValue="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.lymphoepithelialCarcinoma)}
+                            label={t(
+                                appTranslationKeys.lymphoepithelialCarcinoma
+                            )}
                             dbValue="lymfoepiteliální karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
@@ -299,21 +319,29 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FormControlLabel
                             control={<Checkbox />}
-                            label={t(appTranslationKeys.microsecretoryAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                         />
                         <FormControlLabel
                             control={<Checkbox />}
-                            label={t(appTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.microsecretoryAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                             dbValue="mikrosekretorický adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                            label={t(
+                                appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                             dbValue="sklerózující mikrocystický adenokarcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}

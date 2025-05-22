@@ -123,16 +123,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                 <DialogContent>
                     <Stack spacing={2}>
                         <Alert severity="info">
-                            <AlertTitle>{t(appTranslationKeys.databasePolicies)}</AlertTitle>
+                            <AlertTitle>
+                                {t(appTranslationKeys.databasePolicies)}
+                            </AlertTitle>
                             <List>
-                                <ListItem>{t(appTranslationKeys.databasePolicy1)}</ListItem>
-                                <ListItem>{t(appTranslationKeys.databasePolicy2)}</ListItem>
-                                <ListItem>{t(appTranslationKeys.databasePolicy3)}</ListItem>
+                                <ListItem>
+                                    {t(appTranslationKeys.databasePolicy1)}
+                                </ListItem>
+                                <ListItem>
+                                    {t(appTranslationKeys.databasePolicy2)}
+                                </ListItem>
+                                <ListItem>
+                                    {t(appTranslationKeys.databasePolicy3)}
+                                </ListItem>
                             </List>
                         </Alert>
                         <form onSubmit={handleUseEncryptionSubmit}>
                             <FormControl>
-                                <FormLabel>{t(appTranslationKeys.useSecureDb)}</FormLabel>
+                                <FormLabel>
+                                    {t(appTranslationKeys.useSecureDb)}
+                                </FormLabel>
                                 <RadioGroup
                                     value={useEncryptionValue}
                                     onChange={(e) =>
@@ -146,7 +156,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     {useEncryptionValue === 'ne' && (
                                         <Alert severity="warning">
-                                            {t(appTranslationKeys.warningSecureDb)}
+                                            {t(
+                                                appTranslationKeys.warningSecureDb
+                                            )}
                                         </Alert>
                                     )}
                                     <FormControlLabel
@@ -184,7 +196,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     <TextField
                                         type="password"
-                                        label={t(appTranslationKeys.databaseKey)}
+                                        label={t(
+                                            appTranslationKeys.databaseKey
+                                        )}
                                         variant="filled"
                                         value={databaseKey}
                                         onChange={(e) =>
@@ -196,13 +210,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 <>
                                     <Alert severity="info">
                                         <AlertTitle>
-                                            {t(appTranslationKeys.createPassword)}
+                                            {t(
+                                                appTranslationKeys.createPassword
+                                            )}
                                         </AlertTitle>
                                         {t(appTranslationKeys.passwordInfo)}
                                     </Alert>
                                     <TextField
                                         type="password"
-                                        label={t(appTranslationKeys.newPassword)}
+                                        label={t(
+                                            appTranslationKeys.newPassword
+                                        )}
                                         variant="filled"
                                         value={password}
                                         onChange={(e) =>

@@ -28,7 +28,10 @@ const LoadBackUpButton: React.FC = () => {
                 {t(appTranslationKeys.restoreDatabase)}
             </button>
             <Dialog open={openLoadBackUpDialog}>
-                <DialogTitle> {t(appTranslationKeys.databaseRestore)}</DialogTitle>
+                <DialogTitle>
+                    {' '}
+                    {t(appTranslationKeys.databaseRestore)}
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {t(appTranslationKeys.databaseRestoreWarning)}

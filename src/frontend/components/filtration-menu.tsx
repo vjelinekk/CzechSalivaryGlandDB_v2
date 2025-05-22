@@ -187,7 +187,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                 sx={{ flexDirection: 'row' }}
                                             >
                                                 <FiltrationCheckbox
-                                                    label={t(formTranslationKeys.submandibular)}
+                                                    label={t(
+                                                        formTranslationKeys.submandibular
+                                                    )}
                                                     dbValue={
                                                         FormType.submandibularMalignant
                                                     }
@@ -202,7 +204,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label={t(formTranslationKeys.sublingual)}
+                                                    label={t(
+                                                        formTranslationKeys.sublingual
+                                                    )}
                                                     dbValue={
                                                         FormType.sublingualMalignant
                                                     }
@@ -217,7 +221,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label={t(formTranslationKeys.parotid)}
+                                                    label={t(
+                                                        formTranslationKeys.parotid
+                                                    )}
                                                     dbValue={
                                                         FormType.parotidMalignant
                                                     }
@@ -253,7 +259,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                 sx={{ flexDirection: 'row' }}
                                             >
                                                 <FiltrationCheckbox
-                                                    label={t(formTranslationKeys.submandibular)}
+                                                    label={t(
+                                                        formTranslationKeys.submandibular
+                                                    )}
                                                     dbValue={
                                                         FormType.submandibularBenign
                                                     }
@@ -268,7 +276,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label={t(formTranslationKeys.parotid)}
+                                                    label={t(
+                                                        formTranslationKeys.parotid
+                                                    )}
                                                     dbValue={
                                                         FormType.parotidBenign
                                                     }

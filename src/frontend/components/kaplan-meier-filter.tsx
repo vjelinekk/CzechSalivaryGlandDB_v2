@@ -126,7 +126,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                    label={t(
+                        appTranslationKeys.epithelialMyoepithelialCarcinoma
+                    )}
                     dbValue="epiteliální myoepiteliální karcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
@@ -182,7 +184,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.carcinomaFromPleomorphicAdenoma)}
+                    label={t(
+                        appTranslationKeys.carcinomaFromPleomorphicAdenoma
+                    )}
                     dbValue="karcinom z pleomorfniho adenomu"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
@@ -222,7 +226,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                 />
                 <FormControlLabel
                     control={<Checkbox />}
-                    label={t(appTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                    label={t(
+                        appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                    )}
                 />
                 <FiltrationCheckbox
                     label={t(appTranslationKeys.microsecretoryAdenocarcinoma)}
@@ -232,7 +238,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                    label={t(
+                        appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                    )}
                     dbValue="sklerózující mikrocystický adenokarcinom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}

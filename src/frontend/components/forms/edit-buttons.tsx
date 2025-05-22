@@ -172,7 +172,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                     {t(formTranslationKeys.deletePatient)}
                 </button>
                 <Dialog open={openDelePatientDialog}>
-                    <DialogTitle>{t(formTranslationKeys.confirmDeletePatient)}</DialogTitle>
+                    <DialogTitle>
+                        {t(formTranslationKeys.confirmDeletePatient)}
+                    </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             {t(formTranslationKeys.deletePatientWarning)}
@@ -195,7 +197,6 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             className="basicButton"
                             onClick={handleDeleteFromStudyClick}
                             style={{ background: 'var(--colorRed)' }}
-                            style={{ background: 'var(--colorRed)' }}
                         >
                             {t(formTranslationKeys.removeFromStudy)}
                         </button>
@@ -205,7 +206,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    {t(formTranslationKeys.removeFromStudyWarning)}
+                                    {t(
+                                        formTranslationKeys.removeFromStudyWarning
+                                    )}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>

@@ -304,7 +304,7 @@ export enum formTranslationKeys {
     sideOfBlockNeckDissection = 'side-of-block-neck-dissection',
     electiveCn0 = 'elective-cn0',
     therapeuticCnplus = 'therapeutic-cnplus',
-    nonSurgicalOncologicalTreatment = 'non-surgical-oncological-treatment'
+    nonSurgicalOncologicalTreatment = 'non-surgical-oncological-treatment',
 }
 
 export enum appTranslationKeys {
@@ -398,5 +398,5 @@ export enum appTranslationKeys {
     login = 'login',
     deleteStudyTitle = 'delete-study-title',
     deleteStudyWarning = 'delete-study-warning',
-    deleteStudy = 'delete-study'
+    deleteStudy = 'delete-study',
 }

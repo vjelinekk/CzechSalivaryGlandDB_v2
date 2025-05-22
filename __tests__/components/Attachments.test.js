@@ -3,34 +3,31 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import Attachments from '../../src/frontend/components/forms/attachments'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { formTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
-
+    await initI18n()
+})
 
 describe('Attachments component', () => {
     const formDataMock = {
@@ -57,7 +54,9 @@ describe('Attachments component', () => {
     })
 
     test('should render component correctly', async () => {
-        expect(screen.getByText(i18n.t(formTranslationKeys.addAttachment))).toBeInTheDocument()
+        expect(
+            screen.getByText(i18n.t(formTranslationKeys.addAttachment))
+        ).toBeInTheDocument()
 
         const attachmentButton = screen.getByRole('button', {
             name: /test.txt/,
@@ -66,7 +65,9 @@ describe('Attachments component', () => {
     })
 
     test('should add attachment', async () => {
-        const addButton = screen.getByText(i18n.t(formTranslationKeys.addAttachment))
+        const addButton = screen.getByText(
+            i18n.t(formTranslationKeys.addAttachment)
+        )
         await act(async () => {
             fireEvent.click(addButton)
         })

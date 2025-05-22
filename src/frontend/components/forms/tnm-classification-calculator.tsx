@@ -73,7 +73,11 @@ const TNMClassificationCalculator: React.FC<
                 enableSingleSelect={true}
                 setFormData={setFormData}
                 disabled={disabled}
-                options={['M0', 'M1', t(formTranslationKeys.classificationNotDetermined)]}
+                options={[
+                    'M0',
+                    'M1',
+                    t(formTranslationKeys.classificationNotDetermined),
+                ]}
             />
             <div className="textInputDiv">
                 <p>{t(formTranslationKeys.classification)}</p>

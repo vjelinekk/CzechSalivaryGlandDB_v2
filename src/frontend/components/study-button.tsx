@@ -141,7 +141,9 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                 <DeleteIcon />
             </IconButton>
             <Dialog open={openDeleteStudyDialog}>
-                <DialogTitle>{t(appTranslationKeys.deleteStudyTitle)}</DialogTitle>
+                <DialogTitle>
+                    {t(appTranslationKeys.deleteStudyTitle)}
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {t(appTranslationKeys.deleteStudyWarning)}

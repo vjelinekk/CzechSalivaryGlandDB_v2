@@ -44,7 +44,11 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.sideRight), t(formTranslationKeys.sideLeft), t(formTranslationKeys.bilateraly)]}
+                options={[
+                    t(formTranslationKeys.sideRight),
+                    t(formTranslationKeys.sideLeft),
+                    t(formTranslationKeys.bilateraly),
+                ]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -78,7 +82,6 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                disabled={disabled}
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
@@ -117,7 +120,6 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 disabled={disabled}
-                disabled={disabled}
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -131,10 +133,11 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.acinocellularCarcinoma)}
+                            label={t(
+                                formTranslationKeys.acinocellularCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -144,7 +147,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.mucoepidermoidCarcinoma)}
+                            label={t(
+                                formTranslationKeys.mucoepidermoidCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -165,7 +170,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.adenoidCysticCarcinoma)}
+                            label={t(
+                                formTranslationKeys.adenoidCysticCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -177,15 +184,21 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.tubularCribriformDominant),
-                                    t(formTranslationKeys.moreThan30SolidComponent),
+                                    t(
+                                        formTranslationKeys.tubularCribriformDominant
+                                    ),
+                                    t(
+                                        formTranslationKeys.moreThan30SolidComponent
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.polymorphousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.polymorphousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -203,22 +216,30 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.epithelialMyoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.hyalinizingClearCellCarcinoma)}
+                            label={t(
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.basalCellAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.basalCellAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.sebaceousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.sebaceousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -253,25 +274,35 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.oncocyticAdenocarcinoma),
-                                    t(formTranslationKeys.intestinalTypeAdenocarcinoma),
+                                    t(
+                                        formTranslationKeys.oncocyticAdenocarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.intestinalTypeAdenocarcinoma
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.salivaryDuctalCarcinoma)}
+                            label={t(
+                                formTranslationKeys.salivaryDuctalCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.myoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.myoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.carcinomaExPleomorphicAdenoma)}
+                            label={t(
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -297,7 +328,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.poorlyDifferentiatedCarcinoma)}
+                            label={t(
+                                formTranslationKeys.poorlyDifferentiatedCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -309,16 +342,24 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.undifferentiatedCarcinoma),
-                                    t(formTranslationKeys.largeCellNeuroendocrineCarcinoma),
-                                    t(formTranslationKeys.smallCellNeuroendocrineCarcinoma),
+                                    t(
+                                        formTranslationKeys.undifferentiatedCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.lymphoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.lymphoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -328,22 +369,27 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.microsecretoryAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.mucinousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.mucinousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('sialoblastoma')}
                             label={t('sialoblastoma')}
                             disabled={disabled}
                             setFormData={setFormData}
@@ -373,7 +419,6 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 disabled={disabled}
-                disabled={disabled}
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -387,10 +432,11 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.acinocellularCarcinoma)}
+                            label={t(
+                                formTranslationKeys.acinocellularCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -400,7 +446,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.mucoepidermoidCarcinoma)}
+                            label={t(
+                                formTranslationKeys.mucoepidermoidCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -421,7 +469,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.adenoidCysticCarcinoma)}
+                            label={t(
+                                formTranslationKeys.adenoidCysticCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -433,15 +483,21 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.tubularCribriformDominant),
-                                    t(formTranslationKeys.moreThan30SolidComponent),
+                                    t(
+                                        formTranslationKeys.tubularCribriformDominant
+                                    ),
+                                    t(
+                                        formTranslationKeys.moreThan30SolidComponent
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.polymorphousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.polymorphousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -461,22 +517,30 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.epithelialMyoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.hyalinizingClearCellCarcinoma)}
+                            label={t(
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.basalCellAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.basalCellAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.sebaceousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.sebaceousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -515,25 +579,35 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.oncocyticAdenocarcinoma),
-                                    t(formTranslationKeys.intestinalTypeAdenocarcinoma),
+                                    t(
+                                        formTranslationKeys.oncocyticAdenocarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.intestinalTypeAdenocarcinoma
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.salivaryDuctalCarcinoma)}
+                            label={t(
+                                formTranslationKeys.salivaryDuctalCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.myoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.myoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.carcinomaExPleomorphicAdenoma)}
+                            label={t(
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -559,7 +633,9 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.poorlyDifferentiatedCarcinoma)}
+                            label={t(
+                                formTranslationKeys.poorlyDifferentiatedCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -571,16 +647,24 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.undifferentiatedCarcinoma),
-                                    t(formTranslationKeys.largeCellNeuroendocrineCarcinoma),
-                                    t(formTranslationKeys.smallCellNeuroendocrineCarcinoma),
+                                    t(
+                                        formTranslationKeys.undifferentiatedCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
+                                    ),
                                     t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.lymphoepithelialCarcinoma)}
+                            label={t(
+                                formTranslationKeys.lymphoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -590,22 +674,27 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.microsecretoryAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.sclerosingMicrocysticAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.mucinousAdenocarcinoma)}
+                            label={t(
+                                formTranslationKeys.mucinousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t('sialoblastoma')}
                             label={t('sialoblastoma')}
                             disabled={disabled}
                             setFormData={setFormData}

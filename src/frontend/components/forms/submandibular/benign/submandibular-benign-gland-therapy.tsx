@@ -57,7 +57,9 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         ]}
                     />
                     <SimpleCheckboxes
-                        title={t(formTranslationKeys.nVIIFunctionHBPostoperative)}
+                        title={t(
+                            formTranslationKeys.nVIIFunctionHBPostoperative
+                        )}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -66,7 +68,9 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title={t(formTranslationKeys.otherPostoperativeComplications)}
+                        title={t(
+                            formTranslationKeys.otherPostoperativeComplications
+                        )}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -94,9 +98,6 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(
-                                    'specify-other-postoperative-complication'
-                                )}
                                 label={t(
                                     'specify-other-postoperative-complication'
                                 )}

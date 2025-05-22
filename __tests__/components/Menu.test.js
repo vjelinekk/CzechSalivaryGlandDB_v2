@@ -4,33 +4,31 @@ import Menu from '../../src/frontend/components/menu'
 import ImportProvider from '../../src/frontend/components/import-context'
 import { Components } from '../../src/frontend/constants'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { appTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
+    await initI18n()
+})
 
 describe('Menu component', () => {
     test('renders correctly', () => {
@@ -61,7 +59,9 @@ describe('Menu component', () => {
             </ImportProvider>
         )
 
-        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.patientList)))
+        fireEvent.click(
+            screen.getByText(i18n.t(appTranslationKeys.patientList))
+        )
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.patientsList,
         })
@@ -81,7 +81,9 @@ describe('Menu component', () => {
             component: Components.addStudy,
         })
 
-        fireEvent.click(screen.getByText(i18n.t(appTranslationKeys.kaplanMeier)))
+        fireEvent.click(
+            screen.getByText(i18n.t(appTranslationKeys.kaplanMeier))
+        )
         expect(setActiveComponentMock).toHaveBeenCalledWith({
             component: Components.kaplanMeier,
         })

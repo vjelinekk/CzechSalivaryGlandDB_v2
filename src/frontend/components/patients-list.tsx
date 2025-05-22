@@ -282,7 +282,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         <input
                             type="text"
                             className="studyNameInput"
-                            placeholder={t(appTranslationKeys.studyNamePlaceholder)}
+                            placeholder={t(
+                                appTranslationKeys.studyNamePlaceholder
+                            )}
                             data-testid="study-name-input"
                             value={study?.nazev_studie || ''}
                             onChange={(e) =>
@@ -310,7 +312,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    {t(appTranslationKeys.emptyStudyNameAlertText)}
+                                    {t(
+                                        appTranslationKeys.emptyStudyNameAlertText
+                                    )}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
@@ -329,16 +333,12 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             style={{
                                 backgroundColor: 'var(--mainColorSuperLight)',
                             }}
-                            style={{
-                                backgroundColor: 'var(--mainColorSuperLight)',
-                            }}
                             className="tableButton"
                         >
                             {t(appTranslationKeys.export)}
                         </button>
                         <button
                             onClick={handleExportAnonymized}
-                            style={{ backgroundColor: 'var(--mainColorLight)' }}
                             style={{ backgroundColor: 'var(--mainColorLight)' }}
                             className="tableButton"
                         >

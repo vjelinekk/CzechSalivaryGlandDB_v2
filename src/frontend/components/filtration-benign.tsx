@@ -185,7 +185,9 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(formTranslationKeys.papillaryCystadenolymphomaWarthin)}
+                            label={t(
+                                formTranslationKeys.papillaryCystadenolymphomaWarthin
+                            )}
                             dbValue="papilární cystadenolymfom (Warthinův tumor)"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}

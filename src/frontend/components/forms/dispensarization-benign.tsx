@@ -125,7 +125,6 @@ const DispensarizationBenign: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                             disabled={disabled}
                         />
-                        />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.deceased)}
                             setFormData={setFormData}

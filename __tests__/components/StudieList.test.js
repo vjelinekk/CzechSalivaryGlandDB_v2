@@ -2,34 +2,31 @@ import React from 'react'
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import StudiesList from '../../src/frontend/components/studies-list'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { appTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
-
+    await initI18n()
+})
 
 const mockStudies = [
     { id: 1, nazev_studie: 'Study1', typ_studie: 'Type1' },
@@ -54,9 +51,12 @@ describe('StudiesList component', () => {
 
         // Search for a study
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)), {
-                target: { value: 'Study1' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)),
+                {
+                    target: { value: 'Study1' },
+                }
+            )
         })
 
         // Assertion: Only the matching study is rendered
@@ -65,9 +65,12 @@ describe('StudiesList component', () => {
 
         // Clear the search input
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)), {
-                target: { value: '' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)),
+                {
+                    target: { value: '' },
+                }
+            )
         })
 
         // Assertion: All studies are rendered again

@@ -83,7 +83,9 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                     setFormData={setFormData}
                 >
                     <TextInput
-                        label={t(formTranslationKeys.histologicalTypeSpecification)}
+                        label={t(
+                            formTranslationKeys.histologicalTypeSpecification
+                        )}
                         dbLabel={dbLabels.histopatologie_vysledek_jine}
                         data={getDataFromPatientInterface(
                             formData,

@@ -67,7 +67,11 @@ const TextInput: React.FC<TextInputProps> = ({
                     value={inputValue}
                     disabled={disabled}
                 />
-                {error && <p className="error">{t(formTranslationKeys.invalidInput)}</p>}
+                {error && (
+                    <p className="error">
+                        {t(formTranslationKeys.invalidInput)}
+                    </p>
+                )}
             </div>
         </div>
     )

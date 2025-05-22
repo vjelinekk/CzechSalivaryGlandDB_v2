@@ -36,7 +36,11 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.sideRight), t(formTranslationKeys.sideLeft), t(formTranslationKeys.bilateraly)]}
+                options={[
+                    t(formTranslationKeys.sideRight),
+                    t(formTranslationKeys.sideLeft),
+                    t(formTranslationKeys.bilateraly),
+                ]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
@@ -85,9 +89,13 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         options={[
                             t('I-fnab-result-i'),
                             t(formTranslationKeys.IINonTumor),
-                            t(formTranslationKeys.IIIAtypiaOfUncertainSignificance),
+                            t(
+                                formTranslationKeys.IIIAtypiaOfUncertainSignificance
+                            ),
                             t(formTranslationKeys.IVaIVaTumorBenign),
-                            t(formTranslationKeys.IVbTumorOfUncertainMalignantPotential),
+                            t(
+                                formTranslationKeys.IVbTumorOfUncertainMalignantPotential
+                            ),
                             t('V-suspect-for-malignancy'),
                             t(formTranslationKeys.VITumorMalignant),
                         ]}
@@ -125,12 +133,16 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.papillaryCystadenolymphomaWarthin)}
+                            label={t(
+                                formTranslationKeys.papillaryCystadenolymphomaWarthin
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultBasalCellAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -160,7 +172,9 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.debacellousLymphadenoma)}
+                            label={t(
+                                formTranslationKeys.debacellousLymphadenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -175,7 +189,9 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(formTranslationKeys.histologicalTypeSpecification)}
+                                label={t(
+                                    formTranslationKeys.histologicalTypeSpecification
+                                )}
                                 dbLabel={dbLabels.core_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -218,12 +234,16 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.papillaryCystadenolymphomaWarthin)}
+                            label={t(
+                                formTranslationKeys.papillaryCystadenolymphomaWarthin
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.coreResultBasalCellAdenoma)}
+                            label={t(
+                                formTranslationKeys.coreResultBasalCellAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -253,7 +273,9 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label={t(formTranslationKeys.debacellousLymphadenoma)}
+                            label={t(
+                                formTranslationKeys.debacellousLymphadenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -268,7 +290,9 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label={t(formTranslationKeys.histologicalTypeSpecification)}
+                                label={t(
+                                    formTranslationKeys.histologicalTypeSpecification
+                                )}
                                 dbLabel={dbLabels.otevrena_vysledek_jine}
                                 data={getDataFromPatientInterface(
                                     formData,

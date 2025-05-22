@@ -1,34 +1,31 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import HistopathologyMalignant from '../../src/frontend/components/forms/histopathology-malignant.tsx'
 
-
 import { initI18n } from '../../src/frontend/i18n'
 import i18n from 'i18next'
 import { formTranslationKeys } from '../../src/frontend/translations'
 
-
 beforeAll(async () => {
-    global.window = Object.create(window);
+    global.window = Object.create(window)
     window.fs = {
         loadJson: (filePath) => {
-            const fs = require('fs');
-            const path = require('path');
-            const fullPath = path.resolve(__dirname, '../../', filePath);
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {
-                        reject(err);
+                        reject(err)
                     } else {
-                        resolve(JSON.parse(data));
+                        resolve(JSON.parse(data))
                     }
-                });
-            });
+                })
+            })
         },
-    };
+    }
 
-    await initI18n();
-});
-
+    await initI18n()
+})
 
 describe('Histopathology component', () => {
     const formData = {} // Mocked formData
@@ -46,7 +43,9 @@ describe('Histopathology component', () => {
         // Assert section headings
         const sectionHeadings = screen.getAllByRole('heading', { level: 1 })
         expect(sectionHeadings).toHaveLength(1) // Only one level 1 heading expected
-        expect(sectionHeadings[0]).toHaveTextContent(i18n.t(formTranslationKeys.histopathology))
+        expect(sectionHeadings[0]).toHaveTextContent(
+            i18n.t(formTranslationKeys.histopathology)
+        )
 
         const subsectionHeadings = screen.getAllByRole('heading', { level: 2 })
         expect(subsectionHeadings).toHaveLength(2) // Two level 2 headings expected
