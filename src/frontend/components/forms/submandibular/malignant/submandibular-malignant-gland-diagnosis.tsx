@@ -15,6 +15,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.diagnosisTitle)}</h1>
@@ -78,6 +79,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 disabled={disabled}
+                disabled={disabled}
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -115,6 +117,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 disabled={disabled}
+                disabled={disabled}
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -127,6 +130,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
+                        disabled={disabled}
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
@@ -340,6 +344,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         />
                         <ConditionalCheckboxOption
                             label={t('sialoblastoma')}
+                            label={t('sialoblastoma')}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -368,6 +373,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 enableSingleSelect={true}
                 disabled={disabled}
+                disabled={disabled}
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -380,6 +386,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
+                        disabled={disabled}
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
@@ -598,6 +605,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
+                            label={t('sialoblastoma')}
                             label={t('sialoblastoma')}
                             disabled={disabled}
                             setFormData={setFormData}

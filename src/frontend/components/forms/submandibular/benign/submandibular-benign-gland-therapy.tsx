@@ -97,6 +97,9 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                                 label={t(
                                     'specify-other-postoperative-complication'
                                 )}
+                                label={t(
+                                    'specify-other-postoperative-complication'
+                                )}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,

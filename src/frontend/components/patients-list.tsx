@@ -329,12 +329,16 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             style={{
                                 backgroundColor: 'var(--mainColorSuperLight)',
                             }}
+                            style={{
+                                backgroundColor: 'var(--mainColorSuperLight)',
+                            }}
                             className="tableButton"
                         >
                             {t(appTranslationKeys.export)}
                         </button>
                         <button
                             onClick={handleExportAnonymized}
+                            style={{ backgroundColor: 'var(--mainColorLight)' }}
                             style={{ backgroundColor: 'var(--mainColorLight)' }}
                             className="tableButton"
                         >

@@ -11,6 +11,7 @@ const TNMClassification: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.tnmClassification)}</h1>

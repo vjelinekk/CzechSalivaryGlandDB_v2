@@ -15,6 +15,7 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.therapy)}</h1>

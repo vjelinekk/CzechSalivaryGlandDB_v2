@@ -14,6 +14,7 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.diagnosisTitle)}</h1>

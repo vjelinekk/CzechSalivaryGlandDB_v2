@@ -20,6 +20,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
     setFilteredColumns,
 }) => {
     const { t } = useTranslation()
+
     return (
         <>
             <ListSubheader disableSticky>

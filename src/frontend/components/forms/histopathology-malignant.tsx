@@ -268,6 +268,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
+
             <TextInput
                 label={t(formTranslationKeys.tumorSizeNotDeterminedExplain)}
                 dbLabel={dbLabels.velikost_nadoru_neurcena_histopatologie}
@@ -279,6 +280,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
+
             <SimpleCheckboxes
                 title={t(formTranslationKeys.resectionMargin)}
                 dbLabel={dbLabels.okraj_resekce_histopatologie}
@@ -288,6 +290,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 options={[t(formTranslationKeys.r0), t(formTranslationKeys.r1)]}
                 disabled={disabled}
             />
+
 
             <SimpleCheckboxes
                 title={t(formTranslationKeys.lymphovascularInvasion)}
@@ -299,6 +302,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
+
             <SimpleCheckboxes
                 title={t(formTranslationKeys.perineuralInvasion)}
                 dbLabel={dbLabels.perineuralni_invaze_histopatologie}
@@ -308,6 +312,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 options={[t(formTranslationKeys.no), t(formTranslationKeys.yes)]}
                 disabled={disabled}
             />
+
 
             <NumberInput
                 label={t(formTranslationKeys.numberOfLymphNodesWithMetastasis)}
@@ -322,6 +327,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
 
+
             <ConditionalCheckboxes
                 title={t(formTranslationKeys.extranodalSpreadEne)}
                 dbLabel={dbLabels.extranodalni_sireni_histopatologie}
@@ -333,6 +339,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
+                />
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
@@ -352,6 +359,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
             </ConditionalCheckboxes>
 
+
             <ConditionalCheckboxes
                 title={t(formTranslationKeys.provenDistantMetastases)}
                 dbLabel={dbLabels.prokazane_vzdalene_metastazy_histopatologie}
@@ -363,6 +371,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                     label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
+                />
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
