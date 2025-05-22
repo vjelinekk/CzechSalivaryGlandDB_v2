@@ -1,5 +1,5 @@
-import React from 'react'
-import { ActiveComponentState } from '../types'
+import React, { Dispatch, SetStateAction } from 'react'
+import { ActiveComponentState, PatientType } from '../types'
 import {
     Box,
     Button,
@@ -18,19 +18,18 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { cs } from 'date-fns/locale'
 import { usePlannedChecks } from '../hooks/use-planned-checks'
+import { Components } from '../constants'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
 
 interface PlannedChecksProps {
-    setActiveComponent: React.Dispatch<
-        React.SetStateAction<ActiveComponentState>
-    >
+    setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
 const PlannedChecks: React.FC<PlannedChecksProps> = ({
-    // TODO: Decide if we will enable clicking on the patients to open their details
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setActiveComponent,
+    setActiveMenuButton,
 }) => {
     const { t } = useTranslation()
     const { plannedDaysRows, startDate, setStartDate, endDate, setEndDate } =
@@ -40,6 +39,17 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
         // TODO: Implement PDF export functionality
         // e.g., await window.export.exportPlannedChecksToPDF(startDate, endDate);
         console.log('Exporting to PDF...')
+    }
+
+    const handleOpenPatientDetail = (patient: PatientType) => {
+        setActiveComponent({
+            component: Components.patientsList,
+            activePatient: patient,
+        })
+
+        if (setActiveMenuButton) {
+            setActiveMenuButton(Components.patientsList)
+        }
     }
 
     const formatDate = (date: Date) => {
@@ -130,9 +140,35 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
 
                                     <List dense sx={{ flexGrow: 1 }}>
                                         {day.patients.map((patient) => (
-                                            <ListItem key={patient.id}>
+                                            <ListItem
+                                                key={
+                                                    patient.form_type +
+                                                    '-' +
+                                                    patient.id
+                                                }
+                                                button
+                                                onClick={() =>
+                                                    handleOpenPatientDetail(
+                                                        patient
+                                                    )
+                                                }
+                                                sx={{
+                                                    borderRadius: 1,
+                                                    '&:hover': {
+                                                        backgroundColor:
+                                                            'rgba(25, 118, 210, 0.08)',
+                                                    },
+                                                    transition:
+                                                        'background-color 0.3s',
+                                                    mb: 0.5,
+                                                }}
+                                            >
                                                 <ListItemText
                                                     primary={`${patient.jmeno} ${patient.prijmeni}`}
+                                                    primaryTypographyProps={{
+                                                        fontWeight: 'medium',
+                                                        color: 'primary.main',
+                                                    }}
                                                 />
                                             </ListItem>
                                         ))}

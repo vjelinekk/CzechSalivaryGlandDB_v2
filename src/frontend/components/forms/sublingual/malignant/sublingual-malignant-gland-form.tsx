@@ -18,6 +18,7 @@ import EditButtons from '../../edit-buttons'
 import { useGlandForm } from '../../../../hooks/use-gland-form'
 import EditResult from '../../edit-result'
 import AvailableStudies from '../../available-studies'
+import FormHeader from '../../form-header'
 
 const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -28,6 +29,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     setActivePatient,
     idStudie,
     defaultSelectedStudies,
+    setActiveMenuButton,
 }) => {
     const [formData, setFormData] =
         useState<SublingualMalignantPatientData | null>({
@@ -62,6 +64,9 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
 
     return (
         <form className="form">
+            {formState === FormStates.add && (
+                <FormHeader formType={formData.form_type} />
+            )}
             <EditResult editSaved={editSaved} setEditSaved={setEditSaved} />
             <PersonalData
                 formData={formData}
@@ -117,6 +122,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
                 selectedStudies={selectedStudies}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
+                setActiveMenuButton={setActiveMenuButton}
             />
             <EditButtons
                 formData={formData}

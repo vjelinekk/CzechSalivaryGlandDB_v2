@@ -34,6 +34,10 @@ const app = () => {
         Components.patientsList
     )
 
+    const [activeMenuButton, setActiveMenuButton] = useState<Components>(
+        Components.patientsList
+    )
+
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [ready, setReady] = useState(false)
 
@@ -51,14 +55,21 @@ const app = () => {
 
     return isLoggedIn ? (
         <ImportProvider>
-            <Menu setActiveComponent={setActiveComponent} />
+            <Menu
+                setActiveComponent={setActiveComponent}
+                activeMenuButton={activeMenuButton}
+                setActiveMenuButton={setActiveMenuButton}
+            />
             {activeComponent.component === Components.patientsList && (
                 <PatientsList
                     defaultActivePatient={activeComponent.activePatient}
                 />
             )}
             {activeComponent.component === Components.plannedChecks && (
-                <PlannedChecks setActiveComponent={setActiveComponent} />
+                <PlannedChecks
+                    setActiveComponent={setActiveComponent}
+                    setActiveMenuButton={setActiveMenuButton}
+                />
             )}
             {activeComponent.component === Components.addPatient && (
                 <AddPatient setActiveComponent={setActiveComponent} />
@@ -80,6 +91,7 @@ const app = () => {
                 <ParotidMalignantGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component ===
@@ -87,6 +99,7 @@ const app = () => {
                 <SublingualMalignantGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component ===
@@ -94,6 +107,7 @@ const app = () => {
                 <SubmandibularMalignantGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component ===
@@ -101,6 +115,7 @@ const app = () => {
                 <ParotidBenignGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component ===
@@ -108,12 +123,14 @@ const app = () => {
                 <SubmandibularBenignGlandForm
                     setActiveComponent={setActiveComponent}
                     defaultFormState={FormStates.add}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component === Components.study && (
                 <StudyCreation
                     setActiveComponent={setActiveComponent}
                     studyType={activeComponent?.studyType}
+                    setActiveMenuButton={setActiveMenuButton}
                 />
             )}
             {activeComponent.component === Components.kaplanMeier && (

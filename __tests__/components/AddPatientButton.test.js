@@ -36,6 +36,8 @@ beforeAll(async () => {
 
 describe('AddPatientButton component', () => {
     const setActiveComponentMock = jest.fn()
+    const setActiveMenuButtonMock = jest.fn()
+
     const formDataMock = {
         // Your mock data for formData
     }
@@ -52,6 +54,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={formErrorsMock}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
         expect(
@@ -72,6 +75,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={formErrorsMock}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
 
@@ -92,6 +96,7 @@ describe('AddPatientButton component', () => {
                 selectedStudies={selectedStudiesMock}
                 formErrors={['Error']}
                 setActiveComponent={setActiveComponentMock}
+                setActiveMenuButton={setActiveMenuButtonMock}
             />
         )
         const button = screen.getByText(i18n.t(appTranslationKeys.addPatient))

@@ -12,6 +12,7 @@ import AvailableStudies from '../../available-studies'
 import Dispensarization from '../../dispensarization-malignant'
 import EditButtons from '../../edit-buttons'
 import EditResult from '../../edit-result'
+import FormHeader from '../../form-header'
 import HistopathologyMalignant from '../../histopathology-malignant'
 import Notes from '../../notes'
 import PersonalData from '../../personal-data'
@@ -28,6 +29,7 @@ const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
     setActivePatient,
     idStudie,
     defaultSelectedStudies,
+    setActiveMenuButton,
 }) => {
     const [formData, setFormData] =
         useState<SubmandibularMalignantPatientData | null>({
@@ -62,6 +64,9 @@ const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
 
     return (
         <form className="form">
+            {formState === FormStates.add && (
+                <FormHeader formType={formData.form_type} />
+            )}
             <EditResult editSaved={editSaved} setEditSaved={setEditSaved} />
             <PersonalData
                 formData={formData}
@@ -117,6 +122,7 @@ const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
                 selectedStudies={selectedStudies}
                 formErrors={formErrors}
                 setActiveComponent={setActiveComponent}
+                setActiveMenuButton={setActiveMenuButton}
             />
             <EditButtons
                 formData={formData}
