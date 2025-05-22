@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { dbLabels } from '../../../../constants'
 import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInterface'
 import { GlandComponentProps } from '../../../../types'
@@ -7,17 +8,20 @@ import ConditionalCheckboxes from '../../conditional-checkboxes'
 import ConditionalCheckboxOption from '../../conditional-checkbox-option'
 import SimpleCheckboxes from '../../simple-checkboxes'
 import TextInput from '../../text-input'
+import { formTranslationKeys } from '../../../../translations'
 
 const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>TERAPIE</h1>
+            <h1>{t(formTranslationKeys.therapy)}</h1>
             <DatePicker
-                label="Datum zahájení léčby"
+                label={t(formTranslationKeys.treatmentStartDate)}
                 dbLabel={dbLabels.datum_zahajeni_lecby}
                 data={getDataFromPatientInterface(
                     formData,
@@ -27,7 +31,7 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title="Typ terapie"
+                title={t(formTranslationKeys.therapyType)}
                 data={formData}
                 dbLabel={dbLabels.typ_terapie}
                 setFormData={setFormData}
@@ -35,34 +39,34 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             >
                 <ConditionalCheckboxOption
-                    label="Chirurgická"
+                    label={t(formTranslationKeys.surgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Rozsah chirurgické léčby"
+                        title={t(formTranslationKeys.surgicalTreatmentExtent)}
                         data={formData}
                         dbLabel={dbLabels.rozsah_chirurgicke_lecby}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            'Parotidektomie I–IV (VII)',
-                            'Parotidektomie I–IV',
-                            'Parotidektomie I–IV (VII, S, MM)',
-                            'Parotidektomie I–II (PES)',
-                            'Parotidektomie III–IV (Deep lobe parotidectomy)',
-                            'Parotidektomie I',
-                            'Parotidektomie II',
-                            'Parotidektomie I–II–III',
-                            'Parotidektomie V',
-                            'ECD I',
-                            'ECD II',
-                            'ECD V',
+                            t(formTranslationKeys.parotidectomyI_IV_VII),
+                            t(formTranslationKeys.parotidectomyI_IV),
+                            t(formTranslationKeys.parotidectomyI_IV_VII_s_MM),
+                            t(formTranslationKeys.parotidectomyI_II_Pes),
+                            t(formTranslationKeys.parotidectomyIIIVDeepLobe),
+                            t(formTranslationKeys.parotidectomyI),
+                            t(formTranslationKeys.parotidectomyII),
+                            t(formTranslationKeys.parotidectomyI_II_III),
+                            t(formTranslationKeys.parotidectomyV),
+                            t(formTranslationKeys.ecdI),
+                            t(formTranslationKeys.ecdII),
+                            t(formTranslationKeys.ecdV),
                         ]}
                     />
                     <ConditionalCheckboxes
-                        title="Bloková krční disekce"
+                        title={t(formTranslationKeys.blockNeckDissection)}
                         data={formData}
                         dbLabel={dbLabels.blokova_krcni_disekce}
                         setFormData={setFormData}
@@ -70,61 +74,68 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label="Ano"
+                            label={t(formTranslationKeys.yes)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <SimpleCheckboxes
-                                title="Strana blokové krční disekce"
+                                title={t(
+                                    formTranslationKeys.sideOfBlockNeckDissection
+                                )}
                                 data={formData}
                                 dbLabel={dbLabels.strana_blokove_krcni_disekce}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
-                                options={['stejnostranná', 'oboustranná']}
+                                options={[
+                                    t(formTranslationKeys.sameSide),
+                                    t(formTranslationKeys.twoSided),
+                                ]}
                             />
                             <SimpleCheckboxes
-                                title="Typ ND"
+                                title={t(formTranslationKeys.ndType)}
                                 data={formData}
                                 dbLabel={dbLabels.typ_nd}
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
                                 options={[
-                                    'Elektivní (cN0)',
-                                    'Terapeutická (cN+)',
+                                    t(formTranslationKeys.electiveCn0),
+                                    t(formTranslationKeys.therapeuticCnplus),
                                 ]}
                             />
                             <SimpleCheckboxes
-                                title="Rozsah ND"
+                                title={t(formTranslationKeys.ndScope)}
                                 data={formData}
                                 dbLabel={dbLabels.rozsah_nd}
                                 setFormData={setFormData}
                                 enableSingleSelect={false}
                                 disabled={disabled}
                                 options={[
-                                    'IA',
-                                    'IB',
-                                    'IIA',
-                                    'IIB',
-                                    'III',
-                                    'IV',
-                                    'V',
-                                    'VA',
-                                    'VB',
-                                    'VI',
-                                    'Rozsah nespecifikován',
+                                    t(formTranslationKeys.ia),
+                                    t(formTranslationKeys.ib),
+                                    t(formTranslationKeys.iia),
+                                    t(formTranslationKeys.iib),
+                                    t(formTranslationKeys.iii),
+                                    t(formTranslationKeys.iv),
+                                    t(formTranslationKeys.v),
+                                    t(formTranslationKeys.va),
+                                    t(formTranslationKeys.vb),
+                                    t(formTranslationKeys.vi),
+                                    t(formTranslationKeys.scopeUndefined),
                                 ]}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="Ne"
+                            label={t(formTranslationKeys.no)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
-                        title="Funkce n. VII dle H-B (pooperačně)"
+                        title={t(
+                            formTranslationKeys.nVIIFunctionHBPostoperative
+                        )}
                         data={formData}
                         dbLabel={dbLabels.funkce_n_vii_dle_h_b_pooperacne}
                         setFormData={setFormData}
@@ -133,7 +144,9 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         options={['I', 'II', 'III', 'IV', 'V', 'VI']}
                     />
                     <ConditionalCheckboxes
-                        title="Jiné pooperační komplikace"
+                        title={t(
+                            formTranslationKeys.otherPostoperativeComplications
+                        )}
                         data={formData}
                         dbLabel={dbLabels.pooperacni_komplikace}
                         setFormData={setFormData}
@@ -141,27 +154,29 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label="Nejsou"
+                            label={t(formTranslationKeys.none)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Syndrom Freyové"
+                            label={t(formTranslationKeys.freysSyndrome)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Slinná píštěl"
+                            label={t(formTranslationKeys.salivaryFistula)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="Jiné"
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
                             <TextInput
-                                label="Upřesnění jiné komplikace"
+                                label={t(
+                                    formTranslationKeys.specifyOtherComplications
+                                )}
                                 dbLabel={dbLabels.jine_pooperacni_komplikace}
                                 data={getDataFromPatientInterface(
                                     formData,
@@ -173,38 +188,45 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         </ConditionalCheckboxOption>
                     </ConditionalCheckboxes>
                     <SimpleCheckboxes
-                        title="Adjuvantní terapie"
+                        title={t(formTranslationKeys.adjuvantTherapy)}
                         data={formData}
                         dbLabel={dbLabels.adjuvantni_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
                         options={[
-                            'RT',
-                            'CHRT',
-                            'CH',
-                            'Protonová terapie',
-                            'Nebyla indikována',
+                            t(formTranslationKeys.rt),
+                            t(formTranslationKeys.chrt),
+                            t(formTranslationKeys.ch),
+                            t(formTranslationKeys.protonTherapy),
+                            t(formTranslationKeys.notIndicated),
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Nechirurgická"
+                    label={t(formTranslationKeys.nonSurgical)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Typ nechirurgické terapie - onkologická léčba"
+                        title={t(
+                            formTranslationKeys.nonSurgicalOncologicalTreatment
+                        )}
                         data={formData}
                         dbLabel={dbLabels.typ_nechirurgicke_terapie}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={['RT', 'CHRT', 'CH', 'Protonová terapie']}
+                        options={[
+                            t(formTranslationKeys.rt),
+                            t(formTranslationKeys.chrt),
+                            t(formTranslationKeys.ch),
+                            t(formTranslationKeys.protonTherapy),
+                        ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Nebyla indikována"
+                    label={t(formTranslationKeys.notIndicated)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

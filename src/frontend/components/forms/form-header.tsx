@@ -1,28 +1,32 @@
 import React from 'react'
 import { Box, Chip } from '@mui/material'
 import { FormType } from '../../constants'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../../translations'
 
 interface FormHeaderProps {
     formType: FormType
 }
 
 const FormHeader: React.FC<FormHeaderProps> = ({ formType }) => {
+    const { t } = useTranslation()
+
     // Define gland types and their labels
     const glandTypes = {
-        parotid: 'Příušní žláza',
-        submandibular: 'Podčelistní žláza',
-        sublingual: 'Podjazyková žláza',
+        parotid: t(appTranslationKeys.parotidGland),
+        submandibular: t(appTranslationKeys.submandibularGland),
+        sublingual: t(appTranslationKeys.sublingualGland),
     }
 
     // Define patient types and their styling
     const patientTypes = {
         benign: {
-            label: 'Nezhoubný',
+            label: t(appTranslationKeys.benignTumor),
             color: '#2e7d32',
             lightColor: 'rgba(46, 125, 50, 0.08)',
         },
         malignant: {
-            label: 'Zhoubný',
+            label: t(appTranslationKeys.malignantTumor),
             color: '#d32f2f',
             lightColor: 'rgba(211, 47, 47, 0.08)',
         },

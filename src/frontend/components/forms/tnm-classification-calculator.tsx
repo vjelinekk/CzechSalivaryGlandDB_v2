@@ -1,7 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react'
+import { useTranslation } from 'react-i18next'
 import useTNMClassification from '../../hooks/use-tnm-classification'
 import { PatientType } from '../../types'
 import SimpleCheckboxes from './simple-checkboxes'
+import { formTranslationKeys } from '../../translations'
 
 interface TNMClassificationCalculatorProps {
     tLabel: string
@@ -16,6 +18,8 @@ interface TNMClassificationCalculatorProps {
 const TNMClassificationCalculator: React.FC<
     TNMClassificationCalculatorProps
 > = ({ tLabel, nLabel, mLabel, tnmLabel, formData, setFormData, disabled }) => {
+    const { t } = useTranslation()
+
     const { tnm } = useTNMClassification(
         tLabel,
         nLabel,
@@ -28,7 +32,7 @@ const TNMClassificationCalculator: React.FC<
     return (
         <>
             <SimpleCheckboxes
-                title="T-klasifikace"
+                title={t(formTranslationKeys.tClassification)}
                 data={formData}
                 dbLabel={tLabel}
                 enableSingleSelect={true}
@@ -41,11 +45,11 @@ const TNMClassificationCalculator: React.FC<
                     'T3',
                     'T4a',
                     'T4b',
-                    'nebyla stanovena',
+                    t(formTranslationKeys.classificationNotDetermined),
                 ]}
             />
             <SimpleCheckboxes
-                title="N-klasifikace"
+                title={t(formTranslationKeys.nClassification)}
                 data={formData}
                 dbLabel={nLabel}
                 enableSingleSelect={true}
@@ -59,20 +63,24 @@ const TNMClassificationCalculator: React.FC<
                     'N2c',
                     'N3a',
                     'N3b',
-                    'nebyla stanovena',
+                    t(formTranslationKeys.classificationNotDetermined),
                 ]}
             />
             <SimpleCheckboxes
-                title="M-klasifikace"
+                title={t(formTranslationKeys.mClassification)}
                 data={formData}
                 dbLabel={mLabel}
                 enableSingleSelect={true}
                 setFormData={setFormData}
                 disabled={disabled}
-                options={['M0', 'M1', 'nebyla stanovena']}
+                options={[
+                    'M0',
+                    'M1',
+                    t(formTranslationKeys.classificationNotDetermined),
+                ]}
             />
             <div className="textInputDiv">
-                <p>Klasifikace: </p>
+                <p>{t(formTranslationKeys.classification)}</p>
                 <input
                     type="text"
                     className="textInput"

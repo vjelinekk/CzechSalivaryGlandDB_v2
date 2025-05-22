@@ -4,6 +4,32 @@ import ImportProvider from '../../src/frontend/components/import-context'
 import PatientsList from '../../src/frontend/components/patients-list'
 import { StudyType } from '../../src/frontend/constants'
 
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { appTranslationKeys } from '../../src/frontend/translations'
+
+beforeAll(async () => {
+    global.window = Object.create(window)
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+    }
+
+    await initI18n()
+})
+
 describe('PatientsList component', () => {
     const mockPatients = [
         {
@@ -48,9 +74,12 @@ describe('PatientsList component', () => {
 
         // Search for a patient
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText('Vyhledat...'), {
-                target: { value: 'John' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)),
+                {
+                    target: { value: 'John' },
+                }
+            )
         })
 
         // Assertion: Only the matching patient is rendered
@@ -61,9 +90,12 @@ describe('PatientsList component', () => {
 
         // Clear the search input
         await act(async () => {
-            fireEvent.change(screen.getByPlaceholderText('Vyhledat...'), {
-                target: { value: '' },
-            })
+            fireEvent.change(
+                screen.getByPlaceholderText(i18n.t(appTranslationKeys.search)),
+                {
+                    target: { value: '' },
+                }
+            )
         })
 
         // Assertion: All patients are rendered again
@@ -90,14 +122,21 @@ describe('PatientsList component', () => {
 
         // Set study name
         await act(async () => {
-            fireEvent.change(screen.getByLabelText('Název studie'), {
-                target: { value: 'Test Study' },
-            })
+            fireEvent.change(
+                screen.getByLabelText(
+                    i18n.t(appTranslationKeys.studyNamePlaceholder)
+                ),
+                {
+                    target: { value: 'Test Study' },
+                }
+            )
         })
 
         // Click create study button
         await act(async () => {
-            fireEvent.click(screen.getByText('Vytvořit novou studii'))
+            fireEvent.click(
+                screen.getByText(i18n.t(appTranslationKeys.createStudyButton))
+            )
         })
 
         // Assertion: Create study API function is called with correct data

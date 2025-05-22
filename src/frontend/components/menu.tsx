@@ -9,7 +9,6 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Divider,
     IconButton,
     Tooltip,
     styled,
@@ -19,6 +18,7 @@ import {
     DialogContentText,
     DialogActions,
     Button,
+    Divider,
 } from '@mui/material'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -31,6 +31,7 @@ import ShowChartIcon from '@mui/icons-material/ShowChart'
 import BackupIcon from '@mui/icons-material/Backup'
 import RestoreIcon from '@mui/icons-material/Restore'
 import ImportExport from '@mui/icons-material/ImportExport'
+import { Language } from '@mui/icons-material'
 import { ImportContext } from './import-context'
 
 // Define drawer widths for open and closed states
@@ -57,6 +58,8 @@ const StyledDrawer = styled(Drawer, {
         borderRight: '1px solid #e0e0e0', // Subtle border
     },
 }))
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface MenuProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
@@ -69,6 +72,7 @@ const Menu: React.FC<MenuProps> = ({
     activeMenuButton,
     setActiveMenuButton,
 }) => {
+    const { t } = useTranslation()
     const [open, setOpen] = useState(true)
 
     const handleButtonClick = (componentName: Components) => {
@@ -103,32 +107,32 @@ const Menu: React.FC<MenuProps> = ({
     // Define menu items with their icons and components
     const menuItems = [
         {
-            name: 'Seznam pacientů',
+            name: t(appTranslationKeys.patientList),
             component: Components.patientsList,
             icon: <PeopleAltIcon />,
         },
         {
-            name: 'Plánované kontroly',
+            name: t(appTranslationKeys.plannedChecks),
             component: Components.plannedChecks,
             icon: <CalendarMonthIcon />,
         },
         {
-            name: 'Přidat pacienta',
+            name: t(appTranslationKeys.addPatient),
             component: Components.addPatient,
             icon: <PersonAddIcon />,
         },
         {
-            name: 'Studie',
+            name: t(appTranslationKeys.studies),
             component: Components.studiesList,
             icon: <FolderIcon />,
         },
         {
-            name: 'Přidat studii',
+            name: t(appTranslationKeys.addStudy),
             component: Components.addStudy,
             icon: <CreateNewFolderIcon />,
         },
         {
-            name: 'Kaplan-Meier',
+            name: t(appTranslationKeys.kaplanMeier),
             component: Components.kaplanMeier,
             icon: <ShowChartIcon />,
         },
@@ -233,7 +237,52 @@ const Menu: React.FC<MenuProps> = ({
             <List>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <Tooltip
-                        title={open ? '' : 'Importovat data'}
+                        title={open ? '' : t(appTranslationKeys.language)}
+                        placement="right"
+                    >
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                '&:hover': {
+                                    backgroundColor: '#f5f5f5', // Light gray on hover
+                                },
+                            }}
+                            onClick={() =>
+                                handleButtonClick(Components.setLanguage)
+                            }
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                    color: '#757575', // Gray for utility icons
+                                }}
+                            >
+                                <Language />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={t(appTranslationKeys.language)}
+                                sx={{
+                                    opacity: open ? 1 : 0,
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                    },
+                                }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
+                </ListItem>
+            </List>
+
+            <Divider sx={{ backgroundColor: '#e0e0e0' }} />
+
+            <List>
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                    <Tooltip
+                        title={open ? '' : t(appTranslationKeys.importData)}
                         placement="right"
                     >
                         <ListItemButton
@@ -258,7 +307,7 @@ const Menu: React.FC<MenuProps> = ({
                                 <ImportExport />
                             </ListItemIcon>
                             <ListItemText
-                                primary="Importovat data"
+                                primary={t(appTranslationKeys.importData)}
                                 sx={{
                                     opacity: open ? 1 : 0,
                                     '& .MuiListItemText-primary': {
@@ -271,7 +320,7 @@ const Menu: React.FC<MenuProps> = ({
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <Tooltip
-                        title={open ? '' : 'Zálohovat databázi'}
+                        title={open ? '' : t(appTranslationKeys.backupDatabase)}
                         placement="right"
                     >
                         <ListItemButton
@@ -296,7 +345,7 @@ const Menu: React.FC<MenuProps> = ({
                                 <BackupIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary="Zálohovat databázi"
+                                primary={t(appTranslationKeys.backupDatabase)}
                                 sx={{
                                     opacity: open ? 1 : 0,
                                     '& .MuiListItemText-primary': {
@@ -309,7 +358,9 @@ const Menu: React.FC<MenuProps> = ({
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <Tooltip
-                        title={open ? '' : 'Obnovit databázi'}
+                        title={
+                            open ? '' : t(appTranslationKeys.restoreDatabase)
+                        }
                         placement="right"
                     >
                         <ListItemButton
@@ -334,7 +385,7 @@ const Menu: React.FC<MenuProps> = ({
                                 <RestoreIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary="Obnovit databázi"
+                                primary={t(appTranslationKeys.restoreDatabase)}
                                 sx={{
                                     opacity: open ? 1 : 0,
                                     '& .MuiListItemText-primary': {
@@ -345,17 +396,17 @@ const Menu: React.FC<MenuProps> = ({
                         </ListItemButton>
                     </Tooltip>
                     <Dialog open={openLoadBackUpDialog}>
-                        <DialogTitle>Obnovení databáze</DialogTitle>
+                        <DialogTitle>
+                            {t(appTranslationKeys.databaseRestore)}
+                        </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Databáze bude obnovena ze zálohy. Tento proces
-                                smaže veškerá data v databázi a nahradí je daty
-                                ze zálohy. Opravdu chcete pokračovat?
+                                {t(appTranslationKeys.databaseRestoreWarning)}
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleLoadBackUpConfirm}>
-                                Rozumím
+                                {t(appTranslationKeys.understand)}
                             </Button>
                         </DialogActions>
                     </Dialog>

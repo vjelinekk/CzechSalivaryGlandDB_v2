@@ -6,6 +6,8 @@ import FormGroup from '@mui/material/FormGroup'
 import ListSubheader from '@mui/material/ListSubheader'
 import { FilterColumn, FilteredColumns } from '../types'
 import FiltrationCheckbox from './filtration-checkbox'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys, formTranslationKeys } from '../translations'
 
 interface FiltrationBenignProps {
     filteredColumns: FilteredColumns
@@ -16,32 +18,34 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
     filteredColumns,
     setFilteredColumns,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Typ terapie
+                    {t(formTranslationKeys.therapyType)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Chirurgická"
+                            label={t(formTranslationKeys.surgical)}
                             dbValue="Chirurgická"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="Nechirurgická-sledování"
+                            label={t(formTranslationKeys.nonSurgicalMonitoring)}
                             dbValue="Nechirurgická-sledování"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="Nebyla indikována"
+                            label={t(formTranslationKeys.notIndicated)}
                             dbValue="Nebyla indikována"
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
@@ -52,14 +56,14 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Pohlaví
+                    {t(formTranslationKeys.gender)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Muž"
+                            label={t(formTranslationKeys.male)}
                             dbValue="Muž"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -67,7 +71,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Žena"
+                            label={t(formTranslationKeys.female)}
                             dbValue="Žena"
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
@@ -79,14 +83,14 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Perzistence
+                    {t(formTranslationKeys.persistence)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Ano"
+                            label={t(appTranslationKeys.yes)}
                             dbValue="Ano"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -94,7 +98,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Ne"
+                            label={t(appTranslationKeys.no)}
                             dbValue="Ne"
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
@@ -106,14 +110,14 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Recidiva
+                    {t(formTranslationKeys.recurrence)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Ano"
+                            label={t(appTranslationKeys.yes)}
                             dbValue="Ano"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -121,7 +125,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Ne"
+                            label={t(appTranslationKeys.no)}
                             dbValue="Ne"
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
@@ -133,14 +137,14 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Stav
+                    {t(formTranslationKeys.status)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
-                            label="Žije"
+                            label={t(formTranslationKeys.alive)}
                             dbValue="Žije"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
@@ -148,7 +152,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             isSingleCheckGroup={true}
                         />
                         <FiltrationCheckbox
-                            label="Zemřel"
+                            label={t(formTranslationKeys.deceased)}
                             dbValue="Zemřel"
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
@@ -160,91 +164,93 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
             </ListItem>
             <ListSubheader disableSticky>
                 <Typography variant="h6" fontWeight="bold">
-                    Histopatologie
+                    {t(formTranslationKeys.histopathology)}
                 </Typography>
             </ListSubheader>
             <ListItem>
                 <FormControl component="fieldset">
                     <FormGroup>
                         <FiltrationCheckbox
-                            label="acinocelulární karcinom"
+                            label={t(appTranslationKeys.acinocellularCarcinoma)}
                             dbValue="acinocelulární karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="pleomorfní adenom"
+                            label={t(formTranslationKeys.pleomorphicAdenoma)}
                             dbValue="pleomorfní adenom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="papilární cystadenolymfom (Warthinův tumor)"
+                            label={t(
+                                formTranslationKeys.papillaryCystadenolymphomaWarthin
+                            )}
                             dbValue="papilární cystadenolymfom (Warthinův tumor)"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="bazocelulární adenom"
+                            label={t(formTranslationKeys.basalCellAdenoma)}
                             dbValue="bazocelulární adenom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="myoepiteliom"
+                            label={t(formTranslationKeys.myoepithelioma)}
                             dbValue="myoepiteliom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="onkocytom"
+                            label={t(formTranslationKeys.oncocytoma)}
                             dbValue="onkocytom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="kanalikulární adenom"
+                            label={t(formTranslationKeys.canalicularAdenoma)}
                             dbValue="kanalikulární adenom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="sebaceózní adenom"
+                            label={t(formTranslationKeys.sebaceousAdenoma)}
                             dbValue="sebaceózní adenom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="duktální papilom"
+                            label={t(formTranslationKeys.ductalPapilloma)}
                             dbValue="duktální papilom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="debaceózní lymfadenom"
+                            label={t(formTranslationKeys.debaceousLymphadenoma)}
                             dbValue="debaceózní lymfadenom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="keratocystom"
+                            label={t(formTranslationKeys.keratocystoma)}
                             dbValue="keratocystom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label="jiné"
+                            label={t(appTranslationKeys.other)}
                             dbValue="jiné"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}

@@ -6,17 +6,20 @@ import getDataFromPatientInterface from '../../../../utils/getDataFromPatientInt
 import SimpleCheckboxes from '../../simple-checkboxes'
 import ConditionalCheckboxes from '../../conditional-checkboxes'
 import ConditionalCheckboxOption from '../../conditional-checkbox-option'
-
+import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../../../translations'
 const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>DIAGNOSTIKA</h1>
+            <h1>{t(formTranslationKeys.diagnosisTitle)}</h1>
             <DatePicker
-                label="Rok diagnózy"
+                label={t(formTranslationKeys.yearOfDiagnosis)}
                 dbLabel={dbLabels.rok_diagnozy}
                 data={getDataFromPatientInterface(
                     formData,
@@ -26,7 +29,7 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Diagnóza (MKN-10):"
+                title={t(formTranslationKeys.diagnosisIcd10)}
                 dbLabel={dbLabels.diagnoza_mkn_10}
                 data={formData}
                 setFormData={setFormData}
@@ -35,106 +38,121 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Strana nálezu"
+                title={t(formTranslationKeys.sideOfFinding)}
                 dbLabel={dbLabels.strana_nalezu}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['Vpravo', 'Vlevo', 'Oboustranně']}
+                options={[
+                    t(formTranslationKeys.sideRight),
+                    t(formTranslationKeys.sideLeft),
+                    t(formTranslationKeys.bilateraly),
+                ]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Funkce n. VII dle H-B (předoperačně)"
+                title={t(formTranslationKeys.nVIIFunctionHBPreOp)}
                 dbLabel={dbLabels.funkce_n_vii_dle_h_b_predoperacne}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['I', 'II', 'III', 'IV', 'V', 'VI']}
+                options={[
+                    t(formTranslationKeys.I),
+                    t(formTranslationKeys.II),
+                    t(formTranslationKeys.III),
+                    t(formTranslationKeys.IV),
+                    t(formTranslationKeys.V),
+                    t(formTranslationKeys.VI),
+                ]}
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Použité diagnostické metody"
+                title={t(formTranslationKeys.diagnosticMethodsUsed)}
                 dbLabel={dbLabels.diagnosticke_metody}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={false}
                 options={[
-                    'UZ',
-                    'CT',
-                    'MRI',
-                    'PET/CT',
-                    'PET/MR',
-                    'Zobrazovací vyšetření nebylo provedeno',
+                    t(formTranslationKeys.methodUz),
+                    t(formTranslationKeys.methodCt),
+                    t(formTranslationKeys.methodMri),
+                    t(formTranslationKeys.methodPetCt),
+                    t(formTranslationKeys.methodPetMr),
+                    t(formTranslationKeys.noImagingPerformed),
                 ]}
                 disabled={disabled}
             />
             <ConditionalCheckboxes
-                title="FNAB"
+                title={t(formTranslationKeys.fnab)}
                 dbLabel={dbLabels.fnab}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <SimpleCheckboxes
-                        title="Výsledek FNAB (cytopatologická klasifikace tumorů dle MSRSGC)"
+                        title={t(formTranslationKeys.fnabResultMSRSGC)}
                         dbLabel={dbLabels.vysledek_fnab}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         options={[
-                            'I nediagnostická',
-                            'II nenádorová',
-                            'III atypie neurčeného významu',
-                            'IVa nádor benigní',
-                            'IVb nádor nejasného maligního potenciálu',
-                            'V nádor suspektní z malignity',
-                            'VI nádor maligní',
+                            t(formTranslationKeys.fnabResultI),
+                            t(formTranslationKeys.fnabResultII),
+                            t(formTranslationKeys.atypiaUnspecified),
+                            t(formTranslationKeys.IVaTumorBenign),
+                            t(formTranslationKeys.uncertainMalignantPotential),
+                            t(formTranslationKeys.suspectedMalignancy),
+                            t(formTranslationKeys.VITumorMalignant),
                         ]}
                         disabled={disabled}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title="CORE biopsie"
+                title={t(formTranslationKeys.coreBiopsy)}
                 dbLabel={dbLabels.core_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title="Výsledek CORE biopsie"
+                        title={t(formTranslationKeys.coreBiopsyResult)}
                         dbLabel={dbLabels.core_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label="acinocelulární karcinom"
+                            label={t(
+                                formTranslationKeys.acinocellularCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sekretorický karcinom"
+                            label={t(formTranslationKeys.secretoryCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mukoepidermoidní karcinom"
+                            label={t(
+                                formTranslationKeys.mucoepidermoidCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -146,16 +164,18 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'low grade',
-                                    'intermediate grade',
-                                    'high grade',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.lowGrade),
+                                    t(formTranslationKeys.intermediateGrade),
+                                    t(formTranslationKeys.highGrade),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="adenoidně cystický karcinom"
+                            label={t(
+                                formTranslationKeys.adenoidCysticCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -167,15 +187,21 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    's převahou tubulární/kribriformní složky',
-                                    '>30% solidní složky',
-                                    'high grade',
+                                    t(
+                                        formTranslationKeys.tubularCribriformDominant
+                                    ),
+                                    t(
+                                        formTranslationKeys.moreThan30SolidComponent
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="polymorfní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.polymorphousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -185,35 +211,43 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'klasický',
-                                    'kribriformní',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.classic),
+                                    t(formTranslationKeys.cribriform),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="epiteliální myoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.epithelialMyoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="hyalinizující karcinom ze světlých buněk"
+                            label={t(
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="bazocelulární adenokarcinom"
+                            label={t(
+                                formTranslationKeys.basalCellAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sebaceózní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.sebaceousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="intraduktální karcinom"
+                            label={t(formTranslationKeys.intraductalCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -223,17 +257,17 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'podobný vmezeřenému vývodu',
-                                    'apokrinní',
-                                    'onkocytární',
-                                    'smíšený',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.intercalatedDuctLike),
+                                    t(formTranslationKeys.apocrine),
+                                    t(formTranslationKeys.oncocytic),
+                                    t(formTranslationKeys.mixed),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="salivární karcinom NOS"
+                            label={t(formTranslationKeys.salivaryCarcinomaNos)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -243,25 +277,33 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'onkocytární adenokarcinom',
-                                    'adenokarcinom intestinálního typu',
-                                    'subtyp nebyl určen',
+                                    t(
+                                        formTranslationKeys.oncocyticAdenocarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.intestinalTypeAdenocarcinoma
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="salivární duktální karcinom"
+                            label={t(formTranslationKeys.salivaryDuctCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="myoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.myoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="karcinom z pleomorfního adenomu"
+                            label={t(
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -273,21 +315,23 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'intrakapsulární',
-                                    'minimálně invazivní',
-                                    'invazivní',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.intracapsular),
+                                    t(formTranslationKeys.minimallyInvasive),
+                                    t(formTranslationKeys.invasive),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="karcinosarkom"
+                            label={t(formTranslationKeys.carcinosarcoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
+                            label={t(
+                                formTranslationKeys.poorlyDifferentiatedCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -299,93 +343,111 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'nediferencovaný karcinom',
-                                    'velkobuněčný neuroendokrinní karcinom',
-                                    'malobuněčný neuroendokrinní karcinom',
-                                    'subtyp nebyl určen',
+                                    t(
+                                        formTranslationKeys.undifferentiatedCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="lymfoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.lymphoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="skvamocelulární karcinom"
+                            label={t(formTranslationKeys.squamousCellCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mikrosekretorický adenokarcinom"
+                            label={t(
+                                formTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sklerózující mikrocystický adenokarcinom"
+                            label={t(
+                                formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mucinózní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.mucinousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="asialoblastom"
+                            label={t(formTranslationKeys.asialoblastoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="MALT-lymfom"
+                            label={t(formTranslationKeys.maltLymphoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="jiné"
+                            label={t(formTranslationKeys.other)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
             </ConditionalCheckboxes>
             <ConditionalCheckboxes
-                title="Otevřená biopsie"
+                title={t(formTranslationKeys.openBiopsy)}
                 dbLabel={dbLabels.otevrena_biopsie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="Ano"
+                    label={t(formTranslationKeys.yes)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <ConditionalCheckboxes
-                        title="Výsledek CORE biopsie"
+                        title={t(formTranslationKeys.openBiopsyResult)}
                         dbLabel={dbLabels.otevrena_vysledek}
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label="acinocelulární karcinom"
+                            label={t(
+                                formTranslationKeys.acinocellularCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sekretorický karcinom"
+                            label={t(formTranslationKeys.secretoryCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mukoepidermoidní karcinom"
+                            label={t(
+                                formTranslationKeys.mucoepidermoidCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -397,16 +459,18 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'low grade',
-                                    'intermediate grade',
-                                    'high grade',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.lowGrade),
+                                    t(formTranslationKeys.intermediateGrade),
+                                    t(formTranslationKeys.highGrade),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="adenoidně cystický karcinom"
+                            label={t(
+                                formTranslationKeys.adenoidCysticCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -418,15 +482,21 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    's převahou tubulární/kribriformní složky',
-                                    '>30% solidní složky',
-                                    'high grade',
+                                    t(
+                                        formTranslationKeys.tubularCribriformDominant
+                                    ),
+                                    t(
+                                        formTranslationKeys.moreThan30SolidComponent
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="polymorfní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.polymorphousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -438,35 +508,43 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'klasický',
-                                    'kribriformní',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.classic),
+                                    t(formTranslationKeys.cribriform),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="epiteliální myoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.epithelialMyoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="hyalinizující karcinom ze světlých buněk"
+                            label={t(
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="bazocelulární adenokarcinom"
+                            label={t(
+                                formTranslationKeys.basalCellAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sebaceózní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.sebaceousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="intraduktální karcinom"
+                            label={t(formTranslationKeys.intraductalCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -478,17 +556,17 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'podobný vmezeřenému vývodu',
-                                    'apokrinní',
-                                    'onkocytární',
-                                    'smíšený',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.intercalatedDuctLike),
+                                    t(formTranslationKeys.apocrine),
+                                    t(formTranslationKeys.oncocytic),
+                                    t(formTranslationKeys.mixed),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="salivární karcinom NOS"
+                            label={t(formTranslationKeys.salivaryCarcinomaNos)}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -500,25 +578,33 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'onkocytární adenokarcinom',
-                                    'adenokarcinom intestinálního typu',
-                                    'subtyp nebyl určen',
+                                    t(
+                                        formTranslationKeys.oncocyticAdenocarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.intestinalTypeAdenocarcinoma
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="salivární duktální karcinom"
+                            label={t(formTranslationKeys.salivaryDuctCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="myoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.myoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="karcinom z pleomorfního adenomu"
+                            label={t(
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -530,21 +616,23 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'intrakapsulární',
-                                    'minimálně invazivní',
-                                    'invazivní',
-                                    'subtyp nebyl určen',
+                                    t(formTranslationKeys.intracapsular),
+                                    t(formTranslationKeys.minimallyInvasive),
+                                    t(formTranslationKeys.invasive),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="karcinosarkom"
+                            label={t(formTranslationKeys.carcinosarcoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
+                            label={t(
+                                formTranslationKeys.poorlyDifferentiatedCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -556,58 +644,67 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    'nediferencovaný karcinom',
-                                    'velkobuněčný neuroendokrinní karcinom',
-                                    'malobuněčný neuroendokrinní karcinom',
-                                    'subtyp nebyl určen',
+                                    t(
+                                        formTranslationKeys.undifferentiatedCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(
+                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
+                                    ),
+                                    t(formTranslationKeys.subtypeNotSpecified),
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label="lymfoepiteliální karcinom"
+                            label={t(
+                                formTranslationKeys.lymphoepithelialCarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="skvamocelulární karcinom"
+                            label={t(formTranslationKeys.squamousCellCarcinoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mikrosekretorický adenokarcinom"
+                            label={t(
+                                formTranslationKeys.microsecretoryAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="sklerózující mikrocystický adenokarcinom"
+                            label={t(
+                                formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="mucinózní adenokarcinom"
+                            label={t(
+                                formTranslationKeys.mucinousAdenocarcinoma
+                            )}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="asialoblastom"
+                            label={t(formTranslationKeys.asialoblastoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
-                            label="MALT-lymfom"
-                            disabled={disabled}
-                            setFormData={setFormData}
-                        />
-                        <ConditionalCheckboxOption
-                            label="MALT-lymfom"
+                            label={t(formTranslationKeys.maltLymphoma)}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                     </ConditionalCheckboxes>
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
-                    label="Ne"
+                    label={t(formTranslationKeys.no)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

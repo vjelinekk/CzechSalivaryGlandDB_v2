@@ -4,6 +4,32 @@ import EditButtons from '../../src/frontend/components/forms/edit-buttons'
 import { jest } from '@jest/globals'
 import { act } from 'react-dom/test-utils'
 
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+beforeAll(async () => {
+    global.window = Object.create(window)
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+    }
+
+    await initI18n()
+})
+
 describe('EditButtons component', () => {
     const formDataMock = {}
     const setFormDataMock = jest.fn()
@@ -72,13 +98,17 @@ describe('EditButtons component', () => {
             />
         )
 
-        const editButton = screen.getByText('Editovat')
+        const editButton = screen.getByText(
+            i18n.t(formTranslationKeys.editPatient)
+        )
         fireEvent.click(editButton)
         expect(setFormStateMock).toHaveBeenCalledWith('edit')
     })
 
     test('calls handleCancelButtonClick', () => {
-        const cancelButton = screen.getByText('Zrušit editaci')
+        const cancelButton = screen.getByText(
+            i18n.t(formTranslationKeys.cancelEdit)
+        )
         fireEvent.click(cancelButton)
         expect(setFormStateMock).toHaveBeenCalledWith('view')
         expect(setFormDataMock).toHaveBeenCalledWith(databaseFormDataMock)
@@ -88,7 +118,9 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleSaveButtonClick', async () => {
-        const saveButton = screen.getByText('Uložit změny')
+        const saveButton = screen.getByText(
+            i18n.t(formTranslationKeys.saveChanges)
+        )
         await act(async () => fireEvent.click(saveButton))
         expect(setEditSavedMock).toHaveBeenCalledTimes(1)
         expect(setDatabaseFormDataMock).toHaveBeenCalledWith(formDataMock)
@@ -98,7 +130,9 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleDeleteButtonClick', () => {
-        const deleteButton = screen.getByText('Smazat pacienta')
+        const deleteButton = screen.getByText(
+            i18n.t(formTranslationKeys.deletePatient)
+        )
         fireEvent.click(deleteButton)
         const confirmationDialog = screen.getByText(
             'Opravdu chcete smazat pacienta?'
@@ -107,10 +141,12 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleDeleteFromStudyClick', () => {
-        const deleteFromStudyButton = screen.getByText('Odebrat z studie')
+        const deleteFromStudyButton = screen.getByText(
+            i18n.t(formTranslationKeys.removeFromStudy)
+        )
         fireEvent.click(deleteFromStudyButton)
         const confirmationDialog = screen.getByText(
-            'Opravdu chcete odebrat pacienta ze studie?'
+            i18n.t(formTranslationKeys.confirmRemoveFromStudy)
         )
         expect(confirmationDialog).toBeInTheDocument()
     })

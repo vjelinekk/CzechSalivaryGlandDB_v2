@@ -12,6 +12,8 @@ import {
 import { KaplanMeierType, kmGroupColorMap } from '../constants'
 import { KaplanMeierData } from '../types'
 import { calculateKaplanMeierCurveData } from '../utils/kaplanMeierCalculations'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface KaplanMeierChartProps {
     kaplanMeierData: KaplanMeierData
@@ -22,6 +24,7 @@ const KaplanMeierChart: React.FC<KaplanMeierChartProps> = ({
     kaplanMeierData,
     selectedCurveType,
 }) => {
+    const { t } = useTranslation()
     const [curveData, setCurveData] = useState(
         calculateKaplanMeierCurveData(kaplanMeierData)
     )
@@ -40,7 +43,7 @@ const KaplanMeierChart: React.FC<KaplanMeierChartProps> = ({
                     type="number"
                     allowDuplicatedCategory={false}
                     label={{
-                        value: 'Čas (roky)',
+                        value: t(appTranslationKeys.chartTime),
                         position: 'insideCenter',
                         dy: 20,
                     }}
@@ -49,8 +52,10 @@ const KaplanMeierChart: React.FC<KaplanMeierChartProps> = ({
                     label={{
                         value:
                             selectedCurveType === KaplanMeierType.survival
-                                ? 'Pravděpodobnost přežití'
-                                : 'Pravděpodobnost recidivy',
+                                ? t(appTranslationKeys.chartSurvivalProbability)
+                                : t(
+                                      appTranslationKeys.chartRecurrenceProbability
+                                  ),
                         angle: -90,
                         dx: -25,
                         position: 'insideCenter',

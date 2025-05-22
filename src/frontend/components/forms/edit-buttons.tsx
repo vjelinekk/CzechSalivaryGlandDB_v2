@@ -11,6 +11,8 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
+import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 interface EditButtonsProps {
     formState: FormStates
@@ -47,6 +49,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     setActivePatient,
     idStudie,
 }) => {
+    const { t } = useTranslation()
     const [openDelePatientDialog, setOpenDeletePatientDialog] = useState(false)
     const [openDeleteFromStudyDialog, setOpenDeleteFromStudyDialog] =
         useState(false)
@@ -141,7 +144,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             type="submit"
                             onClick={handleCancelButtonClick}
                         >
-                            Zrušit editaci
+                            {t(formTranslationKeys.cancelEdit)}
                         </button>
                         <button
                             className="basicButton"
@@ -149,7 +152,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleSaveButtonClick}
                             disabled={formErrors.length > 0}
                         >
-                            Uložit změny
+                            {t(formTranslationKeys.saveChanges)}
                         </button>
                     </>
                 )}
@@ -158,31 +161,33 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         className="basicButton"
                         onClick={handleEditButtonClick}
                     >
-                        Editovat
+                        {t(formTranslationKeys.editPatient)}
                     </button>
                 )}
                 <button
                     onClick={handleDeleteButtonClick}
                     className="basicButton"
-                    style={{ background: 'red' }}
+                    style={{ background: 'var(--colorRed)' }}
                 >
-                    Smazat pacienta
+                    {t(formTranslationKeys.deletePatient)}
                 </button>
                 <Dialog open={openDelePatientDialog}>
-                    <DialogTitle>Opravdu chcete smazat pacienta?</DialogTitle>
+                    <DialogTitle>
+                        {t(formTranslationKeys.confirmDeletePatient)}
+                    </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Tato akce je nevratná.
+                            {t(formTranslationKeys.deletePatientWarning)}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button
                             onClick={() => setOpenDeletePatientDialog(false)}
                         >
-                            Zrušit
+                            {t(formTranslationKeys.cancel)}
                         </Button>
                         <Button color="error" onClick={handleDeleteClick}>
-                            Smazat
+                            {t(formTranslationKeys.delete)}
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -191,18 +196,19 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         <button
                             className="basicButton"
                             onClick={handleDeleteFromStudyClick}
-                            style={{ background: 'red' }}
+                            style={{ background: 'var(--colorRed)' }}
                         >
-                            Odebrat z studie
+                            {t(formTranslationKeys.removeFromStudy)}
                         </button>
                         <Dialog open={openDeleteFromStudyDialog}>
                             <DialogTitle>
-                                Opravdu chcete odebrat pacienta ze studie?
+                                {t(formTranslationKeys.confirmRemoveFromStudy)}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Pacienta je možné po odebrání znovu přidat
-                                    do studie.
+                                    {t(
+                                        formTranslationKeys.removeFromStudyWarning
+                                    )}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
@@ -211,13 +217,13 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                         setOpenDeleteFromStudyDialog(false)
                                     }
                                 >
-                                    Zrušit
+                                    {t(formTranslationKeys.cancel)}
                                 </Button>
                                 <Button
                                     color="error"
                                     onClick={handleDeleteFromStudy}
                                 >
-                                    Odebrat
+                                    {t(formTranslationKeys.remove)}
                                 </Button>
                             </DialogActions>
                         </Dialog>

@@ -3,22 +3,48 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import AddStudy from '../../src/frontend/components/add-study'
 import { Components, StudyType } from '../../src/frontend/constants'
 
-const PRIUSNI_STUDIE = 'Nová studie Příušních žláz'
-const PODCELISTNI_STUDIE = 'Nová studie Podčelistních žláz'
-const PODJAZYKOVA_STUDIE = 'Nová studie Podjazykových žláz'
-const SPECIALNI_STUDIE = 'Nová studie Speciální studie'
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { appTranslationKeys } from '../../src/frontend/translations'
 
-const studies = [
-    PRIUSNI_STUDIE,
-    PODCELISTNI_STUDIE,
-    PODJAZYKOVA_STUDIE,
-    SPECIALNI_STUDIE,
-]
+let PRIUSNI_STUDIE, PODCELISTNI_STUDIE, PODJAZYKOVA_STUDIE, SPECIALNI_STUDIE
+
+beforeAll(async () => {
+    global.window = Object.create(window)
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+    }
+
+    await initI18n()
+    PRIUSNI_STUDIE = i18n.t(appTranslationKeys.newStudyParotid)
+    PODCELISTNI_STUDIE = i18n.t(appTranslationKeys.newStudySubmandibular)
+    PODJAZYKOVA_STUDIE = i18n.t(appTranslationKeys.newStudySublingual)
+    SPECIALNI_STUDIE = i18n.t(appTranslationKeys.newStudySpecial)
+})
 
 describe('AddStudy component', () => {
     test('should render correctly', () => {
         const setActiveComponentMock = jest.fn()
         render(<AddStudy setActiveComponent={setActiveComponentMock} />)
+        const studies = [
+            PRIUSNI_STUDIE,
+            PODCELISTNI_STUDIE,
+            PODJAZYKOVA_STUDIE,
+            SPECIALNI_STUDIE,
+        ]
 
         studies.forEach((study) => {
             expect(screen.getByText(study)).toBeInTheDocument()

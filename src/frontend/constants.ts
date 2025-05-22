@@ -1,8 +1,10 @@
+import { appTranslationKeys } from './translations'
+
 export enum Components {
     patientsList,
     plannedChecks,
     addPatient,
-    addPatientBenign,
+    AddPatientBenign,
     addPatientMalignant,
     studiesList,
     addStudy,
@@ -14,6 +16,7 @@ export enum Components {
     study,
     kaplanMeier,
     import,
+    setLanguage,
 }
 
 export enum StudyType {
@@ -30,11 +33,11 @@ export enum FormStates {
 }
 
 export const formTypeToStringMap: { [key: number]: string } = {
-    1: 'podčelistní',
-    2: 'podjazyková',
-    3: 'příušní',
-    4: 'podčelistní',
-    5: 'příušní',
+    1: appTranslationKeys.submandibularGland,
+    2: appTranslationKeys.sublingualGland,
+    3: appTranslationKeys.parotidGland,
+    4: appTranslationKeys.submandibularGland,
+    5: appTranslationKeys.parotidGland,
 }
 
 export const formTypeToBasicStringMap: { [key: number]: string } = {
@@ -46,10 +49,10 @@ export const formTypeToBasicStringMap: { [key: number]: string } = {
 }
 
 export const studyTypeToStringMap: { [key: number]: string } = {
-    1: 'podčelistní',
-    2: 'podjazyková',
-    3: 'příušní',
-    4: 'speciální',
+    1: appTranslationKeys.submandibularGland,
+    2: appTranslationKeys.sublingualGland,
+    3: appTranslationKeys.parotidGland,
+    4: appTranslationKeys.special,
 }
 
 export enum dbLabels {

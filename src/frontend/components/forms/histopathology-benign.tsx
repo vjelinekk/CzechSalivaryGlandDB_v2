@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { dbLabels } from '../../constants'
 import { GlandComponentProps } from '../../types'
@@ -7,16 +8,19 @@ import ConditionalCheckboxes from './conditional-checkboxes'
 import SimpleCheckboxes from './simple-checkboxes'
 import TextInput from './text-input'
 import NumberInput from './number-input'
+import { formTranslationKeys } from '../../translations'
 
 const HistopathologyBenign: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>HISTOPATOLOGIE</h1>
-            <h2>Histologický typ nádoru</h2>
+            <h1>{t(formTranslationKeys.histopathology)}</h1>
+            <h2>{t(formTranslationKeys.histologicalType)}</h2>
             <ConditionalCheckboxes
                 dbLabel={dbLabels.histopatologie_vysledek}
                 data={formData}
@@ -24,62 +28,64 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 enableSingleSelect={true}
             >
                 <ConditionalCheckboxOption
-                    label="pleomorfní adenom"
+                    label={t(formTranslationKeys.pleomorphicAdenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="papilární cystadenolymfom (Warthinův tumor)"
+                    label={t(formTranslationKeys.coreResultWarthinTumor)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="bazocelulární adenom"
+                    label={t(formTranslationKeys.basalCellAdenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="myoepiteliom"
+                    label={t(formTranslationKeys.myoepithelioma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="onkocytom"
+                    label={t(formTranslationKeys.oncocytoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="kanalikulární adenom"
+                    label={t(formTranslationKeys.canalicularAdenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="sebaceózní adenom"
+                    label={t(formTranslationKeys.sebaceousAdenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="duktální papilom"
+                    label={t(formTranslationKeys.ductalPapilloma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="debaceózní lymfadenom"
+                    label={t(formTranslationKeys.sebaceousLymphadenoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="keratocystom"
+                    label={t(formTranslationKeys.keratocystoma)}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
-                    label="jiné"
+                    label={t(formTranslationKeys.other)}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
                     <TextInput
-                        label="Specifikace histologického typu"
+                        label={t(
+                            formTranslationKeys.histologicalTypeSpecification
+                        )}
                         dbLabel={dbLabels.histopatologie_vysledek_jine}
                         data={getDataFromPatientInterface(
                             formData,
@@ -90,9 +96,9 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                     />
                 </ConditionalCheckboxOption>
             </ConditionalCheckboxes>
-            <h2>Specifikace histologického typu</h2>
+            <h2>{t(formTranslationKeys.histologicalTypeSpecification)}</h2>
             <NumberInput
-                label="Velikost nádoru - největší rozměr (mm)"
+                label={t(formTranslationKeys.tumorSizeLargestDimension)}
                 dbLabel={dbLabels.velikost_nadoru_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -102,7 +108,7 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <TextInput
-                label="Velikost nádoru - nebyla určena (vysvětlit)"
+                label={t(formTranslationKeys.tumorSizeNotDeterminedExplain)}
                 dbLabel={dbLabels.velikost_nadoru_neurcena_histopatologie}
                 data={getDataFromPatientInterface(
                     formData,
@@ -112,12 +118,12 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
             />
             <SimpleCheckboxes
-                title="Okraj resekce"
+                title={t(formTranslationKeys.resectionMargin)}
                 dbLabel={dbLabels.okraj_resekce_histopatologie}
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={['R0', 'R1']}
+                options={[t(formTranslationKeys.r0), t(formTranslationKeys.r1)]}
                 disabled={disabled}
             />
         </div>

@@ -67,6 +67,8 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -83,6 +85,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     setActiveComponent,
     setActiveMenuButton,
 }) => {
+    const { t } = useTranslation()
     const [patients, setPatients] = useState<PatientType[]>([])
     const [patientsToSearchFrom, setPatientsToSearchFrom] = useState<
         PatientType[]
@@ -112,7 +115,6 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 : null
             : null,
         [FilterColumn.HISTOPATOLOGIE_VYSLEDEK]: [],
-        [FilterColumn.FORM_TYPE]: [],
         [FilterColumn.TYP_TERAPIE]: [],
         [FilterColumn.PERZISTENCE]: null,
         [FilterColumn.RECIDIVA]: null,
@@ -319,12 +321,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
             >
                 {studyType && !idStudie ? (
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="h6" gutterBottom>
-                            Nová studie
-                        </Typography>
                         <TextField
                             fullWidth
-                            label="Název studie"
+                            label={t(appTranslationKeys.studyNamePlaceholder)}
                             variant="outlined"
                             data-testid="study-name-input"
                             margin="normal"
@@ -349,23 +348,25 @@ const PatientsList: React.FC<PatientsListProps> = ({
                             }}
                             sx={{ mt: 1 }}
                         >
-                            Vytvořit novou studii
+                            {t(appTranslationKeys.createStudyButton)}
                         </Button>
 
                         <Dialog open={openEmptyNameAlert}>
                             <DialogTitle>
-                                Název studie nesmí být prázdný
+                                {t(appTranslationKeys.emptyStudyNameAlertTitle)}
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText>
-                                    Byl zadán prázdný název studie
+                                    {t(
+                                        appTranslationKeys.emptyStudyNameAlertText
+                                    )}
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
                                 <Button
                                     onClick={() => setOpenEmptyNameAlert(false)}
                                 >
-                                    Rozumím
+                                    {t(appTranslationKeys.understand)}
                                 </Button>
                             </DialogActions>
                         </Dialog>
@@ -383,7 +384,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                 sx={{ px: 0, minHeight: 48 }}
                             >
                                 <Typography variant="h6">
-                                    Export pacientů
+                                    {t(appTranslationKeys.patientExport)}
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ p: 0 }}>
@@ -414,7 +415,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                             }}
                                         >
                                             <ImportExport sx={{ mr: 1 }} />
-                                            <Typography>Exportovat</Typography>
+                                            <Typography>
+                                                {t(appTranslationKeys.export)}
+                                            </Typography>
                                         </Box>
                                     </Box>
 
@@ -441,7 +444,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                         >
                                             <Security sx={{ mr: 1 }} />
                                             <Typography>
-                                                Exportovat anonymizovaně
+                                                {t(
+                                                    appTranslationKeys.exportAnonymized
+                                                )}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -461,7 +466,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         expandIcon={<ExpandMoreIcon />}
                         sx={{ px: 0, minHeight: 48 }}
                     >
-                        <Typography variant="h6">Filtrace a výběr</Typography>
+                        <Typography variant="h6">
+                            {t(appTranslationKeys.filtrationAndSelection)}
+                        </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ p: 0 }}>
                         <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
@@ -474,7 +481,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                     justifyContent: 'left',
                                 }}
                             >
-                                Filtrovat
+                                {t(appTranslationKeys.filter)}
                             </Button>
 
                             <Button
@@ -486,7 +493,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                     justifyContent: 'left',
                                 }}
                             >
-                                Označit vše
+                                {t(appTranslationKeys.selectAll)}
                             </Button>
 
                             <Button
@@ -498,7 +505,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                     justifyContent: 'left',
                                 }}
                             >
-                                Zrušit označení
+                                {t(appTranslationKeys.deselectAll)}
                             </Button>
                         </Stack>
                     </AccordionDetails>
@@ -507,7 +514,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 <TextField
                     fullWidth
                     variant="outlined"
-                    placeholder="Vyhledat..."
+                    placeholder={t(appTranslationKeys.search)}
                     onChange={handlePatientSearch}
                     margin="normal"
                     InputProps={{
@@ -520,7 +527,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 />
 
                 <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
-                    Seznam pacientů{' '}
+                    {t(appTranslationKeys.patientList)}{' '}
                     {patients.length > 0 ? `(${patients.length})` : ''}
                 </Typography>
 
@@ -562,7 +569,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
                                             align="center"
                                             sx={{ py: 2 }}
                                         >
-                                            Nebyli nalezeni žádní pacienti
+                                            {t(
+                                                appTranslationKeys.noPatientsFound
+                                            )}
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
@@ -678,7 +687,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                         }}
                     >
                         <Typography variant="h6" color="textSecondary">
-                            Vyberte pacienta ze seznamu pro zobrazení detailů
+                            {t(appTranslationKeys.selectFromPatientsList)}
                         </Typography>
                     </Paper>
                 )}

@@ -11,11 +11,13 @@ import ListItem from '@mui/material/ListItem'
 import FormControl from '@mui/material/FormControl'
 import FormGroup from '@mui/material/FormGroup'
 import ListSubheader from '@mui/material/ListSubheader'
+import { useTranslation } from 'react-i18next'
 import { FilterColumn, FilteredColumns, TumorType } from '../types'
 import FiltrationCheckbox from './filtration-checkbox'
 import { FormType, StudyType } from '../constants'
 import FiltrationMalignant from './filtration-malignant'
 import FiltrationBenign from './filtration-benign'
+import { formTranslationKeys } from '../translations'
 
 interface FiltrationMenuProps {
     openFilterMenu: boolean
@@ -34,6 +36,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
     studyType,
     setIsFiltered,
 }) => {
+    const { t } = useTranslation()
     const initialFilter = useRef<FilteredColumns>(filteredColumns)
 
     useEffect(() => {
@@ -92,7 +95,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                         variant="h6"
                         component="div"
                     >
-                        Filtrační menu
+                        {t(formTranslationKeys.filtrationMenu)}
                     </Typography>
                     <Button
                         color="warning"
@@ -121,7 +124,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                             setIsFiltered(false)
                         }}
                     >
-                        Resetovat filtr
+                        {t(formTranslationKeys.resetFilter)}
                     </Button>
                     <Button
                         onClick={() => {
@@ -132,7 +135,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                         variant="contained"
                         color="success"
                     >
-                        Uložit filtr
+                        {t(formTranslationKeys.saveFilter)}
                     </Button>
                 </Toolbar>
             </AppBar>
@@ -141,14 +144,14 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                     <>
                         <ListSubheader disableSticky>
                             <Typography variant="h6" fontWeight="bold">
-                                Typ nádoru
+                                {t(formTranslationKeys.tumorType)}
                             </Typography>
                         </ListSubheader>
                         <ListItem>
                             <FormControl component="fieldset">
                                 <FormGroup sx={{ flexDirection: 'row' }}>
                                     <FiltrationCheckbox
-                                        label="Nezhoubný"
+                                        label={t(formTranslationKeys.benign)}
                                         dbValue={TumorType.BENIGN}
                                         filterLabel={FilterColumn.TYP_NADORU}
                                         filteredColumns={filteredColumns}
@@ -156,7 +159,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                         isSingleCheckGroup={true}
                                     />
                                     <FiltrationCheckbox
-                                        label="Zhoubný"
+                                        label={t(formTranslationKeys.malignant)}
                                         dbValue={TumorType.MALIGNANT}
                                         filterLabel={FilterColumn.TYP_NADORU}
                                         filteredColumns={filteredColumns}
@@ -175,7 +178,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                             variant="h6"
                                             fontWeight="bold"
                                         >
-                                            Typ žlázy
+                                            {t(formTranslationKeys.glandType)}
                                         </Typography>
                                     </ListSubheader>
                                     <ListItem>
@@ -184,7 +187,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                 sx={{ flexDirection: 'row' }}
                                             >
                                                 <FiltrationCheckbox
-                                                    label="Podčelistní"
+                                                    label={t(
+                                                        formTranslationKeys.submandibular
+                                                    )}
                                                     dbValue={
                                                         FormType.submandibularMalignant
                                                     }
@@ -199,7 +204,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Podjazykové"
+                                                    label={t(
+                                                        formTranslationKeys.sublingual
+                                                    )}
                                                     dbValue={
                                                         FormType.sublingualMalignant
                                                     }
@@ -214,7 +221,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Příušní"
+                                                    label={t(
+                                                        formTranslationKeys.parotid
+                                                    )}
                                                     dbValue={
                                                         FormType.parotidMalignant
                                                     }
@@ -241,7 +250,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                             variant="h6"
                                             fontWeight="bold"
                                         >
-                                            Typ žlázy
+                                            {t(formTranslationKeys.glandType)}
                                         </Typography>
                                     </ListSubheader>
                                     <ListItem>
@@ -250,7 +259,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                 sx={{ flexDirection: 'row' }}
                                             >
                                                 <FiltrationCheckbox
-                                                    label="Podčelistní"
+                                                    label={t(
+                                                        formTranslationKeys.submandibular
+                                                    )}
                                                     dbValue={
                                                         FormType.submandibularBenign
                                                     }
@@ -265,7 +276,9 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                                                     }
                                                 />
                                                 <FiltrationCheckbox
-                                                    label="Příušní"
+                                                    label={t(
+                                                        formTranslationKeys.parotid
+                                                    )}
                                                     dbValue={
                                                         FormType.parotidBenign
                                                     }
@@ -289,7 +302,7 @@ const FiltrationMenu: React.FC<FiltrationMenuProps> = ({
                 {filteredColumns.typ_nadoru === null && (
                     <ListItem>
                         <Typography variant="body1" color="text.secondary">
-                            Další filtry se zobrazí po výběru typu nádoru.
+                            {t(formTranslationKeys.selectTumorTypeMessage)}
                         </Typography>
                     </ListItem>
                 )}

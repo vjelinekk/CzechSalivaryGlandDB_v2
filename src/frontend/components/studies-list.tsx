@@ -15,11 +15,14 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import FolderOffIcon from '@mui/icons-material/FolderOff'
 
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 interface StudiesListProps {
     defaultActiveStudy?: Study
 }
 
 const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
+    const { t } = useTranslation()
     const [studies, setStudies] = useState<Study[]>([])
     const [activeStudy, setActiveStudy] = useState<Study | null>(
         defaultActiveStudy || null
@@ -70,13 +73,13 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                 }}
             >
                 <Typography variant="h6" gutterBottom>
-                    Seznam studií
+                    {t(appTranslationKeys.studies)}
                 </Typography>
 
                 <TextField
                     fullWidth
                     variant="outlined"
-                    placeholder="Vyhledat studii..."
+                    placeholder={t(appTranslationKeys.search)}
                     margin="normal"
                     onChange={handleStudiesSearch}
                     InputProps={{
@@ -152,11 +155,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                                 sx={{ fontSize: 60, mb: 2, opacity: 0.7 }}
                             />
                             <Typography variant="h6" gutterBottom>
-                                Žádné studie nenalezeny
-                            </Typography>
-                            <Typography variant="body2">
-                                Nebyla nalezena žádná studie. Vytvořte novou
-                                studii nebo upravte vyhledávání.
+                                {t(appTranslationKeys.noStudiesFound)}
                             </Typography>
                         </Box>
                     )}
@@ -181,7 +180,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                         }}
                     >
                         <Typography variant="h6" color="textSecondary">
-                            Vyberte studii ze seznamu pro zobrazení pacientů
+                            {t(appTranslationKeys.selectStudyToShowPatients)}
                         </Typography>
                     </Paper>
                 )}
