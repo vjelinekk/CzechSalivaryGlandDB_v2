@@ -31,19 +31,11 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
         >
             <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
                 <Typography variant="h5" sx={{ mb: 1, fontWeight: 500 }}>
-                    Přidání nového pacienta
+                    {t(appTranslationKeys.addNewPatient)}
                 </Typography>
                 <Divider
                     sx={{ mb: 2, borderColor: '#2e7d32', borderWidth: 2 }}
                 />
-                <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    sx={{ mb: 3 }}
-                >
-                    Výběr postižené slinné žlázy pro pacienta s nezhoubným
-                    nádorem
-                </Typography>
 
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
@@ -61,7 +53,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                             sx={{
                                 bgcolor: '#4caf50',
                                 py: 1.5,
-                                px: 2,
+                                px: 4,
                                 textTransform: 'none',
                                 height: '100%',
                                 whiteSpace: 'nowrap',
@@ -71,7 +63,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                                 },
                             }}
                         >
-                            Příušní žláza
+                            {t(appTranslationKeys.parotidGland)}
                         </Button>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -89,7 +81,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                             sx={{
                                 bgcolor: '#4caf50',
                                 py: 1.5,
-                                px: 2,
+                                px: 4,
                                 textTransform: 'none',
                                 height: '100%',
                                 whiteSpace: 'nowrap',
@@ -99,7 +91,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                                 },
                             }}
                         >
-                            Podčelistní žláza
+                            {t(appTranslationKeys.submandibularGland)}
                         </Button>
                     </Grid>
                 </Grid>
@@ -115,7 +107,7 @@ const AddPatientBenign: React.FC<AddPatientProps> = ({
                         }}
                     />
                     <Typography variant="body2" color="text.secondary">
-                        Zadáváte pacienta s <strong>nezhoubným</strong> nádorem
+                        {t(appTranslationKeys.addingPatientWithBenignTumor)}
                     </Typography>
                 </Box>
             </Paper>

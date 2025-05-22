@@ -21,7 +21,7 @@
     "ecd-v": "ECD V",
 
     "diagnosis-title": "DIAGNOSIS",
-    "year-of-diagnosis": "Year of diagnosis",
+    "year-of-diagnosis": "Date of diagnosis",
     "side-of-finding": "Side of finding",
     "n-vii-function-hb-pre-op": "N. VII function according to H-B (preoperative)",
     "diagnostic-methods": "Used diagnostic methods",
@@ -221,7 +221,7 @@
     "microsecretory-adenocarcinoma": "microsecretory adenocarcinoma",
     "sclerosing-microcystic-adenocarcinoma": "sclerosing microcystic adenocarcinoma",
     "mucinous-adenocarcinoma": "mucinous adenocarcinoma",
-    "asialoblastoma": "asialoblastoma",
+    "sialoblastom": "sialoblastom",
     "r0": "R0",
     "r1": "R1",
     "lymphovascular-invasion": "Lymphovascular invasion",

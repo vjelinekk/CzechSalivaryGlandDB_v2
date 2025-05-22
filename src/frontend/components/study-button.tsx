@@ -108,7 +108,12 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                     className={`patientButton ${isActiveStudy ? 'selected' : ''}`}
                 >
                     {study.nazev_studie} (
-                    {studyTypeToStringMap[study.typ_studie]})
+                    {
+                        t(studyTypeToStringMap[study.typ_studie])
+                            .toLocaleLowerCase()
+                            .split(' ')[0]
+                    }
+                    )
                 </Button>
             )}
             {editStudyName ? (

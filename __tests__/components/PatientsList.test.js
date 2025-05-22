@@ -123,7 +123,7 @@ describe('PatientsList component', () => {
         // Set study name
         await act(async () => {
             fireEvent.change(
-                screen.getByPlaceholderText(
+                screen.getByLabelText(
                     i18n.t(appTranslationKeys.studyNamePlaceholder)
                 ),
                 {

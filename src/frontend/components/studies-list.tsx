@@ -73,13 +73,13 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                 }}
             >
                 <Typography variant="h6" gutterBottom>
-                    Seznam studií
+                    {t(appTranslationKeys.studies)}
                 </Typography>
 
                 <TextField
                     fullWidth
                     variant="outlined"
-                    placeholder="Vyhledat studii..."
+                    placeholder={t(appTranslationKeys.search)}
                     margin="normal"
                     onChange={handleStudiesSearch}
                     InputProps={{
@@ -155,11 +155,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                                 sx={{ fontSize: 60, mb: 2, opacity: 0.7 }}
                             />
                             <Typography variant="h6" gutterBottom>
-                                Žádné studie nenalezeny
-                            </Typography>
-                            <Typography variant="body2">
-                                Nebyla nalezena žádná studie. Vytvořte novou
-                                studii nebo upravte vyhledávání.
+                                {t(appTranslationKeys.noStudiesFound)}
                             </Typography>
                         </Box>
                     )}
@@ -184,7 +180,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                         }}
                     >
                         <Typography variant="h6" color="textSecondary">
-                            Vyberte studii ze seznamu pro zobrazení pacientů
+                            {t(appTranslationKeys.selectStudyToShowPatients)}
                         </Typography>
                     </Paper>
                 )}

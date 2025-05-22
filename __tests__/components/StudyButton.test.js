@@ -64,7 +64,7 @@ describe('StudyButton component', () => {
         // Assertion: Study name is displayed correctly
         expect(
             screen.getByText(
-                `Test Study (${studyTypeToStringMap[StudyType.parotid]})`
+                `Test Study (${i18n.t(studyTypeToStringMap[StudyType.parotid]).toLocaleLowerCase().split(' ')[0]})`
             )
         ).toBeInTheDocument()
 
@@ -91,7 +91,7 @@ describe('StudyButton component', () => {
         // Assertion: Study name is updated
         expect(
             screen.getByText(
-                `New Test Study (${studyTypeToStringMap[StudyType.parotid]})`
+                `New Test Study (${i18n.t(studyTypeToStringMap[StudyType.parotid]).toLocaleLowerCase().split(' ')[0]})`
             )
         ).toBeInTheDocument()
 
@@ -107,7 +107,7 @@ describe('StudyButton component', () => {
         // Assertion: Edit mode is deactivated
         expect(
             screen.getByText(
-                `Test Study (${studyTypeToStringMap[StudyType.parotid]})`
+                `Test Study (${i18n.t(studyTypeToStringMap[StudyType.parotid]).toLocaleLowerCase().split(' ')[0]})`
             )
         ).toBeInTheDocument()
     })

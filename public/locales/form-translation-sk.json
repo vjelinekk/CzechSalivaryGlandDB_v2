@@ -21,7 +21,7 @@
     "ecd-v": "ECD V",
 
     "diagnosis-title": "DIAGNOSTIKA",
-    "year-of-diagnosis": "Rok diagnózy",
+    "year-of-diagnosis": "Dátum stanovenia diagnózy",
     "side-of-finding": "Strana nálezu",
     "n-vii-function-hb-pre-op": "Funkcia n. VII podľa H-B (predoperačne)",
     "diagnostic-methods": "Použité diagnostické metódy",
@@ -221,7 +221,7 @@
     "microsecretory-adenocarcinoma": "mikrosekretórny adenokarcinóm",
     "sclerosing-microcystic-adenocarcinoma": "sklerotizujúci mikrocystický adenokarcinóm",
     "mucinous-adenocarcinoma": "mucinózny adenokarcinóm",
-    "asialoblastoma": "asialoblastóm",
+    "sialoblastom": "sialoblastom",
     "r0": "R0",
     "r1": "R1",
     "lymphovascular-invasion": "Lymfovaskulárna invázia",

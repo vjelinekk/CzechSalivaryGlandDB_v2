@@ -28,18 +28,11 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
         >
             <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
                 <Typography variant="h5" sx={{ mb: 1, fontWeight: 500 }}>
-                    Přidání nového pacienta
+                    {t(appTranslationKeys.addNewPatient)}
                 </Typography>
                 <Divider
                     sx={{ mb: 2, borderColor: '#1976d2', borderWidth: 2 }}
                 />
-                <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    sx={{ mb: 3 }}
-                >
-                    Výběr typu nádorového onemocnění slinných žláz
-                </Typography>
 
                 <Grid container spacing={3} sx={{ mb: 2 }}>
                     <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
@@ -66,7 +59,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                                 },
                             }}
                         >
-                            Nezhoubný nádor (benigní)
+                            {t(appTranslationKeys.benignTumor)}
                         </Button>
                     </Grid>
                     <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
@@ -95,7 +88,7 @@ const AddPatient: React.FC<AddPatientProps> = ({ setActiveComponent }) => {
                                 },
                             }}
                         >
-                            Zhoubný nádor (maligní)
+                            {t(appTranslationKeys.malignantTumor)}
                         </Button>
                     </Grid>
                 </Grid>

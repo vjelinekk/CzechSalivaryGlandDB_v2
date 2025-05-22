@@ -25,7 +25,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
     const buttonStyle = {
         bgcolor: '#f44336',
         py: 1.5,
-        px: 2,
+        px: 4,
         height: '100%',
         textTransform: 'none',
         whiteSpace: 'nowrap',
@@ -45,19 +45,11 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
         >
             <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
                 <Typography variant="h5" sx={{ mb: 1, fontWeight: 500 }}>
-                    Přidání nového pacienta
+                    {t(appTranslationKeys.addNewPatient)}
                 </Typography>
                 <Divider
                     sx={{ mb: 2, borderColor: '#d32f2f', borderWidth: 2 }}
                 />
-                <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    sx={{ mb: 3 }}
-                >
-                    Výběr postižené slinné žlázy pro pacienta se zhoubným
-                    nádorem
-                </Typography>
 
                 {/* Use equal height container for all grid items */}
                 <Box sx={{ display: 'flex', width: '100%' }}>
@@ -76,7 +68,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                                 }
                                 sx={buttonStyle}
                             >
-                                Příušní žláza
+                                {t(appTranslationKeys.parotidGland)}
                             </Button>
                         </Grid>
                         <Grid item xs={12} md={4} sx={{ display: 'flex' }}>
@@ -93,7 +85,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                                 }
                                 sx={buttonStyle}
                             >
-                                Podčelistní žláza
+                                {t(appTranslationKeys.submandibularGland)}
                             </Button>
                         </Grid>
                         <Grid item xs={12} md={4} sx={{ display: 'flex' }}>
@@ -110,7 +102,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                                 }
                                 sx={buttonStyle}
                             >
-                                Podjazyková žláza
+                                {t(appTranslationKeys.sublingualGland)}
                             </Button>
                         </Grid>
                     </Grid>
@@ -127,7 +119,7 @@ const AddPatientMalignant: React.FC<AddPatientProps> = ({
                         }}
                     />
                     <Typography variant="body2" color="text.secondary">
-                        Zadáváte pacienta se <strong>zhoubným</strong> nádorem
+                        {t(appTranslationKeys.addingPatientWithMalignantTumor)}
                     </Typography>
                 </Box>
             </Paper>

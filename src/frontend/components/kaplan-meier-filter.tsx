@@ -254,7 +254,7 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.asialoblastoma)}
+                    label={t(appTranslationKeys.sialoblastom)}
                     dbValue="asialoblastom"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}

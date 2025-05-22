@@ -48,7 +48,7 @@ describe('ParotidGlandDiagnosis', () => {
         )
 
         // Assert DatePicker component
-        const datePicker = screen.getByText('Rok diagnózy:')
+        const datePicker = screen.getByText('Datum stanovení diagnózy:')
         expect(datePicker).toBeInTheDocument()
 
         // Assert SimpleCheckboxes components

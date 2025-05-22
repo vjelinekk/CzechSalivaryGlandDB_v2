@@ -3,6 +3,8 @@ import { Typography, Button, Stack, Checkbox, Box } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
 import { formTypeToStringMap } from '../constants'
 import { PatientType } from '../types'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface PatientButtonProps {
     patient: PatientType
@@ -19,6 +21,8 @@ const PatientButton: React.FC<PatientButtonProps> = ({
     isSelected,
     setSelectedPatients,
 }) => {
+    const { t } = useTranslation()
+
     const handleOnClick = () => {
         setActivePatient((prevPatient) =>
             prevPatient?.id === patient.id &&
@@ -55,8 +59,10 @@ const PatientButton: React.FC<PatientButtonProps> = ({
         patient.form_type === 1 ||
         patient.form_type === 2 ||
         patient.form_type === 3
-    const label = isMalignant ? 'Z' : 'N'
-    const color = isMalignant ? 'var(--colorRed)' : 'var(--colorGreen)'
+    const label = isMalignant
+        ? t(appTranslationKeys.malignantTumorShort)
+        : t(appTranslationKeys.benignTumorShort)
+    const color = isMalignant ? 'red' : 'green'
     const activeColor = '#004aad'
 
     return (
@@ -122,7 +128,10 @@ const PatientButton: React.FC<PatientButtonProps> = ({
                         }}
                     >
                         {patient?.jmeno || ''} {patient?.prijmeni || ''} (
-                        {formTypeToStringMap[patient?.form_type] || ''})
+                        {t(formTypeToStringMap[patient?.form_type])
+                            .toLowerCase()
+                            .split(' ')[0] || ''}
+                        )
                     </Typography>
                 </Button>
             </Stack>

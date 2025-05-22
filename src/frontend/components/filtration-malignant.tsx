@@ -355,7 +355,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.asialoblastoma)}
+                            label={t(appTranslationKeys.sialoblastom)}
                             dbValue="asialoblastom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
