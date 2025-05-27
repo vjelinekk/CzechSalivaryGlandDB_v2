@@ -7,6 +7,8 @@ import {
     StyleSheet,
     Font,
 } from '@react-pdf/renderer'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 import { sub } from 'date-fns';
 
 interface PDFfileProps {
@@ -15,11 +17,22 @@ interface PDFfileProps {
     endDate: string;
 }
 
+Font.register({
+    family: 'Arial',
+    src: '/fonts/Arial.ttf',
+    fontWeight: 'normal'
+})
+Font.register({
+    family: 'Arial',
+    src: '/fonts/ArialBD.ttf',
+    fontWeight: 'bold'
+})
+
 const styles = StyleSheet.create({
     body: {
         margin: 10,
         marginTop: 15,
-        fontFamily: 'Helvetica'
+        fontFamily: 'Arial',
     },
 
     header: {
@@ -49,12 +62,15 @@ const styles = StyleSheet.create({
     },
 })
 
-const PDFfile: React.FC<PDFfileProps> = ({ plannedDaysRows, startDate, endDate }) => (
+const PDFfile: React.FC<PDFfileProps> = ({ plannedDaysRows, startDate, endDate }) => {
+    const { t } = useTranslation()
+
+    return (
     <Document>
         <Page size="A4" style={styles.body}>
-            <Text style={styles.header}>Plánované kontroly</Text>
+            <Text style={styles.header}>{t(appTranslationKeys.plannedChecks)}</Text>
             <Text style={styles.subheader}>
-                {startDate} až {endDate}
+                {startDate} - {endDate}
             </Text>
 
             {plannedDaysRows.map((row: any[], rowIndex: number) =>
@@ -64,7 +80,7 @@ const PDFfile: React.FC<PDFfileProps> = ({ plannedDaysRows, startDate, endDate }
                             {new Date(day.date).toLocaleDateString('cs-CZ')}
                         </Text>
                         {day.patients.length === 0 ? (
-                            <Text style={styles.text}>Žádní pacienti</Text>
+                            <Text style={styles.text}>{t(appTranslationKeys.noPlannedChecks)}</Text>
                         ) : (
                             day.patients.map((p: any) => (
                                 <Text key={p.id} style={styles.text}>
@@ -77,6 +93,7 @@ const PDFfile: React.FC<PDFfileProps> = ({ plannedDaysRows, startDate, endDate }
             )}
         </Page>
     </Document>
-)
+    )
+}
 
 export default PDFfile
