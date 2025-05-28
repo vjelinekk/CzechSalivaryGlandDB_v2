@@ -9,23 +9,23 @@ import {
 } from '@react-pdf/renderer'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
-import { sub } from 'date-fns';
+import { PlannedDay } from '../types'
 
 interface PDFfileProps {
-    plannedDaysRows: any;
-    startDate: string;
-    endDate: string;
+    plannedDaysRows: PlannedDay[][]
+    startDate: string
+    endDate: string
 }
 
 Font.register({
     family: 'Arial',
     src: '/fonts/Arial.ttf',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
 })
 Font.register({
     family: 'Arial',
     src: '/fonts/ArialBD.ttf',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
 })
 
 const styles = StyleSheet.create({
@@ -62,37 +62,48 @@ const styles = StyleSheet.create({
     },
 })
 
-const PDFfile: React.FC<PDFfileProps> = ({ plannedDaysRows, startDate, endDate }) => {
+const PDFfile: React.FC<PDFfileProps> = ({
+    plannedDaysRows,
+    startDate,
+    endDate,
+}) => {
     const { t } = useTranslation()
 
     return (
-    <Document>
-        <Page size="A4" style={styles.body}>
-            <Text style={styles.header}>{t(appTranslationKeys.plannedChecks)}</Text>
-            <Text style={styles.subheader}>
-                {startDate} - {endDate}
-            </Text>
+        <Document>
+            <Page size="A4" style={styles.body}>
+                <Text style={styles.header}>
+                    {t(appTranslationKeys.plannedChecks)}
+                </Text>
+                <Text style={styles.subheader}>
+                    {startDate} - {endDate}
+                </Text>
 
-            {plannedDaysRows.map((row: any[], rowIndex: number) =>
-                row.map((day, dayIndex) => (
-                    <View style={styles.section} key={`day-${rowIndex}-${dayIndex}`}>
-                        <Text style={styles.heading}>
-                            {new Date(day.date).toLocaleDateString('cs-CZ')}
-                        </Text>
-                        {day.patients.length === 0 ? (
-                            <Text style={styles.text}>{t(appTranslationKeys.noPlannedChecks)}</Text>
-                        ) : (
-                            day.patients.map((p: any) => (
-                                <Text key={p.id} style={styles.text}>
-                                    {p.jmeno} {p.prijmeni}
+                {plannedDaysRows.map((row, rowIndex: number) =>
+                    row.map((day, dayIndex) => (
+                        <View
+                            style={styles.section}
+                            key={`day-${rowIndex}-${dayIndex}`}
+                        >
+                            <Text style={styles.heading}>
+                                {new Date(day.date).toLocaleDateString('cs-CZ')}
+                            </Text>
+                            {day.patients.length === 0 ? (
+                                <Text style={styles.text}>
+                                    {t(appTranslationKeys.noPlannedChecks)}
                                 </Text>
-                            ))
-                        )}
-                    </View>
-                ))
-            )}
-        </Page>
-    </Document>
+                            ) : (
+                                day.patients.map((p) => (
+                                    <Text key={p.id} style={styles.text}>
+                                        {p.jmeno} {p.prijmeni}
+                                    </Text>
+                                ))
+                            )}
+                        </View>
+                    ))
+                )}
+            </Page>
+        </Document>
     )
 }
 
