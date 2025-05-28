@@ -184,19 +184,19 @@ const PatientsList: React.FC<PatientsListProps> = ({
         }
 
         loadedPatients = loadedPatients.sort((a, b) => {
-            // First, compare by 'jmeno'
-            const jmenoA = a.jmeno || '' // Use empty string if jmeno is undefined
-            const jmenoB = b.jmeno || '' // Use empty string if jmeno is undefined
-            const jmenoComparison = jmenoA.localeCompare(jmenoB)
+            // First, compare by 'prijmeni'
+            const prijmeniA = a.prijmeni || '' // Use empty string if prijmeni is undefined
+            const prijmeniB = b.prijmeni || '' // Use empty string if prijmeni is undefined
+            const prijmeniComparison = prijmeniA.localeCompare(prijmeniB)
 
-            // If 'jmeno' is equal, compare by 'prijmeni'
-            if (jmenoComparison === 0) {
-                const prijmeniA = a.prijmeni || '' // Use empty string if prijmeni is undefined
-                const prijmeniB = b.prijmeni || '' // Use empty string if prijmeni is undefined
-                return prijmeniA.localeCompare(prijmeniB)
+            // If 'prijmeni' is equal, compare by 'jmeno'
+            if (prijmeniComparison === 0) {
+                const jmenoA = a.jmeno || '' // Use empty string if jmeno is undefined
+                const jmenoB = b.jmeno || '' // Use empty string if jmeno is undefined
+                return jmenoA.localeCompare(jmenoB)
             }
 
-            return jmenoComparison
+            return prijmeniComparison
         })
 
         setPatients(loadedPatients)
