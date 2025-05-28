@@ -45,6 +45,7 @@ export enum ipcFSChannels {
     open = 'open',
     getFileName = 'getFileName',
     loadJson = 'loadJson',
+    getPublicProductionReadyPath = 'getPublicProductionReadyPath',
 }
 
 export enum ipcEncryptionChannels {

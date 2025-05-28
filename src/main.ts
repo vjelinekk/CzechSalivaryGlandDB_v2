@@ -33,7 +33,7 @@ const createWindow = (): void => {
 
     // Open the DevTools.
     // if (process.env.NODE_ENV === 'development') {
-        mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
     // }
 }
 
