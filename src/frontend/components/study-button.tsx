@@ -14,6 +14,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys, formTranslationKeys } from '../translations'
 
 interface StudyButtonProps {
     defaultStudy: Study
@@ -24,10 +26,10 @@ interface StudyButtonProps {
 
 const StudyButton: React.FC<StudyButtonProps> = ({
     defaultStudy,
-    isActiveStudy,
     setActiveStudy,
     setListChanged,
 }) => {
+    const { t } = useTranslation() // Hook pro překlady
     const [editStudyName, setEditStudyName] = useState(false)
     const [study, setStudy] = useState<Study>(defaultStudy)
     const [openDeleteStudyDialog, setOpenDeleteStudyDialog] = useState(false)
@@ -102,10 +104,14 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                             prevStudy?.id === study.id ? null : study
                         )
                     }
-                    className={`patientButton ${isActiveStudy ? 'selected' : ''}`}
                 >
                     {study.nazev_studie} (
-                    {studyTypeToStringMap[study.typ_studie]})
+                    {
+                        t(studyTypeToStringMap[study.typ_studie])
+                            .toLocaleLowerCase()
+                            .split(' ')[0]
+                    }
+                    )
                 </Button>
             )}
             {editStudyName ? (
@@ -138,18 +144,20 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                 <DeleteIcon />
             </IconButton>
             <Dialog open={openDeleteStudyDialog}>
-                <DialogTitle>Opravdu chcete smazat tuto studii?</DialogTitle>
+                <DialogTitle>
+                    {t(appTranslationKeys.deleteStudyTitle)}
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Tato akce je nevratná.
+                        {t(appTranslationKeys.deleteStudyWarning)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenDeleteStudyDialog(false)}>
-                        Zrušit
+                        {t(formTranslationKeys.cancel)}
                     </Button>
                     <Button color="error" onClick={handleDeleteStudy}>
-                        Smazat
+                        {t(appTranslationKeys.deleteStudy)}
                     </Button>
                 </DialogActions>
             </Dialog>

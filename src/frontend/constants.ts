@@ -1,14 +1,22 @@
+import { appTranslationKeys } from './translations'
+
 export enum Components {
-    patientsList = 'patients-list',
-    addPatient = 'add-patient',
-    studiesList = 'studies-list',
-    addStudy = 'add-study',
-    parotidGlandForm = 'parotid-gland-form',
-    sublingualGlandForm = 'sublingual-gland-form',
-    submandibularGlandForm = 'submandibular-gland-form',
-    study = 'study',
-    kaplanMeier = 'kaplan-meier',
-    import = 'import',
+    patientsList,
+    plannedChecks,
+    addPatient,
+    AddPatientBenign,
+    addPatientMalignant,
+    studiesList,
+    addStudy,
+    parotidMalignantGlandForm,
+    parotidBenignGlandForm,
+    sublingualMalignantGlandForm,
+    submandibularMalignantGlandForm,
+    submandibularBenignGlandForm,
+    study,
+    kaplanMeier,
+    import,
+    setLanguage,
 }
 
 export enum StudyType {
@@ -25,22 +33,26 @@ export enum FormStates {
 }
 
 export const formTypeToStringMap: { [key: number]: string } = {
-    1: 'podčelistní',
-    2: 'podjazyková',
-    3: 'příušní',
+    1: appTranslationKeys.submandibularGland,
+    2: appTranslationKeys.sublingualGland,
+    3: appTranslationKeys.parotidGland,
+    4: appTranslationKeys.submandibularGland,
+    5: appTranslationKeys.parotidGland,
 }
 
 export const formTypeToBasicStringMap: { [key: number]: string } = {
     1: 'podcelistni',
     2: 'podjazykova',
     3: 'priusni',
+    4: 'podcelistni_benigni',
+    5: 'priusni_benigni',
 }
 
 export const studyTypeToStringMap: { [key: number]: string } = {
-    1: 'podčelistní',
-    2: 'podjazyková',
-    3: 'příušní',
-    4: 'speciální',
+    1: appTranslationKeys.submandibularGland,
+    2: appTranslationKeys.sublingualGland,
+    3: appTranslationKeys.parotidGland,
+    4: appTranslationKeys.special,
 }
 
 export enum dbLabels {
@@ -69,6 +81,7 @@ export enum dbLabels {
     vysledek_fnab = 'vysledek_fnab',
     core_biopsie = 'core_biopsie',
     core_vysledek = 'core_vysledek',
+    core_vysledek_jine = 'core_vysledek_jine',
     mukoepidermoidni_karcinom_core = 'mukoepidermoidni_karcinom_core',
     adenoidne_cysticky_karcinom_core = 'adenoidne_cysticky_karcinom_core',
     polymorfni_adenokarcinom_core = 'polymorfni_adenokarcinom_core',
@@ -78,6 +91,7 @@ export enum dbLabels {
     spatne_diferencovany_karcinom_core = 'spatne_diferencovany_karcinom_core',
     otevrena_biopsie = 'otevrena_biopsie',
     otevrena_vysledek = 'otevrena_vysledek',
+    otevrena_vysledek_jine = 'otevrena_vysledek_jine',
     mukoepidermoidni_karcinom_otevrena = 'mukoepidermoidni_karcinom_otevrena',
     adenoidne_cysticky_karcinom_otevrena = 'adenoidne_cysticky_karcinom_otevrena',
     polymorfni_adenokarcinom_otevrena = 'polymorfni_adenokarcinom_otevrena',
@@ -98,6 +112,7 @@ export enum dbLabels {
     adjuvantni_terapie = 'adjuvantni_terapie',
     typ_nechirurgicke_terapie = 'typ_nechirurgicke_terapie',
     histopatologie_vysledek = 'histopatologie_vysledek',
+    histopatologie_vysledek_jine = 'histopatologie_vysledek_jine',
     mukoepidermoidni_karcinom_histopatologie = 'mukoepidermoidni_karcinom_histopatologie',
     adenoidne_cysticky_karcinom_histopatologie = 'adenoidne_cysticky_karcinom_histopatologie',
     polymorfni_adenokarcinom_histopatologie = 'polymorfni_adenokarcinom_histopatologie',
@@ -125,6 +140,7 @@ export enum dbLabels {
     tnm_klasifikace_patologicka = 'tnm_klasifikace_patologicka',
     datum_prvni_kontroly_po_lecbe = 'datum_prvni_kontroly_po_lecbe',
     perzistence = 'perzistence',
+    doporuceno_dalsi_sledovani = 'doporuceno_dalsi_sledovani',
     datum_prokazani_perzistence = 'datum_prokazani_perzistence',
     recidiva = 'recidiva',
     datum_prokazani_recidivy = 'datum_prokazani_recidivy',
@@ -145,15 +161,17 @@ export enum TNMClassificationResult {
 }
 
 export enum FormType {
-    podcelistni = 1,
-    podjazykove = 2,
-    priusni = 3,
+    submandibularMalignant = 1,
+    sublingualMalignant = 2,
+    parotidMalignant = 3,
+    submandibularBenign = 4,
+    parotidBenign = 5,
 }
 
 export const studyTypeToFormTypeMap: { [key: number]: FormType } = {
-    1: FormType.podcelistni,
-    2: FormType.podjazykove,
-    3: FormType.priusni,
+    1: FormType.submandibularMalignant,
+    2: FormType.sublingualMalignant,
+    3: FormType.parotidMalignant,
 }
 
 export enum KaplanMeierType {

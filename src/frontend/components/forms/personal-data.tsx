@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import SimpleCheckboxes from './simple-checkboxes'
 import ConditionalCheckboxes from './conditional-checkboxes'
 import ConditionalCheckboxOption from './conditional-checkbox-option'
@@ -10,6 +11,7 @@ import isPID from '../../utils/isPID'
 import calculatePackYears from '../../utils/calculatePackYears'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { dbLabels } from '../../constants'
+import { formTranslationKeys } from '../../translations'
 
 const PersonalData: React.FC<GlandComponentProps> = ({
     formData,
@@ -17,13 +19,15 @@ const PersonalData: React.FC<GlandComponentProps> = ({
     setFormErrors,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>ANAMNESTICKÁ/PERSONÁLNÍ DATA</h1>
+            <h1>{t(formTranslationKeys.anamnesticPersonalData)}</h1>
             <div className="subsectionDiv">
-                <h2>Základní informace</h2>
+                <h2>{t(formTranslationKeys.basicInformation)}</h2>
                 <TextInput
-                    label="Jméno"
+                    label={t(formTranslationKeys.firstName)}
                     dbLabel={dbLabels.jmeno}
                     data={getDataFromPatientInterface(formData, dbLabels.jmeno)}
                     setFormData={setFormData}
@@ -32,7 +36,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="Příjmení"
+                    label={t(formTranslationKeys.surname)}
                     dbLabel={dbLabels.prijmeni}
                     data={getDataFromPatientInterface(
                         formData,
@@ -44,7 +48,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="Identifikační kód pacienta"
+                    label={t(formTranslationKeys.patientId)}
                     dbLabel={dbLabels.id_pacient}
                     data={getDataFromPatientInterface(
                         formData,
@@ -54,7 +58,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <TextInput
-                    label="RČ (bez lomítka)"
+                    label={t(formTranslationKeys.birthNumberNoSlash)}
                     dbLabel={dbLabels.rodne_cislo}
                     data={getDataFromPatientInterface(
                         formData,
@@ -66,7 +70,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     disabled={disabled}
                 />
                 <NumberInput
-                    label="Věk pacienta v době diagnózy"
+                    label={t(formTranslationKeys.ageAtDiagnosis)}
                     dbLabel={dbLabels.vek_pri_diagnoze}
                     data={
                         getDataFromPatientInterface(
@@ -80,57 +84,64 @@ const PersonalData: React.FC<GlandComponentProps> = ({
             </div>
             <div className="subsectionDiv">
                 <SimpleCheckboxes
-                    title="Pohlaví pacienta"
+                    title={t(formTranslationKeys.patientGender)}
                     dbLabel={dbLabels.pohlavi}
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={['Žena', 'Muž']}
-                    disabled={disabled}
-                />
-            </div>
-            <div className="subsectionDiv">
-                <SimpleCheckboxes
-                    title="Demografické informace - kraj trvalého bydliště pacienta"
-                    dbLabel={dbLabels.kraj}
-                    data={formData}
-                    setFormData={setFormData}
-                    enableSingleSelect={true}
                     options={[
-                        'Hlavní město Praha',
-                        'Středočeský kraj',
-                        'Jihočeský kraj',
-                        'Plzeňský kraj',
-                        'Karlovarský kraj',
-                        'Ústecký kraj',
-                        'Liberecký kraj',
-                        'Královéhradecký kraj',
-                        'Pardubický kraj',
-                        'Kraj Vysočina',
-                        'Jihomoravský kraj',
-                        'Zlínský kraj',
-                        'Olomoucký kraj',
-                        'Moravskoslezský kraj',
+                        t(formTranslationKeys.female),
+                        t(formTranslationKeys.male),
                     ]}
                     disabled={disabled}
                 />
             </div>
             <div className="subsectionDiv">
-                <h2>Informace z OA</h2>
+                <SimpleCheckboxes
+                    title={t(
+                        formTranslationKeys.demographicInfoResidencyRegion
+                    )}
+                    dbLabel={dbLabels.kraj}
+                    data={formData}
+                    setFormData={setFormData}
+                    enableSingleSelect={true}
+                    options={[
+                        t(formTranslationKeys.prague),
+                        t(formTranslationKeys.centralBohemianRegion),
+                        t(formTranslationKeys.southBohemianRegion),
+                        t(formTranslationKeys.pilsenRegion),
+                        t(formTranslationKeys.karlovyVaryRegion),
+                        t(formTranslationKeys.usteckyRegion),
+                        t(formTranslationKeys.liberecRegion),
+                        t(formTranslationKeys.hradecKraloveRegion),
+                        t(formTranslationKeys.pardubiceRegion),
+                        t(formTranslationKeys.vysocinaRegion),
+                        t(formTranslationKeys.southMoravianRegion),
+                        t(formTranslationKeys.zlinRegion),
+                        t(formTranslationKeys.olomoucRegion),
+                        t(formTranslationKeys.moravianSilesianRegion),
+                    ]}
+                    disabled={disabled}
+                />
+            </div>
+            <div className="subsectionDiv">
+                <h2>{t(formTranslationKeys.informationFromOa)}</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
                     dbLabel={dbLabels.jine_nadorove_onemocneni_v_oa}
                     data={formData}
                     setFormData={setFormData}
-                    title="Jiné nádorové onemocnění v OA"
+                    title={t(formTranslationKeys.otherCancerInOa)}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t(formTranslationKeys.yes)}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <TextInput
-                            label="Specifikace místa výskytu jiného karcinomu"
+                            label={t(
+                                formTranslationKeys.specifyOtherCancerLocation
+                            )}
                             dbLabel={
                                 dbLabels.specifikace_mista_vyskytu_jineho_karcinomu
                             }
@@ -143,7 +154,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t(formTranslationKeys.no)}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
@@ -155,15 +166,15 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     }
                     data={formData}
                     setFormData={setFormData}
-                    title="Jiné onemocnění velkých slinných žláz v OA"
+                    title={t(formTranslationKeys.otherSalivaryGlandDiseaseInOa)}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t(formTranslationKeys.yes)}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <TextInput
-                            label="Specifikace onemocnění:"
+                            label={t(formTranslationKeys.specifyDisease)}
                             dbLabel={dbLabels.specifikace_onemocneni}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -174,28 +185,28 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t(formTranslationKeys.no)}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
             </div>
             <div className="subsectionDiv">
-                <h2>Přítomnost obecných rizikových faktorů</h2>
+                <h2>{t(formTranslationKeys.presenceOfGeneralRiskFactors)}</h2>
                 <ConditionalCheckboxes
                     enableSingleSelect={true}
                     dbLabel={dbLabels.koureni}
                     data={formData}
                     setFormData={setFormData}
-                    title="Kouření"
+                    title={t(formTranslationKeys.smoking)}
                 >
                     <ConditionalCheckboxOption
-                        label="Ano"
+                        label={t(formTranslationKeys.yes)}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
                         <NumberInput
-                            label="Počet cigaret denně"
+                            label={t(formTranslationKeys.cigarettesPerDay)}
                             dbLabel={dbLabels.pocet_cigaret_denne}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -205,7 +216,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                             disabled={disabled}
                         />
                         <NumberInput
-                            label="Jak dlouho (roky)"
+                            label={t(formTranslationKeys.howLongYears)}
                             dbLabel={dbLabels.jak_dlouho_kouri}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -215,7 +226,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                             disabled={disabled}
                         />
                         <NumberInput
-                            label="Počet balíčko roků"
+                            label={t(formTranslationKeys.packYears)}
                             dbLabel={dbLabels.pocet_balickoroku}
                             data={getDataFromPatientInterface(
                                 formData,
@@ -232,23 +243,27 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                         />
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
-                        label="Ne"
+                        label={t(formTranslationKeys.no)}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                     <ConditionalCheckboxOption
-                        label="Nezjištěno"
+                        label={t(formTranslationKeys.unknown)}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                 </ConditionalCheckboxes>
                 <SimpleCheckboxes
-                    title="Abusus alkoholu"
+                    title={t(formTranslationKeys.alcoholAbuse)}
                     dbLabel={dbLabels.abusus_alkoholu}
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
-                    options={['Ano', 'Ne', 'Nezjištěno']}
+                    options={[
+                        t(formTranslationKeys.yes),
+                        t(formTranslationKeys.no),
+                        t(formTranslationKeys.unknown),
+                    ]}
                     disabled={disabled}
                 />
             </div>

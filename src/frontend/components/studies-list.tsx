@@ -3,14 +3,26 @@ import { ipcAPIGetChannels } from '../../ipc/ipcChannels'
 import { Study } from '../types'
 import StudyButton from './study-button'
 import PatientsList from './patients-list'
-import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
+import {
+    Stack,
+    Box,
+    TextField,
+    InputAdornment,
+    Typography,
+    Paper,
+    Divider,
+} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import FolderOffIcon from '@mui/icons-material/FolderOff'
 
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 interface StudiesListProps {
     defaultActiveStudy?: Study
 }
 
 const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
+    const { t } = useTranslation()
     const [studies, setStudies] = useState<Study[]>([])
     const [activeStudy, setActiveStudy] = useState<Study | null>(
         defaultActiveStudy || null
@@ -47,44 +59,132 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
     }
 
     return (
-        <>
-            <div id="main" className="dataTable">
-                <input
-                    id="search"
-                    placeholder="Vyhledat..."
+        <Stack direction="row" spacing={2} sx={{ p: 2, height: '100%' }}>
+            <Paper
+                elevation={3}
+                sx={{
+                    p: 2,
+                    minWidth: '15%',
+                    maxWidth: '350px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                <Typography variant="h6" gutterBottom>
+                    {t(appTranslationKeys.studies)}
+                </Typography>
+
+                <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder={t(appTranslationKeys.search)}
+                    margin="normal"
                     onChange={handleStudiesSearch}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
-                <div className="wrapper">
-                    {/* <table id="patient-table"> */}
-                    {/* <tbody id="patients-tbody"> */}
-                    <Stack spacing={1}>
-                        {studies.map((study, index) => (
-                            // <tr key={study.id}>
-                            // <td>
-                            <Box key={index} border={1}>
-                                <StudyButton
-                                    key={study.id}
-                                    defaultStudy={study}
-                                    isActiveStudy={study.id === activeStudy?.id}
-                                    setActiveStudy={setActiveStudy}
-                                    setListChanged={setListChanged}
-                                />
-                            </Box>
-                            // </td>
-                            // </tr>
-                        ))}
-                    </Stack>
-                    {/* </tbody> */}
-                    {/* </table> */}
-                </div>
-            </div>
-            {activeStudy && (
-                <PatientsList
-                    idStudie={activeStudy?.id}
-                    studyType={activeStudy.typ_studie}
-                />
-            )}
-        </>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        overflowY: 'auto',
+                        '&::-webkit-scrollbar': {
+                            width: '8px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: '#f1f1f1',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: '#888',
+                            borderRadius: '4px',
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            background: '#555',
+                        },
+                    }}
+                >
+                    {studies.length > 0 ? (
+                        <Stack spacing={1}>
+                            {studies.map((study, index) => (
+                                <Paper
+                                    key={index}
+                                    elevation={1}
+                                    sx={{
+                                        border:
+                                            study.id === activeStudy?.id
+                                                ? 2
+                                                : 0,
+                                        borderColor: 'primary.main',
+                                    }}
+                                >
+                                    <StudyButton
+                                        key={study.id}
+                                        defaultStudy={study}
+                                        isActiveStudy={
+                                            study.id === activeStudy?.id
+                                        }
+                                        setActiveStudy={setActiveStudy}
+                                        setListChanged={setListChanged}
+                                    />
+                                </Paper>
+                            ))}
+                        </Stack>
+                    ) : (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: '100%',
+                                p: 3,
+                                color: 'text.secondary',
+                                textAlign: 'center',
+                            }}
+                        >
+                            <FolderOffIcon
+                                sx={{ fontSize: 60, mb: 2, opacity: 0.7 }}
+                            />
+                            <Typography variant="h6" gutterBottom>
+                                {t(appTranslationKeys.noStudiesFound)}
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
+            </Paper>
+
+            <Box sx={{ flexGrow: 1, height: '100%' }}>
+                {activeStudy ? (
+                    <PatientsList
+                        idStudie={activeStudy?.id}
+                        studyType={activeStudy.typ_studie}
+                    />
+                ) : (
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            p: 4,
+                        }}
+                    >
+                        <Typography variant="h6" color="textSecondary">
+                            {t(appTranslationKeys.selectStudyToShowPatients)}
+                        </Typography>
+                    </Paper>
+                )}
+            </Box>
+        </Stack>
     )
 }
 

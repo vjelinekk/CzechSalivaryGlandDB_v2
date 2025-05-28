@@ -7,6 +7,7 @@ import {
     savePatient,
     getFilteredPatients,
     getKaplanMeierData,
+    getPlannedPatientsBetweenDates,
 } from '../backend/patientsManager'
 import {
     deletePatientFromStudy,
@@ -116,3 +117,11 @@ ipcMain.handle(ipcAPIGetChannels.getKaplanMeierData, async (event, args) => {
     const [kaplanMeierType, filter] = args
     return await getKaplanMeierData(kaplanMeierType, filter)
 })
+
+ipcMain.handle(
+    ipcAPIGetChannels.getPlannedPatientsBetweenDates,
+    async (event, args) => {
+        const [startDate, endDate] = args
+        return await getPlannedPatientsBetweenDates(startDate, endDate)
+    }
+)

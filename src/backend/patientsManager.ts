@@ -1,9 +1,10 @@
-import { KaplanMeierType } from '../frontend/constants'
+import { KaplanMeierType, FormType } from '../frontend/constants'
 import {
     FilteredColumns,
     KaplanMeierData,
     KaplanMeierPatientData,
     PatientType,
+    TumorType,
 } from '../frontend/types'
 import {
     deleteRow,
@@ -13,18 +14,27 @@ import {
     updateRow,
 } from './basicOperations'
 import {
-    FormType,
     formTypeToTableName,
-    jeVeStudiiColumns,
-    podcelistniColumns,
-    podjazykoveColumns,
-    priusniColumns,
+    isInStudyColumns,
+    parotidBenignColumns,
+    submandibularMalignantColumns,
+    sublingualMalignantColumns,
+    parotidMalignantColumns,
+    submandibularBenignColumns,
     TableNames,
 } from './constants'
 import db from './dbManager'
 import { decrypt, encrypt } from './encryption'
 import { deletePatientFromAllStudies } from './studieManager'
-import { RowRecordType } from './types'
+import {
+    ParotidBenignColumns,
+    ParotidMalignantColumns,
+    PlannedPatientsMap,
+    RowRecordType,
+    SublingualMalignantColumns,
+    SubmandibularBenignColumns,
+    SubmandibularMalignantColumns,
+} from './types'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -96,13 +106,13 @@ export const insertPatient = async (
     const patientData: PatientType = encryptPatientData(data as PatientType)
 
     try {
-        if (formType === FormType.podcelistni) {
-            result = await insertRow(TableNames.podcelistni, patientData)
-        } else if (formType === FormType.podjazykove) {
-            result = await insertRow(TableNames.podjazykove, patientData)
-        } else if (formType === FormType.priusni) {
-            result = await insertRow(TableNames.priusni, patientData)
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return null
         }
+
+        result = await insertRow(tableName, patientData)
     } catch (err) {
         result = null
     }
@@ -113,30 +123,21 @@ export const insertPatient = async (
 export const updatePatient = async (
     data: Record<string, string | number | string[]>
 ): Promise<number | null> => {
-    const formType = data.form_type
+    const formType = data.form_type as FormType
     const patientData: PatientType = encryptPatientData(data as PatientType)
 
     try {
-        let result
-        if (formType === FormType.podcelistni) {
-            result = await updateRow(
-                TableNames.podcelistni,
-                data.id as number,
-                patientData
-            )
-        } else if (formType === FormType.podjazykove) {
-            result = await updateRow(
-                TableNames.podjazykove,
-                data.id as number,
-                patientData
-            )
-        } else if (formType === FormType.priusni) {
-            result = await updateRow(
-                TableNames.priusni,
-                data.id as number,
-                patientData
-            )
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return null
         }
+
+        const result = await updateRow(
+            tableName,
+            data.id as number,
+            patientData
+        )
 
         return result
     } catch (err) {
@@ -167,11 +168,25 @@ export const getAllPatients = async () => {
     let patients = []
 
     try {
-        const podcelistni = await getAllRows(TableNames.podcelistni)
-        const podjazykove = await getAllRows(TableNames.podjazykove)
-        const priusni = await getAllRows(TableNames.priusni)
+        const submandibularMalignant = await getAllRows(
+            TableNames.submandibularMalignant
+        )
+        const sublingualMalignant = await getAllRows(
+            TableNames.sublingualMalignant
+        )
+        const parotidMalignant = await getAllRows(TableNames.parotidMalignant)
+        const submandibularBenign = await getAllRows(
+            TableNames.submandibularBenign
+        )
+        const parotidBenign = await getAllRows(TableNames.parotidBenign)
 
-        patients.push(...podcelistni, ...podjazykove, ...priusni)
+        patients.push(
+            ...submandibularMalignant,
+            ...sublingualMalignant,
+            ...parotidMalignant,
+            ...submandibularBenign,
+            ...parotidBenign
+        )
     } catch (err) {
         patients = null
     }
@@ -187,13 +202,9 @@ export const getPatientsByType = async (
     let patients
 
     try {
-        if (formType === FormType.podcelistni) {
-            patients = await getAllRows(TableNames.podcelistni)
-        } else if (formType === FormType.podjazykove) {
-            patients = await getAllRows(TableNames.podjazykove)
-        } else if (formType === FormType.priusni) {
-            patients = await getAllRows(TableNames.priusni)
-        }
+        const tableName = formTypeToTableName[formType]
+
+        patients = await getAllRows(tableName)
     } catch (err) {
         patients = null
     }
@@ -210,13 +221,9 @@ export const getPatient = async (
     let patient
 
     try {
-        if (formType === FormType.podcelistni) {
-            patient = await getRow(TableNames.podcelistni, id)
-        } else if (formType === FormType.podjazykove) {
-            patient = await getRow(TableNames.podjazykove, id)
-        } else if (formType === FormType.priusni) {
-            patient = await getRow(TableNames.priusni, id)
-        }
+        const tableName = formTypeToTableName[formType]
+
+        patient = await getRow(tableName, id)
     } catch (err) {
         patient = null
     }
@@ -249,7 +256,7 @@ const getFilteredPatientsFromStudy = async (
 
     const promises = tablesToSelectFrom.map((tableName) => {
         return new Promise<void>((resolveQuery, rejectQuery) => {
-            const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.jeVeStudii} ON ${tableName}.id = ${jeVeStudiiColumns.id_pacient_db.columnName} AND ${tableName}.form_type = ${jeVeStudiiColumns.typ_pacienta.columnName} WHERE ${jeVeStudiiColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
+            const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.isInStudy} ON ${tableName}.id = ${isInStudyColumns.id_pacient_db.columnName} AND ${tableName}.form_type = ${isInStudyColumns.typ_pacienta.columnName} WHERE ${isInStudyColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
 
             db.all(query, [idStudie, ...values], (err, rows: PatientType[]) => {
                 if (err) {
@@ -305,16 +312,50 @@ const getFilteredPatientsFromAllPatients = async (
 const getTablesToSelectFrom = (filter: FilteredColumns): TableNames[] => {
     const tablesToSelectFrom: TableNames[] = []
 
-    if (filter.form_type.length === 0) {
+    if (
+        filter.typ_nadoru === TumorType.MALIGNANT &&
+        filter.form_type.length === 0
+    ) {
         tablesToSelectFrom.push(
-            TableNames.podcelistni,
-            TableNames.podjazykove,
-            TableNames.priusni
+            TableNames.submandibularMalignant,
+            TableNames.sublingualMalignant,
+            TableNames.parotidMalignant
         )
-    } else {
+    }
+
+    if (
+        filter.typ_nadoru === TumorType.MALIGNANT &&
+        filter.form_type.length > 0
+    ) {
         filter.form_type.forEach((formType) => {
             tablesToSelectFrom.push(formTypeToTableName[formType])
         })
+    }
+
+    if (
+        filter.typ_nadoru === TumorType.BENIGN &&
+        filter.form_type.length === 0
+    ) {
+        tablesToSelectFrom.push(
+            TableNames.submandibularBenign,
+            TableNames.parotidBenign
+        )
+    }
+
+    if (filter.typ_nadoru === TumorType.BENIGN && filter.form_type.length > 0) {
+        filter.form_type.forEach((formType) => {
+            tablesToSelectFrom.push(formTypeToTableName[formType])
+        })
+    }
+
+    if (filter.typ_nadoru === null) {
+        tablesToSelectFrom.push(
+            TableNames.submandibularMalignant,
+            TableNames.sublingualMalignant,
+            TableNames.parotidMalignant,
+            TableNames.submandibularBenign,
+            TableNames.parotidBenign
+        )
     }
 
     return tablesToSelectFrom
@@ -337,14 +378,50 @@ const getFilterWhereStatement = (
 
     // For histopatologie_vysledek
     if (filter.histopatologie_vysledek.length > 0) {
-        const histopatologieConditions = filter.histopatologie_vysledek
+        const histopathologyConditions = filter.histopatologie_vysledek
             .map(() => 'histopatologie_vysledek = ?')
             .join(' OR ')
         if (whereStatement !== '') {
-            whereStatement += ' OR '
+            whereStatement += ' AND '
         }
-        whereStatement += `(${histopatologieConditions})`
+        whereStatement += `(${histopathologyConditions})`
         values.push(...filter.histopatologie_vysledek)
+    }
+
+    // For perzistence
+    if (filter.perzistence) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `perzistence = ?`
+        values.push(filter.perzistence)
+    }
+
+    // For recidiva
+    if (filter.recidiva) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `recidiva = ?`
+        values.push(filter.recidiva)
+    }
+
+    // For stav
+    if (filter.stav) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `stav = ?`
+        values.push(filter.stav)
+    }
+
+    // For pohlavi
+    if (filter.pohlavi) {
+        if (whereStatement !== '') {
+            whereStatement += ' AND '
+        }
+        whereStatement += `pohlavi = ?`
+        values.push(filter.pohlavi)
     }
 
     return { whereStatement, values }
@@ -414,15 +491,30 @@ export const searchPatientsByNameSurnameRC = async (
     const patients: PatientType[] = []
 
     return new Promise((resolve, reject) => {
-        const queryPodcelistni = `SELECT * FROM ${TableNames.podcelistni} WHERE CONCAT(${podcelistniColumns.jmeno.columnName}, ' ', ${podcelistniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podcelistniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
-        const queryPodjazykove = `SELECT * FROM ${TableNames.podjazykove} WHERE CONCAT(${podjazykoveColumns.jmeno.columnName}, ' ', ${podjazykoveColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${podjazykoveColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
-        const queryPriusni = `SELECT * FROM ${TableNames.priusni} WHERE CONCAT(${priusniColumns.jmeno.columnName}, ' ', ${priusniColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${priusniColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const querySubmandibularMalignant = `SELECT * FROM ${TableNames.submandibularMalignant} WHERE CONCAT(${submandibularMalignantColumns.jmeno.columnName}, ' ', ${submandibularMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const querySublingualMalignant = `SELECT * FROM ${TableNames.sublingualMalignant} WHERE CONCAT(${sublingualMalignantColumns.jmeno.columnName}, ' ', ${sublingualMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${sublingualMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryParotidMalignant = `SELECT * FROM ${TableNames.parotidMalignant} WHERE CONCAT(${parotidMalignantColumns.jmeno.columnName}, ' ', ${parotidMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${parotidMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const querySubmandibularBenign = `SELECT * FROM ${TableNames.submandibularBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${submandibularBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
+        const queryParotidBenign = `SELECT * FROM ${TableNames.parotidBenign} WHERE CONCAT(${submandibularBenignColumns.jmeno.columnName}, ' ', ${parotidBenignColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${parotidBenignColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
 
         const promises = [
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(queryPodcelistni, (err, rows: PatientType[]) => {
+                db.all(
+                    querySubmandibularMalignant,
+                    (err, rows: PatientType[]) => {
+                        if (err) {
+                            console.log(err)
+                            rejectQuery(err)
+                        } else {
+                            patients.push(...rows)
+                            resolveQuery()
+                        }
+                    }
+                )
+            }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(querySublingualMalignant, (err, rows: PatientType[]) => {
                     if (err) {
-                        console.log(err)
                         rejectQuery(err)
                     } else {
                         patients.push(...rows)
@@ -431,7 +523,7 @@ export const searchPatientsByNameSurnameRC = async (
                 })
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(queryPodjazykove, (err, rows: PatientType[]) => {
+                db.all(queryParotidMalignant, (err, rows: PatientType[]) => {
                     if (err) {
                         rejectQuery(err)
                     } else {
@@ -441,7 +533,17 @@ export const searchPatientsByNameSurnameRC = async (
                 })
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(queryPriusni, (err, rows: PatientType[]) => {
+                db.all(querySubmandibularBenign, (err, rows: PatientType[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
+                    }
+                })
+            }),
+            new Promise<void>((resolveQuery, rejectQuery) => {
+                db.all(queryParotidBenign, (err, rows: PatientType[]) => {
                     if (err) {
                         rejectQuery(err)
                     } else {
@@ -466,23 +568,94 @@ export const searchPatientsByNameSurnameRC = async (
 export const deletePatient = async (
     data: Record<string, string | number | string[]>
 ): Promise<boolean> => {
-    const formType = data.form_type
+    const formType = data.form_type as FormType
     const id = data.id as number
 
     try {
-        if (formType === FormType.podcelistni) {
-            await deleteRow(TableNames.podcelistni, id)
-            await deletePatientFromAllStudies(id)
-        } else if (formType === FormType.podjazykove) {
-            await deleteRow(TableNames.podjazykove, id)
-            await deletePatientFromAllStudies(id)
-        } else if (formType === FormType.priusni) {
-            await deleteRow(TableNames.priusni, id)
-            await deletePatientFromAllStudies(id)
+        const tableName = formTypeToTableName[formType]
+
+        if (!tableName) {
+            return false
         }
+
+        await deleteRow(tableName, id)
+        await deletePatientFromAllStudies(id)
 
         return true
     } catch (err) {
         return false
     }
+}
+
+export const getPlannedPatientsBetweenDates = async (
+    startDate: Date,
+    endDate: Date
+): Promise<PlannedPatientsMap> => {
+    const createPlannedPatientsQuery = (
+        tableName: TableNames,
+        columns:
+            | SubmandibularMalignantColumns
+            | SubmandibularBenignColumns
+            | SublingualMalignantColumns
+            | ParotidMalignantColumns
+            | ParotidBenignColumns
+    ) => {
+        return `
+        SELECT *
+        FROM ${tableName} 
+        WHERE ${columns.planovana_kontrola.columnName} BETWEEN ? AND ?
+        `
+    }
+
+    const tableColumnsMap = {
+        [TableNames.submandibularMalignant]: submandibularMalignantColumns,
+        [TableNames.sublingualMalignant]: sublingualMalignantColumns,
+        [TableNames.parotidMalignant]: parotidMalignantColumns,
+        [TableNames.submandibularBenign]: submandibularBenignColumns,
+        [TableNames.parotidBenign]: parotidBenignColumns,
+    }
+
+    // Format the date to YYYY-MM-DD
+    const startDateFormatted = startDate.toISOString().split('T')[0]
+    const endDateFormatted = endDate.toISOString().split('T')[0]
+
+    const queries = Object.entries(tableColumnsMap).map(
+        ([tableName, columns]) => ({
+            query: createPlannedPatientsQuery(tableName as TableNames, columns),
+            params: [startDateFormatted, endDateFormatted],
+        })
+    )
+
+    const results = await Promise.all(
+        queries.map(
+            ({ query, params }) =>
+                new Promise((resolve, reject) => {
+                    db.all(query, params, (err, rows) => {
+                        if (err) {
+                            reject(err)
+                            console.log(err)
+                        } else {
+                            resolve(rows)
+                        }
+                    })
+                })
+        )
+    )
+
+    const plannedPatients: PatientType[] = results.flat() as PatientType[]
+    const decryptedPatients = decryptPatientData(plannedPatients)
+
+    // go over all patients and create create an map where key is the date and values are the patients
+    const plannedPatientsMap: PlannedPatientsMap = {}
+    decryptedPatients.forEach((patient) => {
+        const plannedCheckDate = patient.planovana_kontrola as string
+
+        if (!plannedPatientsMap[plannedCheckDate]) {
+            plannedPatientsMap[plannedCheckDate] = []
+        }
+
+        plannedPatientsMap[plannedCheckDate].push(patient)
+    })
+
+    return plannedPatientsMap
 }

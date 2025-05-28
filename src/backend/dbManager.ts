@@ -1,20 +1,24 @@
 import sqlite3 from 'sqlite3'
 import {
-    jeVeStudiiColumns,
+    isInStudyColumns,
+    parotidBenignColumns,
     passwordColumns,
-    podcelistniColumns,
-    podjazykoveColumns,
-    priusniColumns,
-    studieColumns,
+    submandibularMalignantColumns,
+    sublingualMalignantColumns,
+    parotidMalignantColumns,
+    studyColumns,
+    submandibularBenignColumns,
     TableNames,
 } from './constants'
 import {
-    JeVeStudiiColumns,
+    IsInStudyColumns,
+    ParotidBenignColumns,
     PasswordColumns,
-    PodcelistniColumns,
-    PodjazykoveColumns,
-    PriusniColumns,
-    StudieColumns,
+    SubmandibularMalignantColumns,
+    SublingualMalignantColumns,
+    ParotidMalignantColumns,
+    StudyColumns,
+    SubmandibularBenignColumns,
 } from './types'
 import { columnToSQL } from './utils'
 import path from 'path'
@@ -33,11 +37,13 @@ const db = new sqlite3.Database(getDBPath('db'))
 const createTable = (
     tableName: TableNames,
     columns:
-        | PodcelistniColumns
-        | PodjazykoveColumns
-        | PriusniColumns
-        | JeVeStudiiColumns
-        | StudieColumns
+        | SubmandibularMalignantColumns
+        | SublingualMalignantColumns
+        | ParotidMalignantColumns
+        | SubmandibularBenignColumns
+        | ParotidBenignColumns
+        | IsInStudyColumns
+        | StudyColumns
         | PasswordColumns
 ) => {
     const columnDefinitions = Object.values(columns).map(
@@ -49,13 +55,22 @@ const createTable = (
     )
 }
 
-db.serialize(() => {
-    createTable(TableNames.podcelistni, podcelistniColumns)
-    createTable(TableNames.podjazykove, podjazykoveColumns)
-    createTable(TableNames.priusni, priusniColumns)
-    createTable(TableNames.studie, studieColumns)
-    createTable(TableNames.jeVeStudii, jeVeStudiiColumns)
-    createTable(TableNames.password, passwordColumns)
-})
+export const createTables = () => {
+    db.serialize(() => {
+        createTable(
+            TableNames.submandibularMalignant,
+            submandibularMalignantColumns
+        )
+        createTable(TableNames.sublingualMalignant, sublingualMalignantColumns)
+        createTable(TableNames.parotidMalignant, parotidMalignantColumns)
+        createTable(TableNames.submandibularBenign, submandibularBenignColumns)
+        createTable(TableNames.parotidBenign, parotidBenignColumns)
+        createTable(TableNames.studies, studyColumns)
+        createTable(TableNames.isInStudy, isInStudyColumns)
+        createTable(TableNames.password, passwordColumns)
+    })
+}
+
+createTables()
 
 export default db

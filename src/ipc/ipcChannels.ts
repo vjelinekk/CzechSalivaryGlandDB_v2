@@ -27,6 +27,7 @@ export enum ipcAPIGetChannels {
     getFilteredPatients = 'getFilteredPatients',
     getKaplanMeierData = 'getKaplanMeierData',
     searchPatientsByNameSurnameRC = 'searchPatientsByNameSurnameRC',
+    getPlannedPatientsBetweenDates = 'getPlannedPatientsBetweenDates',
 }
 
 export enum ipcExportChannels {
@@ -43,6 +44,7 @@ export enum ipcFSChannels {
     getFileIcon = 'getFileIcon',
     open = 'open',
     getFileName = 'getFileName',
+    loadJson = 'loadJson',
 }
 
 export enum ipcEncryptionChannels {

@@ -18,12 +18,15 @@ import {
     ListItem,
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../translations'
 
 interface LoginFormProps {
     setIsLoggedIn: Dispatch<SetStateAction<boolean>>
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
+    const { t } = useTranslation() // Hook pro překlady
     const [isPasswordSet, setIsPasswordSet] = useState<boolean>(false)
     const [isEncryptionEnabled, setIsEncryptionEnabled] = useState<
         boolean | null
@@ -111,39 +114,34 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
         <Dialog open={true}>
             {validationFailed && (
                 <Alert severity="error">
-                    <AlertTitle>Chyba</AlertTitle>
-                    Špatné heslo
+                    <AlertTitle>{t(appTranslationKeys.error)}</AlertTitle>
+                    {t(appTranslationKeys.wrongPassword)}
                 </Alert>
             )}
-            <DialogTitle>Přihlášení do databáze</DialogTitle>
+            <DialogTitle>{t(appTranslationKeys.loginTitle)}</DialogTitle>
             {isEncryptionEnabled === null ? (
                 <DialogContent>
                     <Stack spacing={2}>
                         <Alert severity="info">
-                            <AlertTitle>Zásady pro práci s databází</AlertTitle>
+                            <AlertTitle>
+                                {t(appTranslationKeys.databasePolicies)}
+                            </AlertTitle>
                             <List>
                                 <ListItem>
-                                    Pokud hodláte pracovat s reálnými daty
-                                    pacientů je nutné zvolit zabezpečenou verzi
-                                    databáze.
+                                    {t(appTranslationKeys.databasePolicy1)}
                                 </ListItem>
                                 <ListItem>
-                                    Přidávání nově diagnostikovaných pacientů,
-                                    musí probíhat v souladu s platnými zákony a
-                                    na základě souhlasu pacienta.
+                                    {t(appTranslationKeys.databasePolicy2)}
                                 </ListItem>
                                 <ListItem>
-                                    Při retrospektivním přidávání pacientů je
-                                    nutné, aby byli jasně definované důvody proč
-                                    jsou zvolené osobní údaje uloženy v
-                                    databázi.
+                                    {t(appTranslationKeys.databasePolicy3)}
                                 </ListItem>
                             </List>
                         </Alert>
                         <form onSubmit={handleUseEncryptionSubmit}>
                             <FormControl>
                                 <FormLabel>
-                                    Chcete používat zabezpečenou databázi?
+                                    {t(appTranslationKeys.useSecureDb)}
                                 </FormLabel>
                                 <RadioGroup
                                     value={useEncryptionValue}
@@ -154,21 +152,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     <FormControlLabel
                                         value="ano"
                                         control={<Radio />}
-                                        label="Ano"
+                                        label={t(appTranslationKeys.yes)}
                                     />
                                     {useEncryptionValue === 'ne' && (
                                         <Alert severity="warning">
-                                            Pokud vyberete tuto možnost databáze
-                                            nebude žádným způsobem zašifrována a
-                                            osobní informace o pacientech budou
-                                            dostupné pro každého, kdo má přístup
-                                            k aplikaci.
+                                            {t(
+                                                appTranslationKeys.warningSecureDb
+                                            )}
                                         </Alert>
                                     )}
                                     <FormControlLabel
                                         value="ne"
                                         control={<Radio />}
-                                        label="Ne"
+                                        label={t(appTranslationKeys.no)}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -178,7 +174,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 type="submit"
                                 fullWidth
                             >
-                                Pokračovat
+                                {t(appTranslationKeys.continue)}
                             </Button>
                         </form>
                     </Stack>
@@ -191,7 +187,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 <>
                                     <TextField
                                         type="password"
-                                        label="Heslo"
+                                        label={t(appTranslationKeys.password)}
                                         variant="filled"
                                         value={password}
                                         onChange={(e) =>
@@ -200,7 +196,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     <TextField
                                         type="password"
-                                        label="Klíč k databázi"
+                                        label={t(
+                                            appTranslationKeys.databaseKey
+                                        )}
                                         variant="filled"
                                         value={databaseKey}
                                         onChange={(e) =>
@@ -211,15 +209,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                             ) : (
                                 <>
                                     <Alert severity="info">
-                                        <AlertTitle>Tvorba hesla</AlertTitle>
-                                        Vytvořte heslo pro přístup k databázi
-                                        toto heslo je nutné si zapamatovat,
-                                        protože bez něj se do databáze
-                                        nedostanete.
+                                        <AlertTitle>
+                                            {t(
+                                                appTranslationKeys.createPassword
+                                            )}
+                                        </AlertTitle>
+                                        {t(appTranslationKeys.passwordInfo)}
                                     </Alert>
                                     <TextField
                                         type="password"
-                                        label="Nové heslo"
+                                        label={t(
+                                            appTranslationKeys.newPassword
+                                        )}
                                         variant="filled"
                                         value={password}
                                         onChange={(e) =>
@@ -228,12 +229,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                     />
                                     <Alert severity="info">
                                         <AlertTitle>
-                                            Tvorba klíče k databázi
+                                            {t(appTranslationKeys.createDbKey)}
                                         </AlertTitle>
-                                        Byl pro vás vygenerován klíč k databázi,
-                                        který je nutné si bezpečně uložit,
-                                        protože bez něj nebude možné zobrazit
-                                        osobní informace o pacientech.
+                                        {t(appTranslationKeys.dbKeyInfo)}
                                     </Alert>
                                     <Stack
                                         direction="row"
@@ -266,7 +264,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
                                 type="submit"
                                 fullWidth
                             >
-                                Přihlásit se
+                                {t(appTranslationKeys.login)}
                             </Button>
                         </Stack>
                     </form>

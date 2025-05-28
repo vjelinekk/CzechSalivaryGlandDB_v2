@@ -7,7 +7,12 @@ import {
     ipcExportChannels,
 } from '../ipc/ipcChannels'
 import { FormType } from './constants'
-import { KaplanMeierData, PatientType, Study } from './types'
+import {
+    KaplanMeierData,
+    PatientType,
+    PlannedPatientsMap,
+    Study,
+} from './types'
 
 declare global {
     interface Window {
@@ -54,6 +59,10 @@ declare global {
                 kaplanMeierType: KaplanMeierType,
                 filter: FilteredColumns
             ) => Promise<KaplanMeierData>
+            getPlannedPatientsBetweenDates: (
+                startDate: Date,
+                endDate: Date
+            ) => Promise<PlannedPatientsMap>
         }
         export: {
             export: (
@@ -69,6 +78,7 @@ declare global {
             getFileIcon: (fileName: string) => Promise<string>
             getFileName: (filePath: string) => Promise<string>
             open: (filePath: string) => void
+            loadJson: (filePath: string) => Promise<Record<string, string>>
         }
         encryption: {
             setEncryptionKey: (key: string) => void

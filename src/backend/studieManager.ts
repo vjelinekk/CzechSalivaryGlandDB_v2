@@ -10,15 +10,15 @@ import {
 } from './basicOperations'
 import {
     FormType,
-    jeVeStudiiColumns,
-    studieColumns,
+    isInStudyColumns,
+    studyColumns,
     TableNames,
 } from './constants'
 import db from './dbManager'
 import { decryptPatientData } from './patientsManager'
 import { RowRecordType } from './types'
 
-const tableName = TableNames.studie
+const tableName = TableNames.studies
 
 export const insertStudy = async (
     data: RowRecordType
@@ -58,7 +58,7 @@ export const insertPatientToStudy = async (
     data: RowRecordType
 ): Promise<boolean> => {
     try {
-        await insertRow(TableNames.jeVeStudii, data)
+        await insertRow(TableNames.isInStudy, data)
         return true
     } catch (err) {
         return false
@@ -72,10 +72,10 @@ export const updatePatientsStudies = async (
 ): Promise<boolean> => {
     try {
         await deleteRowsBy(
-            TableNames.jeVeStudii,
+            TableNames.isInStudy,
             [
-                jeVeStudiiColumns.id_pacient_db.columnName,
-                jeVeStudiiColumns.typ_pacienta.columnName,
+                isInStudyColumns.id_pacient_db.columnName,
+                isInStudyColumns.typ_pacienta.columnName,
             ],
             [patientId, patientType]
         )
@@ -98,8 +98,8 @@ export const getPatientsInStudy = async (
     idStudie: number
 ): Promise<RowRecordType[]> => {
     const patientsInStudy = await getRowsBy(
-        TableNames.jeVeStudii,
-        [jeVeStudiiColumns.id_studie.columnName],
+        TableNames.isInStudy,
+        [isInStudyColumns.id_studie.columnName],
         [idStudie]
     )
 
@@ -109,23 +109,39 @@ export const getPatientsInStudy = async (
                 id_pacient_db: number
                 typ_pacienta: number
             }) => {
-                if (patientInStudy.typ_pacienta === FormType.podcelistni) {
+                if (patientInStudy.typ_pacienta === FormType.submandibular) {
                     const patient = await getRow(
-                        TableNames.podcelistni,
+                        TableNames.submandibularMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
                 } else if (
-                    patientInStudy.typ_pacienta === FormType.podjazykove
+                    patientInStudy.typ_pacienta === FormType.sublingual
                 ) {
                     const patient = await getRow(
-                        TableNames.podjazykove,
+                        TableNames.sublingualMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
-                } else if (patientInStudy.typ_pacienta === FormType.priusni) {
+                } else if (patientInStudy.typ_pacienta === FormType.parotid) {
                     const patient = await getRow(
-                        TableNames.priusni,
+                        TableNames.parotidMalignant,
+                        patientInStudy.id_pacient_db
+                    )
+                    return patient
+                } else if (
+                    patientInStudy.typ_pacienta === FormType.submandibularBenign
+                ) {
+                    const patient = await getRow(
+                        TableNames.submandibularBenign,
+                        patientInStudy.id_pacient_db
+                    )
+                    return patient
+                } else if (
+                    patientInStudy.typ_pacienta === FormType.parotidBenign
+                ) {
+                    const patient = await getRow(
+                        TableNames.parotidBenign,
                         patientInStudy.id_pacient_db
                     )
                     return patient
@@ -141,7 +157,7 @@ export const getPatientsInStudy = async (
 
 export const getStudies = async (): Promise<RowRecordType[]> => {
     try {
-        return await getAllRows(TableNames.studie)
+        return await getAllRows(TableNames.studies)
     } catch (err) {
         return []
     }
@@ -152,7 +168,7 @@ export const getStudiesByFormType = async (
 ): Promise<RowRecordType[]> => {
     return new Promise((resolve, reject) => {
         db.all(
-            `SELECT * FROM ${TableNames.studie} WHERE ${studieColumns.typ_studie.columnName} = ? OR ${studieColumns.typ_studie.columnName} = ?`,
+            `SELECT * FROM ${TableNames.studies} WHERE ${studyColumns.typ_studie.columnName} = ? OR ${studyColumns.typ_studie.columnName} = ?`,
             [formType, 4],
             (err, rows) => {
                 if (err) {
@@ -169,17 +185,17 @@ export const getStudiesByPatientId = async (
     patientType: FormType
 ): Promise<RowRecordType[]> => {
     const studies = await getRowsBy(
-        TableNames.jeVeStudii,
+        TableNames.isInStudy,
         [
-            jeVeStudiiColumns.id_pacient_db.columnName,
-            jeVeStudiiColumns.typ_pacienta.columnName,
+            isInStudyColumns.id_pacient_db.columnName,
+            isInStudyColumns.typ_pacienta.columnName,
         ],
         [patientId, patientType]
     )
 
     return await Promise.all(
         studies.map(async (study: { id_studie: number }) => {
-            return await getRow(TableNames.studie, study.id_studie)
+            return await getRow(TableNames.studies, study.id_studie)
         })
     )
 }
@@ -189,8 +205,8 @@ export const deletePatientFromAllStudies = async (
 ): Promise<boolean> => {
     try {
         await deleteRowsBy(
-            TableNames.jeVeStudii,
-            [jeVeStudiiColumns.id_pacient_db.columnName],
+            TableNames.isInStudy,
+            [isInStudyColumns.id_pacient_db.columnName],
             [patientId]
         )
         return true
@@ -206,11 +222,11 @@ export const deletePatientFromStudy = async (
 ): Promise<boolean> => {
     try {
         await deleteRowsBy(
-            TableNames.jeVeStudii,
+            TableNames.isInStudy,
             [
-                jeVeStudiiColumns.id_studie.columnName,
-                jeVeStudiiColumns.id_pacient_db.columnName,
-                jeVeStudiiColumns.typ_pacienta.columnName,
+                isInStudyColumns.id_studie.columnName,
+                isInStudyColumns.id_pacient_db.columnName,
+                isInStudyColumns.typ_pacienta.columnName,
             ],
             [studyId, patientId, patientType]
         )
@@ -221,12 +237,12 @@ export const deletePatientFromStudy = async (
 }
 
 export const deleteStudy = async (data: RowRecordType): Promise<boolean> => {
-    const id = data[studieColumns.id.columnName] as number
+    const id = data[studyColumns.id.columnName] as number
     try {
         await deleteRow(tableName, id)
         await deleteRowsBy(
-            TableNames.jeVeStudii,
-            [jeVeStudiiColumns.id_studie.columnName],
+            TableNames.isInStudy,
+            [isInStudyColumns.id_studie.columnName],
             [id]
         )
         return true

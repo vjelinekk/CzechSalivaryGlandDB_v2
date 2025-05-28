@@ -3,15 +3,46 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import FiltrationMenu from '../../src/frontend/components/filtration-menu'
 import { StudyType } from '../../src/frontend/constants'
 
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+beforeAll(async () => {
+    global.window = Object.create(window)
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+    }
+
+    await initI18n()
+})
+
 describe('FiltrationMenu component', () => {
     test('should render correctly and reset filters on close', () => {
         const setOpenFilterMenuMock = jest.fn()
         const setFilteredColumnsMock = jest.fn()
         const setIsFilteredMock = jest.fn()
         const filteredColumns = {
-            form_type: ['example_form_type'],
-            histopatologie_vysledek: ['example_histopatologie'],
-            typ_terapie: ['example_typ_terapie'],
+            form_type: [],
+            histopatologie_vysledek: [],
+            typ_terapie: [],
+            perzistence: null,
+            pohlavi: null,
+            recidiva: null,
+            stav: null,
+            typ_nadoru: null,
         }
 
         render(
@@ -31,15 +62,24 @@ describe('FiltrationMenu component', () => {
         expect(setOpenFilterMenuMock).toHaveBeenCalledWith(false)
         expect(setFilteredColumnsMock).toHaveBeenCalledWith(filteredColumns)
 
-        fireEvent.click(screen.getByText('Resetovat filtr'))
+        fireEvent.click(
+            screen.getByText(i18n.t(formTranslationKeys.resetFilter))
+        )
         expect(setFilteredColumnsMock).toHaveBeenCalledWith({
             form_type: [],
             histopatologie_vysledek: [],
             typ_terapie: [],
+            perzistence: null,
+            pohlavi: null,
+            recidiva: null,
+            stav: null,
+            typ_nadoru: null,
         })
 
-        // Assertions for "Uložit filtr" button
-        fireEvent.click(screen.getByText('Uložit filtr'))
+        // Assertions for i18n.t(formTranslationKeys.saveFilter) button
+        fireEvent.click(
+            screen.getByText(i18n.t(formTranslationKeys.saveFilter))
+        )
         expect(setOpenFilterMenuMock).toHaveBeenCalledWith(false)
         expect(setIsFilteredMock).toHaveBeenCalledWith(true)
     })

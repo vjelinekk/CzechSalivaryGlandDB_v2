@@ -1,12 +1,16 @@
 import React from 'react'
 import { GlandComponentProps } from '../../types'
 import Attachment from './attachment'
+import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 const Attachments: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     const handleAddAttachments = async (
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
@@ -27,7 +31,7 @@ const Attachments: React.FC<GlandComponentProps> = ({
 
     return (
         <div className="sectionDiv">
-            <h1>PŘÍLOHY</h1>
+            <h1>{t(formTranslationKeys.attachmentsTitle)}</h1>
             <div className="attachments">
                 {formData?.attachments
                     ?.split(',')
@@ -45,7 +49,7 @@ const Attachments: React.FC<GlandComponentProps> = ({
                 disabled={disabled}
                 onClick={handleAddAttachments}
             >
-                Přidat přílohu
+                {t(formTranslationKeys.addAttachment)}
             </button>
         </div>
     )

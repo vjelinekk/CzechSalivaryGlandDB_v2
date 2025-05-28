@@ -5,18 +5,21 @@ import {
 } from '../../../ipc/ipcChannels'
 import { Components, FormStates } from '../../constants'
 import {
-    activeComponentState,
+    ActiveComponentState,
     PatientInStudy,
     PatientType,
     Study,
 } from '../../types'
+import { useTranslation } from 'react-i18next'
+import { appTranslationKeys } from '../../translations'
 
 interface AddPatientButtonProps {
     formState: FormStates
     formData: PatientType
     selectedStudies: Study[]
     formErrors: string[]
-    setActiveComponent?: Dispatch<SetStateAction<activeComponentState>>
+    setActiveComponent?: Dispatch<SetStateAction<ActiveComponentState>>
+    setActiveMenuButton?: Dispatch<SetStateAction<Components>>
 }
 
 const AddPatientButton: React.FC<AddPatientButtonProps> = ({
@@ -25,7 +28,9 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
     selectedStudies,
     formErrors,
     setActiveComponent,
+    setActiveMenuButton,
 }) => {
+    const { t } = useTranslation()
     const handleButtonClick = async (
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
@@ -58,6 +63,10 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
             component: Components.patientsList,
             activePatient: { ...formData, id: result },
         })
+
+        if (setActiveMenuButton) {
+            setActiveMenuButton(Components.patientsList)
+        }
     }
 
     return (
@@ -70,7 +79,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
                         disabled={formErrors.length > 0}
                         onClick={handleButtonClick}
                     >
-                        Přidat pacienta
+                        {t(appTranslationKeys.addPatient)}
                     </button>
                 </div>
             </>

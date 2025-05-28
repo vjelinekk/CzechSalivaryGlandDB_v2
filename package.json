@@ -73,11 +73,16 @@
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.13",
         "@mui/material": "^5.15.13",
+        "@mui/x-date-pickers": "^5.0.20",
+        "@react-pdf/renderer": "^4.3.0",
+        "date-fns": "^2.30.0",
         "dotenv": "^16.4.5",
         "electron-squirrel-startup": "^1.0.0",
         "exceljs": "^4.4.0",
+        "i18next": "^22.5.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-i18next": "^11.18.0",
         "recharts": "^2.12.3",
         "sqlite3": "^5.1.7"
     }

@@ -1,6 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import Notes from '../../src/frontend/components/forms/notes'
 
+// Mock the useTranslation hook
+jest.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key) => {
+            // Return Czech translations for the expected keys
+            if (key === 'notes') {
+                return 'poznámky'
+            }
+            return key
+        },
+    }),
+}))
+
 describe('Notes component', () => {
     test('renders the section heading and textarea input', () => {
         // Mock formData and setFormData function

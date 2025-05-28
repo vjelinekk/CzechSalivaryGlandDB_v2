@@ -2,16 +2,20 @@ import React from 'react'
 import { dbLabels } from '../../constants'
 import { GlandComponentProps } from '../../types'
 import TNMClassificationCalculator from './tnm-classification-calculator'
+import { useTranslation } from 'react-i18next'
+import { formTranslationKeys } from '../../translations'
 
 const TNMClassification: React.FC<GlandComponentProps> = ({
     formData,
     setFormData,
     disabled,
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="sectionDiv">
-            <h1>TNM klasifikace</h1>
-            <h2>TNM klasifikace (klinická)</h2>
+            <h1>{t(formTranslationKeys.tnmClassification)}</h1>
+            <h2>{t(formTranslationKeys.tnmClassificationClinical)}</h2>
             <TNMClassificationCalculator
                 tLabel={dbLabels.t_klasifikace_klinicka}
                 nLabel={dbLabels.n_klasifikace_klinicka}
@@ -21,7 +25,7 @@ const TNMClassification: React.FC<GlandComponentProps> = ({
                 setFormData={setFormData}
                 disabled={disabled}
             />
-            <h2>TNM klasifikace (patologická)</h2>
+            <h2>{t(formTranslationKeys.tnmClassificationPathological)}</h2>
             <TNMClassificationCalculator
                 tLabel={dbLabels.t_klasifikace_patologicka}
                 nLabel={dbLabels.n_klasifikace_patologicka}

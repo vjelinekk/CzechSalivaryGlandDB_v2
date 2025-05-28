@@ -83,6 +83,12 @@ contextBridge.exposeInMainWorld('api', {
             filter,
         ])
     },
+    getPlannedPatientsBetweenDates: (startDate: Date, endDate: Date) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getPlannedPatientsBetweenDates,
+            [startDate, endDate]
+        )
+    },
 })
 
 contextBridge.exposeInMainWorld('export', {
@@ -110,6 +116,7 @@ contextBridge.exposeInMainWorld('fs', {
     open: (filePath: string) => {
         ipcRenderer.invoke(ipcFSChannels.open, filePath)
     },
+    loadJson: (filePath: string) => ipcRenderer.invoke('loadJson', filePath),
 })
 
 contextBridge.exposeInMainWorld('encryption', {

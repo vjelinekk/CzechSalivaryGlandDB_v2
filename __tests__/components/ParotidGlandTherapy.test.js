@@ -1,5 +1,31 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import ParotidGlandTherapy from '../../src/frontend/components/forms/parotid/parotid-gland-therapy'
+import ParotidMalignantGlandTherapy from '../../src/frontend/components/forms/parotid/malignant/parotid-malignant-gland-therapy.tsx'
+
+import { initI18n } from '../../src/frontend/i18n'
+import i18n from 'i18next'
+import { formTranslationKeys } from '../../src/frontend/translations'
+
+beforeAll(async () => {
+    global.window = Object.create(window)
+    window.fs = {
+        loadJson: (filePath) => {
+            const fs = require('fs')
+            const path = require('path')
+            const fullPath = path.resolve(__dirname, '../../', filePath)
+            return new Promise((resolve, reject) => {
+                fs.readFile(fullPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+    }
+
+    await initI18n()
+})
 
 describe('ParotidGlandTherapy', () => {
     const formData = {} // Mocked formData
@@ -7,7 +33,7 @@ describe('ParotidGlandTherapy', () => {
 
     test('renders section headings and various input components', () => {
         render(
-            <ParotidGlandTherapy
+            <ParotidMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={false}
@@ -17,7 +43,9 @@ describe('ParotidGlandTherapy', () => {
         // Assert section headings
         const sectionHeadings = screen.getAllByRole('heading', { level: 1 })
         expect(sectionHeadings).toHaveLength(1) // Only one level 1 heading expected
-        expect(sectionHeadings[0]).toHaveTextContent('TERAPIE')
+        expect(sectionHeadings[0]).toHaveTextContent(
+            i18n.t(formTranslationKeys.therapy)
+        )
 
         // Assert DatePicker component
         const datePicker = screen.getByText('Datum zahájení léčby:')
@@ -32,7 +60,7 @@ describe('ParotidGlandTherapy', () => {
 
     test('disables input components when disabled prop is true', () => {
         render(
-            <ParotidGlandTherapy
+            <ParotidMalignantGlandTherapy
                 formData={formData}
                 setFormData={setFormData}
                 disabled={true}

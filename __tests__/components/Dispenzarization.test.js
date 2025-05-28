@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import Dispensarization from '../../src/frontend/components/forms/dispensarization'
+import DispensarizationMalignant from '../../src/frontend/components/forms/dispensarization-malignant.tsx'
 import { expect } from '@jest/globals'
 
 describe('Dispensarization component', () => {
@@ -9,7 +9,7 @@ describe('Dispensarization component', () => {
 
     test('renders all sections correctly', () => {
         render(
-            <Dispensarization
+            <DispensarizationMalignant
                 formData={formDataMock}
                 setFormData={setFormDataMock}
                 disabled={disabledMock}
@@ -22,7 +22,7 @@ describe('Dispensarization component', () => {
 
     test('updates form data on date picker change', () => {
         render(
-            <Dispensarization
+            <DispensarizationMalignant
                 formData={formDataMock}
                 setFormData={setFormDataMock}
                 disabled={disabledMock}
@@ -36,7 +36,7 @@ describe('Dispensarization component', () => {
 
     test('updates form data on conditional checkbox option change', () => {
         render(
-            <Dispensarization
+            <DispensarizationMalignant
                 formData={formDataMock}
                 setFormData={setFormDataMock}
                 disabled={disabledMock}
@@ -50,7 +50,7 @@ describe('Dispensarization component', () => {
 
     test('disables inputs when disabled prop is true', () => {
         render(
-            <Dispensarization
+            <DispensarizationMalignant
                 formData={formDataMock}
                 setFormData={setFormDataMock}
                 disabled={true}
