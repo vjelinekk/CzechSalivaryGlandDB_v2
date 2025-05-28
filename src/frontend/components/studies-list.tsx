@@ -64,8 +64,7 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
                 elevation={3}
                 sx={{
                     p: 2,
-                    width: '25%',
-                    minWidth: '280px',
+                    minWidth: '15%',
                     maxWidth: '350px',
                     height: '100%',
                     display: 'flex',

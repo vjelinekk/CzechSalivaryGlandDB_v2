@@ -47,10 +47,18 @@ describe('EditButtons component', () => {
     const idStudieMock = 1
 
     beforeEach(() => {
+        // Clear all mocks
+        jest.clearAllMocks()
+
         window.api = {
             save: jest.fn().mockReturnValue(1),
+            delete: jest.fn().mockReturnValue(true),
+            deletePatientFromStudy: jest.fn().mockReturnValue(true),
+            updatePatientsStudies: jest.fn().mockReturnValue(true),
         }
+    })
 
+    test('renders edit buttons correctly', () => {
         render(
             <EditButtons
                 formState={'edit'}
@@ -70,11 +78,17 @@ describe('EditButtons component', () => {
                 idStudie={idStudieMock}
             />
         )
-    })
 
-    test('renders edit buttons correctly', () => {
+        // Initially only the expand/collapse button is visible
         const editButtons = screen.getAllByRole('button')
-        expect(editButtons).toHaveLength(4) // Expect 4 buttons to be rendered
+        expect(editButtons).toHaveLength(1) // Only expand button visible initially
+
+        // Click to expand and show all buttons
+        fireEvent.click(editButtons[0])
+
+        // Now all buttons should be visible (expand + cancel + save + delete + removeFromStudy)
+        const expandedButtons = screen.getAllByRole('button')
+        expect(expandedButtons).toHaveLength(5) // All buttons visible after expansion
     })
 
     test('call handleEditButtonClick', () => {
@@ -98,6 +112,10 @@ describe('EditButtons component', () => {
             />
         )
 
+        // First expand the buttons
+        const expandButton = screen.getAllByRole('button')[0]
+        fireEvent.click(expandButton)
+
         const editButton = screen.getByText(
             i18n.t(formTranslationKeys.editPatient)
         )
@@ -106,6 +124,30 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleCancelButtonClick', () => {
+        render(
+            <EditButtons
+                formState={'edit'}
+                formData={formDataMock}
+                setFormData={setFormDataMock}
+                databaseFormData={databaseFormDataMock}
+                setDatabaseFormData={setDatabaseFormDataMock}
+                selectedStudies={selectedStudiesMock}
+                setSelectedStudies={setSelectedStudiesMock}
+                databaseSelectedStudies={databaseSelectedStudiesMock}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudiesMock}
+                studiesChanged={studiesChangedMock}
+                formErrors={formErrorsMock}
+                setFormState={setFormStateMock}
+                setEditSaved={setEditSavedMock}
+                setActivePatient={setActivePatientMock}
+                idStudie={idStudieMock}
+            />
+        )
+
+        // First expand the buttons
+        const expandButton = screen.getAllByRole('button')[0]
+        fireEvent.click(expandButton)
+
         const cancelButton = screen.getByText(
             i18n.t(formTranslationKeys.cancelEdit)
         )
@@ -118,6 +160,30 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleSaveButtonClick', async () => {
+        render(
+            <EditButtons
+                formState={'edit'}
+                formData={formDataMock}
+                setFormData={setFormDataMock}
+                databaseFormData={databaseFormDataMock}
+                setDatabaseFormData={setDatabaseFormDataMock}
+                selectedStudies={selectedStudiesMock}
+                setSelectedStudies={setSelectedStudiesMock}
+                databaseSelectedStudies={databaseSelectedStudiesMock}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudiesMock}
+                studiesChanged={studiesChangedMock}
+                formErrors={formErrorsMock}
+                setFormState={setFormStateMock}
+                setEditSaved={setEditSavedMock}
+                setActivePatient={setActivePatientMock}
+                idStudie={idStudieMock}
+            />
+        )
+
+        // First expand the buttons
+        const expandButton = screen.getAllByRole('button')[0]
+        fireEvent.click(expandButton)
+
         const saveButton = screen.getByText(
             i18n.t(formTranslationKeys.saveChanges)
         )
@@ -130,6 +196,30 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleDeleteButtonClick', () => {
+        render(
+            <EditButtons
+                formState={'edit'}
+                formData={formDataMock}
+                setFormData={setFormDataMock}
+                databaseFormData={databaseFormDataMock}
+                setDatabaseFormData={setDatabaseFormDataMock}
+                selectedStudies={selectedStudiesMock}
+                setSelectedStudies={setSelectedStudiesMock}
+                databaseSelectedStudies={databaseSelectedStudiesMock}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudiesMock}
+                studiesChanged={studiesChangedMock}
+                formErrors={formErrorsMock}
+                setFormState={setFormStateMock}
+                setEditSaved={setEditSavedMock}
+                setActivePatient={setActivePatientMock}
+                idStudie={idStudieMock}
+            />
+        )
+
+        // First expand the buttons
+        const expandButton = screen.getAllByRole('button')[0]
+        fireEvent.click(expandButton)
+
         const deleteButton = screen.getByText(
             i18n.t(formTranslationKeys.deletePatient)
         )
@@ -141,6 +231,30 @@ describe('EditButtons component', () => {
     })
 
     test('calls handleDeleteFromStudyClick', () => {
+        render(
+            <EditButtons
+                formState={'edit'}
+                formData={formDataMock}
+                setFormData={setFormDataMock}
+                databaseFormData={databaseFormDataMock}
+                setDatabaseFormData={setDatabaseFormDataMock}
+                selectedStudies={selectedStudiesMock}
+                setSelectedStudies={setSelectedStudiesMock}
+                databaseSelectedStudies={databaseSelectedStudiesMock}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudiesMock}
+                studiesChanged={studiesChangedMock}
+                formErrors={formErrorsMock}
+                setFormState={setFormStateMock}
+                setEditSaved={setEditSavedMock}
+                setActivePatient={setActivePatientMock}
+                idStudie={idStudieMock}
+            />
+        )
+
+        // First expand the buttons
+        const expandButton = screen.getAllByRole('button')[0]
+        fireEvent.click(expandButton)
+
         const deleteFromStudyButton = screen.getByText(
             i18n.t(formTranslationKeys.removeFromStudy)
         )
@@ -149,5 +263,45 @@ describe('EditButtons component', () => {
             i18n.t(formTranslationKeys.confirmRemoveFromStudy)
         )
         expect(confirmationDialog).toBeInTheDocument()
+    })
+
+    test('expand/collapse functionality works correctly', () => {
+        render(
+            <EditButtons
+                formState={'edit'}
+                formData={formDataMock}
+                setFormData={setFormDataMock}
+                databaseFormData={databaseFormDataMock}
+                setDatabaseFormData={setDatabaseFormDataMock}
+                selectedStudies={selectedStudiesMock}
+                setSelectedStudies={setSelectedStudiesMock}
+                databaseSelectedStudies={databaseSelectedStudiesMock}
+                setDatabaseSelectedStudies={setDatabaseSelectedStudiesMock}
+                studiesChanged={studiesChangedMock}
+                formErrors={formErrorsMock}
+                setFormState={setFormStateMock}
+                setEditSaved={setEditSavedMock}
+                setActivePatient={setActivePatientMock}
+                idStudie={idStudieMock}
+            />
+        )
+
+        // Initially collapsed - only expand button visible
+        const initialButtons = screen.getAllByRole('button')
+        expect(initialButtons).toHaveLength(1)
+
+        // Click to expand
+        fireEvent.click(initialButtons[0])
+
+        // Now all buttons should be visible
+        const expandedButtons = screen.getAllByRole('button')
+        expect(expandedButtons).toHaveLength(5) // expand + cancel + save + delete + removeFromStudy
+
+        // Click to collapse again
+        fireEvent.click(expandedButtons[0])
+
+        // Should be back to only expand button visible
+        const collapsedButtons = screen.getAllByRole('button')
+        expect(collapsedButtons).toHaveLength(1)
     })
 })
