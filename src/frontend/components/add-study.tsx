@@ -3,6 +3,7 @@ import { Components, StudyType } from '../constants'
 import { ActiveComponentState } from '../types'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
+import { Box, Button, Stack } from '@mui/material'
 
 interface AddStudyProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
@@ -16,44 +17,49 @@ const AddStudy: React.FC<AddStudyProps> = ({ setActiveComponent }) => {
     }
 
     return (
-        <div id="studies" style={{ display: 'flex' }}>
-            <ul>
-                <li>
-                    <button
-                        className="mainButton"
-                        onClick={() => handleButtonClick(StudyType.parotid)}
-                    >
-                        {t(appTranslationKeys.newStudyParotid)}
-                    </button>
-                </li>
-                <li>
-                    <button
-                        className="mainButton"
-                        onClick={() =>
-                            handleButtonClick(StudyType.submandibular)
-                        }
-                    >
-                        {t(appTranslationKeys.newStudySubmandibular)}
-                    </button>
-                </li>
-                <li>
-                    <button
-                        className="mainButton"
-                        onClick={() => handleButtonClick(StudyType.sublingual)}
-                    >
-                        {t(appTranslationKeys.newStudySublingual)}
-                    </button>
-                </li>
-                <li>
-                    <button
-                        className="mainButton"
-                        onClick={() => handleButtonClick(StudyType.special)}
-                    >
-                        {t(appTranslationKeys.newStudySpecial)}
-                    </button>
-                </li>
-            </ul>
-        </div>
+        <Box
+            id="studies"
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: 2,
+            }}
+        >
+            <Stack spacing={2} sx={{ minWidth: 300 }}>
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleButtonClick(StudyType.parotid)}
+                    sx={{ py: 1.5 }}
+                >
+                    {t(appTranslationKeys.newStudyParotid)}
+                </Button>
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleButtonClick(StudyType.submandibular)}
+                    sx={{ py: 1.5 }}
+                >
+                    {t(appTranslationKeys.newStudySubmandibular)}
+                </Button>
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleButtonClick(StudyType.sublingual)}
+                    sx={{ py: 1.5 }}
+                >
+                    {t(appTranslationKeys.newStudySublingual)}
+                </Button>
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => handleButtonClick(StudyType.special)}
+                    sx={{ py: 1.5 }}
+                >
+                    {t(appTranslationKeys.newStudySpecial)}
+                </Button>
+            </Stack>
+        </Box>
     )
 }
 

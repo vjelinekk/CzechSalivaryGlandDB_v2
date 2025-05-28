@@ -26,7 +26,6 @@ interface StudyButtonProps {
 
 const StudyButton: React.FC<StudyButtonProps> = ({
     defaultStudy,
-    isActiveStudy,
     setActiveStudy,
     setListChanged,
 }) => {
@@ -105,7 +104,6 @@ const StudyButton: React.FC<StudyButtonProps> = ({
                             prevStudy?.id === study.id ? null : study
                         )
                     }
-                    className={`patientButton ${isActiveStudy ? 'selected' : ''}`}
                 >
                     {study.nazev_studie} (
                     {
