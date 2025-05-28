@@ -4,25 +4,25 @@ import { initReactI18next } from 'react-i18next'
 const loadTranslations = async () => {
     console.log('Loading translations...')
     const enTranslation = await window.fs.loadJson(
-        'public/locales/translation-en.json'
+        '/locales/translation-en.json'
     )
     const csTranslation = await window.fs.loadJson(
-        'public/locales/translation-cs.json'
+        '/locales/translation-cs.json'
     )
     const skTranslation = await window.fs.loadJson(
-        'public/locales/translation-sk.json'
+        '/locales/translation-sk.json'
     )
     // const deTranslation = await window.fs.loadJson('public/locales/translation-de.json');
     // const esTranslation = await window.fs.loadJson('public/locales/translation-es.json');
 
     const csFormTranslation = await window.fs.loadJson(
-        'public/locales/form-translation-cs.json'
+        '/locales/form-translation-cs.json'
     )
     const enFormTranslation = await window.fs.loadJson(
-        'public/locales/form-translation-en.json'
+        '/locales/form-translation-en.json'
     )
     const skFormTranslation = await window.fs.loadJson(
-        'public/locales/form-translation-sk.json'
+        '/locales/form-translation-sk.json'
     )
     // const deFormTranslation = await window.fs.loadJson('public/locales/form-translation-de.json');
     // const esFormTranslation = await window.fs.loadJson('public/locales/form-translation-es.json');

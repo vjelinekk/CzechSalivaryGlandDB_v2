@@ -12,7 +12,8 @@ beforeAll(async () => {
         loadJson: (filePath) => {
             const fs = require('fs')
             const path = require('path')
-            const fullPath = path.resolve(__dirname, '../../', filePath)
+            const basePath = path.join(__dirname, '..', '..', 'public')
+            const fullPath = path.join(basePath, filePath)
             return new Promise((resolve, reject) => {
                 fs.readFile(fullPath, 'utf8', (err, data) => {
                     if (err) {

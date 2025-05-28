@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Page,
     Text,
@@ -16,17 +16,6 @@ interface PDFfileProps {
     startDate: string
     endDate: string
 }
-
-Font.register({
-    family: 'Arial',
-    src: '/fonts/Arial.ttf',
-    fontWeight: 'normal',
-})
-Font.register({
-    family: 'Arial',
-    src: '/fonts/ArialBD.ttf',
-    fontWeight: 'bold',
-})
 
 const styles = StyleSheet.create({
     body: {
@@ -67,6 +56,31 @@ const PDFfile: React.FC<PDFfileProps> = ({
     startDate,
     endDate,
 }) => {
+    useEffect(() => {
+        const registerFonts = async () => {
+            try {
+                Font.register({
+                    family: 'Arial',
+                    src: await window.fs.getPublicProductionReadyPath(
+                        '/fonts/Arial.ttf'
+                    ),
+                    fontWeight: 'normal',
+                })
+                Font.register({
+                    family: 'Arial',
+                    src: await window.fs.getPublicProductionReadyPath(
+                        '/fonts/ArialBD.ttf'
+                    ),
+                    fontWeight: 'bold',
+                })
+            } catch (error) {
+                console.error('Error registering fonts:', error)
+            }
+        }
+
+        registerFonts()
+    }, [])
+
     const { t } = useTranslation()
 
     return (

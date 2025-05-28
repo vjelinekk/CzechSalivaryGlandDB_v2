@@ -29,9 +29,28 @@ ipcMain.handle(ipcFSChannels.open, async (event, filePath) => {
     shell.openPath(filePath)
 })
 
+ipcMain.handle(
+    ipcFSChannels.getPublicProductionReadyPath,
+    async (event, filePath: string) => {
+        const isPacked = app.isPackaged
+        const basePath = isPacked
+            ? path.join(app.getAppPath(), '.webpack', 'renderer')
+            : ''
+        const fullPath = path.join(basePath, filePath)
+
+        return fullPath
+    }
+)
+
 ipcMain.handle(ipcFSChannels.loadJson, async (event, filePath) => {
     try {
-        const fileContent = await fs.readFile(filePath, 'utf-8')
+        const isPacked = app.isPackaged
+        const basePath = isPacked
+            ? path.join(app.getAppPath(), '.webpack', 'renderer')
+            : path.join(__dirname, '..', '..', 'public')
+        const fullPath = path.join(basePath, filePath)
+
+        const fileContent = await fs.readFile(fullPath, 'utf-8')
         const json = JSON.parse(fileContent)
         return json
     } catch (error) {

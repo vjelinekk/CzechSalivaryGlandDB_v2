@@ -79,6 +79,7 @@ declare global {
             getFileName: (filePath: string) => Promise<string>
             open: (filePath: string) => void
             loadJson: (filePath: string) => Promise<Record<string, string>>
+            getPublicProductionReadyPath: (filePath: string) => Promise<string>
         }
         encryption: {
             setEncryptionKey: (key: string) => void
