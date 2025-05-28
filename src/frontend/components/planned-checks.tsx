@@ -21,6 +21,8 @@ import { usePlannedChecks } from '../hooks/use-planned-checks'
 import { Components } from '../constants'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
+import PDFfile from './pdf-export'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 interface PlannedChecksProps {
     setActiveComponent: Dispatch<SetStateAction<ActiveComponentState>>
@@ -34,12 +36,6 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
     const { t } = useTranslation()
     const { plannedDaysRows, startDate, setStartDate, endDate, setEndDate } =
         usePlannedChecks()
-
-    const handleExportPDF = async () => {
-        // TODO: Implement PDF export functionality
-        // e.g., await window.export.exportPlannedChecksToPDF(startDate, endDate);
-        console.log('Exporting to PDF...')
-    }
 
     const handleOpenPatientDetail = (patient: PatientType) => {
         setActiveComponent({
@@ -59,6 +55,16 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
             month: 'numeric',
             day: 'numeric',
         })
+    }
+
+    const formatDateForFileName = (date: Date | null) => {
+        if (!date) return 'nezname-datum'
+
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0') // měsíce jsou 0–11
+        const year = date.getFullYear()
+
+        return `${day}-${month}-${year}`
     }
 
     return (
@@ -93,13 +99,24 @@ const PlannedChecks: React.FC<PlannedChecksProps> = ({
                     </Stack>
                 </LocalizationProvider>
 
-                <Button
-                    variant="contained"
-                    startIcon={<PictureAsPdfIcon />}
-                    onClick={handleExportPDF}
+                <PDFDownloadLink
+                    document={
+                        <PDFfile
+                            plannedDaysRows={plannedDaysRows}
+                            startDate={formatDate(startDate)}
+                            endDate={formatDate(endDate)}
+                        />
+                    }
+                    fileName={`planovane-kontroly_${formatDateForFileName(startDate)}_az_${formatDateForFileName(endDate)}.pdf`}
+                    style={{ textDecoration: 'none' }}
                 >
-                    {t(appTranslationKeys.exportPdf)}
-                </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<PictureAsPdfIcon />}
+                    >
+                        {t(appTranslationKeys.exportPdf)}
+                    </Button>
+                </PDFDownloadLink>
             </Stack>
 
             {plannedDaysRows.map((row, rowIndex) => (

@@ -16,6 +16,10 @@ export const plugins = [
                 from: path.resolve(__dirname, 'public', 'img'),
                 to: path.resolve(__dirname, '.webpack/renderer', 'img'),
             },
+            {
+                from: path.resolve(__dirname, 'public', 'fonts'),
+                to: path.resolve(__dirname, '.webpack/renderer', 'fonts'),
+            },
         ],
     }),
 ]

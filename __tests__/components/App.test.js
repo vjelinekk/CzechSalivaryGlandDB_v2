@@ -2,6 +2,21 @@ import { describe, expect, jest } from '@jest/globals'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import App from '../../src/frontend/components/app'
 
+// Mock @react-pdf/renderer to prevent import errors
+jest.mock('@react-pdf/renderer', () => ({
+    Document: ({ children }) => children,
+    Page: ({ children }) => children,
+    Text: ({ children }) => children,
+    View: ({ children }) => children,
+    StyleSheet: {
+        create: (styles) => styles,
+    },
+    Font: {
+        register: jest.fn(),
+    },
+    PDFDownloadLink: ({ children }) => children,
+}))
+
 // Mock i18next
 jest.mock('i18next', () => {
     const mockT = (key) => {
