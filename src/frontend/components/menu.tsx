@@ -28,8 +28,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import FolderIcon from '@mui/icons-material/Folder'
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder'
 import ShowChartIcon from '@mui/icons-material/ShowChart'
-import PieChartIcon from '@mui/icons-material/PieChart';
-import InsightsIcon from '@mui/icons-material/Insights';
+import PieChartIcon from '@mui/icons-material/PieChart'
+import InsightsIcon from '@mui/icons-material/Insights'
 import BackupIcon from '@mui/icons-material/Backup'
 import RestoreIcon from '@mui/icons-material/Restore'
 import ImportExport from '@mui/icons-material/ImportExport'
@@ -277,6 +277,11 @@ const Menu: React.FC<MenuProps> = ({
                         </ListItemButton>
                     </Tooltip>
                 </ListItem>
+            </List>
+
+            <Divider sx={{ backgroundColor: '#e0e0e0' }} />
+
+            <List>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <Tooltip
                         title={open ? '' : 'Inferenční statistika'}
@@ -284,10 +289,13 @@ const Menu: React.FC<MenuProps> = ({
                     >
                         <ListItemButton
                             onClick={() =>
-                                handleButtonClick(Components.inferenceStatistics)
+                                handleButtonClick(
+                                    Components.inferenceStatistics
+                                )
                             }
                             selected={
-                                activeMenuButton === Components.inferenceStatistics
+                                activeMenuButton ===
+                                Components.inferenceStatistics
                             }
                             sx={{
                                 minHeight: 48,
@@ -321,6 +329,68 @@ const Menu: React.FC<MenuProps> = ({
                             </ListItemIcon>
                             <ListItemText
                                 primary="Inferenční statistika"
+                                sx={{
+                                    opacity: open ? 1 : 0,
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                        fontWeight:
+                                            activeMenuButton ===
+                                            Components.inferenceStatistics
+                                                ? 500
+                                                : 400, // Bold if selected
+                                    },
+                                }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
+                </ListItem>
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                    <Tooltip
+                        title={open ? '' : 'Deskriptivní statistika'}
+                        placement="right"
+                    >
+                        <ListItemButton
+                            onClick={() =>
+                                handleButtonClick(
+                                    Components.descriptiveStatistics
+                                )
+                            }
+                            selected={
+                                activeMenuButton ===
+                                Components.descriptiveStatistics
+                            }
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                '&.Mui-selected': {
+                                    backgroundColor: '#e3f2fd', // Light blue background for selected item
+                                    color: '#1976d2', // Primary blue text for selected item
+                                    '&:hover': {
+                                        backgroundColor: '#bbdefb', // Slightly darker on hover
+                                    },
+                                },
+                                '&:hover': {
+                                    backgroundColor: '#f5f5f5', // Light gray on hover
+                                },
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                    color:
+                                        activeMenuButton ===
+                                        Components.descriptiveStatistics
+                                            ? '#1976d2'
+                                            : '#757575', // Blue if selected, gray otherwise
+                                }}
+                            >
+                                <PieChartIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Deskriptivní statistika"
                                 sx={{
                                     opacity: open ? 1 : 0,
                                     '& .MuiListItemText-primary': {

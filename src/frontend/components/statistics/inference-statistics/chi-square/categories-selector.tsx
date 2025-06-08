@@ -1,19 +1,41 @@
-import { Paper, Typography, Box, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tab } from '@mui/material';
-import React, { Dispatch, SetStateAction, useState } from 'react';
 import {
-    InferenceChiSquareCategories, InferenceChiSquareHistologicalTypes, InferenceChiSquareMClassification, InferenceChiSquareNClassification, InferenceChiSquarePersistence, InferenceChiSquareRecurrence, InferenceChiSquareState, InferenceChiSquareTClassification,
-} from '../../../../enums/statistics.enums';
+    Paper,
+    Typography,
+    Box,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Tabs,
+    Tab,
+} from '@mui/material'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import {
+    InferenceChiSquareCategories,
+    InferenceChiSquareHistologicalTypes,
+    InferenceChiSquareMClassification,
+    InferenceChiSquareNClassification,
+    InferenceChiSquarePersistence,
+    InferenceChiSquareRecurrence,
+    InferenceChiSquareState,
+    InferenceChiSquareTClassification,
+} from '../../../../enums/statistics.enums'
 import {
     CATEGORY_TITLES,
-    TAB_TITLES
-} from '../../../../constants/statistics.constants';
-import CategoriesTable from './categories-table';
-
+    TAB_TITLES,
+} from '../../../../constants/statistics.constants'
+import CategoriesTable from './categories-table'
 
 interface CategoriesSelectorProps {
-    title: string;
-    numberOfCategories: number;
-    setSelectedCategories: Dispatch<SetStateAction<Record<number, Record<InferenceChiSquareCategories, string[]>>>>;
+    title: string
+    numberOfCategories: number
+    setSelectedCategories: Dispatch<
+        SetStateAction<
+            Record<number, Record<InferenceChiSquareCategories, string[]>>
+        >
+    >
 }
 
 const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
@@ -22,72 +44,97 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
     setSelectedCategories,
 }) => {
     // State for the active category tab
-    const [activeTab, setActiveTab] = useState<InferenceChiSquareCategories>(InferenceChiSquareCategories.histologicalTypes);
+    const [activeTab, setActiveTab] = useState<InferenceChiSquareCategories>(
+        InferenceChiSquareCategories.histologicalTypes
+    )
 
     // State for internal selected categories
-    const [internalSelectedCategories, setInternalSelectedCategories] = useState<Record<number, Record<InferenceChiSquareCategories, string[]>>>({});
+    const [internalSelectedCategories, setInternalSelectedCategories] =
+        useState<
+            Record<number, Record<InferenceChiSquareCategories, string[]>>
+        >({})
 
     // Create array of category keys for tabs
-    const categoryKeys = Object.values(InferenceChiSquareCategories);
+    const categoryKeys = Object.values(InferenceChiSquareCategories)
 
     // Handle tab change
-    const handleTabChange = (_event: React.SyntheticEvent, newValue: InferenceChiSquareCategories) => {
-        setActiveTab(newValue);
-    };
+    const handleTabChange = (
+        _event: React.SyntheticEvent,
+        newValue: InferenceChiSquareCategories
+    ) => {
+        setActiveTab(newValue)
+    }
 
-    const handleCheckboxChange = (categoryName: string, categoryIndex: number) => {
-        console.log('Checkbox clicked');
-        console.log(`Category: ${categoryName}, Index: ${categoryIndex}, Tab: ${activeTab}`);
-        
+    const handleCheckboxChange = (
+        categoryName: string,
+        categoryIndex: number
+    ) => {
+        console.log('Checkbox clicked')
+        console.log(
+            `Category: ${categoryName}, Index: ${categoryIndex}, Tab: ${activeTab}`
+        )
+
         setInternalSelectedCategories((prevSelectedCategories) => {
-            const updatedCategories = { ...prevSelectedCategories };
-            
+            const updatedCategories = { ...prevSelectedCategories }
+
             // Ensure the category index exists
             if (!updatedCategories[categoryIndex]) {
                 updatedCategories[categoryIndex] = Object.fromEntries(
-                    Object.values(InferenceChiSquareCategories).map((key) => [key, []])
-                ) as Record<InferenceChiSquareCategories, string[]>;
+                    Object.values(InferenceChiSquareCategories).map((key) => [
+                        key,
+                        [],
+                    ])
+                ) as Record<InferenceChiSquareCategories, string[]>
             }
-            
+
             // Ensure the active tab category exists
             if (!updatedCategories[categoryIndex][activeTab]) {
-                updatedCategories[categoryIndex][activeTab] = [];
+                updatedCategories[categoryIndex][activeTab] = []
             }
 
             // Check if the category is already selected
-            const isSelected = updatedCategories[categoryIndex][activeTab].includes(categoryName);
-            
+            const isSelected =
+                updatedCategories[categoryIndex][activeTab].includes(
+                    categoryName
+                )
+
             if (isSelected) {
                 // If selected, remove it
-                updatedCategories[categoryIndex][activeTab] = updatedCategories[categoryIndex][activeTab].filter(
-                    (item) => item !== categoryName
-                );
+                updatedCategories[categoryIndex][activeTab] = updatedCategories[
+                    categoryIndex
+                ][activeTab].filter((item) => item !== categoryName)
                 // If all categories in updatedCategories[categoryIndex] are empty, remove the categoryIndex
-                if (Object.values(updatedCategories[categoryIndex]).every((categories) => categories.length === 0)) {
-                    delete updatedCategories[categoryIndex];
+                if (
+                    Object.values(updatedCategories[categoryIndex]).every(
+                        (categories) => categories.length === 0
+                    )
+                ) {
+                    delete updatedCategories[categoryIndex]
                 }
             } else {
                 // If not selected, add it
-                updatedCategories[categoryIndex][activeTab].push(categoryName);
+                updatedCategories[categoryIndex][activeTab].push(categoryName)
             }
 
             // Update parent component's state
-            setSelectedCategories(updatedCategories);
-            
-            return updatedCategories;
-        });
-    };
-    
+            setSelectedCategories(updatedCategories)
+
+            return updatedCategories
+        })
+    }
+
     const getSelectedCategoriesForCurrentTab = () => {
-        return internalSelectedCategories;
-    };
-    
+        return internalSelectedCategories
+    }
+
     const renderCategoriesTable = (activeTab: InferenceChiSquareCategories) => {
         switch (activeTab) {
             case InferenceChiSquareCategories.histologicalTypes:
                 return (
                     <CategoriesTable
-                        categories={Object.values(InferenceChiSquareHistologicalTypes)}
+                        categories={Object.values(
+                            InferenceChiSquareHistologicalTypes
+                        )}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -97,7 +144,9 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.tClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(InferenceChiSquareTClassification)}
+                        categories={Object.values(
+                            InferenceChiSquareTClassification
+                        )}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -107,7 +156,9 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.nClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(InferenceChiSquareNClassification)}
+                        categories={Object.values(
+                            InferenceChiSquareNClassification
+                        )}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -117,7 +168,9 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.mClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(InferenceChiSquareMClassification)}
+                        categories={Object.values(
+                            InferenceChiSquareMClassification
+                        )}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -127,7 +180,9 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.persistence:
                 return (
                     <CategoriesTable
-                        categories={Object.values(InferenceChiSquarePersistence)}
+                        categories={Object.values(
+                            InferenceChiSquarePersistence
+                        )}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -155,9 +210,8 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                     />
                 )
             default:
-                return null;
+                return null
         }
-
     }
 
     return (
@@ -176,11 +230,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                     sx={{ mb: 2 }}
                 >
                     {categoryKeys.map((key) => (
-                        <Tab
-                            label={TAB_TITLES[key]}
-                            value={key}
-                            key={key}
-                        />
+                        <Tab label={TAB_TITLES[key]} value={key} key={key} />
                     ))}
                 </Tabs>
 
@@ -192,20 +242,43 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                     <Table stickyHeader size="small">
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ width: '50%', fontWeight: 'bold' }}>
+                                <TableCell
+                                    sx={{ width: '50%', fontWeight: 'bold' }}
+                                >
                                     {/* Table header based on active tab */}
-                                    {activeTab === InferenceChiSquareCategories.histologicalTypes ? 'Histologický typ' :
-                                        activeTab === InferenceChiSquareCategories.tClassification ? 'T klasifikace' :
-                                            activeTab === InferenceChiSquareCategories.nClassification ? 'N klasifikace' :
-                                                activeTab === InferenceChiSquareCategories.mClassification ? 'M klasifikace' :
-                                                    activeTab === InferenceChiSquareCategories.persistence ? 'Perzistence' :
-                                                        activeTab === InferenceChiSquareCategories.recurrence ? 'Recidiva' : 'Stav'}
+                                    {activeTab ===
+                                    InferenceChiSquareCategories.histologicalTypes
+                                        ? 'Histologický typ'
+                                        : activeTab ===
+                                            InferenceChiSquareCategories.tClassification
+                                          ? 'T klasifikace'
+                                          : activeTab ===
+                                              InferenceChiSquareCategories.nClassification
+                                            ? 'N klasifikace'
+                                            : activeTab ===
+                                                InferenceChiSquareCategories.mClassification
+                                              ? 'M klasifikace'
+                                              : activeTab ===
+                                                  InferenceChiSquareCategories.persistence
+                                                ? 'Perzistence'
+                                                : activeTab ===
+                                                    InferenceChiSquareCategories.recurrence
+                                                  ? 'Recidiva'
+                                                  : 'Stav'}
                                 </TableCell>
-                                {[...Array(numberOfCategories)].map((_, index) => (
-                                    <TableCell key={`header-${index}`} align="center" sx={{ width: `${50 / numberOfCategories}%` }}>
-                                        Kategorie {index + 1}
-                                    </TableCell>
-                                ))}
+                                {[...Array(numberOfCategories)].map(
+                                    (_, index) => (
+                                        <TableCell
+                                            key={`header-${index}`}
+                                            align="center"
+                                            sx={{
+                                                width: `${50 / numberOfCategories}%`,
+                                            }}
+                                        >
+                                            Kategorie {index + 1}
+                                        </TableCell>
+                                    )
+                                )}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -216,7 +289,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                 </TableContainer>
             </Box>
         </Paper>
-    );
-};
+    )
+}
 
-export default CategoriesSelector;
+export default CategoriesSelector

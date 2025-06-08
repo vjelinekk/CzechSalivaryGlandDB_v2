@@ -1,6 +1,5 @@
 import { KaplanMeierType, FormType } from '../frontend/constants'
 import {
-    FilterColumn,
     FilteredColumns,
     KaplanMeierData,
     KaplanMeierPatientData,
@@ -36,7 +35,7 @@ import {
     SubmandibularBenignColumns,
     SubmandibularMalignantColumns,
 } from './types'
-import { InferenceChiSquareCategories, InferenceChiSquareHistologicalTypes } from '../frontend/enums/statistics.enums'
+import { InferenceChiSquareCategories } from '../frontend/enums/statistics.enums'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -665,24 +664,35 @@ export const getPlannedPatientsBetweenDates = async (
 export const getChiSquareContingencyTable = async (
     rows: number,
     columns: number,
-    rowSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
-    columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>
+    rowSelectedCategories: Record<
+        number,
+        Record<InferenceChiSquareCategories, string[]>
+    >,
+    columnSelectedCategories: Record<
+        number,
+        Record<InferenceChiSquareCategories, string[]>
+    >
 ): Promise<number[][]> => {
-    const contingencyTable = Array.from(
-        { length: rows },
-        () => Array(columns).fill(0)
+    const contingencyTable = Array.from({ length: rows }, () =>
+        Array(columns).fill(0)
     )
 
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
-            const rowData = rowSelectedCategories[i];
-            const columnData = columnSelectedCategories[j];
+            const rowData = rowSelectedCategories[i]
+            const columnData = columnSelectedCategories[j]
             if (rowData && columnData) {
-                const rowDataGroupedByKeys = groupByKey(rowData);                
-                const columnDataGroupedByKeys = groupByKey(columnData);
-                
-                const rowKeys: InferenceChiSquareCategories[] = rowDataGroupedByKeys.map(item => (item.key as InferenceChiSquareCategories));
-                const columnKeys: InferenceChiSquareCategories[] = columnDataGroupedByKeys.map(item => (item.key as InferenceChiSquareCategories));
+                const rowDataGroupedByKeys = groupByKey(rowData)
+                const columnDataGroupedByKeys = groupByKey(columnData)
+
+                const rowKeys: InferenceChiSquareCategories[] =
+                    rowDataGroupedByKeys.map(
+                        (item) => item.key as InferenceChiSquareCategories
+                    )
+                const columnKeys: InferenceChiSquareCategories[] =
+                    columnDataGroupedByKeys.map(
+                        (item) => item.key as InferenceChiSquareCategories
+                    )
 
                 const { queries, valuesForWhere } = generateChiSquareQuery(
                     rowKeys,
@@ -690,9 +700,9 @@ export const getChiSquareContingencyTable = async (
                     rowDataGroupedByKeys,
                     columnDataGroupedByKeys
                 )
-                
+
                 const results = await Promise.all(
-                    queries.map((query, index) => {
+                    queries.map((query) => {
                         return new Promise((resolve, reject) => {
                             db.all(query, valuesForWhere, (err, rows) => {
                                 if (err) {
@@ -708,11 +718,14 @@ export const getChiSquareContingencyTable = async (
                     })
                 )
 
-                const totalCount = results.reduce((acc: number, row: {count: number}[]) => {
-                    return acc + row[0].count
-                }, 0);
-                
-                contingencyTable[i][j] = totalCount;
+                const totalCount = results.reduce(
+                    (acc: number, row: { count: number }[]) => {
+                        return acc + row[0].count
+                    },
+                    0
+                )
+
+                contingencyTable[i][j] = totalCount
             }
         }
     }
@@ -765,35 +778,39 @@ const generateChiSquareQuery = (
     return { queries, valuesForWhere }
 }
 
-
-const mapChiSquareKeysToDbColumns = (
-    key: InferenceChiSquareCategories,
-) => {
+const mapChiSquareKeysToDbColumns = (key: InferenceChiSquareCategories) => {
     const dbColumns: Record<InferenceChiSquareCategories, string> = {
-        [InferenceChiSquareCategories.histologicalTypes]: submandibularMalignantColumns.histopatologie_vysledek.columnName,
-        [InferenceChiSquareCategories.tClassification]: submandibularMalignantColumns.t_klasifikace_klinicka.columnName,
-        [InferenceChiSquareCategories.nClassification]: submandibularMalignantColumns.n_klasifikace_klinicka.columnName,
-        [InferenceChiSquareCategories.mClassification]: submandibularMalignantColumns.m_klasifikace_klinicka.columnName,
-        [InferenceChiSquareCategories.persistence]: submandibularMalignantColumns.perzistence.columnName,
-        [InferenceChiSquareCategories.recurrence]: submandibularMalignantColumns.recidiva.columnName,
-        [InferenceChiSquareCategories.state]: submandibularMalignantColumns.stav.columnName,
+        [InferenceChiSquareCategories.histologicalTypes]:
+            submandibularMalignantColumns.histopatologie_vysledek.columnName,
+        [InferenceChiSquareCategories.tClassification]:
+            submandibularMalignantColumns.t_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.nClassification]:
+            submandibularMalignantColumns.n_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.mClassification]:
+            submandibularMalignantColumns.m_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.persistence]:
+            submandibularMalignantColumns.perzistence.columnName,
+        [InferenceChiSquareCategories.recurrence]:
+            submandibularMalignantColumns.recidiva.columnName,
+        [InferenceChiSquareCategories.state]:
+            submandibularMalignantColumns.stav.columnName,
     }
 
     return dbColumns[key]
 }
 
 const groupByKey = (data: Record<string, string[]>) => {
-    const grouped: Record<string, string[]> = {};
+    const grouped: Record<string, string[]> = {}
 
     for (const [key, arr] of Object.entries(data)) {
-        const filtered = arr.filter(str => str.length > 0);
+        const filtered = arr.filter((str) => str.length > 0)
         if (filtered.length > 0) {
-            grouped[key] = filtered;
+            grouped[key] = filtered
         }
     }
 
     return Object.entries(grouped).map(([key, values]) => ({
         key,
-        values
-    }));
+        values,
+    }))
 }

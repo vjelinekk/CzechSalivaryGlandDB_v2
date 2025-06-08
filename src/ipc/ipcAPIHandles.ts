@@ -127,10 +127,13 @@ ipcMain.handle(
     }
 )
 
-ipcMain.handle(
-    ipcAPIGetChannels.getChiSquareData,
-    async (event, args) => {
-        const [rows, columns, rowSelectedCateogries, columnSelectedCategories] = args
-        return await getChiSquareContingencyTable(rows, columns, rowSelectedCateogries, columnSelectedCategories)
-    }
-)
+ipcMain.handle(ipcAPIGetChannels.getChiSquareData, async (event, args) => {
+    const [rows, columns, rowSelectedCateogries, columnSelectedCategories] =
+        args
+    return await getChiSquareContingencyTable(
+        rows,
+        columns,
+        rowSelectedCateogries,
+        columnSelectedCategories
+    )
+})

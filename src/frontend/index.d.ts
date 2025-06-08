@@ -13,7 +13,7 @@ import {
     PlannedPatientsMap,
     Study,
 } from './types'
-import { InferenceChiSquareCategories } from './types/statistics.types'
+import { InferenceChiSquareCategories } from './enums/statistics.enums'
 
 declare global {
     interface Window {
@@ -67,9 +67,14 @@ declare global {
             getChiSquareData: (
                 rows: number,
                 columns: number,
-                rowSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
-                columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>,
-
+                rowSelectedCategories: Record<
+                    number,
+                    Record<InferenceChiSquareCategories, string[]>
+                >,
+                columnSelectedCategories: Record<
+                    number,
+                    Record<InferenceChiSquareCategories, string[]>
+                >
             ) => Promise<number[][]>
         }
         export: {

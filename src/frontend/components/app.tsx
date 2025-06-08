@@ -141,11 +141,11 @@ const app = () => {
             {activeComponent.component === Components.descriptiveStatistics && (
                 <DescriptiveStatistics />
             )}
-            {activeComponent.component === Components.setLanguage && (
-                <SetLanguage />
-            )}
             {activeComponent.component === Components.inferenceStatistics && (
                 <InferenceStatistics />
+            )}
+            {activeComponent.component === Components.setLanguage && (
+                <SetLanguage />
             )}
         </ImportProvider>
     ) : (

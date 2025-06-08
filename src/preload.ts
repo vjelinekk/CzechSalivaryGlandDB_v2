@@ -93,8 +93,14 @@ contextBridge.exposeInMainWorld('api', {
     getChiSquareData: (
         rows: number,
         columns: number,
-        rowSelectedCateogries: Record<number, Record<InferenceChiSquareCategories, string[]>>,
-        columnSelectedCategories: Record<number, Record<InferenceChiSquareCategories, string[]>>
+        rowSelectedCateogries: Record<
+            number,
+            Record<InferenceChiSquareCategories, string[]>
+        >,
+        columnSelectedCategories: Record<
+            number,
+            Record<InferenceChiSquareCategories, string[]>
+        >
     ) => {
         return ipcRenderer.invoke(ipcAPIGetChannels.getChiSquareData, [
             rows,
@@ -102,7 +108,7 @@ contextBridge.exposeInMainWorld('api', {
             rowSelectedCateogries,
             columnSelectedCategories,
         ])
-    }
+    },
 })
 
 contextBridge.exposeInMainWorld('export', {
