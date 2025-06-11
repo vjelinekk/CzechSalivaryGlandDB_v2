@@ -36,12 +36,14 @@ interface CategoriesSelectorProps {
             Record<number, Record<InferenceChiSquareCategories, string[]>>
         >
     >
+    categoryPrefix?: string
 }
 
 const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
     title,
     numberOfCategories,
     setSelectedCategories,
+    categoryPrefix = 'Kategorie'
 }) => {
     // State for the active category tab
     const [activeTab, setActiveTab] = useState<InferenceChiSquareCategories>(
@@ -69,11 +71,6 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
         categoryName: string,
         categoryIndex: number
     ) => {
-        console.log('Checkbox clicked')
-        console.log(
-            `Category: ${categoryName}, Index: ${categoryIndex}, Tab: ${activeTab}`
-        )
-
         setInternalSelectedCategories((prevSelectedCategories) => {
             const updatedCategories = { ...prevSelectedCategories }
 
@@ -116,7 +113,6 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                 updatedCategories[categoryIndex][activeTab].push(categoryName)
             }
 
-            // Update parent component's state
             setSelectedCategories(updatedCategories)
 
             return updatedCategories
@@ -275,7 +271,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
                                                 width: `${50 / numberOfCategories}%`,
                                             }}
                                         >
-                                            Kategorie {index + 1}
+                                            {categoryPrefix + ' ' + (index + 1)}
                                         </TableCell>
                                     )
                                 )}

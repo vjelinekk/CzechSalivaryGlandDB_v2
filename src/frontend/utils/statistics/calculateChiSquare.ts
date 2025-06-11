@@ -18,9 +18,9 @@ export function chiSquareTest(
     const numRows = table.length - 1
     const numCols = table[0].length - 1
 
-    const rowSums = table[table.length - 1]
-    const colSums = table.map((row) => row[row.length - 1])
-    const total = table[table.length - 1][table[0].length - 1]
+    const rowSums = table.slice(0, numRows).map(row => row[numCols])
+    const colSums = table[numRows].slice(0, numCols)
+    const total = table[numRows][numCols]
 
     let chiSquared = 0
     for (let i = 0; i < numRows; i++) {

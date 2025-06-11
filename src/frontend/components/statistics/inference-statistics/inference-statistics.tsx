@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 import ChiSquare from './chi-square/chi-square-test'
 import FisherExactTest from './chi-square/fisher-exact-test'
+import TTest from './t-test/t-test'
 
 // Define the available statistical tests
 type StatisticalTest = 'chi-square' | 'fisher-exact' | 't-test' | 'mann-whitney'
@@ -73,11 +74,7 @@ const InferenceStatistics: React.FC = () => {
                 <Box sx={{ mt: 3 }}>
                     {selectedTest === 'chi-square' && <ChiSquare />}
                     {selectedTest === 'fisher-exact' && <FisherExactTest />}
-                    {selectedTest === 't-test' && (
-                        <Typography variant="h6">
-                            t-test - implementace bude přidána
-                        </Typography>
-                    )}
+                    {selectedTest === 't-test' && <TTest />}
                     {selectedTest === 'mann-whitney' && (
                         <Typography variant="h6">
                             Mann-Whitney U test - implementace bude přidána

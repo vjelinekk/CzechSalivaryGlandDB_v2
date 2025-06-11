@@ -78,3 +78,15 @@ export enum InferenceChiSquareState {
     Žije = 'Žije',
     Zemřel = 'Zemřel',
 }
+
+export enum TTestType {
+    ONE_TAILED_LEFT = 'one_tailed_left',
+    ONE_TAILED_RIGHT = 'one_tailed_right',
+    TWO_TAILED = 'two_tailed'
+}
+
+export enum TTestValue {
+    AGE = 'age',
+    PACK_YEAR = 'pack_year',
+    TUMOR_SIZE = 'tumor_size',
+}

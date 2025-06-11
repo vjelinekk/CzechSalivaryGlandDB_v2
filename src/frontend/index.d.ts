@@ -14,6 +14,7 @@ import {
     Study,
 } from './types'
 import { InferenceChiSquareCategories } from './enums/statistics.enums'
+import { ITTestData, ITTestGroups } from './types/statistics.types'
 
 declare global {
     interface Window {
@@ -76,6 +77,9 @@ declare global {
                     Record<InferenceChiSquareCategories, string[]>
                 >
             ) => Promise<number[][]>
+            getTTestData: (
+                selectedGroups: ITTestGroups
+            ) => Promise<ITTestData>
         }
         export: {
             export: (

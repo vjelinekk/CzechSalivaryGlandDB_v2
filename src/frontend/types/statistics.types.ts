@@ -1,3 +1,5 @@
+import { PatientType } from "../types";
+
 export interface AgeStats {
     min: number
     max: number
@@ -41,4 +43,30 @@ export interface StatisticsData {
         no: CountPercentage
         byType: Record<string, CountPercentage>
     }
+}
+
+export interface ITTestGroups {
+    first: {
+        histologicalTypes: string[]
+        tClassification: string[]
+        nClassification: string[]
+        mClassification: string[]
+        persistence: string[]
+        recurrence: string[]
+        state: string[]
+    },
+    second: {
+        histologicalTypes: string[]
+        tClassification: string[]
+        nClassification: string[]
+        mClassification: string[]
+        persistence: string[]
+        recurrence: string[]
+        state: string[]
+    }
+}
+
+export interface ITTestData {
+    group1: PatientType[]
+    group2: PatientType[]
 }

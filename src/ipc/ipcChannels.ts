@@ -29,6 +29,7 @@ export enum ipcAPIGetChannels {
     searchPatientsByNameSurnameRC = 'searchPatientsByNameSurnameRC',
     getPlannedPatientsBetweenDates = 'getPlannedPatientsBetweenDates',
     getChiSquareData = 'getChiSquareData',
+    getTTestData = 'getTTestData',
 }
 
 export enum ipcExportChannels {

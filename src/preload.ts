@@ -3,6 +3,7 @@ import { FormType } from './backend/constants'
 import { KaplanMeierType } from './frontend/constants'
 import { InferenceChiSquareCategories } from './frontend/enums/statistics.enums'
 import { FilteredColumns, PatientType, Study } from './frontend/types'
+import { ITTestGroups } from './frontend/types/statistics.types'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
@@ -108,6 +109,11 @@ contextBridge.exposeInMainWorld('api', {
             rowSelectedCateogries,
             columnSelectedCategories,
         ])
+    },
+    getTTestData: (
+        selectedGroups: ITTestGroups
+    ) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getTTestData, selectedGroups)
     },
 })
 
