@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NonParametricTestData } from '../../../../../types/statistics.types'
-import { InferenceChiSquareCategories ,
+import {
+    InferenceChiSquareCategories,
     NonParametricTestType,
     NonParametricTestValue,
 } from '../../../../../enums/statistics.enums'

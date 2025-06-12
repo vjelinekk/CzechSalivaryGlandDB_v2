@@ -445,9 +445,9 @@ export const getKaplanMeierData = async (
             return new Promise<void>((resolveQuery, rejectQuery) => {
                 let query = ''
                 if (kaplanMeierType === KaplanMeierType.survival) {
-                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti, ${tableName}.posledni_kontrola FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
                 } else {
-                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy, ${tableName}.posledni_kontrola  FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
                 }
 
                 db.all(
@@ -460,19 +460,25 @@ export const getKaplanMeierData = async (
                             kaplanMeierData[histopatologieVysledek] = [
                                 ...(kaplanMeierData[histopatologieVysledek] ||
                                     []),
-                                ...rows.map((row) => {
-                                    const patientData: KaplanMeierPatientData =
-                                        {
-                                            start_date:
-                                                row.rok_diagnozy as string,
-                                            event_date:
-                                                kaplanMeierType ===
-                                                KaplanMeierType.survival
-                                                    ? (row.datum_umrti as string)
-                                                    : (row.datum_prokazani_recidivy as string),
-                                        }
-                                    return patientData
-                                }),
+                                ...rows
+                                    .filter((row) => {
+                                        return row.rok_diagnozy !== null
+                                    })
+                                    .map((row) => {
+                                        const patientData: KaplanMeierPatientData =
+                                            {
+                                                start_date: new Date(
+                                                    row.rok_diagnozy as string
+                                                ),
+                                                event_date: getEventDate(
+                                                    row,
+                                                    kaplanMeierType
+                                                ),
+                                                last_follow_up_date:
+                                                    getLastFollowUpDate(row),
+                                            }
+                                        return patientData
+                                    }),
                             ]
                             resolveQuery()
                         }
@@ -488,6 +494,41 @@ export const getKaplanMeierData = async (
     } catch (err) {
         return null
     }
+}
+
+const getEventDate = (
+    row: PatientType,
+    kaplanMeierType: KaplanMeierType
+): Date | null => {
+    if (kaplanMeierType === KaplanMeierType.survival) {
+        if (row.datum_umrti && row.datum_umrti !== '') {
+            return new Date(row.datum_umrti as string)
+        }
+
+        return null
+    } else {
+        if (
+            row.datum_prokazani_recidivy &&
+            row.datum_prokazani_recidivy !== ''
+        ) {
+            return new Date(row.datum_prokazani_recidivy as string)
+        }
+
+        return null
+    }
+}
+
+const getLastFollowUpDate = (row: PatientType): Date | null => {
+    console.log(row)
+    if (row.posledni_kontrola && row.posledni_kontrola !== '') {
+        return new Date(row.posledni_kontrola as string)
+    }
+
+    if (row.rok_diagnozy && row.rok_diagnozy !== '') {
+        return new Date(row.rok_diagnozy as string)
+    }
+
+    return null
 }
 
 export const searchPatientsByNameSurnameRC = async (
