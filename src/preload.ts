@@ -110,10 +110,11 @@ contextBridge.exposeInMainWorld('api', {
             columnSelectedCategories,
         ])
     },
-    getTTestData: (
-        selectedGroups: ITTestGroups
-    ) => {
-        return ipcRenderer.invoke(ipcAPIGetChannels.getTTestData, selectedGroups)
+    getTTestData: (selectedGroups: ITTestGroups) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getTTestData,
+            selectedGroups
+        )
     },
 })
 

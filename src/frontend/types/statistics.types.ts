@@ -1,4 +1,5 @@
-import { PatientType } from "../types";
+import { NonParametricTestType } from '../enums/statistics.enums'
+import { PatientType } from '../types'
 
 export interface AgeStats {
     min: number
@@ -54,7 +55,7 @@ export interface ITTestGroups {
         persistence: string[]
         recurrence: string[]
         state: string[]
-    },
+    }
     second: {
         histologicalTypes: string[]
         tClassification: string[]
@@ -66,7 +67,15 @@ export interface ITTestGroups {
     }
 }
 
-export interface ITTestData {
+export interface NonParametricTestData {
     group1: PatientType[]
     group2: PatientType[]
+}
+
+export interface NonParametricTestResult {
+    pValue: number
+    testValue: number
+    isStatisticallySignificant: boolean
+    alpha: number
+    type: NonParametricTestType
 }

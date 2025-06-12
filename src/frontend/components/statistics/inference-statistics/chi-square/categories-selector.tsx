@@ -43,7 +43,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
     title,
     numberOfCategories,
     setSelectedCategories,
-    categoryPrefix = 'Kategorie'
+    categoryPrefix = 'Kategorie',
 }) => {
     // State for the active category tab
     const [activeTab, setActiveTab] = useState<InferenceChiSquareCategories>(

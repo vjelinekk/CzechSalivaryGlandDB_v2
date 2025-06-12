@@ -14,7 +14,7 @@ import {
     Study,
 } from './types'
 import { InferenceChiSquareCategories } from './enums/statistics.enums'
-import { ITTestData, ITTestGroups } from './types/statistics.types'
+import { NonParametricTestData, ITTestGroups } from './types/statistics.types'
 
 declare global {
     interface Window {
@@ -79,7 +79,7 @@ declare global {
             ) => Promise<number[][]>
             getTTestData: (
                 selectedGroups: ITTestGroups
-            ) => Promise<ITTestData>
+            ) => Promise<NonParametricTestData>
         }
         export: {
             export: (

@@ -36,7 +36,10 @@ import {
     SubmandibularMalignantColumns,
 } from './types'
 import { InferenceChiSquareCategories } from '../frontend/enums/statistics.enums'
-import { ITTestData, ITTestGroups } from '../frontend/types/statistics.types'
+import {
+    NonParametricTestData,
+    ITTestGroups,
+} from '../frontend/types/statistics.types'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -818,95 +821,95 @@ const groupByKey = (data: Record<string, string[]>) => {
 
 export const getTTestData = async (
     groups: ITTestGroups
-): Promise<ITTestData> => {
-    const groupOne = groups.first;
-    const groupTwo = groups.second;
+): Promise<NonParametricTestData> => {
+    const groupOne = groups.first
+    const groupTwo = groups.second
 
-    const { queries: queriesOne, valuesForWhere: valuesOne } = getTTestQueries(groupOne);
-    const { queries: queriesTwo, valuesForWhere: valuesTwo } = getTTestQueries(groupTwo);
+    const { queries: queriesOne, valuesForWhere: valuesOne } =
+        getTTestQueries(groupOne)
+    const { queries: queriesTwo, valuesForWhere: valuesTwo } =
+        getTTestQueries(groupTwo)
 
     const resultsQueryOne = await Promise.all(
         queriesOne.map((query) => {
             return new Promise((resolve, reject) => {
                 db.all(query, valuesOne, (err, rows) => {
                     if (err) {
-                        console.log(err);
-                        reject(err);
+                        console.log(err)
+                        reject(err)
                     } else {
-                        resolve(rows);
+                        resolve(rows)
                     }
-                });
-            });
+                })
+            })
         })
-    );
+    )
 
     const resultsQueryTwo = await Promise.all(
         queriesTwo.map((query) => {
             return new Promise((resolve, reject) => {
                 db.all(query, valuesTwo, (err, rows) => {
                     if (err) {
-                        console.log(err);
-                        reject(err);
+                        console.log(err)
+                        reject(err)
                     } else {
-                        resolve(rows);
+                        resolve(rows)
                     }
-                });
-            });
+                })
+            })
         })
-    );
+    )
 
-    const groupOneData = resultsQueryOne.flat();
-    const groupTwoData = resultsQueryTwo.flat();
+    const groupOneData = resultsQueryOne.flat()
+    const groupTwoData = resultsQueryTwo.flat()
 
-    const tTestData: ITTestData = {
+    const tTestData: NonParametricTestData = {
         group1: groupOneData as PatientType[],
         group2: groupTwoData as PatientType[],
     }
 
-    return tTestData;
+    return tTestData
 }
 
-const getTTestQueries = (
-    group: { 
-        histologicalTypes: string[];
-        tClassification: string[];
-        nClassification: string[];
-        mClassification: string[];
-        persistence: string[];
-        recurrence: string[];
-        state: string[] 
-    }
-): {
-    valuesForWhere: string[];
-    queries: string[];
+const getTTestQueries = (group: {
+    histologicalTypes: string[]
+    tClassification: string[]
+    nClassification: string[]
+    mClassification: string[]
+    persistence: string[]
+    recurrence: string[]
+    state: string[]
+}): {
+    valuesForWhere: string[]
+    queries: string[]
 } => {
-    const keys = Object.keys(group);
-    const valuesForWhere = Object.values(group).flat();
+    const keys = Object.keys(group)
+    const valuesForWhere = Object.values(group).flat()
 
     const conditions = keys
-    .filter((key) => group[key as keyof typeof group].length > 0)
-    .map((key) => {
-        const columnName = mapChiSquareKeysToDbColumns(
-            key as InferenceChiSquareCategories
-        );
-        const values = group[key as keyof typeof group];
-        return `${columnName} IN (${values.map(() => '?').join(', ')})`;
-    });
+        .filter((key) => group[key as keyof typeof group].length > 0)
+        .map((key) => {
+            const columnName = mapChiSquareKeysToDbColumns(
+                key as InferenceChiSquareCategories
+            )
+            const values = group[key as keyof typeof group]
+            return `${columnName} IN (${values.map(() => '?').join(', ')})`
+        })
 
     const submandibularQuery = `
         SELECT * FROM ${TableNames.submandibularMalignant}
         WHERE ${conditions.join(' AND ')}
-    `;
+    `
 
     const sublingualQuery = `
         SELECT * FROM ${TableNames.sublingualMalignant}
         WHERE ${conditions.join(' AND ')}
-    `;
+    `
 
     const parotidQuery = `
         SELECT * FROM ${TableNames.parotidMalignant}
         WHERE ${conditions.join(' AND ')}
-    `;
+    `
 
     return {
         valuesForWhere,

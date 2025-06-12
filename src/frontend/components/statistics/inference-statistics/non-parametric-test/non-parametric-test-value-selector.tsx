@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react'
 import {
     Paper,
     Typography,
@@ -7,34 +7,44 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
-    Box
-} from '@mui/material';
-import { TTestValue } from '../../../../../frontend/enums/statistics.enums';
+    Box,
+} from '@mui/material'
+import { NonParametricTestValue } from '../../../../enums/statistics.enums'
 
-interface TTestValueSelectorProps {
-    selectedValue: TTestValue;
-    setSelectedValue: React.Dispatch<React.SetStateAction<TTestValue>>;
+interface Props {
+    selectedValue: NonParametricTestValue
+    setSelectedValue: React.Dispatch<
+        React.SetStateAction<NonParametricTestValue>
+    >
+    title: string
 }
 
-const TTestValueSelector: React.FC<TTestValueSelectorProps> = ({ 
+const NonParametricTestValueSelector: React.FC<Props> = ({
     selectedValue,
-    setSelectedValue
- }) => {
+    setSelectedValue,
+    title,
+}) => {
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value as TTestValue;
-        setSelectedValue(newValue);
-    };
+        const newValue = event.target.value as NonParametricTestValue
+        setSelectedValue(newValue)
+    }
 
     const valueOptions = [
-        { value: TTestValue.AGE, label: 'Věk pacienta' },
-        { value: TTestValue.PACK_YEAR, label: 'Počet balíčko roků' },
-        { value: TTestValue.TUMOR_SIZE, label: 'Velikost nádoru (mm)' },
-    ];
+        { value: NonParametricTestValue.AGE, label: 'Věk pacienta' },
+        {
+            value: NonParametricTestValue.PACK_YEAR,
+            label: 'Počet balíčko roků',
+        },
+        {
+            value: NonParametricTestValue.TUMOR_SIZE,
+            label: 'Velikost nádoru (mm)',
+        },
+    ]
 
     return (
         <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
             <Typography variant="h6" gutterBottom>
-                Vyberte hodnotu pro T-Test
+                {title}
             </Typography>
 
             <Box sx={{ mt: 2 }}>
@@ -61,7 +71,7 @@ const TTestValueSelector: React.FC<TTestValueSelectorProps> = ({
                 </FormControl>
             </Box>
         </Paper>
-    );
-};
+    )
+}
 
-export default TTestValueSelector;
+export default NonParametricTestValueSelector

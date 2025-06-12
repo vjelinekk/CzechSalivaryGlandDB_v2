@@ -79,14 +79,14 @@ export enum InferenceChiSquareState {
     Zemřel = 'Zemřel',
 }
 
-export enum TTestType {
+export enum NonParametricTestType {
     ONE_TAILED_LEFT = 'one_tailed_left',
     ONE_TAILED_RIGHT = 'one_tailed_right',
-    TWO_TAILED = 'two_tailed'
+    TWO_TAILED = 'two_tailed',
 }
 
-export enum TTestValue {
-    AGE = 'age',
-    PACK_YEAR = 'pack_year',
-    TUMOR_SIZE = 'tumor_size',
+export enum NonParametricTestValue {
+    AGE = 'vek_pri_diagnoze',
+    PACK_YEAR = 'pocet_balickoroku',
+    TUMOR_SIZE = 'velikost_nadoru_histopatologie',
 }

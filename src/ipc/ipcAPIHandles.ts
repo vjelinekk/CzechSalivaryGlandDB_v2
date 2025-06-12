@@ -139,6 +139,9 @@ ipcMain.handle(ipcAPIGetChannels.getChiSquareData, async (event, args) => {
     )
 })
 
-ipcMain.handle(ipcAPIGetChannels.getTTestData, async (event, selectedGroups) => {
-    return await getTTestData(selectedGroups)
-})
+ipcMain.handle(
+    ipcAPIGetChannels.getTTestData,
+    async (event, selectedGroups) => {
+        return await getTTestData(selectedGroups)
+    }
+)

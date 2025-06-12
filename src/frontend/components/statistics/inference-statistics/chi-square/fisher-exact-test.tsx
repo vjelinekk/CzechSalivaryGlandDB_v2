@@ -184,11 +184,8 @@ const FisherExactTest: React.FC = () => {
     const handleCalculateFisherExactTest = () => {
         const alphaValue = typeof alpha === 'number' ? alpha / 100 : 0.05
 
-        const { 
-            fisherTestResult,
-            isSignificant,
-            pValue,
-        } = calculateFishersExact(matrix, alphaValue)
+        const { fisherTestResult, isSignificant, pValue } =
+            calculateFishersExact(matrix, alphaValue)
 
         console.log('Fisher Exact Test Results:', {
             fisherTestResult,
