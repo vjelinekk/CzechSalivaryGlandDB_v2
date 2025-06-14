@@ -284,13 +284,10 @@ const Menu: React.FC<MenuProps> = ({
                     >
                         <ListItemButton
                             onClick={() =>
-                                handleButtonClick(
-                                    Components.kaplanMeier
-                                )
+                                handleButtonClick(Components.kaplanMeier)
                             }
                             selected={
-                                activeMenuButton ===
-                                Components.kaplanMeier
+                                activeMenuButton === Components.kaplanMeier
                             }
                             sx={{
                                 minHeight: 48,
@@ -323,7 +320,7 @@ const Menu: React.FC<MenuProps> = ({
                                 <ShowChartIcon />
                             </ListItemIcon>
                             <ListItemText
-                                primary= {t(appTranslationKeys.kaplanMeier)}
+                                primary={t(appTranslationKeys.kaplanMeier)}
                                 sx={{
                                     opacity: open ? 1 : 0,
                                     '& .MuiListItemText-primary': {

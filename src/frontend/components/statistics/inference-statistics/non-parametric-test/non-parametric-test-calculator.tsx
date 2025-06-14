@@ -90,9 +90,7 @@ const NonParametricTestCalculator: React.FC<Props> = ({
         }
     }
 
-    const getSelectedValueLabel = (
-        value: NonParametricTestValue
-    ): string => {
+    const getSelectedValueLabel = (value: NonParametricTestValue): string => {
         switch (value) {
             case NonParametricTestValue.AGE:
                 return 'Věk pacienta'
@@ -176,9 +174,9 @@ const NonParametricTestCalculator: React.FC<Props> = ({
 
                         {/* Edge case handling for invalid results */}
                         {isNaN(testResult.pValue) ||
-                            isNaN(testResult.testValue) ||
-                            testResult.pValue === null ||
-                            testResult.testValue === null ? (
+                        isNaN(testResult.testValue) ||
+                        testResult.pValue === null ||
+                        testResult.testValue === null ? (
                             <Alert severity="warning" sx={{ mb: 2 }}>
                                 <Typography variant="body1">
                                     Výpočet {testName}u se nezdařil.

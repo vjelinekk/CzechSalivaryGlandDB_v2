@@ -189,7 +189,7 @@ const DescriptiveStatistics: React.FC = () => {
                 ) : (
                     <>
                         {/* Basic Statistics */}
-                        < Box sx={{ mb: 4 }}>
+                        <Box sx={{ mb: 4 }}>
                             <Typography variant="h5" gutterBottom>
                                 Základní charakteristiky
                             </Typography>
@@ -220,18 +220,29 @@ const DescriptiveStatistics: React.FC = () => {
                                             <Grid item xs={6}>
                                                 <Typography>
                                                     Muži:{' '}
-                                                    {statistics?.gender.male.count} (
-                                                    {statistics?.gender.male.percentage}
+                                                    {
+                                                        statistics?.gender.male
+                                                            .count
+                                                    }{' '}
+                                                    (
+                                                    {
+                                                        statistics?.gender.male
+                                                            .percentage
+                                                    }
                                                     )
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Typography>
                                                     Ženy:{' '}
-                                                    {statistics?.gender.female.count} (
                                                     {
-                                                        statistics?.gender.female
-                                                            .percentage
+                                                        statistics?.gender
+                                                            .female.count
+                                                    }{' '}
+                                                    (
+                                                    {
+                                                        statistics?.gender
+                                                            .female.percentage
                                                     }
                                                     )
                                                 </Typography>
@@ -275,7 +286,8 @@ const DescriptiveStatistics: React.FC = () => {
                                                         key={`cell-${index}`}
                                                         fill={
                                                             COLORS[
-                                                            index % COLORS.length
+                                                                index %
+                                                                    COLORS.length
                                                             ]
                                                         }
                                                     />
@@ -302,13 +314,19 @@ const DescriptiveStatistics: React.FC = () => {
                                             <TableCell>Maximum</TableCell>
                                             <TableCell>Průměr</TableCell>
                                             <TableCell>Medián</TableCell>
-                                            <TableCell>Směrodatná odchylka</TableCell>
+                                            <TableCell>
+                                                Směrodatná odchylka
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>{statistics?.age.min}</TableCell>
-                                            <TableCell>{statistics?.age.max}</TableCell>
+                                            <TableCell>
+                                                {statistics?.age.min}
+                                            </TableCell>
+                                            <TableCell>
+                                                {statistics?.age.max}
+                                            </TableCell>
                                             <TableCell>
                                                 {statistics?.age.mean}
                                             </TableCell>
@@ -316,7 +334,10 @@ const DescriptiveStatistics: React.FC = () => {
                                                 {statistics?.age.median}
                                             </TableCell>
                                             <TableCell>
-                                                {statistics?.age.standardDeviation}
+                                                {
+                                                    statistics?.age
+                                                        .standardDeviation
+                                                }
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -341,7 +362,10 @@ const DescriptiveStatistics: React.FC = () => {
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 400 }}>
-                                        <ResponsiveContainer width="100%" height="100%">
+                                        <ResponsiveContainer
+                                            width="100%"
+                                            height="100%"
+                                        >
                                             <BarChart
                                                 data={getProcedureChartData()}
                                                 layout="vertical"
@@ -390,7 +414,10 @@ const DescriptiveStatistics: React.FC = () => {
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 400 }}>
-                                        <ResponsiveContainer width="100%" height="100%">
+                                        <ResponsiveContainer
+                                            width="100%"
+                                            height="100%"
+                                        >
                                             <BarChart
                                                 data={getTumorTypeChartData()}
                                                 layout="vertical"
@@ -425,10 +452,11 @@ const DescriptiveStatistics: React.FC = () => {
                         <Divider sx={{ my: 4 }} />
 
                         {/* TNM Classification Clinical */}
-                        {(selectedType === DescriptiveStatisticsType.MALIGNANT ||
+                        {(selectedType ===
+                            DescriptiveStatisticsType.MALIGNANT ||
                             selectedType === DescriptiveStatisticsType.ALL) && (
-                                <TnmStatistics statistics={statistics} />
-                            )}
+                            <TnmStatistics statistics={statistics} />
+                        )}
 
                         {/* Recurrence */}
                         <Box sx={{ mb: 4 }}>
@@ -445,32 +473,47 @@ const DescriptiveStatistics: React.FC = () => {
                                         <Typography>
                                             S recidivou:{' '}
                                             {statistics?.recurrence.yes.count} (
-                                            {statistics?.recurrence.yes.percentage})
+                                            {
+                                                statistics?.recurrence.yes
+                                                    .percentage
+                                            }
+                                            )
                                         </Typography>
                                         <Typography>
                                             Bez recidivy:{' '}
                                             {statistics?.recurrence.no.count} (
-                                            {statistics?.recurrence.no.percentage})
+                                            {
+                                                statistics?.recurrence.no
+                                                    .percentage
+                                            }
+                                            )
                                         </Typography>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 300 }}>
-                                        <ResponsiveContainer width="100%" height="100%">
+                                        <ResponsiveContainer
+                                            width="100%"
+                                            height="100%"
+                                        >
                                             <PieChart>
                                                 <Pie
                                                     data={[
                                                         {
                                                             name: 'S recidivou',
                                                             value:
-                                                                statistics?.recurrence
-                                                                    .yes.count || 0,
+                                                                statistics
+                                                                    ?.recurrence
+                                                                    .yes
+                                                                    .count || 0,
                                                         },
                                                         {
                                                             name: 'Bez recidivy',
                                                             value:
-                                                                statistics?.recurrence
-                                                                    .no.count || 0,
+                                                                statistics
+                                                                    ?.recurrence
+                                                                    .no.count ||
+                                                                0,
                                                         },
                                                     ]}
                                                     cx="50%"
@@ -480,7 +523,10 @@ const DescriptiveStatistics: React.FC = () => {
                                                     fill="#8884d8"
                                                     dataKey="value"
                                                     nameKey="name"
-                                                    label={({ name, percent }) =>
+                                                    label={({
+                                                        name,
+                                                        percent,
+                                                    }) =>
                                                         `${name}: ${(percent * 100).toFixed(0)}%`
                                                     }
                                                 >
@@ -512,19 +558,35 @@ const DescriptiveStatistics: React.FC = () => {
                                     >
                                         <Typography>
                                             S komplikacemi:{' '}
-                                            {statistics?.complications.yes.count} (
-                                            {statistics?.complications.yes.percentage})
+                                            {
+                                                statistics?.complications.yes
+                                                    .count
+                                            }{' '}
+                                            (
+                                            {
+                                                statistics?.complications.yes
+                                                    .percentage
+                                            }
+                                            )
                                         </Typography>
                                         <Typography>
                                             Bez komplikací:{' '}
-                                            {statistics?.complications.no.count} (
-                                            {statistics?.complications.no.percentage})
+                                            {statistics?.complications.no.count}{' '}
+                                            (
+                                            {
+                                                statistics?.complications.no
+                                                    .percentage
+                                            }
+                                            )
                                         </Typography>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 300 }}>
-                                        <ResponsiveContainer width="100%" height="100%">
+                                        <ResponsiveContainer
+                                            width="100%"
+                                            height="100%"
+                                        >
                                             <PieChart>
                                                 <Pie
                                                     data={[
@@ -532,15 +594,17 @@ const DescriptiveStatistics: React.FC = () => {
                                                             name: 'S komplikacemi',
                                                             value:
                                                                 statistics
-                                                                    ?.complications.yes
+                                                                    ?.complications
+                                                                    .yes
                                                                     .count || 0,
                                                         },
                                                         {
                                                             name: 'Bez komplikací',
                                                             value:
                                                                 statistics
-                                                                    ?.complications.no
-                                                                    .count || 0,
+                                                                    ?.complications
+                                                                    .no.count ||
+                                                                0,
                                                         },
                                                     ]}
                                                     cx="50%"
@@ -550,7 +614,10 @@ const DescriptiveStatistics: React.FC = () => {
                                                     fill="#8884d8"
                                                     dataKey="value"
                                                     nameKey="name"
-                                                    label={({ name, percent }) =>
+                                                    label={({
+                                                        name,
+                                                        percent,
+                                                    }) =>
                                                         `${name}: ${(percent * 100).toFixed(0)}%`
                                                     }
                                                 >
@@ -577,7 +644,7 @@ const DescriptiveStatistics: React.FC = () => {
                     </>
                 )}
             </Paper>
-        </Container >
+        </Container>
     )
 }
 
