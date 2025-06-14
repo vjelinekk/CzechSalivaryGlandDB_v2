@@ -133,11 +133,6 @@ const Menu: React.FC<MenuProps> = ({
             component: Components.addStudy,
             icon: <CreateNewFolderIcon />,
         },
-        {
-            name: t(appTranslationKeys.kaplanMeier),
-            component: Components.kaplanMeier,
-            icon: <ShowChartIcon />,
-        },
     ]
 
     return (
@@ -282,6 +277,68 @@ const Menu: React.FC<MenuProps> = ({
             <Divider sx={{ backgroundColor: '#e0e0e0' }} />
 
             <List>
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                    <Tooltip
+                        title={open ? '' : t(appTranslationKeys.kaplanMeier)}
+                        placement="right"
+                    >
+                        <ListItemButton
+                            onClick={() =>
+                                handleButtonClick(
+                                    Components.kaplanMeier
+                                )
+                            }
+                            selected={
+                                activeMenuButton ===
+                                Components.kaplanMeier
+                            }
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                                '&.Mui-selected': {
+                                    backgroundColor: '#e3f2fd', // Light blue background for selected item
+                                    color: '#1976d2', // Primary blue text for selected item
+                                    '&:hover': {
+                                        backgroundColor: '#bbdefb', // Slightly darker on hover
+                                    },
+                                },
+                                '&:hover': {
+                                    backgroundColor: '#f5f5f5', // Light gray on hover
+                                },
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                    color:
+                                        activeMenuButton ===
+                                        Components.inferenceStatistics
+                                            ? '#1976d2'
+                                            : '#757575', // Blue if selected, gray otherwise
+                                }}
+                            >
+                                <ShowChartIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary= {t(appTranslationKeys.kaplanMeier)}
+                                sx={{
+                                    opacity: open ? 1 : 0,
+                                    '& .MuiListItemText-primary': {
+                                        fontSize: '0.95rem',
+                                        fontWeight:
+                                            activeMenuButton ===
+                                            Components.kaplanMeier
+                                                ? 500
+                                                : 400, // Bold if selected
+                                    },
+                                }}
+                            />
+                        </ListItemButton>
+                    </Tooltip>
+                </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <Tooltip
                         title={open ? '' : 'Inferenční statistika'}

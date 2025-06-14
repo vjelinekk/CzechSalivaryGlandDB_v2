@@ -90,6 +90,21 @@ const NonParametricTestCalculator: React.FC<Props> = ({
         }
     }
 
+    const getSelectedValueLabel = (
+        value: NonParametricTestValue
+    ): string => {
+        switch (value) {
+            case NonParametricTestValue.AGE:
+                return 'Věk pacienta'
+            case NonParametricTestValue.PACK_YEAR:
+                return 'Počet balíčko roků'
+            case NonParametricTestValue.TUMOR_SIZE:
+                return 'Velikost nádoru (mm)'
+            default:
+                return 'Neznámá hodnota'
+        }
+    }
+
     return (
         <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
             <Typography variant="h6" gutterBottom>
@@ -101,7 +116,7 @@ const NonParametricTestCalculator: React.FC<Props> = ({
                     Vybraný typ testu: {getTestTypeLabel(selectedTestType)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                    Vybraná hodnota: {selectedValue}
+                    Vybraná hodnota: {getSelectedValueLabel(selectedValue)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     Počet pacientů - Skupina 1:{' '}
@@ -161,9 +176,9 @@ const NonParametricTestCalculator: React.FC<Props> = ({
 
                         {/* Edge case handling for invalid results */}
                         {isNaN(testResult.pValue) ||
-                        isNaN(testResult.testValue) ||
-                        testResult.pValue === null ||
-                        testResult.testValue === null ? (
+                            isNaN(testResult.testValue) ||
+                            testResult.pValue === null ||
+                            testResult.testValue === null ? (
                             <Alert severity="warning" sx={{ mb: 2 }}>
                                 <Typography variant="body1">
                                     Výpočet {testName}u se nezdařil.

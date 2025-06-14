@@ -58,7 +58,7 @@ const InferenceStatistics: React.FC = () => {
                             <FormControlLabel
                                 value="t-test"
                                 control={<Radio />}
-                                label="t-test"
+                                label="T-Test"
                             />
                             <FormControlLabel
                                 value="mann-whitney"
