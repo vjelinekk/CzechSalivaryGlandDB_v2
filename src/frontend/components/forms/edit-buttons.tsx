@@ -119,10 +119,12 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     ) => {
         e.preventDefault()
         const JSONdata = JSON.parse(JSON.stringify(formData))
+        console.log(JSONdata)
         const result = await window.api.save(
             ipcAPISaveChannels.savePatient,
             JSONdata
         )
+        console.log(result)
 
         if (studiesChanged) {
             const updated = await window.api.updatePatientsStudies(

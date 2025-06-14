@@ -246,8 +246,9 @@ export interface FilteredColumns {
 }
 
 export interface KaplanMeierPatientData {
-    start_date: string
-    event_date: string
+    start_date: Date | null
+    event_date: Date | null
+    last_follow_up_date: Date | null
 }
 
 export interface KaplanMeierData {
@@ -274,4 +275,22 @@ export interface PlannedDay {
 
 export type JSONObject = {
     [key: string]: string
+}
+
+export interface KaplanMeierTimePoint {
+    event: number
+    censor: number
+}
+
+export type KaplanMeierTimeMap = Record<number, KaplanMeierTimePoint>
+
+export interface KaplanMeierTableRow {
+    time: number
+    events_occured: number
+    censorings_occured: number
+    number_at_risk: number
+}
+
+export interface KaplanMeierTableRowWithProb extends KaplanMeierTableRow {
+    probability: number
 }

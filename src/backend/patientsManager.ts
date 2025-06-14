@@ -35,6 +35,11 @@ import {
     SubmandibularBenignColumns,
     SubmandibularMalignantColumns,
 } from './types'
+import { InferenceChiSquareCategories } from '../frontend/enums/statistics.enums'
+import {
+    NonParametricTestData,
+    ITTestGroups,
+} from '../frontend/types/statistics.types'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -440,9 +445,9 @@ export const getKaplanMeierData = async (
             return new Promise<void>((resolveQuery, rejectQuery) => {
                 let query = ''
                 if (kaplanMeierType === KaplanMeierType.survival) {
-                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti, ${tableName}.posledni_kontrola FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
                 } else {
-                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
+                    query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy, ${tableName}.posledni_kontrola  FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
                 }
 
                 db.all(
@@ -455,19 +460,25 @@ export const getKaplanMeierData = async (
                             kaplanMeierData[histopatologieVysledek] = [
                                 ...(kaplanMeierData[histopatologieVysledek] ||
                                     []),
-                                ...rows.map((row) => {
-                                    const patientData: KaplanMeierPatientData =
-                                        {
-                                            start_date:
-                                                row.rok_diagnozy as string,
-                                            event_date:
-                                                kaplanMeierType ===
-                                                KaplanMeierType.survival
-                                                    ? (row.datum_umrti as string)
-                                                    : (row.datum_prokazani_recidivy as string),
-                                        }
-                                    return patientData
-                                }),
+                                ...rows
+                                    .filter((row) => {
+                                        return row.rok_diagnozy !== null
+                                    })
+                                    .map((row) => {
+                                        const patientData: KaplanMeierPatientData =
+                                            {
+                                                start_date: new Date(
+                                                    row.rok_diagnozy as string
+                                                ),
+                                                event_date: getEventDate(
+                                                    row,
+                                                    kaplanMeierType
+                                                ),
+                                                last_follow_up_date:
+                                                    getLastFollowUpDate(row),
+                                            }
+                                        return patientData
+                                    }),
                             ]
                             resolveQuery()
                         }
@@ -483,6 +494,41 @@ export const getKaplanMeierData = async (
     } catch (err) {
         return null
     }
+}
+
+const getEventDate = (
+    row: PatientType,
+    kaplanMeierType: KaplanMeierType
+): Date | null => {
+    if (kaplanMeierType === KaplanMeierType.survival) {
+        if (row.datum_umrti && row.datum_umrti !== '') {
+            return new Date(row.datum_umrti as string)
+        }
+
+        return null
+    } else {
+        if (
+            row.datum_prokazani_recidivy &&
+            row.datum_prokazani_recidivy !== ''
+        ) {
+            return new Date(row.datum_prokazani_recidivy as string)
+        }
+
+        return null
+    }
+}
+
+const getLastFollowUpDate = (row: PatientType): Date | null => {
+    console.log(row)
+    if (row.posledni_kontrola && row.posledni_kontrola !== '') {
+        return new Date(row.posledni_kontrola as string)
+    }
+
+    if (row.rok_diagnozy && row.rok_diagnozy !== '') {
+        return new Date(row.rok_diagnozy as string)
+    }
+
+    return null
 }
 
 export const searchPatientsByNameSurnameRC = async (
@@ -658,4 +704,256 @@ export const getPlannedPatientsBetweenDates = async (
     })
 
     return plannedPatientsMap
+}
+
+export const getChiSquareContingencyTable = async (
+    rows: number,
+    columns: number,
+    rowSelectedCategories: Record<
+        number,
+        Record<InferenceChiSquareCategories, string[]>
+    >,
+    columnSelectedCategories: Record<
+        number,
+        Record<InferenceChiSquareCategories, string[]>
+    >
+): Promise<number[][]> => {
+    const contingencyTable = Array.from({ length: rows }, () =>
+        Array(columns).fill(0)
+    )
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            const rowData = rowSelectedCategories[i]
+            const columnData = columnSelectedCategories[j]
+            if (rowData && columnData) {
+                const rowDataGroupedByKeys = groupByKey(rowData)
+                const columnDataGroupedByKeys = groupByKey(columnData)
+
+                const rowKeys: InferenceChiSquareCategories[] =
+                    rowDataGroupedByKeys.map(
+                        (item) => item.key as InferenceChiSquareCategories
+                    )
+                const columnKeys: InferenceChiSquareCategories[] =
+                    columnDataGroupedByKeys.map(
+                        (item) => item.key as InferenceChiSquareCategories
+                    )
+
+                const { queries, valuesForWhere } = generateChiSquareQuery(
+                    rowKeys,
+                    columnKeys,
+                    rowDataGroupedByKeys,
+                    columnDataGroupedByKeys
+                )
+
+                const results = await Promise.all(
+                    queries.map((query) => {
+                        return new Promise((resolve, reject) => {
+                            db.all(query, valuesForWhere, (err, rows) => {
+                                if (err) {
+                                    console.log(err)
+                                    console.log(rowSelectedCategories)
+                                    console.log(columnSelectedCategories)
+                                    reject(err)
+                                } else {
+                                    resolve(rows)
+                                }
+                            })
+                        })
+                    })
+                )
+
+                const totalCount = results.reduce(
+                    (acc: number, row: { count: number }[]) => {
+                        return acc + row[0].count
+                    },
+                    0
+                )
+
+                contingencyTable[i][j] = totalCount
+            }
+        }
+    }
+
+    return contingencyTable
+}
+
+const generateChiSquareQuery = (
+    rowKeys: InferenceChiSquareCategories[],
+    columnKeys: InferenceChiSquareCategories[],
+    rowDataGroupedByKeys: { key: string; values: string[] }[],
+    columnDataGroupedByKeys: { key: string; values: string[] }[]
+) => {
+    const valuesForWhere = [
+        ...rowDataGroupedByKeys.flatMap((item) => item.values),
+        ...columnDataGroupedByKeys.flatMap((item) => item.values),
+    ]
+
+    const rowConditions = rowKeys.map((key, index) => {
+        const columnName = mapChiSquareKeysToDbColumns(key)
+        const values = rowDataGroupedByKeys[index].values
+        return `${columnName} IN (${values.map(() => '?').join(', ')})`
+    })
+
+    const columnConditions = columnKeys.map((key, index) => {
+        const columnName = mapChiSquareKeysToDbColumns(key)
+        const values = columnDataGroupedByKeys[index].values
+        return `${columnName} IN (${values.map(() => '?').join(', ')})`
+    })
+
+    const querySubmandibular = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.submandibularMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+    const querySublingual = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.sublingualMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+
+    const queryParotid = `
+        SELECT COUNT(*) as count
+        FROM ${TableNames.parotidMalignant}
+        WHERE ${rowConditions.join(' AND ')} AND ${columnConditions.join(' AND ')}
+    `
+
+    const queries = [querySubmandibular, querySublingual, queryParotid]
+
+    return { queries, valuesForWhere }
+}
+
+const mapChiSquareKeysToDbColumns = (key: InferenceChiSquareCategories) => {
+    const dbColumns: Record<InferenceChiSquareCategories, string> = {
+        [InferenceChiSquareCategories.histologicalTypes]:
+            submandibularMalignantColumns.histopatologie_vysledek.columnName,
+        [InferenceChiSquareCategories.tClassification]:
+            submandibularMalignantColumns.t_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.nClassification]:
+            submandibularMalignantColumns.n_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.mClassification]:
+            submandibularMalignantColumns.m_klasifikace_klinicka.columnName,
+        [InferenceChiSquareCategories.persistence]:
+            submandibularMalignantColumns.perzistence.columnName,
+        [InferenceChiSquareCategories.recurrence]:
+            submandibularMalignantColumns.recidiva.columnName,
+        [InferenceChiSquareCategories.state]:
+            submandibularMalignantColumns.stav.columnName,
+    }
+
+    return dbColumns[key]
+}
+
+const groupByKey = (data: Record<string, string[]>) => {
+    const grouped: Record<string, string[]> = {}
+
+    for (const [key, arr] of Object.entries(data)) {
+        const filtered = arr.filter((str) => str.length > 0)
+        if (filtered.length > 0) {
+            grouped[key] = filtered
+        }
+    }
+
+    return Object.entries(grouped).map(([key, values]) => ({
+        key,
+        values,
+    }))
+}
+
+export const getTTestData = async (
+    groups: ITTestGroups
+): Promise<NonParametricTestData> => {
+    const groupOne = groups.first
+    const groupTwo = groups.second
+
+    const { queries: queriesOne, valuesForWhere: valuesOne } =
+        getTTestQueries(groupOne)
+    const { queries: queriesTwo, valuesForWhere: valuesTwo } =
+        getTTestQueries(groupTwo)
+
+    const resultsQueryOne = await Promise.all(
+        queriesOne.map((query) => {
+            return new Promise((resolve, reject) => {
+                db.all(query, valuesOne, (err, rows) => {
+                    if (err) {
+                        console.log(err)
+                        reject(err)
+                    } else {
+                        resolve(rows)
+                    }
+                })
+            })
+        })
+    )
+
+    const resultsQueryTwo = await Promise.all(
+        queriesTwo.map((query) => {
+            return new Promise((resolve, reject) => {
+                db.all(query, valuesTwo, (err, rows) => {
+                    if (err) {
+                        console.log(err)
+                        reject(err)
+                    } else {
+                        resolve(rows)
+                    }
+                })
+            })
+        })
+    )
+
+    const groupOneData = resultsQueryOne.flat()
+    const groupTwoData = resultsQueryTwo.flat()
+
+    const tTestData: NonParametricTestData = {
+        group1: groupOneData as PatientType[],
+        group2: groupTwoData as PatientType[],
+    }
+
+    return tTestData
+}
+
+const getTTestQueries = (group: {
+    histologicalTypes: string[]
+    tClassification: string[]
+    nClassification: string[]
+    mClassification: string[]
+    persistence: string[]
+    recurrence: string[]
+    state: string[]
+}): {
+    valuesForWhere: string[]
+    queries: string[]
+} => {
+    const keys = Object.keys(group)
+    const valuesForWhere = Object.values(group).flat()
+
+    const conditions = keys
+        .filter((key) => group[key as keyof typeof group].length > 0)
+        .map((key) => {
+            const columnName = mapChiSquareKeysToDbColumns(
+                key as InferenceChiSquareCategories
+            )
+            const values = group[key as keyof typeof group]
+            return `${columnName} IN (${values.map(() => '?').join(', ')})`
+        })
+
+    const submandibularQuery = `
+        SELECT * FROM ${TableNames.submandibularMalignant}
+        WHERE ${conditions.join(' AND ')}
+    `
+
+    const sublingualQuery = `
+        SELECT * FROM ${TableNames.sublingualMalignant}
+        WHERE ${conditions.join(' AND ')}
+    `
+
+    const parotidQuery = `
+        SELECT * FROM ${TableNames.parotidMalignant}
+        WHERE ${conditions.join(' AND ')}
+    `
+
+    return {
+        valuesForWhere,
+        queries: [submandibularQuery, sublingualQuery, parotidQuery],
+    }
 }

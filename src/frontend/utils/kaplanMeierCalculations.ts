@@ -3,6 +3,8 @@ import {
     KaplanMeierData,
     KaplanMeierPatientData,
     KaplanMeierCurveRecord,
+    KaplanMeierTableRowWithProb,
+    KaplanMeierTimeMap,
 } from '../types'
 
 export const calculateKaplanMeierCurveData = (
@@ -22,57 +24,113 @@ export const calculateKaplanMeierCurveData = (
     return kaplanMeierCurveData
 }
 
-const getSortedEventTimesMap = (
-    kaplanMeierPatientsData: KaplanMeierPatientData[]
-): Map<number, number> => {
-    const eventTimesMap: Map<number, number> = new Map()
-
-    kaplanMeierPatientsData.forEach((kmPatientData) => {
-        const startDate = new Date(kmPatientData.start_date)
-        const eventDate = new Date(kmPatientData.event_date)
-
-        const time =
-            (eventDate.getTime() - startDate.getTime()) /
-            (1000 * 60 * 60 * 24 * 365)
-
-        if (eventTimesMap.has(time)) {
-            const currentValue = eventTimesMap.get(time)
-            if (currentValue !== undefined) {
-                eventTimesMap.set(time, currentValue + 1)
-            }
-        } else {
-            eventTimesMap.set(time, 1)
-        }
-    })
-
-    // Sort the map by keys
-    const sortedEventTimesMap = new Map(
-        [...eventTimesMap.entries()].sort((a, b) => a[0] - b[0])
-    )
-
-    return sortedEventTimesMap
-}
-
 const calculateKaplanMeierCurveRecords = (
     kaplanMeierPatientsData: KaplanMeierPatientData[]
 ): KaplanMeierCurveRecord[] => {
-    kaplanMeierPatientsData = kaplanMeierPatientsData.filter(
-        (kmPatientData) =>
-            kmPatientData.start_date !== null &&
-            kmPatientData.event_date !== null
-    )
-    const sortedEventTimesMap = getSortedEventTimesMap(kaplanMeierPatientsData)
-    const records: KaplanMeierCurveRecord[] = []
-    records.push({ time: 0, probability: 1 })
-    let numberOfPatientsAtRisk = kaplanMeierPatientsData.length
+    return buildKaplanMeierTable(kaplanMeierPatientsData).map((row) => ({
+        time: row.time,
+        probability: row.probability,
+    }))
+}
 
-    for (const [time, eventsAtTime] of sortedEventTimesMap.entries()) {
-        numberOfPatientsAtRisk -= eventsAtTime
-        const probability =
-            numberOfPatientsAtRisk / kaplanMeierPatientsData.length
-
-        records.push({ time, probability })
+// Helper: Parse patient data into time points
+function parsePatientTimePoints(
+    kaplanMeierPatientsData: KaplanMeierPatientData[]
+): Array<{ time: number; isEvent: boolean }> {
+    const points: Array<{ time: number; isEvent: boolean }> = []
+    for (const patient of kaplanMeierPatientsData) {
+        if (!patient.start_date) continue
+        const startDate = new Date(patient.start_date)
+        let endDate: Date
+        let isEvent = false
+        if (patient.event_date) {
+            endDate = new Date(patient.event_date)
+            isEvent = true
+        } else if (patient.last_follow_up_date) {
+            endDate = new Date(patient.last_follow_up_date)
+        } else {
+            endDate = startDate
+        }
+        const time =
+            (endDate.getTime() - startDate.getTime()) /
+            (1000 * 60 * 60 * 24 * 365)
+        if (!isFinite(time) || time < 0) continue
+        points.push({ time, isEvent })
     }
+    return points
+}
 
-    return records
+// Helper: Aggregate time points into a time map
+function aggregateTimePoints(
+    points: Array<{ time: number; isEvent: boolean }>
+): KaplanMeierTimeMap {
+    const timeMap: KaplanMeierTimeMap = {}
+    for (const { time, isEvent } of points) {
+        if (!timeMap[time]) timeMap[time] = { event: 0, censor: 0 }
+        if (isEvent) timeMap[time].event++
+        else timeMap[time].censor++
+    }
+    return timeMap
+}
+
+// Helper: Sort unique times
+function sortTimePoints(timeMap: KaplanMeierTimeMap): number[] {
+    return Object.keys(timeMap)
+        .map(Number)
+        .sort((a, b) => a - b)
+}
+
+// Helper: Build table rows from time map and sorted times
+function buildTableRows(
+    timeMap: KaplanMeierTimeMap,
+    sortedTimes: number[],
+    totalPatients: number
+): KaplanMeierTableRowWithProb[] {
+    let timeZeroEvents = 0
+    let timeZeroCensorings = 0
+    if (timeMap[0]) {
+        timeZeroEvents = timeMap[0].event
+        timeZeroCensorings = timeMap[0].censor
+        delete timeMap[0]
+    }
+    const table: KaplanMeierTableRowWithProb[] = [
+        {
+            time: 0,
+            events_occured: timeZeroEvents,
+            censorings_occured: timeZeroCensorings,
+            number_at_risk: totalPatients,
+            probability: 1,
+        },
+    ]
+    let numberAtRisk = totalPatients - timeZeroEvents - timeZeroCensorings
+    let prevProb = 1
+    for (let i = 1; i < sortedTimes.length; i++) {
+        const time = sortedTimes[i]
+        const { event, censor } = timeMap[time]
+        const prob =
+            numberAtRisk > 0
+                ? prevProb * ((numberAtRisk - event) / numberAtRisk)
+                : prevProb
+        table.push({
+            time,
+            events_occured: event,
+            censorings_occured: censor,
+            number_at_risk: numberAtRisk,
+            probability: prob,
+        })
+        prevProb = prob
+        numberAtRisk -= event + censor
+    }
+    return table
+}
+
+// Build a table for Kaplan-Meier calculation with time, events, censorings, number at risk, and probability
+const buildKaplanMeierTable = (
+    kaplanMeierPatientsData: KaplanMeierPatientData[]
+): KaplanMeierTableRowWithProb[] => {
+    const points = parsePatientTimePoints(kaplanMeierPatientsData)
+    const timeMap = aggregateTimePoints(points)
+    const sortedTimes = sortTimePoints(timeMap)
+    const totalPatients = points.length
+    return buildTableRows(timeMap, sortedTimes, totalPatients)
 }

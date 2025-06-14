@@ -13,6 +13,8 @@ import {
     PlannedPatientsMap,
     Study,
 } from './types'
+import { InferenceChiSquareCategories } from './enums/statistics.enums'
+import { NonParametricTestData, ITTestGroups } from './types/statistics.types'
 
 declare global {
     interface Window {
@@ -63,6 +65,21 @@ declare global {
                 startDate: Date,
                 endDate: Date
             ) => Promise<PlannedPatientsMap>
+            getChiSquareData: (
+                rows: number,
+                columns: number,
+                rowSelectedCategories: Record<
+                    number,
+                    Record<InferenceChiSquareCategories, string[]>
+                >,
+                columnSelectedCategories: Record<
+                    number,
+                    Record<InferenceChiSquareCategories, string[]>
+                >
+            ) => Promise<number[][]>
+            getTTestData: (
+                selectedGroups: ITTestGroups
+            ) => Promise<NonParametricTestData>
         }
         export: {
             export: (
