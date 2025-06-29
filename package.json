@@ -14,8 +14,8 @@
         "publish": "electron-forge publish",
         "prettier": "prettier --check .",
         "prettier:fix": "prettier --write .",
-        "lint": "eslint --ext .ts,.tsx .",
-        "lint:fix": "eslint --ext .ts,.tsx . --fix",
+        "eslint": "eslint --ext .ts,.tsx .",
+        "eslint:fix": "eslint --ext .ts,.tsx . --fix",
         "test": "jest",
         "coverage": "jest --coverage --collectCoverageFrom='src/frontend/components/**/*.{ts,tsx}'"
     },
