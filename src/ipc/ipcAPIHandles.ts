@@ -23,6 +23,13 @@ import {
     updatePatientsStudies,
 } from '../backend/studieManager'
 import {
+    getActiveEdition,
+    getTnmValuesByEdition,
+    calculateStage,
+    getPatientStaging,
+    savePatientStaging,
+} from '../backend/tnmManager'
+import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,
     ipcAPIInsertChannels,
@@ -145,3 +152,30 @@ ipcMain.handle(
         return await getTTestData(selectedGroups)
     }
 )
+
+// TNM Classification Handlers
+ipcMain.handle(ipcAPIGetChannels.getActiveTnmEdition, async () => {
+    return await getActiveEdition()
+})
+
+ipcMain.handle(ipcAPIGetChannels.getTnmValues, async (event, args) => {
+    const [editionId, category] = args
+    return await getTnmValuesByEdition(editionId, category)
+})
+
+ipcMain.handle(ipcAPIGetChannels.calculateTnmStage, async (event, args) => {
+    const [editionId, tValueId, nValueId, mValueId] = args
+    return await calculateStage(editionId, tValueId, nValueId, mValueId)
+})
+
+ipcMain.handle(
+    ipcAPIGetChannels.getPatientStaging,
+    async (event, patientId) => {
+        return await getPatientStaging(patientId)
+    }
+)
+
+ipcMain.handle(ipcAPISaveChannels.savePatientStaging, async (event, args) => {
+    const [staging] = args
+    return await savePatientStaging(staging)
+})

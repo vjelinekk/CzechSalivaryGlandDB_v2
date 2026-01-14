@@ -130,6 +130,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultPleomorphicAdenoma
                             )}
+                            dbValue="pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -137,6 +138,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultWarthinTumor
                             )}
+                            dbValue="warthin-tumor"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -144,6 +146,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultBasalCellAdenoma
                             )}
+                            dbValue="basal-cell-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -151,11 +154,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultMyoepithelioma
                             )}
+                            dbValue="myoepithelioma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.coreResultOncocytoma)}
+                            dbValue="oncocytoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -163,6 +168,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultCanalicularAdenoma
                             )}
+                            dbValue="canalicular-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -170,11 +176,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultSebaceousAdenoma
                             )}
+                            dbValue="sebaceous-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.ductalPapilloma)}
+                            dbValue="ductal-papilloma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -182,6 +190,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultSebaceousLymphadenoma
                             )}
+                            dbValue="sebaceous-lymphadenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -189,11 +198,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultKeratocystoma
                             )}
+                            dbValue="keratocystoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(appTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -241,6 +252,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultPleomorphicAdenoma
                             )}
+                            dbValue="pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -248,6 +260,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultWarthinTumor
                             )}
+                            dbValue="warthin-tumor"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -255,6 +268,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultBasalCellAdenoma
                             )}
+                            dbValue="basal-cell-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -262,11 +276,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultMyoepithelioma
                             )}
+                            dbValue="myoepithelioma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.coreResultOncocytoma)}
+                            dbValue="oncocytoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -274,6 +290,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultCanalicularAdenoma
                             )}
+                            dbValue="canalicular-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -281,11 +298,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultSebaceousAdenoma
                             )}
+                            dbValue="sebaceous-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.ductalPapilloma)}
+                            dbValue="ductal-papilloma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -293,6 +312,7 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultSebaceousLymphadenoma
                             )}
+                            dbValue="sebaceous-lymphadenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -300,11 +320,13 @@ const ParotidBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultKeratocystoma
                             )}
+                            dbValue="keratocystoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(appTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         >

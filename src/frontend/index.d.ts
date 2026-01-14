@@ -10,9 +10,12 @@ import { FormType } from './constants'
 import {
     KaplanMeierData,
     PatientInStudy,
+    PatientStaging,
     PatientType,
     PlannedPatientsMap,
     Study,
+    TnmEdition,
+    TnmValueDefinition,
 } from './types'
 import { InferenceChiSquareCategories } from './enums/statistics.enums'
 import { NonParametricTestData, ITTestGroups } from './types/statistics.types'
@@ -81,6 +84,20 @@ declare global {
             getTTestData: (
                 selectedGroups: ITTestGroups
             ) => Promise<NonParametricTestData>
+            getActiveTnmEdition: () => Promise<TnmEdition | null>
+            getTnmValues: (
+                editionId: number,
+                category?: 'T' | 'N' | 'M' | 'G'
+            ) => Promise<TnmValueDefinition[]>
+            calculateTnmStage: (
+                editionId: number,
+                tValueId: number | null,
+                nValueId: number | null,
+                mValueId: number | null
+            ) => Promise<TnmValueDefinition | null>
+            getPatientStaging: (
+                patientId: number
+            ) => Promise<PatientStaging | null>
         }
         export: {
             export: (

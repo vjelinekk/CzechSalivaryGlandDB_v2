@@ -129,6 +129,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.pleomorphicAdenoma)}
+                            dbValue="pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -136,6 +137,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.papillaryCystadenolymphomaWarthin
                             )}
+                            dbValue="warthin-tumor"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -143,31 +145,37 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultBasalCellAdenoma
                             )}
+                            dbValue="basal-cell-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.myoepithelioma)}
+                            dbValue="myoepithelioma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.oncocytoma)}
+                            dbValue="oncocytoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.canalicularAdenoma)}
+                            dbValue="canalicular-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.sebaceousAdenoma)}
+                            dbValue="sebaceous-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.ductalPapilloma)}
+                            dbValue="ductal-papilloma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -175,16 +183,19 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.debacellousLymphadenoma
                             )}
+                            dbValue="sebaceous-lymphadenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.keratocyst)}
+                            dbValue="keratocystoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -230,6 +241,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.pleomorphicAdenoma)}
+                            dbValue="pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -237,6 +249,7 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.papillaryCystadenolymphomaWarthin
                             )}
+                            dbValue="warthin-tumor"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -244,31 +257,37 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.coreResultBasalCellAdenoma
                             )}
+                            dbValue="basal-cell-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.myoepithelioma)}
+                            dbValue="myoepithelioma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.oncocytoma)}
+                            dbValue="oncocytoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.canalicularAdenoma)}
+                            dbValue="canalicular-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.sebaceousAdenoma)}
+                            dbValue="sebaceous-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.ductalPapilloma)}
+                            dbValue="ductal-papilloma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -276,16 +295,19 @@ const SubmandibularBenignGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.debacellousLymphadenoma
                             )}
+                            dbValue="sebaceous-lymphadenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.keratocyst)}
+                            dbValue="keratocystoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         >

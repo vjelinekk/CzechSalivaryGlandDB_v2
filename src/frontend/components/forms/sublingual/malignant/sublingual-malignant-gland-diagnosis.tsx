@@ -127,11 +127,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.acinocellularCarcinoma
                             )}
+                            dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.secretoryCarcinoma)}
+                            dbValue="secretory-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -139,6 +141,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.mucoepidermoidCarcinoma
                             )}
+                            dbValue="mucoepidermoid-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -150,10 +153,10 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.lowGrade),
-                                    t(formTranslationKeys.intermediateGrade),
-                                    t(formTranslationKeys.highGrade),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.lowGrade,
+                                    formTranslationKeys.intermediateGrade,
+                                    formTranslationKeys.highGrade,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -162,6 +165,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.adenoidCysticCarcinoma
                             )}
+                            dbValue="adenoid-cystic-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -173,13 +177,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.tubularCribriformDominant
-                                    ),
-                                    t(
-                                        formTranslationKeys.moreThan30SolidComponent
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.tubularCribriformDominant,
+                                    formTranslationKeys.moreThan30SolidComponent,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -188,6 +188,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.polymorphousAdenocarcinoma
                             )}
+                            dbValue="polymorphous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -197,9 +198,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.classic),
-                                    t(formTranslationKeys.cribriform),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.classic,
+                                    formTranslationKeys.cribriform,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -208,6 +209,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.epithelialMyoepithelialCarcinoma
                             )}
+                            dbValue="epithelial-myoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -215,6 +217,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.hyalinizingClearCellCarcinoma
                             )}
+                            dbValue="hyalinizing-clear-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -222,6 +225,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.basalCellAdenocarcinoma
                             )}
+                            dbValue="basal-cell-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -229,11 +233,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.sebaceousAdenocarcinoma
                             )}
+                            dbValue="sebaceous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.intraductalCarcinoma)}
+                            dbValue="intraductal-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -243,17 +249,18 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.intercalatedDuctLike),
-                                    t(formTranslationKeys.apocrine),
-                                    t(formTranslationKeys.oncocytic),
-                                    t(formTranslationKeys.mixed),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.intercalatedDuctLike,
+                                    formTranslationKeys.apocrine,
+                                    formTranslationKeys.oncocytic,
+                                    formTranslationKeys.mixed,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryCarcinomaNos)}
+                            dbValue="salivary-carcinoma-nos"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -263,19 +270,16 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.oncocyticAdenocarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.intestinalTypeAdenocarcinoma
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.oncocyticAdenocarcinoma,
+                                    formTranslationKeys.intestinalTypeAdenocarcinoma,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryDuctCarcinoma)}
+                            dbValue="salivary-duct-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -283,6 +287,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.myoepithelialCarcinoma
                             )}
+                            dbValue="myoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -290,6 +295,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.carcinomaExPleomorphicAdenoma
                             )}
+                            dbValue="carcinoma-ex-pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -301,16 +307,17 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.intracapsular),
-                                    t(formTranslationKeys.minimallyInvasive),
-                                    t(formTranslationKeys.invasive),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.intracapsular,
+                                    formTranslationKeys.minimallyInvasive,
+                                    formTranslationKeys.invasive,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.carcinosarcoma)}
+                            dbValue="carcinosarcoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -318,6 +325,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.poorlyDifferentiatedCarcinoma
                             )}
+                            dbValue="poorly-differentiated-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -329,16 +337,10 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.undifferentiatedCarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.undifferentiatedCarcinoma,
+                                    formTranslationKeys.largeCellNeuroendocrineCarcinoma,
+                                    formTranslationKeys.smallCellNeuroendocrineCarcinoma,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -347,11 +349,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.lymphoepithelialCarcinoma
                             )}
+                            dbValue="lymphoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.squamousCellCarcinoma)}
+                            dbValue="squamous-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -359,6 +363,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.microsecretoryAdenocarcinoma
                             )}
+                            dbValue="microsecretory-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -366,6 +371,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
                             )}
+                            dbValue="sclerosing-microcystic-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -373,21 +379,25 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.mucinousAdenocarcinoma
                             )}
+                            dbValue="mucinous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t('sialoblastoma')}
+                            dbValue="asialoblastoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.maltLymphoma)}
+                            dbValue="malt-lymphoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -423,11 +433,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.acinocellularCarcinoma
                             )}
+                            dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.secretoryCarcinoma)}
+                            dbValue="secretory-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -435,6 +447,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.mucoepidermoidCarcinoma
                             )}
+                            dbValue="mucoepidermoid-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -446,10 +459,10 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.lowGrade),
-                                    t(formTranslationKeys.intermediateGrade),
-                                    t(formTranslationKeys.highGrade),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.lowGrade,
+                                    formTranslationKeys.intermediateGrade,
+                                    formTranslationKeys.highGrade,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -458,6 +471,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.adenoidCysticCarcinoma
                             )}
+                            dbValue="adenoid-cystic-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -469,13 +483,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.tubularCribriformDominant
-                                    ),
-                                    t(
-                                        formTranslationKeys.moreThan30SolidComponent
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.tubularCribriformDominant,
+                                    formTranslationKeys.moreThan30SolidComponent,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -484,6 +494,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.polymorphousAdenocarcinoma
                             )}
+                            dbValue="polymorphous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -495,9 +506,9 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.classic),
-                                    t(formTranslationKeys.cribriform),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.classic,
+                                    formTranslationKeys.cribriform,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -506,6 +517,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.epithelialMyoepithelialCarcinoma
                             )}
+                            dbValue="epithelial-myoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -513,6 +525,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.hyalinizingClearCellCarcinoma
                             )}
+                            dbValue="hyalinizing-clear-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -520,6 +533,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.basalCellAdenocarcinoma
                             )}
+                            dbValue="basal-cell-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -527,11 +541,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.sebaceousAdenocarcinoma
                             )}
+                            dbValue="sebaceous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.intraductalCarcinoma)}
+                            dbValue="intraductal-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -543,17 +559,18 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.intercalatedDuctLike),
-                                    t(formTranslationKeys.apocrine),
-                                    t(formTranslationKeys.oncocytic),
-                                    t(formTranslationKeys.mixed),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.intercalatedDuctLike,
+                                    formTranslationKeys.apocrine,
+                                    formTranslationKeys.oncocytic,
+                                    formTranslationKeys.mixed,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryCarcinomaNos)}
+                            dbValue="salivary-carcinoma-nos"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -565,19 +582,16 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.oncocyticAdenocarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.intestinalTypeAdenocarcinoma
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.oncocyticAdenocarcinoma,
+                                    formTranslationKeys.intestinalTypeAdenocarcinoma,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryDuctCarcinoma)}
+                            dbValue="salivary-duct-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -585,6 +599,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.myoepithelialCarcinoma
                             )}
+                            dbValue="myoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -592,6 +607,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.carcinomaExPleomorphicAdenoma
                             )}
+                            dbValue="carcinoma-ex-pleomorphic-adenoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -603,16 +619,17 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(formTranslationKeys.intracapsular),
-                                    t(formTranslationKeys.minimallyInvasive),
-                                    t(formTranslationKeys.invasive),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.intracapsular,
+                                    formTranslationKeys.minimallyInvasive,
+                                    formTranslationKeys.invasive,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.carcinosarcoma)}
+                            dbValue="carcinosarcoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -620,6 +637,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.poorlyDifferentiatedCarcinoma
                             )}
+                            dbValue="poorly-differentiated-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -631,16 +649,10 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 options={[
-                                    t(
-                                        formTranslationKeys.undifferentiatedCarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.largeCellNeuroendocrineCarcinoma
-                                    ),
-                                    t(
-                                        formTranslationKeys.smallCellNeuroendocrineCarcinoma
-                                    ),
-                                    t(formTranslationKeys.subtypeNotSpecified),
+                                    formTranslationKeys.undifferentiatedCarcinoma,
+                                    formTranslationKeys.largeCellNeuroendocrineCarcinoma,
+                                    formTranslationKeys.smallCellNeuroendocrineCarcinoma,
+                                    formTranslationKeys.subtypeNotSpecified,
                                 ]}
                                 disabled={disabled}
                             />
@@ -649,11 +661,13 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.lymphoepithelialCarcinoma
                             )}
+                            dbValue="lymphoepithelial-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.squamousCellCarcinoma)}
+                            dbValue="squamous-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -661,6 +675,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.microsecretoryAdenocarcinoma
                             )}
+                            dbValue="microsecretory-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -668,6 +683,7 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.sclerosingMicrocysticAdenocarcinoma
                             )}
+                            dbValue="sclerosing-microcystic-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -675,21 +691,25 @@ const SublingualMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             label={t(
                                 formTranslationKeys.mucinousAdenocarcinoma
                             )}
+                            dbValue="mucinous-adenocarcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t('sialoblastoma')}
+                            dbValue="asialoblastoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.maltLymphoma)}
+                            dbValue="malt-lymphoma"
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.other)}
+                            dbValue="other"
                             disabled={disabled}
                             setFormData={setFormData}
                         />

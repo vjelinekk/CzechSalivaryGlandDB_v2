@@ -116,6 +116,34 @@ contextBridge.exposeInMainWorld('api', {
             selectedGroups
         )
     },
+    getActiveTnmEdition: () => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getActiveTnmEdition)
+    },
+    getTnmValues: (editionId: number, category?: 'T' | 'N' | 'M' | 'G') => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getTnmValues, [
+            editionId,
+            category,
+        ])
+    },
+    calculateTnmStage: (
+        editionId: number,
+        tValueId: number | null,
+        nValueId: number | null,
+        mValueId: number | null
+    ) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.calculateTnmStage, [
+            editionId,
+            tValueId,
+            nValueId,
+            mValueId,
+        ])
+    },
+    getPatientStaging: (patientId: number) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getPatientStaging,
+            patientId
+        )
+    },
 })
 
 contextBridge.exposeInMainWorld('export', {

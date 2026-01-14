@@ -1,6 +1,7 @@
 export enum ipcAPISaveChannels {
     savePatient = 'savePatient',
     saveStudy = 'saveStudy',
+    savePatientStaging = 'savePatientStaging',
 }
 
 export enum ipcAPIInsertChannels {
@@ -30,6 +31,10 @@ export enum ipcAPIGetChannels {
     getPlannedPatientsBetweenDates = 'getPlannedPatientsBetweenDates',
     getChiSquareData = 'getChiSquareData',
     getTTestData = 'getTTestData',
+    getActiveTnmEdition = 'getActiveTnmEdition',
+    getTnmValues = 'getTnmValues',
+    calculateTnmStage = 'calculateTnmStage',
+    getPatientStaging = 'getPatientStaging',
 }
 
 export enum ipcExportChannels {

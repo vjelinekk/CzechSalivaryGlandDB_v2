@@ -29,56 +29,67 @@ const HistopathologyBenign: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.pleomorphicAdenoma)}
+                    dbValue="pleomorphic-adenoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.coreResultWarthinTumor)}
+                    dbValue="warthin-tumor"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.basalCellAdenoma)}
+                    dbValue="basal-cell-adenoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.myoepithelioma)}
+                    dbValue="myoepithelioma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.oncocytoma)}
+                    dbValue="oncocytoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.canalicularAdenoma)}
+                    dbValue="canalicular-adenoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.sebaceousAdenoma)}
+                    dbValue="sebaceous-adenoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.ductalPapilloma)}
+                    dbValue="ductal-papilloma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.sebaceousLymphadenoma)}
+                    dbValue="sebaceous-lymphadenoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.keratocystoma)}
+                    dbValue="keratocystoma"
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.other)}
+                    dbValue="other"
                     disabled={disabled}
                     setFormData={setFormData}
                 >

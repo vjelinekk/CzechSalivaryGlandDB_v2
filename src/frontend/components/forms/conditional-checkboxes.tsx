@@ -47,10 +47,11 @@ const ConditionalCheckboxes: React.FC<ConditionalCheckboxesProps> = ({
         >
             {title && <h3 className="conditionalCheckboxTitle">{title}</h3>}
             {children.map((child, index) => {
+                const value = child.props.dbValue || child.props.label
                 return React.cloneElement(child, {
                     key: index,
-                    selected: selectedOptions.includes(child.props.label),
-                    onSelect: () => handleCheckboxChange(child.props.label),
+                    selected: selectedOptions.includes(value),
+                    onSelect: () => handleCheckboxChange(value),
                 })
             })}
         </div>

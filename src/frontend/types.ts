@@ -112,6 +112,15 @@ export interface PatientData {
     n_klasifikace_patologicka?: string
     m_klasifikace_patologicka?: string
     tnm_klasifikace_patologicka?: string
+    // TNM ID-based fields (references to tnm_value_definition table)
+    t_klasifikace_klinicka_id?: number
+    n_klasifikace_klinicka_id?: number
+    m_klasifikace_klinicka_id?: number
+    tnm_klasifikace_klinicka_id?: number
+    t_klasifikace_patologicka_id?: number
+    n_klasifikace_patologicka_id?: number
+    m_klasifikace_patologicka_id?: number
+    tnm_klasifikace_patologicka_id?: number
     datum_prvni_kontroly_po_lecbe?: string
     perzistence?: string
     datum_prokazani_perzistence?: string
@@ -293,4 +302,35 @@ export interface KaplanMeierTableRow {
 
 export interface KaplanMeierTableRowWithProb extends KaplanMeierTableRow {
     probability: number
+}
+
+// TNM Classification Types
+export interface TnmEdition {
+    id: number
+    name: string
+    active_from: string
+    is_active: number
+}
+
+export interface TnmValueDefinition {
+    id: number
+    edition_id: number
+    category: 'T' | 'N' | 'M' | 'G'
+    code: string
+    description: string
+    sort_order: number
+}
+
+export interface PatientStaging {
+    id?: number
+    id_patient: number
+    id_edition: number
+    clinical_t_id: number | null
+    clinical_n_id: number | null
+    clinical_m_id: number | null
+    clinical_grade_id: number | null
+    pathological_t_id: number | null
+    pathological_n_id: number | null
+    pathological_m_id: number | null
+    pathological_grade_id: number | null
 }
