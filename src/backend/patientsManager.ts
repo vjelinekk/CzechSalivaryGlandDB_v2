@@ -1,11 +1,3 @@
-import { KaplanMeierType, FormType } from '../frontend/constants'
-import {
-    FilteredColumns,
-    KaplanMeierData,
-    KaplanMeierPatientData,
-    PatientType,
-    TumorType,
-} from '../frontend/types'
 import {
     deleteRow,
     getAllRows,
@@ -22,24 +14,28 @@ import {
     parotidMalignantColumns,
     submandibularBenignColumns,
     TableNames,
+    FormType,
 } from './constants'
 import db from './dbManager'
 import { decrypt, encrypt } from './encryption'
 import { deletePatientFromAllStudies } from './studieManager'
 import {
+    FilteredColumns,
+    KaplanMeierData,
+    KaplanMeierPatientData,
+    PatientType,
+    TumorType,
+    KaplanMeierType,
+    NonParametricTestData,
+    ITTestGroups,
     ParotidBenignColumns,
     ParotidMalignantColumns,
     PlannedPatientsMap,
-    RowRecordType,
     SublingualMalignantColumns,
     SubmandibularBenignColumns,
     SubmandibularMalignantColumns,
 } from './types'
-import { InferenceChiSquareCategories } from '../frontend/enums/statistics.enums'
-import {
-    NonParametricTestData,
-    ITTestGroups,
-} from '../frontend/types/statistics.types'
+import { InferenceChiSquareCategories } from './enums'
 
 export const decryptPatientData = (
     patientData: PatientType[]
@@ -103,7 +99,7 @@ export const encryptPatientData = (patientData: PatientType): PatientType => {
 }
 
 export const insertPatient = async (
-    data: RowRecordType
+    data: PatientType
 ): Promise<number | null> => {
     const formType = data.form_type as FormType
     let result
@@ -126,10 +122,10 @@ export const insertPatient = async (
 }
 
 export const updatePatient = async (
-    data: Record<string, string | number | string[]>
+    data: PatientType
 ): Promise<number | null> => {
     const formType = data.form_type as FormType
-    const patientData: PatientType = encryptPatientData(data as PatientType)
+    const patientData: PatientType = encryptPatientData(data)
 
     try {
         const tableName = formTypeToTableName[formType]
@@ -151,7 +147,7 @@ export const updatePatient = async (
 }
 
 export const savePatient = async (
-    data: RowRecordType
+    data: PatientType
 ): Promise<number | null> => {
     try {
         const patient = await getPatient(
@@ -203,7 +199,7 @@ export const getAllPatients = async () => {
 
 export const getPatientsByType = async (
     formType: FormType
-): Promise<Record<string, string | number | string[]>[] | null> => {
+): Promise<PatientType[] | null> => {
     let patients
 
     try {
@@ -611,9 +607,7 @@ export const searchPatientsByNameSurnameRC = async (
     })
 }
 
-export const deletePatient = async (
-    data: Record<string, string | number | string[]>
-): Promise<boolean> => {
+export const deletePatient = async (data: PatientType): Promise<boolean> => {
     const formType = data.form_type as FormType
     const id = data.id as number
 

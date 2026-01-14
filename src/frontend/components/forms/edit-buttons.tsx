@@ -77,10 +77,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     }
 
     const handleDeleteClick = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(formData))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deletePatient,
-            JSONdata
+            formData
         )
 
         if (result) {
@@ -118,11 +117,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        const JSONdata = JSON.parse(JSON.stringify(formData))
-        console.log(JSONdata)
         const result = await window.api.save(
             ipcAPISaveChannels.savePatient,
-            JSONdata
+            formData
         )
         console.log(result)
 

@@ -46,7 +46,6 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     })
 
     data.forEach((patient) => {
-        const dataJSON = JSON.parse(JSON.stringify(patient))
-        savePatient(dataJSON)
+        savePatient(patient)
     })
 })

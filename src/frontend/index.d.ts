@@ -9,6 +9,7 @@ import {
 import { FormType } from './constants'
 import {
     KaplanMeierData,
+    PatientInStudy,
     PatientType,
     PlannedPatientsMap,
     Study,
@@ -21,7 +22,7 @@ declare global {
         api: {
             save: (
                 channel: ipcAPISaveChannels,
-                data: JSON
+                data: PatientType | Study
             ) => Promise<number | null>
             updatePatientsStudies: (
                 patientId: number,
@@ -30,11 +31,11 @@ declare global {
             ) => Promise<boolean>
             insert: (
                 channel: ipcAPIInsertChannels,
-                data: JSON
+                data: PatientInStudy
             ) => Promise<boolean>
             delete: (
                 chanel: ipcAPIDeleteChannels,
-                data: JSON
+                data: PatientType | Study
             ) => Promise<boolean>
             deletePatientFromStudy: (
                 studyId: number,
@@ -44,7 +45,7 @@ declare global {
             get: (
                 channel: ipcAPIGetChannels,
                 formType?: FormType
-            ) => Promise<PatientType[]>
+            ) => Promise<PatientType[] | Study[]>
             getStudiesByFormType: (formType: FormType) => Promise<Study[]>
             getStudiesByPatientId: (
                 id: number,

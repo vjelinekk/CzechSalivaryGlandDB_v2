@@ -41,10 +41,9 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     }
 
     const saveStudyName = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(study))
         const result = await window.api.save(
             ipcAPISaveChannels.saveStudy,
-            JSONdata
+            study
         )
 
         console.log(result)
@@ -74,10 +73,9 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     }
 
     const handleDeleteStudy = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(study))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deleteStudy,
-            JSONdata
+            study
         )
 
         console.log(result)

@@ -166,20 +166,20 @@ const PatientsList: React.FC<PatientsListProps> = ({
         } else {
             if (!idStudie) {
                 if (!studyType || studyType === StudyType.special) {
-                    loadedPatients = await window.api.get(
+                    loadedPatients = (await window.api.get(
                         ipcAPIGetChannels.getAllPatients
-                    )
+                    )) as PatientType[]
                 } else if (studyType) {
-                    loadedPatients = await window.api.get(
+                    loadedPatients = (await window.api.get(
                         ipcAPIGetChannels.getPatientsByType,
                         studyTypeToFormTypeMap[studyType]
-                    )
+                    )) as PatientType[]
                 }
             } else {
-                loadedPatients = await window.api.get(
+                loadedPatients = (await window.api.get(
                     ipcAPIGetChannels.getPatientsInStudy,
                     idStudie
-                )
+                )) as PatientType[]
             }
         }
 
@@ -240,10 +240,9 @@ const PatientsList: React.FC<PatientsListProps> = ({
     }
 
     const handleCreateStudy = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(study))
         const studyId = await window.api.save(
             ipcAPISaveChannels.saveStudy,
-            JSONdata
+            study
         )
 
         selectedPatients.forEach(async (patient) => {
@@ -255,7 +254,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
             await window.api.insert(
                 ipcAPIInsertChannels.insertPatientToStudy,
-                JSON.parse(JSON.stringify(patientInStudy))
+                patientInStudy
             )
         })
 

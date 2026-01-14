@@ -1409,9 +1409,9 @@ export const passwordColumns: PasswordColumns = {
 }
 
 export enum FormType {
-    submandibular = 1,
-    sublingual = 2,
-    parotid = 3,
+    submandibularMalignant = 1,
+    sublingualMalignant = 2,
+    parotidMalignant = 3,
     submandibularBenign = 4,
     parotidBenign = 5,
 }

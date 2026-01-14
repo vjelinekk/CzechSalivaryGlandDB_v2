@@ -93,3 +93,7 @@ typings/
 
 # Electron-Forge
 out/
+
+.idea
+
+dp-assignment.md

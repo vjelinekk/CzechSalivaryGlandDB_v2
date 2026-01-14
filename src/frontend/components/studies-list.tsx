@@ -30,7 +30,9 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
     const [listChanged, setListChanged] = useState(false)
 
     const getStudies = async () => {
-        const studies = await window.api.get(ipcAPIGetChannels.getStudies)
+        const studies: Study[] = await window.api.get(
+            ipcAPIGetChannels.getStudies
+        )
         setStudies(studies)
     }
 

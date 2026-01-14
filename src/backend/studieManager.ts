@@ -1,4 +1,4 @@
-import { Study } from '../frontend/types'
+import { Study, RowRecordType, PatientInStudy, PatientType } from './types'
 import {
     deleteRow,
     deleteRowsBy,
@@ -16,7 +16,6 @@ import {
 } from './constants'
 import db from './dbManager'
 import { decryptPatientData } from './patientsManager'
-import { RowRecordType } from './types'
 
 const tableName = TableNames.studies
 
@@ -43,22 +42,20 @@ export const updateStudy = async (
     }
 }
 
-export const saveStudy = async (
-    data: RowRecordType
-): Promise<number | null> => {
+export const saveStudy = async (data: Study): Promise<number | null> => {
     const study = await getRow(tableName, data.id as number)
     if (study) {
-        return await updateStudy(data)
+        return await updateStudy(data as RowRecordType)
     } else {
-        return await insertStudy(data)
+        return await insertStudy(data as RowRecordType)
     }
 }
 
 export const insertPatientToStudy = async (
-    data: RowRecordType
+    data: PatientInStudy
 ): Promise<boolean> => {
     try {
-        await insertRow(TableNames.isInStudy, data)
+        await insertRow(TableNames.isInStudy, data as RowRecordType)
         return true
     } catch (err) {
         return false
@@ -96,7 +93,7 @@ export const updatePatientsStudies = async (
 
 export const getPatientsInStudy = async (
     idStudie: number
-): Promise<RowRecordType[]> => {
+): Promise<PatientType[]> => {
     const patientsInStudy = await getRowsBy(
         TableNames.isInStudy,
         [isInStudyColumns.id_studie.columnName],
@@ -109,21 +106,21 @@ export const getPatientsInStudy = async (
                 id_pacient_db: number
                 typ_pacienta: number
             }) => {
-                if (patientInStudy.typ_pacienta === FormType.submandibular) {
+                if (patientInStudy.typ_pacienta === FormType.submandibularMalignant) {
                     const patient = await getRow(
                         TableNames.submandibularMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
                 } else if (
-                    patientInStudy.typ_pacienta === FormType.sublingual
+                    patientInStudy.typ_pacienta === FormType.sublingualMalignant
                 ) {
                     const patient = await getRow(
                         TableNames.sublingualMalignant,
                         patientInStudy.id_pacient_db
                     )
                     return patient
-                } else if (patientInStudy.typ_pacienta === FormType.parotid) {
+                } else if (patientInStudy.typ_pacienta === FormType.parotidMalignant) {
                     const patient = await getRow(
                         TableNames.parotidMalignant,
                         patientInStudy.id_pacient_db
@@ -155,7 +152,7 @@ export const getPatientsInStudy = async (
     return patients
 }
 
-export const getStudies = async (): Promise<RowRecordType[]> => {
+export const getStudies = async (): Promise<Study[]> => {
     try {
         return await getAllRows(TableNames.studies)
     } catch (err) {
@@ -165,7 +162,7 @@ export const getStudies = async (): Promise<RowRecordType[]> => {
 
 export const getStudiesByFormType = async (
     formType: number
-): Promise<RowRecordType[]> => {
+): Promise<Study[]> => {
     return new Promise((resolve, reject) => {
         db.all(
             `SELECT * FROM ${TableNames.studies} WHERE ${studyColumns.typ_studie.columnName} = ? OR ${studyColumns.typ_studie.columnName} = ?`,
@@ -183,7 +180,7 @@ export const getStudiesByFormType = async (
 export const getStudiesByPatientId = async (
     patientId: number,
     patientType: FormType
-): Promise<RowRecordType[]> => {
+): Promise<Study[]> => {
     const studies = await getRowsBy(
         TableNames.isInStudy,
         [
@@ -236,8 +233,8 @@ export const deletePatientFromStudy = async (
     }
 }
 
-export const deleteStudy = async (data: RowRecordType): Promise<boolean> => {
-    const id = data[studyColumns.id.columnName] as number
+export const deleteStudy = async (data: Study): Promise<boolean> => {
+    const id = data.id as number
     try {
         await deleteRow(tableName, id)
         await deleteRowsBy(
