@@ -5,6 +5,33 @@ import SublingualMalignantGlandForm from '../../src/frontend/components/forms/su
 import SubmandibularMalignantGlandForm from '../../src/frontend/components/forms/submandibular/malignant/submandibular-malignant-gland-form.tsx'
 import { expect } from '@jest/globals'
 
+// Mock useTnmData to avoid window.api calls
+jest.mock('../../src/frontend/hooks/use-tnm-data', () => ({
+    __esModule: true,
+    default: () => ({
+        tOptions: [],
+        nOptions: [],
+        mOptions: [],
+        gOptions: [],
+        isLoading: false,
+        calculateStage: jest.fn(),
+    }),
+}))
+
+// Mock TNMClassification to isolate it from the form test
+jest.mock('../../src/frontend/components/forms/tnm-classification', () => {
+    return function DummyTNMClassification() {
+        return (
+            <div>
+                <h1>TNM Classification</h1>
+                <div data-testid="tnm-classification-mock">
+                    TNM Classification
+                </div>
+            </div>
+        )
+    }
+})
+
 describe('ParotidGlandForm', () => {
     const data = {} // Mocked data
     const defaultFormState = '' // Mocked defaultFormState
@@ -17,7 +44,7 @@ describe('ParotidGlandForm', () => {
 
     test('renders parotid form', () => {
         window.api = {
-            getStudiesByFormType: jest.fn(),
+            getStudiesByFormType: jest.fn().mockResolvedValue([]),
         }
 
         render(
@@ -39,7 +66,7 @@ describe('ParotidGlandForm', () => {
 
     test('renders sublingual form', () => {
         window.api = {
-            getStudiesByFormType: jest.fn(),
+            getStudiesByFormType: jest.fn().mockResolvedValue([]),
         }
 
         render(
@@ -61,7 +88,7 @@ describe('ParotidGlandForm', () => {
 
     test('renders submandibular form', () => {
         window.api = {
-            getStudiesByFormType: jest.fn(),
+            getStudiesByFormType: jest.fn().mockResolvedValue([]),
         }
 
         render(
