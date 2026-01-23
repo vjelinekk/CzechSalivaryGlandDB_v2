@@ -1,4 +1,4 @@
-export interface ITTestGroupsDomainEntity {
+export interface ITTestGroupsDto {
     first: {
         histologicalTypes: string[]
         tClassification: string[]

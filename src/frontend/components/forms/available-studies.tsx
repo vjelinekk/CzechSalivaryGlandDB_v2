@@ -3,6 +3,7 @@ import { FormType } from '../../constants'
 import { Study } from '../../types'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../../translations'
+import { formTypeToDto, dtoToStudyArray } from '../../mappers/enumMappers'
 
 interface AvailableStudiesProps {
     formType: FormType
@@ -24,8 +25,10 @@ const AvailableStudies: React.FC<AvailableStudiesProps> = ({
 
     useEffect(() => {
         const getStudies = async () => {
-            const studies = await window.api.getStudiesByFormType(formType)
-            setStudies(studies)
+            const studiesDto = await window.api.getStudiesByFormType(
+                formTypeToDto[formType]
+            )
+            setStudies(dtoToStudyArray(studiesDto))
         }
 
         getStudies()

@@ -16,9 +16,9 @@ import {
 } from './constants'
 import db from './dbManager'
 import { decryptPatientData } from './patientsManager'
-import { StudyDomainEntity } from './domain/entities/StudyDomainEntity'
-import { PatientInStudyDomainEntity } from './domain/entities/PatientInStudyDomainEntity'
-import { PatientDomainEntity } from './domain/entities/PatientDomainEntity'
+import { StudyDto } from '../ipc/dtos/StudyDto'
+import { PatientInStudyDto } from '../ipc/dtos/PatientInStudyDto'
+import { PatientDto } from '../ipc/dtos/PatientDto'
 
 const tableName = TableNames.studies
 
@@ -45,9 +45,7 @@ export const updateStudy = async (
     }
 }
 
-export const saveStudy = async (
-    data: StudyDomainEntity
-): Promise<number | null> => {
+export const saveStudy = async (data: StudyDto): Promise<number | null> => {
     const study = await getRow(tableName, data.id as number)
     if (study) {
         return await updateStudy(data as RowRecordType)
@@ -57,7 +55,7 @@ export const saveStudy = async (
 }
 
 export const insertPatientToStudy = async (
-    data: PatientInStudyDomainEntity
+    data: PatientInStudyDto
 ): Promise<boolean> => {
     try {
         await insertRow(TableNames.isInStudy, data as RowRecordType)
@@ -70,7 +68,7 @@ export const insertPatientToStudy = async (
 export const updatePatientsStudies = async (
     patientId: number,
     patientType: FormType,
-    studies: StudyDomainEntity[]
+    studies: StudyDto[]
 ): Promise<boolean> => {
     try {
         await deleteRowsBy(
@@ -98,7 +96,7 @@ export const updatePatientsStudies = async (
 
 export const getPatientsInStudy = async (
     idStudie: number
-): Promise<PatientDomainEntity[]> => {
+): Promise<PatientDto[]> => {
     const patientsInStudy = await getRowsBy(
         TableNames.isInStudy,
         [isInStudyColumns.id_studie.columnName],
@@ -162,7 +160,7 @@ export const getPatientsInStudy = async (
     return patients
 }
 
-export const getStudies = async (): Promise<StudyDomainEntity[]> => {
+export const getStudies = async (): Promise<StudyDto[]> => {
     try {
         return await getAllRows(TableNames.studies)
     } catch (err) {
@@ -172,7 +170,7 @@ export const getStudies = async (): Promise<StudyDomainEntity[]> => {
 
 export const getStudiesByFormType = async (
     formType: number
-): Promise<StudyDomainEntity[]> => {
+): Promise<StudyDto[]> => {
     return new Promise((resolve, reject) => {
         db.all(
             `SELECT * FROM ${TableNames.studies} WHERE ${studyColumns.typ_studie.columnName} = ? OR ${studyColumns.typ_studie.columnName} = ?`,
@@ -190,7 +188,7 @@ export const getStudiesByFormType = async (
 export const getStudiesByPatientId = async (
     patientId: number,
     patientType: FormType
-): Promise<StudyDomainEntity[]> => {
+): Promise<StudyDto[]> => {
     const studies = await getRowsBy(
         TableNames.isInStudy,
         [
@@ -243,9 +241,7 @@ export const deletePatientFromStudy = async (
     }
 }
 
-export const deleteStudy = async (
-    data: StudyDomainEntity
-): Promise<boolean> => {
+export const deleteStudy = async (data: StudyDto): Promise<boolean> => {
     const id = data.id as number
     try {
         await deleteRow(tableName, id)

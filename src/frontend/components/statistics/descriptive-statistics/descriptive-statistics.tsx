@@ -34,6 +34,7 @@ import { StatisticsData } from '../../../types/statistics.types'
 import { DescriptiveStatisticsType } from '../../../enums/statistics.enums'
 import { COLORS } from '../../../constants/statistics.constants'
 import { calculateStatistics } from '../../../utils/statistics/descriptiveStatisticsCalculations'
+import { filteredColumnsToDto } from '../../../mappers/enumMappers'
 import { createDataTable } from '../../../../frontend/utils/statistics/createDataTable'
 import TnmStatistics from './tnm-statistics'
 
@@ -84,8 +85,9 @@ const DescriptiveStatistics: React.FC = () => {
                 setLoading(true)
                 // Get all patients from based on selected type
                 const filteredColumns = getFilteredColumns(selectedType)
-                const patients =
-                    await window.api.getFilteredPatients(filteredColumns)
+                const patients = await window.api.getFilteredPatients(
+                    filteredColumnsToDto(filteredColumns)
+                )
 
                 if (!patients || patients.length === 0) {
                     setError('Nejsou k dispozici žádní pacienti pro tento typ.')

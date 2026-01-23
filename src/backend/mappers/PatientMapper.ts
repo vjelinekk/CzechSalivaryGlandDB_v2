@@ -8,17 +8,17 @@ import { MalignantSubmandibularSpecificEntity } from '../db-entities/MalignantSu
 import { AttachmentEntity } from '../db-entities/AttachmentEntity'
 import { BiopsyResultEntity } from '../db-entities/BiopsyResultEntity'
 import { PatientStagingEntity } from '../db-entities/PatientStagingEntity'
-import { ParotidMalignantPatientDomainEntity } from '../domain/entities/ParotidMalignantPatientDomainEntity'
-import { SubmandibularMalignantPatientDomainEntity } from '../domain/entities/SubmandibularMalignantPatientDomainEntity'
-import { SubmandibularBenignPatientDomainEntity } from '../domain/entities/SubmandibularBenignPatientDomainEntity'
-import { PatientDomainEntity } from '../domain/entities/PatientDomainEntity'
+import { ParotidMalignantPatientDto } from '../../ipc/dtos/ParotidMalignantPatientDto'
+import { SubmandibularMalignantPatientDto } from '../../ipc/dtos/SubmandibularMalignantPatientDto'
+import { SubmandibularBenignPatientDto } from '../../ipc/dtos/SubmandibularBenignPatientDto'
+import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { HistologyTypeMapper } from './HistologyTypeMapper'
 import { HistologySubtypeMapper } from './HistologySubtypeMapper'
 import { HistopathologyEntity } from '../db-entities/HistopathologyEntity'
 
 export class PatientMapper {
     static toPersistence(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         editionId = 1
     ): {
         base: PatientEntity
@@ -107,7 +107,7 @@ export class PatientMapper {
     }
 
     private static mapBaseEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: 'malignant' | 'benign',
         tumorLocation: 'submandibular' | 'sublingual' | 'parotid'
     ): PatientEntity {
@@ -164,12 +164,12 @@ export class PatientMapper {
     }
 
     private static mapMalignantEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: string
     ): MalignantPatientEntity | undefined {
         if (tumorType !== 'malignant') return undefined
 
-        const p = patient as ParotidMalignantPatientDomainEntity
+        const p = patient as ParotidMalignantPatientDto
         return {
             id_patient: patient.id,
             block_neck_dissection: toIntBool(p.blokova_krcni_disekce),
@@ -182,12 +182,12 @@ export class PatientMapper {
     }
 
     private static mapBenignEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: string
     ): BenignPatientEntity | undefined {
         if (tumorType !== 'benign') return undefined
 
-        const p = patient as SubmandibularBenignPatientDomainEntity
+        const p = patient as SubmandibularBenignPatientDto
         return {
             id_patient: patient.id,
             preoperative_house_brackmann_grade_of_facial_nerve_function: toStr(
@@ -205,14 +205,14 @@ export class PatientMapper {
     }
 
     private static mapMalignantParotidEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: string,
         tumorLocation: string
     ): MalignantParotidSpecificEntity | undefined {
         if (tumorType !== 'malignant' || tumorLocation !== 'parotid')
             return undefined
 
-        const p = patient as ParotidMalignantPatientDomainEntity
+        const p = patient as ParotidMalignantPatientDto
         return {
             id_malignant_patient: patient.id,
             preoperative_house_brackmann_grade_of_facial_nerve_function: toStr(
@@ -229,14 +229,14 @@ export class PatientMapper {
     }
 
     private static mapMalignantSubmandibularEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: string,
         tumorLocation: string
     ): MalignantSubmandibularSpecificEntity | undefined {
         if (tumorType !== 'malignant' || tumorLocation !== 'submandibular')
             return undefined
 
-        const p = patient as SubmandibularMalignantPatientDomainEntity
+        const p = patient as SubmandibularMalignantPatientDto
         return {
             id_malignant_patient: patient.id,
             preoperative_house_brackmann_grade_of_facial_nerve_function: toStr(
@@ -248,17 +248,20 @@ export class PatientMapper {
         }
     }
 
-    private static mapAttachments(
-        patient: PatientDomainEntity
-    ): AttachmentEntity[] {
-        void patient // Placeholder to avoid unused parameter error
-        const attachments: AttachmentEntity[] = []
+    private static mapAttachments(patient: PatientDto): AttachmentEntity[] {
+        const attachmentsStr = patient.attachments as string
+        if (!attachmentsStr) {
+            return []
+        }
 
-        return attachments
+        return attachmentsStr.split(',').map((filePath) => ({
+            id_patient: patient.id,
+            file_path: filePath,
+        }))
     }
 
     private static getHistologyTypeAndSubtype(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         histologyKey: string
     ): {
         histologyTypeId: number | undefined
@@ -282,7 +285,7 @@ export class PatientMapper {
     }
 
     private static mapBiopsyResultEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         type: 'core' | 'open'
     ): BiopsyResultEntity | undefined {
         const biopsyResultField =
@@ -307,7 +310,7 @@ export class PatientMapper {
     }
 
     private static mapHistopathologyEntity(
-        patient: PatientDomainEntity
+        patient: PatientDto
     ): HistopathologyEntity {
         const histopathologyResult = patient.histopatologie_vysledek
         if (!histopathologyResult) {
@@ -357,14 +360,14 @@ export class PatientMapper {
     }
 
     private static mapPatientStagingEntity(
-        patient: PatientDomainEntity,
+        patient: PatientDto,
         tumorType: string,
         editionId: number
     ): PatientStagingEntity | undefined {
         // TNM staging is only applicable for malignant tumors
         if (tumorType !== 'malignant') return undefined
 
-        const p = patient as ParotidMalignantPatientDomainEntity
+        const p = patient as ParotidMalignantPatientDto
 
         // Get clinical staging IDs directly from patient data
         const clinicalTId = toNum(p.t_klasifikace_klinicka_id)

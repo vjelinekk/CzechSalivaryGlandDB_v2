@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ipcAPIGetChannels } from '../../ipc/ipcChannels'
 import { Study } from '../types'
+import { dtoToStudyArray } from '../mappers/enumMappers'
 import StudyButton from './study-button'
 import PatientsList from './patients-list'
 import {
@@ -30,10 +31,8 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
     const [listChanged, setListChanged] = useState(false)
 
     const getStudies = async () => {
-        const studies: Study[] = await window.api.get(
-            ipcAPIGetChannels.getStudies
-        )
-        setStudies(studies)
+        const studiesDto = await window.api.get(ipcAPIGetChannels.getStudies)
+        setStudies(dtoToStudyArray(studiesDto))
     }
 
     useEffect(() => {
@@ -49,9 +48,8 @@ const StudiesList: React.FC<StudiesListProps> = ({ defaultActiveStudy }) => {
             getStudies()
         }
 
-        const allStudies: Study[] = await window.api.get(
-            ipcAPIGetChannels.getStudies
-        )
+        const allStudiesDto = await window.api.get(ipcAPIGetChannels.getStudies)
+        const allStudies: Study[] = dtoToStudyArray(allStudiesDto)
 
         const filteredStudies = allStudies.filter((study) =>
             study.nazev_studie.toLowerCase().includes(search)

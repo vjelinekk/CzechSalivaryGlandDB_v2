@@ -1,3 +1,5 @@
+import { PatientDto } from './dtos/PatientDto'
+
 export {}
 
 import {
@@ -5,104 +7,106 @@ import {
     ipcAPIGetChannels,
     ipcAPISaveChannels,
     ipcExportChannels,
-} from '../ipc/ipcChannels'
-import { FormType } from './constants'
-import {
-    KaplanMeierData,
-    PatientInStudy,
-    PatientStaging,
-    PatientType,
-    PlannedPatientsMap,
-    Study,
-    TnmEdition,
-    TnmValueDefinition,
-} from './types'
-import { InferenceChiSquareCategories } from './enums/statistics.enums'
-import { NonParametricTestData, ITTestGroups } from './types/statistics.types'
+} from './ipcChannels'
+import { StudyDto } from './dtos/StudyDto'
+import { PatientInStudyDto } from './dtos/PatientInStudyDto'
+import { FilteredColumnsDto } from './dtos/FilteredColumnsDto'
+import { KaplanMeierTypeEnum } from './dtos/enums/KaplanMeierTypeEnum'
+import { PlannedPatientsMapDto } from './dtos/PlannedPatientsMapDto'
+import { ITTestGroupsDto } from './dtos/ITTestGroupsDto'
+import { NonParametricTestDataDto } from './dtos/NonParametricTestDataDto'
+import { KaplanMeierDataDto } from './dtos/KaplanMeierDataDto'
+import { InferenceChiSquareCategoriesEnum } from './dtos/enums/InferenceChiSquareCategoriesEnum'
+import { FormTypeEnum } from './dtos/enums/FormTypeEnum'
+import { PatientStagingDto } from './dtos/PatientStagingDto'
+import { TnmEditionDto } from './dtos/TnmEditionDto'
+import { TnmValueDefinitionDto } from './dtos/TnmValueDefinitionDto'
 
 declare global {
     interface Window {
         api: {
             save: (
                 channel: ipcAPISaveChannels,
-                data: PatientType | Study
+                data: PatientDto | StudyDto
             ) => Promise<number | null>
             updatePatientsStudies: (
                 patientId: number,
-                patientType: FormType,
-                studies: Study[]
+                patientType: FormTypeEnum,
+                studies: StudyDto[]
             ) => Promise<boolean>
             insert: (
                 channel: ipcAPIInsertChannels,
-                data: PatientInStudy
+                data: PatientInStudyDto
             ) => Promise<boolean>
             delete: (
                 chanel: ipcAPIDeleteChannels,
-                data: PatientType | Study
+                data: PatientDto | StudyDto
             ) => Promise<boolean>
             deletePatientFromStudy: (
                 studyId: number,
                 patientId: number,
-                patientType: FormType
+                patientType: FormTypeEnum
             ) => Promise<boolean>
             get: (
                 channel: ipcAPIGetChannels,
-                formType?: FormType
-            ) => Promise<PatientType[] | Study[]>
-            getStudiesByFormType: (formType: FormType) => Promise<Study[]>
+                formType?: FormTypeEnum
+            ) => Promise<PatientDto[] | StudyDto[]>
+            getStudiesByFormType: (
+                formType: FormTypeEnum
+            ) => Promise<StudyDto[]>
             getStudiesByPatientId: (
                 id: number,
-                patientType: FormType
-            ) => Promise<Study[]>
+                patientType: FormTypeEnum
+            ) => Promise<StudyDto[]>
             searchPatientsByNameSurnameRC: (
                 search: string
-            ) => Promise<PatientType[]>
+            ) => Promise<PatientDto[]>
             getFilteredPatients: (
-                filter: FilteredColumns,
+                filter: FilteredColumnsDto,
                 studyId?: number
-            ) => Promise<PatientType[]>
+            ) => Promise<PatientDto[]>
             getKaplanMeierData: (
-                kaplanMeierType: KaplanMeierType,
-                filter: FilteredColumns
-            ) => Promise<KaplanMeierData>
+                kaplanMeierType: KaplanMeierTypeEnum,
+                filter: FilteredColumnsDto
+            ) => Promise<KaplanMeierDataDto>
             getPlannedPatientsBetweenDates: (
                 startDate: Date,
                 endDate: Date
-            ) => Promise<PlannedPatientsMap>
+            ) => Promise<PlannedPatientsMapDto>
             getChiSquareData: (
                 rows: number,
                 columns: number,
                 rowSelectedCategories: Record<
                     number,
-                    Record<InferenceChiSquareCategories, string[]>
+                    Record<InferenceChiSquareCategoriesEnum, string[]>
                 >,
                 columnSelectedCategories: Record<
                     number,
-                    Record<InferenceChiSquareCategories, string[]>
+                    Record<InferenceChiSquareCategoriesEnum, string[]>
                 >
             ) => Promise<number[][]>
             getTTestData: (
-                selectedGroups: ITTestGroups
-            ) => Promise<NonParametricTestData>
-            getActiveTnmEdition: () => Promise<TnmEdition | null>
+                selectedGroups: ITTestGroupsDto
+            ) => Promise<NonParametricTestDataDto>
+            getActiveTnmEdition: () => Promise<TnmEditionDto | null>
             getTnmValues: (
                 editionId: number,
                 category?: 'T' | 'N' | 'M' | 'G'
-            ) => Promise<TnmValueDefinition[]>
+            ) => Promise<TnmValueDefinitionDto[]>
             calculateTnmStage: (
                 editionId: number,
                 tValueId: number | null,
                 nValueId: number | null,
                 mValueId: number | null
-            ) => Promise<TnmValueDefinition | null>
+            ) => Promise<TnmValueDefinitionDto | null>
             getPatientStaging: (
                 patientId: number
-            ) => Promise<PatientStaging | null>
+            ) => Promise<PatientStagingDto | null>
         }
         export: {
             export: (
                 channel: ipcExportChannels,
-                patients: PatientType[]
+                patients: PatientDto[]
             ) => Promise<void>
         }
         import: {

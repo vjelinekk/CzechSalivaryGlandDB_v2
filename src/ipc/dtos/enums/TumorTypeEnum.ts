@@ -1,4 +1,4 @@
-export enum TumorTypeDomainEnum {
+export enum TumorTypeEnum {
     MALIGNANT = 1,
     BENIGN = 2,
 }

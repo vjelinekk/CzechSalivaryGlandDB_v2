@@ -1,6 +1,6 @@
-import { FormType } from '../../constants'
+import { FormType } from '../../backend/constants'
 
-export interface BasePatientDomainEntity {
+export interface BasePatientDto {
     [key: string]: string | number | FormType
     id?: number
     form_type?: FormType

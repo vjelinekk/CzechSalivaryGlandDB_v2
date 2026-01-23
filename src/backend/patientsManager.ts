@@ -29,21 +29,19 @@ import {
 import { InferenceChiSquareCategories } from './enums'
 import { PatientMapper } from './mappers/PatientMapper'
 import { getActiveEdition, savePatientStaging } from './tnmManager'
-import { PatientDomainEntity } from './domain/entities/PatientDomainEntity'
-import { TumorTypeDomainEnum } from './domain/enums/TumorTypeDomainEnum'
-import { FilteredColumnsDomainEntity } from './domain/entities/FilteredColumnsDomainEntity'
-import { KaplanMeierPatientDataDomainEntity } from './domain/entities/KaplanMeierPatientDataDomainEntity'
-import { KaplanMeierDataDomainEntity } from './domain/entities/KaplanMeierDataDomainEntity'
-import { KaplanMeierTypeDomainEntity } from './domain/entities/KaplanMeierTypeDomainEntity'
-import { PlannedPatientsMapDomainEntity } from './domain/entities/PlannedPatientsMapDomainEntity'
-import { ITTestGroupsDomainEntity } from './domain/entities/ITTestGroupsDomainEntity'
-import { NonParametricTestDataDomainEntity } from './domain/entities/NonParametricTestDataDomainEntity'
+import { PatientDto } from '../ipc/dtos/PatientDto'
+import { TumorTypeEnum } from '../ipc/dtos/enums/TumorTypeEnum'
+import { FilteredColumnsDto } from '../ipc/dtos/FilteredColumnsDto'
+import { KaplanMeierPatientDataDto } from '../ipc/dtos/KaplanMeierPatientDataDto'
+import { KaplanMeierDataDto } from '../ipc/dtos/KaplanMeierDataDto'
+import { KaplanMeierTypeEnum } from '../ipc/dtos/enums/KaplanMeierTypeEnum'
+import { PlannedPatientsMapDto } from '../ipc/dtos/PlannedPatientsMapDto'
+import { ITTestGroupsDto } from '../ipc/dtos/ITTestGroupsDto'
+import { NonParametricTestDataDto } from '../ipc/dtos/NonParametricTestDataDto'
 
-export const decryptPatientData = (
-    patientData: PatientDomainEntity[]
-): PatientDomainEntity[] => {
+export const decryptPatientData = (patientData: PatientDto[]): PatientDto[] => {
     return patientData.map((patient) => {
-        const decryptedPatient: PatientDomainEntity = { ...patient }
+        const decryptedPatient: PatientDto = { ...patient }
 
         if (patient.jmeno) {
             const [encryptedName, iv] = patient.jmeno.split(':')
@@ -73,10 +71,8 @@ export const decryptPatientData = (
     })
 }
 
-export const encryptPatientData = (
-    patientData: PatientDomainEntity
-): PatientDomainEntity => {
-    const encryptedPatient: PatientDomainEntity = { ...patientData }
+export const encryptPatientData = (patientData: PatientDto): PatientDto => {
+    const encryptedPatient: PatientDto = { ...patientData }
 
     if (patientData.jmeno) {
         const { encrypted: encryptedName, iv } = encrypt(
@@ -115,7 +111,7 @@ const TNM_ID_FIELDS = [
 ]
 
 // Filter out TNM ID fields that don't exist in old database tables
-const filterTnmIdFields = (data: PatientDomainEntity): PatientDomainEntity => {
+const filterTnmIdFields = (data: PatientDto): PatientDto => {
     const filtered = { ...data }
     for (const field of TNM_ID_FIELDS) {
         delete filtered[field]
@@ -124,14 +120,14 @@ const filterTnmIdFields = (data: PatientDomainEntity): PatientDomainEntity => {
 }
 
 export const insertPatient = async (
-    data: PatientDomainEntity
+    data: PatientDto
 ): Promise<number | null> => {
     const formType = data.form_type as FormType
     let result
 
     // Filter out TNM ID fields and encrypt
     const filteredData = filterTnmIdFields(data)
-    const patientData: PatientDomainEntity = encryptPatientData(filteredData)
+    const patientData: PatientDto = encryptPatientData(filteredData)
 
     try {
         const tableName = formTypeToTableName[formType]
@@ -149,12 +145,12 @@ export const insertPatient = async (
 }
 
 export const updatePatient = async (
-    data: PatientDomainEntity
+    data: PatientDto
 ): Promise<number | null> => {
     const formType = data.form_type as FormType
     // Filter out TNM ID fields and encrypt
     const filteredData = filterTnmIdFields(data)
-    const patientData: PatientDomainEntity = encryptPatientData(filteredData)
+    const patientData: PatientDto = encryptPatientData(filteredData)
 
     try {
         const tableName = formTypeToTableName[formType]
@@ -175,9 +171,7 @@ export const updatePatient = async (
     }
 }
 
-export const savePatient = async (
-    data: PatientDomainEntity
-): Promise<number | null> => {
+export const savePatient = async (data: PatientDto): Promise<number | null> => {
     // Get active TNM edition for staging
     const activeEdition = await getActiveEdition()
     const editionId = activeEdition?.id ?? 1
@@ -258,7 +252,7 @@ export const getAllPatients = async () => {
 
 export const getPatientsByType = async (
     formType: FormType
-): Promise<PatientDomainEntity[] | null> => {
+): Promise<PatientDto[] | null> => {
     let patients
 
     try {
@@ -296,9 +290,9 @@ export const getPatient = async (
 }
 
 export const getFilteredPatients = async (
-    filter: FilteredColumnsDomainEntity,
+    filter: FilteredColumnsDto,
     idStudie?: number
-): Promise<PatientDomainEntity[] | null> => {
+): Promise<PatientDto[] | null> => {
     if (idStudie) {
         return getFilteredPatientsFromStudy(filter, idStudie)
     } else {
@@ -307,10 +301,10 @@ export const getFilteredPatients = async (
 }
 
 const getFilteredPatientsFromStudy = async (
-    filter: FilteredColumnsDomainEntity,
+    filter: FilteredColumnsDto,
     idStudie: number
-): Promise<PatientDomainEntity[]> => {
-    let filteredPatients: PatientDomainEntity[] = []
+): Promise<PatientDto[]> => {
+    let filteredPatients: PatientDto[] = []
     const tablesToSelectFrom = getTablesToSelectFrom(filter)
     const { whereStatement, values } = getFilterWhereStatement(filter)
 
@@ -318,42 +312,7 @@ const getFilteredPatientsFromStudy = async (
         return new Promise<void>((resolveQuery, rejectQuery) => {
             const query = `SELECT ${tableName}.* FROM ${tableName} JOIN ${TableNames.isInStudy} ON ${tableName}.id = ${isInStudyColumns.id_pacient_db.columnName} AND ${tableName}.form_type = ${isInStudyColumns.typ_pacienta.columnName} WHERE ${isInStudyColumns.id_studie.columnName} = ? AND (${whereStatement.length > 0 ? `(${whereStatement})` : '1'})`
 
-            db.all(
-                query,
-                [idStudie, ...values],
-                (err, rows: PatientDomainEntity[]) => {
-                    if (err) {
-                        rejectQuery(err)
-                    } else {
-                        filteredPatients.push(...rows)
-                        resolveQuery()
-                    }
-                }
-            )
-        })
-    })
-
-    try {
-        await Promise.all(promises)
-        filteredPatients = decryptPatientData(filteredPatients)
-        return filteredPatients
-    } catch (err) {
-        return []
-    }
-}
-
-const getFilteredPatientsFromAllPatients = async (
-    filter: FilteredColumnsDomainEntity
-): Promise<PatientDomainEntity[]> => {
-    let filteredPatients: PatientDomainEntity[] = []
-    const tablesToSelectFrom = getTablesToSelectFrom(filter)
-    const { whereStatement, values } = getFilterWhereStatement(filter)
-
-    const promises = tablesToSelectFrom.map((tableName) => {
-        return new Promise<void>((resolveQuery, rejectQuery) => {
-            const query = `SELECT * FROM ${tableName} ${whereStatement.length > 0 ? `WHERE ${whereStatement}` : ''}`
-
-            db.all(query, values, (err, rows: PatientDomainEntity[]) => {
+            db.all(query, [idStudie, ...values], (err, rows: PatientDto[]) => {
                 if (err) {
                     rejectQuery(err)
                 } else {
@@ -373,13 +332,42 @@ const getFilteredPatientsFromAllPatients = async (
     }
 }
 
-const getTablesToSelectFrom = (
-    filter: FilteredColumnsDomainEntity
-): TableNames[] => {
+const getFilteredPatientsFromAllPatients = async (
+    filter: FilteredColumnsDto
+): Promise<PatientDto[]> => {
+    let filteredPatients: PatientDto[] = []
+    const tablesToSelectFrom = getTablesToSelectFrom(filter)
+    const { whereStatement, values } = getFilterWhereStatement(filter)
+
+    const promises = tablesToSelectFrom.map((tableName) => {
+        return new Promise<void>((resolveQuery, rejectQuery) => {
+            const query = `SELECT * FROM ${tableName} ${whereStatement.length > 0 ? `WHERE ${whereStatement}` : ''}`
+
+            db.all(query, values, (err, rows: PatientDto[]) => {
+                if (err) {
+                    rejectQuery(err)
+                } else {
+                    filteredPatients.push(...rows)
+                    resolveQuery()
+                }
+            })
+        })
+    })
+
+    try {
+        await Promise.all(promises)
+        filteredPatients = decryptPatientData(filteredPatients)
+        return filteredPatients
+    } catch (err) {
+        return []
+    }
+}
+
+const getTablesToSelectFrom = (filter: FilteredColumnsDto): TableNames[] => {
     const tablesToSelectFrom: TableNames[] = []
 
     if (
-        filter.typ_nadoru === TumorTypeDomainEnum.MALIGNANT &&
+        filter.typ_nadoru === TumorTypeEnum.MALIGNANT &&
         filter.form_type.length === 0
     ) {
         tablesToSelectFrom.push(
@@ -390,7 +378,7 @@ const getTablesToSelectFrom = (
     }
 
     if (
-        filter.typ_nadoru === TumorTypeDomainEnum.MALIGNANT &&
+        filter.typ_nadoru === TumorTypeEnum.MALIGNANT &&
         filter.form_type.length > 0
     ) {
         filter.form_type.forEach((formType) => {
@@ -399,7 +387,7 @@ const getTablesToSelectFrom = (
     }
 
     if (
-        filter.typ_nadoru === TumorTypeDomainEnum.BENIGN &&
+        filter.typ_nadoru === TumorTypeEnum.BENIGN &&
         filter.form_type.length === 0
     ) {
         tablesToSelectFrom.push(
@@ -409,7 +397,7 @@ const getTablesToSelectFrom = (
     }
 
     if (
-        filter.typ_nadoru === TumorTypeDomainEnum.BENIGN &&
+        filter.typ_nadoru === TumorTypeEnum.BENIGN &&
         filter.form_type.length > 0
     ) {
         filter.form_type.forEach((formType) => {
@@ -431,7 +419,7 @@ const getTablesToSelectFrom = (
 }
 
 const getFilterWhereStatement = (
-    filter: FilteredColumnsDomainEntity
+    filter: FilteredColumnsDto
 ): { whereStatement: string; values: string[] } => {
     let whereStatement = ''
     const values: string[] = []
@@ -497,18 +485,18 @@ const getFilterWhereStatement = (
 }
 
 export const getKaplanMeierData = async (
-    kaplanMeierType: KaplanMeierTypeDomainEntity,
-    filter: FilteredColumnsDomainEntity
-): Promise<KaplanMeierDataDomainEntity | null> => {
+    kaplanMeierType: KaplanMeierTypeEnum,
+    filter: FilteredColumnsDto
+): Promise<KaplanMeierDataDto | null> => {
     const tablesToSelectFrom = getTablesToSelectFrom(filter)
 
-    const kaplanMeierData: KaplanMeierDataDomainEntity = {}
+    const kaplanMeierData: KaplanMeierDataDto = {}
 
     const promises = tablesToSelectFrom.flatMap((tableName) => {
         return filter.histopatologie_vysledek.map((histopatologieVysledek) => {
             return new Promise<void>((resolveQuery, rejectQuery) => {
                 let query = ''
-                if (kaplanMeierType === KaplanMeierTypeDomainEntity.survival) {
+                if (kaplanMeierType === KaplanMeierTypeEnum.survival) {
                     query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_umrti, ${tableName}.posledni_kontrola FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
                 } else {
                     query = `SELECT ${tableName}.rok_diagnozy, ${tableName}.datum_prokazani_recidivy, ${tableName}.posledni_kontrola  FROM ${tableName} WHERE ${tableName}.histopatologie_vysledek = ?`
@@ -517,7 +505,7 @@ export const getKaplanMeierData = async (
                 db.all(
                     query,
                     [histopatologieVysledek],
-                    (err, rows: PatientDomainEntity[]) => {
+                    (err, rows: PatientDto[]) => {
                         if (err) {
                             rejectQuery(err)
                         } else {
@@ -529,7 +517,7 @@ export const getKaplanMeierData = async (
                                         return row.rok_diagnozy !== null
                                     })
                                     .map((row) => {
-                                        const patientData: KaplanMeierPatientDataDomainEntity =
+                                        const patientData: KaplanMeierPatientDataDto =
                                             {
                                                 start_date: new Date(
                                                     row.rok_diagnozy as string
@@ -561,10 +549,10 @@ export const getKaplanMeierData = async (
 }
 
 const getEventDate = (
-    row: PatientDomainEntity,
-    kaplanMeierType: KaplanMeierTypeDomainEntity
+    row: PatientDto,
+    kaplanMeierType: KaplanMeierTypeEnum
 ): Date | null => {
-    if (kaplanMeierType === KaplanMeierTypeDomainEntity.survival) {
+    if (kaplanMeierType === KaplanMeierTypeEnum.survival) {
         if (row.datum_umrti && row.datum_umrti !== '') {
             return new Date(row.datum_umrti as string)
         }
@@ -582,7 +570,7 @@ const getEventDate = (
     }
 }
 
-const getLastFollowUpDate = (row: PatientDomainEntity): Date | null => {
+const getLastFollowUpDate = (row: PatientDto): Date | null => {
     console.log(row)
     if (row.posledni_kontrola && row.posledni_kontrola !== '') {
         return new Date(row.posledni_kontrola as string)
@@ -597,8 +585,8 @@ const getLastFollowUpDate = (row: PatientDomainEntity): Date | null => {
 
 export const searchPatientsByNameSurnameRC = async (
     search: string
-): Promise<PatientDomainEntity[] | null> => {
-    const patients: PatientDomainEntity[] = []
+): Promise<PatientDto[] | null> => {
+    const patients: PatientDto[] = []
 
     return new Promise((resolve, reject) => {
         const querySubmandibularMalignant = `SELECT * FROM ${TableNames.submandibularMalignant} WHERE CONCAT(${submandibularMalignantColumns.jmeno.columnName}, ' ', ${submandibularMalignantColumns.prijmeni.columnName}) LIKE '%${search}%' OR CAST(${submandibularMalignantColumns.rodne_cislo.columnName} AS TEXT) LIKE '%${search}%'`
@@ -611,7 +599,7 @@ export const searchPatientsByNameSurnameRC = async (
             new Promise<void>((resolveQuery, rejectQuery) => {
                 db.all(
                     querySubmandibularMalignant,
-                    (err, rows: PatientDomainEntity[]) => {
+                    (err, rows: PatientDto[]) => {
                         if (err) {
                             console.log(err)
                             rejectQuery(err)
@@ -623,56 +611,44 @@ export const searchPatientsByNameSurnameRC = async (
                 )
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(
-                    querySublingualMalignant,
-                    (err, rows: PatientDomainEntity[]) => {
-                        if (err) {
-                            rejectQuery(err)
-                        } else {
-                            patients.push(...rows)
-                            resolveQuery()
-                        }
+                db.all(querySublingualMalignant, (err, rows: PatientDto[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
                     }
-                )
+                })
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(
-                    queryParotidMalignant,
-                    (err, rows: PatientDomainEntity[]) => {
-                        if (err) {
-                            rejectQuery(err)
-                        } else {
-                            patients.push(...rows)
-                            resolveQuery()
-                        }
+                db.all(queryParotidMalignant, (err, rows: PatientDto[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
                     }
-                )
+                })
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(
-                    querySubmandibularBenign,
-                    (err, rows: PatientDomainEntity[]) => {
-                        if (err) {
-                            rejectQuery(err)
-                        } else {
-                            patients.push(...rows)
-                            resolveQuery()
-                        }
+                db.all(querySubmandibularBenign, (err, rows: PatientDto[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
                     }
-                )
+                })
             }),
             new Promise<void>((resolveQuery, rejectQuery) => {
-                db.all(
-                    queryParotidBenign,
-                    (err, rows: PatientDomainEntity[]) => {
-                        if (err) {
-                            rejectQuery(err)
-                        } else {
-                            patients.push(...rows)
-                            resolveQuery()
-                        }
+                db.all(queryParotidBenign, (err, rows: PatientDto[]) => {
+                    if (err) {
+                        rejectQuery(err)
+                    } else {
+                        patients.push(...rows)
+                        resolveQuery()
                     }
-                )
+                })
             }),
         ]
 
@@ -687,9 +663,7 @@ export const searchPatientsByNameSurnameRC = async (
     })
 }
 
-export const deletePatient = async (
-    data: PatientDomainEntity
-): Promise<boolean> => {
+export const deletePatient = async (data: PatientDto): Promise<boolean> => {
     const formType = data.form_type as FormType
     const id = data.id as number
 
@@ -712,7 +686,7 @@ export const deletePatient = async (
 export const getPlannedPatientsBetweenDates = async (
     startDate: Date,
     endDate: Date
-): Promise<PlannedPatientsMapDomainEntity> => {
+): Promise<PlannedPatientsMapDto> => {
     const createPlannedPatientsQuery = (
         tableName: TableNames,
         columns:
@@ -764,12 +738,11 @@ export const getPlannedPatientsBetweenDates = async (
         )
     )
 
-    const plannedPatients: PatientDomainEntity[] =
-        results.flat() as PatientDomainEntity[]
+    const plannedPatients: PatientDto[] = results.flat() as PatientDto[]
     const decryptedPatients = decryptPatientData(plannedPatients)
 
     // go over all patients and create create an map where key is the date and values are the patients
-    const plannedPatientsMap: PlannedPatientsMapDomainEntity = {}
+    const plannedPatientsMap: PlannedPatientsMapDto = {}
     decryptedPatients.forEach((patient) => {
         const plannedCheckDate = patient.planovana_kontrola as string
 
@@ -938,8 +911,8 @@ const groupByKey = (data: Record<string, string[]>) => {
 }
 
 export const getTTestData = async (
-    groups: ITTestGroupsDomainEntity
-): Promise<NonParametricTestDataDomainEntity> => {
+    groups: ITTestGroupsDto
+): Promise<NonParametricTestDataDto> => {
     const groupOne = groups.first
     const groupTwo = groups.second
 
@@ -981,9 +954,9 @@ export const getTTestData = async (
     const groupOneData = resultsQueryOne.flat()
     const groupTwoData = resultsQueryTwo.flat()
 
-    const tTestData: NonParametricTestDataDomainEntity = {
-        group1: groupOneData as PatientDomainEntity[],
-        group2: groupTwoData as PatientDomainEntity[],
+    const tTestData: NonParametricTestDataDto = {
+        group1: groupOneData as PatientDto[],
+        group2: groupTwoData as PatientDto[],
     }
 
     return tTestData

@@ -1,4 +1,4 @@
-export enum FilterColumnDomainEnum {
+export enum FilterColumnEnum {
     FORM_TYPE = 'form_type',
     TYP_NADORU = 'typ_nadoru',
     TYP_TERAPIE = 'typ_terapie',

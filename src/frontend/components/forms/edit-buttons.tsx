@@ -3,7 +3,7 @@ import {
     ipcAPIDeleteChannels,
     ipcAPISaveChannels,
 } from '../../../ipc/ipcChannels'
-import { FormStates } from '../../constants'
+import { FormStates, FormType } from '../../constants'
 import { EditSavedState, PatientType, Study } from '../../types'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import { formTranslationKeys } from '../../translations'
+import { formTypeToDto, studyArrayToDto } from '../../mappers/enumMappers'
 import { Box, Card } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import ChevronRight from '@mui/icons-material/ChevronRight'
@@ -126,8 +127,8 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         if (studiesChanged) {
             const updated = await window.api.updatePatientsStudies(
                 formData.id,
-                formData.form_type,
-                selectedStudies
+                formTypeToDto[formData.form_type as FormType],
+                studyArrayToDto(selectedStudies)
             )
             console.log(updated)
         }

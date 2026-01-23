@@ -1,4 +1,4 @@
-export enum KaplanMeierTypeDomainEntity {
+export enum KaplanMeierTypeEnum {
     survival = 'survival',
     recidive = 'recidive',
 }

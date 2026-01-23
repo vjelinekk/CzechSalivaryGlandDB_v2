@@ -69,6 +69,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
+import {
+    formTypeToDto,
+    filteredColumnsToDto,
+    studyToDto,
+    dtoToStudyArray,
+} from '../mappers/enumMappers'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -160,7 +166,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
         if (isFiltered) {
             loadedPatients = await window.api.getFilteredPatients(
-                filteredColumns,
+                filteredColumnsToDto(filteredColumns),
                 idStudie
             )
         } else {
@@ -172,7 +178,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
                 } else if (studyType) {
                     loadedPatients = (await window.api.get(
                         ipcAPIGetChannels.getPatientsByType,
-                        studyTypeToFormTypeMap[studyType]
+                        formTypeToDto[studyTypeToFormTypeMap[studyType]]
                     )) as PatientType[]
                 }
             } else {
@@ -206,12 +212,12 @@ const PatientsList: React.FC<PatientsListProps> = ({
     useEffect(() => {
         const getPatientsStudies = async () => {
             if (activePatient) {
-                const studies = await window.api.getStudiesByPatientId(
+                const studiesDto = await window.api.getStudiesByPatientId(
                     activePatient.id,
                     activePatient.form_type
                 )
 
-                setPatientsStudies(studies)
+                setPatientsStudies(dtoToStudyArray(studiesDto))
             }
         }
 
@@ -242,7 +248,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     const handleCreateStudy = async () => {
         const studyId = await window.api.save(
             ipcAPISaveChannels.saveStudy,
-            study
+            studyToDto(study)
         )
 
         selectedPatients.forEach(async (patient) => {

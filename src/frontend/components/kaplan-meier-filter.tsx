@@ -16,6 +16,10 @@ import {
 } from '../types'
 import { FormType, KaplanMeierType } from '../constants'
 import { appTranslationKeys } from '../translations'
+import {
+    kaplanMeierTypeToDto,
+    filteredColumnsToDto,
+} from '../mappers/enumMappers'
 
 interface KaplanMeierFilterProps {
     setKaplanMeierData: Dispatch<SetStateAction<KaplanMeierData>>
@@ -47,8 +51,8 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
 
     const getKaplanMeierData = async () => {
         const data = await window.api.getKaplanMeierData(
-            selectedCurveType,
-            filteredColumns
+            kaplanMeierTypeToDto[selectedCurveType],
+            filteredColumnsToDto(filteredColumns)
         )
         console.log(data)
         setKaplanMeierData(data)

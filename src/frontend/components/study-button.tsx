@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Study } from '../types'
+import { studyToDto } from '../mappers/enumMappers'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
@@ -43,7 +44,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     const saveStudyName = async () => {
         const result = await window.api.save(
             ipcAPISaveChannels.saveStudy,
-            study
+            studyToDto(study)
         )
 
         console.log(result)
@@ -75,7 +76,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     const handleDeleteStudy = async () => {
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deleteStudy,
-            study
+            studyToDto(study)
         )
 
         console.log(result)
