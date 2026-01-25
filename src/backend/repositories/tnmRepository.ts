@@ -1,8 +1,8 @@
-import db from './dbManager'
-import { TnmEditionEntity } from './db-entities/TnmEditionEntity'
-import { TnmValueDefinitionEntity } from './db-entities/TnmValueDefinitionEntity'
-import { TnmStageRuleEntity } from './db-entities/TnmStageRuleEntity'
-import { PatientStagingEntity } from './db-entities/PatientStagingEntity'
+import db from '../dbManager'
+import { TnmEditionEntity } from '../db-entities/TnmEditionEntity'
+import { TnmValueDefinitionEntity } from '../db-entities/TnmValueDefinitionEntity'
+import { TnmStageRuleEntity } from '../db-entities/TnmStageRuleEntity'
+import { PatientStagingEntity } from '../db-entities/PatientStagingEntity'
 
 export const getActiveEdition = (): Promise<TnmEditionEntity | null> => {
     return new Promise((resolve, reject) => {

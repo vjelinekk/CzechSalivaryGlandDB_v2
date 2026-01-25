@@ -1,7 +1,7 @@
-import { getRow, insertRow } from './basicOperations'
-import { TableNames } from './constants'
+import { getRow, insertRow } from '../basicOperations'
+import { TableNames } from '../constants'
 import crypto from 'crypto'
-import { PasswordType } from './types'
+import { PasswordType } from '../types'
 
 /**
  * Password will always be just one on the first row with id 1

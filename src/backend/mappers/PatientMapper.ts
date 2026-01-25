@@ -1,5 +1,5 @@
 import { FormType } from '../constants'
-import { toIntBool, toNum, toStr } from './utils'
+import { toIntBool, toNum, toStr, fromIntBool, fromIsAlive } from './utils'
 import { PatientEntity } from '../db-entities/PatientEntity'
 import { MalignantPatientEntity } from '../db-entities/MalignantPatientEntity'
 import { BenignPatientEntity } from '../db-entities/BenignPatientEntity'
@@ -11,6 +11,7 @@ import { PatientStagingEntity } from '../db-entities/PatientStagingEntity'
 import { ParotidMalignantPatientDto } from '../../ipc/dtos/ParotidMalignantPatientDto'
 import { SubmandibularMalignantPatientDto } from '../../ipc/dtos/SubmandibularMalignantPatientDto'
 import { SubmandibularBenignPatientDto } from '../../ipc/dtos/SubmandibularBenignPatientDto'
+import { ParotidBenignPatientDto } from '../../ipc/dtos/ParotidBenignPatientDto'
 import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { HistologyTypeMapper } from './HistologyTypeMapper'
 import { HistologySubtypeMapper } from './HistologySubtypeMapper'
@@ -402,5 +403,308 @@ export class PatientMapper {
             pathological_m_id: pathologicalMId,
             pathological_grade_id: pathologicalGradeId,
         }
+    }
+
+    // =============================================
+    // Entity → DTO Mapping (toDto)
+    // =============================================
+
+    static toDto(
+        base: PatientEntity,
+        malignant?: MalignantPatientEntity,
+        benign?: BenignPatientEntity,
+        malignantParotid?: MalignantParotidSpecificEntity,
+        malignantSubmandibular?: MalignantSubmandibularSpecificEntity,
+        coreBiopsy?: BiopsyResultEntity,
+        openBiopsy?: BiopsyResultEntity,
+        histopathology?: HistopathologyEntity,
+        staging?: PatientStagingEntity,
+        attachments?: AttachmentEntity[]
+    ): PatientDto {
+        const formType = this.determineFormType(
+            base.tumor_type,
+            base.tumor_location
+        )
+
+        // Map base patient fields
+        const dto: PatientDto = {
+            id: base.id,
+            form_type: formType,
+            jmeno: base.name,
+            prijmeni: base.surname,
+            id_pacient: base.internal_patient_id,
+            rodne_cislo: base.personal_identification_number,
+            vek_pri_diagnoze: base.age_at_diagnosis,
+            pohlavi: base.gender,
+            kraj: base.region,
+            jine_nadorove_onemocneni_v_oa:
+                base.other_malignancy_in_personal_history,
+            specifikace_mista_vyskytu_jineho_karcinomu:
+                base.specification_of_site_of_other_carcinoma,
+            jine_onemocneni_velkych_slinnych_zlaz_v_oa:
+                base.other_major_salivary_gland_disease_in_personal_history,
+            specifikace_onemocneni: base.disease_specification,
+            koureni: fromIntBool(base.smokes),
+            pocet_cigaret_denne: base.cigarettes_per_day,
+            jak_dlouho_kouri: base.smoking_duration,
+            pocet_balickoroku: base.pack_years,
+            abusus_alkoholu: fromIntBool(base.alcohol_abuse),
+            rok_diagnozy: base.diagnosis_year,
+            strana_nalezu: base.side_of_lesion,
+            diagnosticke_metody: base.diagnosis_methods,
+            fnab: fromIntBool(base.fnab),
+            vysledek_fnab: base.fnab_result,
+            datum_zahajeni_lecby: base.date_of_treatment_initiation,
+            typ_terapie: base.therapy_type,
+            rozsah_chirurgicke_lecby: base.extent_of_surgical_treatment,
+            datum_prvni_kontroly_po_lecbe:
+                base.date_of_first_post_treatment_follow_up,
+            perzistence: fromIntBool(base.persistence),
+            datum_prokazani_perzistence: base.date_of_persistence,
+            recidiva: fromIntBool(base.recidive),
+            datum_prokazani_recidivy: base.date_of_recidive,
+            stav: fromIsAlive(base.is_alive),
+            datum_umrti: base.death_date,
+            posledni_kontrola: base.last_follow_up,
+            planovana_kontrola: base.next_follow_up,
+            poznamky: base.notes,
+            attachments: this.mapAttachmentsToDto(attachments),
+        }
+
+        // Add malignant-specific fields
+        if (malignant) {
+            this.mapMalignantToDto(dto, malignant)
+        }
+
+        // Add benign-specific fields
+        if (benign) {
+            this.mapBenignToDto(dto, benign)
+        }
+
+        // Add parotid malignant-specific fields
+        if (malignantParotid) {
+            this.mapMalignantParotidToDto(dto, malignantParotid)
+        }
+
+        // Add submandibular malignant-specific fields
+        if (malignantSubmandibular) {
+            this.mapMalignantSubmandibularToDto(dto, malignantSubmandibular)
+        }
+
+        // Add biopsy results
+        if (coreBiopsy) {
+            this.mapBiopsyToDto(dto, coreBiopsy, 'core')
+        }
+        if (openBiopsy) {
+            this.mapBiopsyToDto(dto, openBiopsy, 'open')
+        }
+
+        // Add histopathology
+        if (histopathology) {
+            this.mapHistopathologyToDto(dto, histopathology)
+        }
+
+        // Add staging
+        if (staging) {
+            this.mapStagingToDto(dto, staging)
+        }
+
+        return dto
+    }
+
+    private static determineFormType(
+        tumorType: 'malignant' | 'benign',
+        tumorLocation: 'submandibular' | 'sublingual' | 'parotid'
+    ): FormType {
+        if (tumorType === 'malignant') {
+            switch (tumorLocation) {
+                case 'submandibular':
+                    return FormType.submandibularMalignant
+                case 'sublingual':
+                    return FormType.sublingualMalignant
+                case 'parotid':
+                    return FormType.parotidMalignant
+            }
+        } else {
+            switch (tumorLocation) {
+                case 'submandibular':
+                    return FormType.submandibularBenign
+                case 'parotid':
+                    return FormType.parotidBenign
+                default:
+                    return FormType.submandibularBenign
+            }
+        }
+    }
+
+    private static mapAttachmentsToDto(
+        attachments?: AttachmentEntity[]
+    ): string {
+        if (!attachments || attachments.length === 0) {
+            return ''
+        }
+        return attachments.map((a) => a.file_path).join(',')
+    }
+
+    private static mapMalignantToDto(
+        dto: PatientDto,
+        malignant: MalignantPatientEntity
+    ): void {
+        const d = dto as ParotidMalignantPatientDto
+        d.blokova_krcni_disekce = fromIntBool(malignant.block_neck_dissection)
+        d.strana_blokove_krcni_disekce = malignant.side_of_neck_dissection
+        d.typ_nd = malignant.type_of_nd
+        d.rozsah_nd = malignant.extent_of_nd
+        d.adjuvantni_terapie = malignant.adjuvant_therapy
+        d.typ_nechirurgicke_terapie = malignant.type_of_non_surgical_therapy
+    }
+
+    private static mapBenignToDto(
+        dto: PatientDto,
+        benign: BenignPatientEntity
+    ): void {
+        const d = dto as SubmandibularBenignPatientDto | ParotidBenignPatientDto
+        d.funkce_n_vii_dle_h_b_predoperacne =
+            benign.preoperative_house_brackmann_grade_of_facial_nerve_function
+        d.funkce_n_vii_dle_h_b_pooperacne =
+            benign.postoperative_house_brackmann_grade_of_facial_nerve_function
+        d.pooperacni_komplikace = benign.postoperative_complications
+        d.jine_pooperacni_komplikace = benign.other_postoperative_complications
+        d.doporuceno_dalsi_sledovani = benign.further_follow_up_recommended
+    }
+
+    private static mapMalignantParotidToDto(
+        dto: PatientDto,
+        malignantParotid: MalignantParotidSpecificEntity
+    ): void {
+        const d = dto as ParotidMalignantPatientDto
+        d.funkce_n_vii_dle_h_b_predoperacne =
+            malignantParotid.preoperative_house_brackmann_grade_of_facial_nerve_function
+        d.funkce_n_vii_dle_h_b_pooperacne =
+            malignantParotid.postoperative_house_brackmann_grade_of_facial_nerve_function
+        d.pooperacni_komplikace = malignantParotid.postoperative_complications
+        d.jine_pooperacni_komplikace =
+            malignantParotid.other_postoperative_complications
+    }
+
+    private static mapMalignantSubmandibularToDto(
+        dto: PatientDto,
+        malignantSubmandibular: MalignantSubmandibularSpecificEntity
+    ): void {
+        const d = dto as SubmandibularMalignantPatientDto
+        d.funkce_n_vii_dle_h_b_predoperacne =
+            malignantSubmandibular.preoperative_house_brackmann_grade_of_facial_nerve_function
+        d.funkce_n_vii_dle_h_b_pooperacne =
+            malignantSubmandibular.postoperative_house_brackmann_grade_of_facial_nerve_function
+    }
+
+    private static mapBiopsyToDto(
+        dto: PatientDto,
+        biopsy: BiopsyResultEntity,
+        type: 'core' | 'open'
+    ): void {
+        const histologyKey = HistologyTypeMapper.mapIdToKey(
+            biopsy.id_histology_type
+        )
+        const subtypeKey = biopsy.id_histology_subtype
+            ? HistologySubtypeMapper.mapIdToSubtypeKey(
+                  biopsy.id_histology_subtype
+              )
+            : null
+
+        if (type === 'core') {
+            dto.core_vysledek = histologyKey
+            if (subtypeKey && histologyKey) {
+                const subtypeField =
+                    HistologySubtypeMapper.mapHistologyTypeToSubtypeKey(
+                        biopsy.id_histology_type
+                    )
+                if (subtypeField) {
+                    const coreSubtypeField = subtypeField.replace(
+                        '_histopatologie',
+                        '_core'
+                    )
+                    dto[coreSubtypeField] = subtypeKey
+                }
+            }
+        } else {
+            dto.otevrena_vysledek = histologyKey
+            if (subtypeKey && histologyKey) {
+                const subtypeField =
+                    HistologySubtypeMapper.mapHistologyTypeToSubtypeKey(
+                        biopsy.id_histology_type
+                    )
+                if (subtypeField) {
+                    const openSubtypeField = subtypeField.replace(
+                        '_histopatologie',
+                        '_otevrena'
+                    )
+                    dto[openSubtypeField] = subtypeKey
+                }
+            }
+        }
+    }
+
+    private static mapHistopathologyToDto(
+        dto: PatientDto,
+        histopathology: HistopathologyEntity
+    ): void {
+        const histologyKey = HistologyTypeMapper.mapIdToKey(
+            histopathology.id_histology_type
+        )
+        dto.histopatologie_vysledek = histologyKey
+
+        // Map subtype to the appropriate field based on histology type
+        if (histopathology.id_histology_subtype) {
+            const subtypeKey = HistologySubtypeMapper.mapIdToSubtypeKey(
+                histopathology.id_histology_subtype
+            )
+            const subtypeField =
+                HistologySubtypeMapper.mapHistologyTypeToSubtypeKey(
+                    histopathology.id_histology_type
+                )
+            if (subtypeField && subtypeKey) {
+                dto[subtypeField] = subtypeKey
+            }
+        }
+
+        // Map other histopathology fields
+        dto.velikost_nadoru_histopatologie = histopathology.tumor_size
+        dto.velikost_nadoru_neurcena_histopatologie =
+            histopathology.tumor_size_not_determined_reason
+        dto.okraj_resekce_histopatologie = histopathology.resection_margin
+        dto.lymfovaskularni_invaze_histopatologie = fromIntBool(
+            histopathology.lymphovascular_invasion
+        )
+        dto.perineuralni_invaze_histopatologie = fromIntBool(
+            histopathology.perineural_invasion
+        )
+        dto.pocet_lymfatickych_uzlin_s_metastazou_histopatologie =
+            histopathology.number_of_metastatic_lymph_nodes?.toString()
+        dto.extranodalni_sireni_histopatologie = fromIntBool(
+            histopathology.extranodal_extension
+        )
+        dto.extranodalni_sireni_vysledek_histopatologie =
+            histopathology.ene_result
+        dto.prokazane_vzdalene_metastazy_histopatologie = fromIntBool(
+            histopathology.proven_distant_metastasis
+        )
+        dto.misto_vyskytu_vzdalene_metastazy_histopatologie =
+            histopathology.site_of_distant_metastasis
+    }
+
+    private static mapStagingToDto(
+        dto: PatientDto,
+        staging: PatientStagingEntity
+    ): void {
+        const d = dto as ParotidMalignantPatientDto
+        d.t_klasifikace_klinicka_id = staging.clinical_t_id
+        d.n_klasifikace_klinicka_id = staging.clinical_n_id
+        d.m_klasifikace_klinicka_id = staging.clinical_m_id
+        d.tnm_klasifikace_klinicka_id = staging.clinical_grade_id
+        d.t_klasifikace_patologicka_id = staging.pathological_t_id
+        d.n_klasifikace_patologicka_id = staging.pathological_n_id
+        d.m_klasifikace_patologicka_id = staging.pathological_m_id
+        d.tnm_klasifikace_patologicka_id = staging.pathological_grade_id
     }
 }

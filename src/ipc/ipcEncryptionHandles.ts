@@ -7,7 +7,7 @@ import {
     isEncryptionEnabled,
     isPasswordSet,
     validatePassword,
-} from '../backend/passwordManager'
+} from '../backend/repositories/passwordRepository'
 import { ipcEncryptionChannels } from './ipcChannels'
 
 ipcMain.handle(ipcEncryptionChannels.setEncryptionKey, async (event, key) => {

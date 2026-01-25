@@ -10,7 +10,7 @@ import {
     getPlannedPatientsBetweenDates,
     getChiSquareContingencyTable,
     getTTestData,
-} from '../backend/patientsManager'
+} from '../backend/repositories/patientRepository'
 import {
     deletePatientFromStudy,
     deleteStudy,
@@ -21,14 +21,14 @@ import {
     insertPatientToStudy,
     saveStudy,
     updatePatientsStudies,
-} from '../backend/studieManager'
+} from '../backend/repositories/studyRepository'
 import {
     getActiveEdition,
     getTnmValuesByEdition,
     calculateStage,
     getPatientStaging,
     savePatientStaging,
-} from '../backend/tnmManager'
+} from '../backend/repositories/tnmRepository'
 import {
     ipcAPIDeleteChannels,
     ipcAPIGetChannels,

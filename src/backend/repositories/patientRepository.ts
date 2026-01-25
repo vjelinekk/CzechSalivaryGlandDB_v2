@@ -4,7 +4,7 @@ import {
     getRow,
     insertRow,
     updateRow,
-} from './basicOperations'
+} from '../basicOperations'
 import {
     formTypeToTableName,
     isInStudyColumns,
@@ -15,29 +15,29 @@ import {
     submandibularBenignColumns,
     TableNames,
     FormType,
-} from './constants'
-import db from './dbManager'
-import { decrypt, encrypt } from './encryption'
-import { deletePatientFromAllStudies } from './studieManager'
+} from '../constants'
+import db from '../dbManager'
+import { decrypt, encrypt } from '../encryption'
+import { deletePatientFromAllStudies } from './studyRepository'
 import {
     ParotidBenignColumns,
     ParotidMalignantColumns,
     SublingualMalignantColumns,
     SubmandibularBenignColumns,
     SubmandibularMalignantColumns,
-} from './types'
-import { InferenceChiSquareCategories } from './enums'
-import { PatientMapper } from './mappers/PatientMapper'
-import { getActiveEdition, savePatientStaging } from './tnmManager'
-import { PatientDto } from '../ipc/dtos/PatientDto'
-import { TumorTypeEnum } from '../ipc/dtos/enums/TumorTypeEnum'
-import { FilteredColumnsDto } from '../ipc/dtos/FilteredColumnsDto'
-import { KaplanMeierPatientDataDto } from '../ipc/dtos/KaplanMeierPatientDataDto'
-import { KaplanMeierDataDto } from '../ipc/dtos/KaplanMeierDataDto'
-import { KaplanMeierTypeEnum } from '../ipc/dtos/enums/KaplanMeierTypeEnum'
-import { PlannedPatientsMapDto } from '../ipc/dtos/PlannedPatientsMapDto'
-import { ITTestGroupsDto } from '../ipc/dtos/ITTestGroupsDto'
-import { NonParametricTestDataDto } from '../ipc/dtos/NonParametricTestDataDto'
+} from '../types'
+import { InferenceChiSquareCategories } from '../enums'
+import { PatientMapper } from '../mappers/PatientMapper'
+import { getActiveEdition, savePatientStaging } from './tnmRepository'
+import { PatientDto } from '../../ipc/dtos/PatientDto'
+import { TumorTypeEnum } from '../../ipc/dtos/enums/TumorTypeEnum'
+import { FilteredColumnsDto } from '../../ipc/dtos/FilteredColumnsDto'
+import { KaplanMeierPatientDataDto } from '../../ipc/dtos/KaplanMeierPatientDataDto'
+import { KaplanMeierDataDto } from '../../ipc/dtos/KaplanMeierDataDto'
+import { KaplanMeierTypeEnum } from '../../ipc/dtos/enums/KaplanMeierTypeEnum'
+import { PlannedPatientsMapDto } from '../../ipc/dtos/PlannedPatientsMapDto'
+import { ITTestGroupsDto } from '../../ipc/dtos/ITTestGroupsDto'
+import { NonParametricTestDataDto } from '../../ipc/dtos/NonParametricTestDataDto'
 
 export const decryptPatientData = (patientData: PatientDto[]): PatientDto[] => {
     return patientData.map((patient) => {

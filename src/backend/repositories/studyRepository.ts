@@ -1,4 +1,4 @@
-import { RowRecordType } from './types'
+import { RowRecordType } from '../types'
 import {
     deleteRow,
     deleteRowsBy,
@@ -7,18 +7,18 @@ import {
     getRowsBy,
     insertRow,
     updateRow,
-} from './basicOperations'
+} from '../basicOperations'
 import {
     FormType,
     isInStudyColumns,
     studyColumns,
     TableNames,
-} from './constants'
-import db from './dbManager'
-import { decryptPatientData } from './patientsManager'
-import { StudyDto } from '../ipc/dtos/StudyDto'
-import { PatientInStudyDto } from '../ipc/dtos/PatientInStudyDto'
-import { PatientDto } from '../ipc/dtos/PatientDto'
+} from '../constants'
+import db from '../dbManager'
+import { decryptPatientData } from './patientRepository'
+import { StudyDto } from '../../ipc/dtos/StudyDto'
+import { PatientInStudyDto } from '../../ipc/dtos/PatientInStudyDto'
+import { PatientDto } from '../../ipc/dtos/PatientDto'
 
 const tableName = TableNames.studies
 

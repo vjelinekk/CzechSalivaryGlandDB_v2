@@ -20,3 +20,14 @@ export const toNum = (
     if (typeof val === 'string') return parseFloat(val) || 0
     return 0
 }
+
+// Reverse mapping helpers (Entity → DTO)
+export const fromIntBool = (val: number | null | undefined): string | null => {
+    if (val === null || val === undefined) return null
+    return val === 1 ? 'Ano' : 'Ne'
+}
+
+export const fromIsAlive = (val: number | null | undefined): string | null => {
+    if (val === null || val === undefined) return null
+    return val === 1 ? 'Zije' : 'Nezije'
+}
