@@ -1,5 +1,6 @@
 import { Checkbox, TableCell, TableRow } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { InferenceChiSquareCategories } from '../../../../enums/statistics.enums'
 
 interface CategoriesTableProps {
@@ -20,6 +21,16 @@ const CategoriesTable: React.FC<CategoriesTableProps> = ({
     selectedCategories = {},
     activeTab = InferenceChiSquareCategories.histologicalTypes,
 }) => {
+    const { t } = useTranslation()
+
+    const getDisplayLabel = (itemKey: string): string => {
+        if (activeTab === InferenceChiSquareCategories.histologicalTypes) {
+            const translated = t(itemKey)
+            return translated !== itemKey ? translated : itemKey
+        }
+        return itemKey
+    }
+
     // Funkce pro kontrolu, zda je položka vybrána v dané kategorii
     const isItemSelected = (
         itemKey: string,
@@ -44,7 +55,7 @@ const CategoriesTable: React.FC<CategoriesTableProps> = ({
                     }}
                 >
                     <TableCell component="th" scope="row" sx={{ py: 1 }}>
-                        {itemKey}
+                        {getDisplayLabel(itemKey)}
                     </TableCell>
                     {[...Array(numberOfCategories)].map((_, categoryIndex) => (
                         <TableCell

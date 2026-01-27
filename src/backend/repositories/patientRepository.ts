@@ -856,6 +856,11 @@ export const getChiSquareContingencyTable = async (
         Record<InferenceChiSquareCategories, string[]>
     >
 ): Promise<number[][]> => {
+    console.log(rows);
+    console.log(columns);
+    console.log(rowSelectedCategories);
+    console.log(columnSelectedCategories);
+
     const contingencyTable = Array.from({ length: rows }, () =>
         Array(columns).fill(0)
     )
@@ -878,52 +883,142 @@ const getChiSquareCount = async (
     rowData: Record<InferenceChiSquareCategories, string[]>,
     columnData: Record<InferenceChiSquareCategories, string[]>
 ): Promise<number> => {
-    let query = `SELECT COUNT(*) as count FROM ${NewTableNames.patient} p WHERE p.tumor_type = 'malignant'`
-    const params: unknown[] = []
+    const rowFilters = collectCategoryFilters(rowData)
+    const colFilters = collectCategoryFilters(columnData)
 
-    // Build conditions from row data
-    for (const [category, values] of Object.entries(rowData)) {
-        const filteredValues = values.filter((v) => v.length > 0)
-        if (filteredValues.length > 0) {
-            const column = mapChiSquareKeyToColumn(
-                category as InferenceChiSquareCategories
-            )
-            query += ` AND ${column} IN (${filteredValues.map(() => '?').join(', ')})`
-            params.push(...filteredValues)
+    // Deduplicate joins across row and column filters
+    const allJoins = [...rowFilters.joins]
+    for (const join of colFilters.joins) {
+        if (!allJoins.includes(join)) {
+            allJoins.push(join)
         }
     }
 
-    // Build conditions from column data
-    for (const [category, values] of Object.entries(columnData)) {
-        const filteredValues = values.filter((v) => v.length > 0)
-        if (filteredValues.length > 0) {
-            const column = mapChiSquareKeyToColumn(
-                category as InferenceChiSquareCategories
-            )
-            query += ` AND ${column} IN (${filteredValues.map(() => '?').join(', ')})`
-            params.push(...filteredValues)
-        }
-    }
+    const joinClause = allJoins.length > 0 ? ' ' + allJoins.join(' ') : ''
+    const allConditions = [...rowFilters.conditions, ...colFilters.conditions]
+    const whereClause =
+        allConditions.length > 0
+            ? ' AND ' + allConditions.join(' AND ')
+            : ''
+    const params = [...rowFilters.params, ...colFilters.params]
+
+    const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${NewTableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant'${whereClause}`
 
     const result = await runQuery<{ count: number }>(query, params)
     return result?.count ?? 0
 }
 
-const mapChiSquareKeyToColumn = (key: InferenceChiSquareCategories): string => {
-    const mapping: Record<InferenceChiSquareCategories, string> = {
-        [InferenceChiSquareCategories.histologicalTypes]:
-            'histopatologie_vysledek',
-        [InferenceChiSquareCategories.tClassification]:
-            't_klasifikace_klinicka',
-        [InferenceChiSquareCategories.nClassification]:
-            'n_klasifikace_klinicka',
-        [InferenceChiSquareCategories.mClassification]:
-            'm_klasifikace_klinicka',
-        [InferenceChiSquareCategories.persistence]: 'p.persistence',
-        [InferenceChiSquareCategories.recurrence]: 'p.recidive',
-        [InferenceChiSquareCategories.state]: 'p.is_alive',
+interface CategoryQueryFragment {
+    joins: string[]
+    condition: string
+    params: unknown[]
+}
+
+const convertValues = (
+    category: InferenceChiSquareCategories,
+    values: string[]
+): unknown[] => {
+    switch (category) {
+        case InferenceChiSquareCategories.persistence:
+        case InferenceChiSquareCategories.recurrence:
+            return values.map((v) => (v === 'Ano' ? 1 : 0))
+        case InferenceChiSquareCategories.state:
+            return values.map((v) => (v === 'Žije' ? 1 : 0))
+        default:
+            return values
     }
-    return mapping[key]
+}
+
+const buildCategoryFilter = (
+    category: InferenceChiSquareCategories,
+    values: string[]
+): CategoryQueryFragment => {
+    const converted = convertValues(category, values)
+    const placeholders = converted.map(() => '?').join(', ')
+
+    switch (category) {
+        case InferenceChiSquareCategories.histologicalTypes:
+            return {
+                joins: [
+                    `JOIN ${NewTableNames.histopathology} hp ON hp.id_patient = p.id`,
+                    `JOIN ${NewTableNames.histologyType} ht ON ht.id = hp.id_histology_type`,
+                ],
+                condition: `ht.translation_key IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.tClassification:
+            return {
+                joins: [
+                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_t ON tvd_t.id = ps.clinical_t_id`,
+                ],
+                condition: `tvd_t.code IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.nClassification:
+            return {
+                joins: [
+                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_n ON tvd_n.id = ps.clinical_n_id`,
+                ],
+                condition: `tvd_n.code IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.mClassification:
+            return {
+                joins: [
+                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_m ON tvd_m.id = ps.clinical_m_id`,
+                ],
+                condition: `tvd_m.code IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.persistence:
+            return {
+                joins: [],
+                condition: `p.persistence IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.recurrence:
+            return {
+                joins: [],
+                condition: `p.recidive IN (${placeholders})`,
+                params: converted,
+            }
+        case InferenceChiSquareCategories.state:
+            return {
+                joins: [],
+                condition: `p.is_alive IN (${placeholders})`,
+                params: converted,
+            }
+    }
+}
+
+const collectCategoryFilters = (
+    data: Record<InferenceChiSquareCategories, string[]>
+): { joins: string[]; conditions: string[]; params: unknown[] } => {
+    const allJoins: string[] = []
+    const conditions: string[] = []
+    const params: unknown[] = []
+
+    for (const [category, values] of Object.entries(data)) {
+        const filteredValues = values.filter((v) => v.length > 0)
+        if (filteredValues.length > 0) {
+            const fragment = buildCategoryFilter(
+                category as InferenceChiSquareCategories,
+                filteredValues
+            )
+            for (const join of fragment.joins) {
+                if (!allJoins.includes(join)) {
+                    allJoins.push(join)
+                }
+            }
+            conditions.push(fragment.condition)
+            params.push(...fragment.params)
+        }
+    }
+
+    return { joins: allJoins, conditions, params }
 }
 
 export const getTTestData = async (
@@ -947,29 +1042,20 @@ const getTTestGroupData = async (group: {
     recurrence: string[]
     state: string[]
 }): Promise<PatientDto[]> => {
-    let query = `SELECT p.id FROM ${NewTableNames.patient} p WHERE p.tumor_type = 'malignant'`
-    const params: unknown[] = []
+    const filters = collectCategoryFilters(
+        group as Record<InferenceChiSquareCategories, string[]>
+    )
 
-    const categoryMapping: Record<string, string> = {
-        histologicalTypes: 'histopatologie_vysledek',
-        tClassification: 't_klasifikace_klinicka',
-        nClassification: 'n_klasifikace_klinicka',
-        mClassification: 'm_klasifikace_klinicka',
-        persistence: 'p.persistence',
-        recurrence: 'p.recidive',
-        state: 'p.is_alive',
-    }
+    const joinClause =
+        filters.joins.length > 0 ? ' ' + filters.joins.join(' ') : ''
+    const whereClause =
+        filters.conditions.length > 0
+            ? ' AND ' + filters.conditions.join(' AND ')
+            : ''
 
-    for (const [key, values] of Object.entries(group)) {
-        const filteredValues = values.filter((v: string) => v.length > 0)
-        if (filteredValues.length > 0) {
-            const column = categoryMapping[key]
-            query += ` AND ${column} IN (${filteredValues.map(() => '?').join(', ')})`
-            params.push(...filteredValues)
-        }
-    }
+    const query = `SELECT DISTINCT p.id FROM ${NewTableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant'${whereClause}`
 
-    const patients = await runQueryAll<PatientEntity>(query, params)
+    const patients = await runQueryAll<PatientEntity>(query, filters.params)
 
     const ids = patients.map((p) => p.id)
     return fetchFullPatients(ids)
