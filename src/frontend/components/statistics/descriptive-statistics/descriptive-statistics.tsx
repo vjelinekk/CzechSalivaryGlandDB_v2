@@ -35,10 +35,12 @@ import { DescriptiveStatisticsType } from '../../../enums/statistics.enums'
 import { COLORS } from '../../../constants/statistics.constants'
 import { calculateStatistics } from '../../../utils/statistics/descriptiveStatisticsCalculations'
 import { filteredColumnsToDto } from '../../../mappers/enumMappers'
-import { createDataTable } from '../../../../frontend/utils/statistics/createDataTable'
+import { useTranslation } from 'react-i18next'
 import TnmStatistics from './tnm-statistics'
+import DescriptiveStatisticsDataTable from './descriptive-statistics-data-table'
 
 const DescriptiveStatistics: React.FC = () => {
+    const { t } = useTranslation()
     const [loading, setLoading] = useState<boolean>(true)
     const [statistics, setStatistics] = useState<StatisticsData | null>(null)
     const [error, setError] = useState<string | null>(null)
@@ -124,7 +126,10 @@ const DescriptiveStatistics: React.FC = () => {
     const getTumorTypeChartData = () => {
         if (!statistics) return []
         return Object.entries(statistics.tumorTypes)
-            .map(([name, data]) => ({ name, value: data.count }))
+            .map(([name, data]) => ({
+                name: t(name, { defaultValue: name }),
+                value: data.count,
+            }))
             .sort((a, b) => b.value - a.value)
     }
 
@@ -357,10 +362,10 @@ const DescriptiveStatistics: React.FC = () => {
 
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={6}>
-                                    {createDataTable(
-                                        statistics?.surgicalProcedures,
-                                        'Typy zákroků'
-                                    )}
+                                    <DescriptiveStatisticsDataTable
+                                        data={statistics?.surgicalProcedures}
+                                        title="Typy zákroků"
+                                    />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 400 }}>
@@ -409,10 +414,10 @@ const DescriptiveStatistics: React.FC = () => {
 
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={6}>
-                                    {createDataTable(
-                                        statistics?.tumorTypes,
-                                        'Typy nádorů'
-                                    )}
+                                    <DescriptiveStatisticsDataTable
+                                        data={statistics?.tumorTypes}
+                                        title="Typy nádorů"
+                                    />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ height: 400 }}>
@@ -636,11 +641,11 @@ const DescriptiveStatistics: React.FC = () => {
 
                             {/* Complication Types */}
                             <Box sx={{ mt: 3 }}>
-                                {createDataTable(
-                                    statistics?.complications.byType,
-                                    'Typy komplikací',
-                                    'Žádné detailní informace o komplikacích nejsou k dispozici'
-                                )}
+                                <DescriptiveStatisticsDataTable
+                                    data={statistics?.complications.byType}
+                                    title="Typy komplikací"
+                                    emptyMessage="Žádné detailní informace o komplikacích nejsou k dispozici"
+                                />
                             </Box>
                         </Box>
                     </>

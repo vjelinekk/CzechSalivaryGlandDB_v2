@@ -1,5 +1,5 @@
 import { FormType } from '../constants'
-import { toIntBool, toNum, toStr, fromIntBool, fromIsAlive } from './utils'
+import { fromIntBool, fromIsAlive, toIntBool, toNum, toStr } from './utils'
 import { PatientEntity } from '../db-entities/PatientEntity'
 import { MalignantPatientEntity } from '../db-entities/MalignantPatientEntity'
 import { BenignPatientEntity } from '../db-entities/BenignPatientEntity'
@@ -16,6 +16,7 @@ import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { HistologyTypeMapper } from './HistologyTypeMapper'
 import { HistologySubtypeMapper } from './HistologySubtypeMapper'
 import { HistopathologyEntity } from '../db-entities/HistopathologyEntity'
+import { TnmValueDefinitionEntity } from '../db-entities/TnmValueDefinitionEntity'
 
 export class PatientMapper {
     static toPersistence(
@@ -419,7 +420,8 @@ export class PatientMapper {
         openBiopsy?: BiopsyResultEntity,
         histopathology?: HistopathologyEntity,
         staging?: PatientStagingEntity,
-        attachments?: AttachmentEntity[]
+        attachments?: AttachmentEntity[],
+        tnmValues?: Map<number, TnmValueDefinitionEntity>
     ): PatientDto {
         const formType = this.determineFormType(
             base.tumor_type,
@@ -506,7 +508,7 @@ export class PatientMapper {
 
         // Add staging
         if (staging) {
-            this.mapStagingToDto(dto, staging)
+            this.mapStagingToDto(dto, staging, tnmValues)
         }
 
         return dto
@@ -651,10 +653,9 @@ export class PatientMapper {
         dto: PatientDto,
         histopathology: HistopathologyEntity
     ): void {
-        const histologyKey = HistologyTypeMapper.mapIdToKey(
+        dto.histopatologie_vysledek = HistologyTypeMapper.mapIdToKey(
             histopathology.id_histology_type
         )
-        dto.histopatologie_vysledek = histologyKey
 
         // Map subtype to the appropriate field based on histology type
         if (histopathology.id_histology_subtype) {
@@ -697,7 +698,8 @@ export class PatientMapper {
 
     private static mapStagingToDto(
         dto: PatientDto,
-        staging: PatientStagingEntity
+        staging: PatientStagingEntity,
+        tnmValues?: Map<number, TnmValueDefinitionEntity>
     ): void {
         const d = dto as ParotidMalignantPatientDto
         d.t_klasifikace_klinicka_id = staging.clinical_t_id
@@ -708,5 +710,32 @@ export class PatientMapper {
         d.n_klasifikace_patologicka_id = staging.pathological_n_id
         d.m_klasifikace_patologicka_id = staging.pathological_m_id
         d.tnm_klasifikace_patologicka_id = staging.pathological_grade_id
+
+        if (tnmValues) {
+            d.t_klasifikace_klinicka = tnmValues.get(
+                staging.clinical_t_id
+            )?.code
+            d.n_klasifikace_klinicka = tnmValues.get(
+                staging.clinical_n_id
+            )?.code
+            d.m_klasifikace_klinicka = tnmValues.get(
+                staging.clinical_m_id
+            )?.code
+            d.tnm_klasifikace_klinicka = tnmValues.get(
+                staging.clinical_grade_id
+            )?.code
+            d.t_klasifikace_patologicka = tnmValues.get(
+                staging.pathological_t_id
+            )?.code
+            d.n_klasifikace_patologicka = tnmValues.get(
+                staging.pathological_n_id
+            )?.code
+            d.m_klasifikace_patologicka = tnmValues.get(
+                staging.pathological_m_id
+            )?.code
+            d.tnm_klasifikace_patologicka = tnmValues.get(
+                staging.pathological_grade_id
+            )?.code
+        }
     }
 }

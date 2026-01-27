@@ -53,6 +53,26 @@ export const getTnmValueById = async (
     return row ?? null
 }
 
+export const getTnmValuesByIds = async (
+    ids: number[]
+): Promise<Map<number, TnmValueDefinitionEntity>> => {
+    const validIds = ids.filter((id) => id != null)
+    if (validIds.length === 0) return new Map()
+
+    const placeholders = validIds.map(() => '?').join(', ')
+    const rows = await runQueryAll<TnmValueDefinitionEntity>(
+        `SELECT * FROM tnm_value_definition WHERE id IN (${placeholders})`,
+        validIds
+    )
+    const map = new Map<number, TnmValueDefinitionEntity>()
+    for (const row of rows) {
+        if (row.id != null) {
+            map.set(row.id, row)
+        }
+    }
+    return map
+}
+
 export const getStageRulesByEdition = async (
     editionId: number
 ): Promise<TnmStageRuleEntity[]> => {

@@ -5,7 +5,8 @@ import {
     decryptPatientData,
 } from '../utils/patientEncryption'
 import { PatientMapper } from '../mappers/PatientMapper'
-import { getActiveEdition } from './tnmRepository'
+import { getActiveEdition, getTnmValuesByIds } from './tnmRepository'
+import { TnmValueDefinitionEntity } from '../db-entities/TnmValueDefinitionEntity'
 import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { PatientEntity } from '../db-entities/PatientEntity'
 import { MalignantPatientEntity } from '../db-entities/MalignantPatientEntity'
@@ -434,6 +435,24 @@ export const getPatient = async (id: number): Promise<PatientDto | null> => {
         const coreBiopsy = biopsies.find((b) => b.biopsy_type === 'core')
         const openBiopsy = biopsies.find((b) => b.biopsy_type === 'open')
 
+        // Resolve TNM value codes from staging IDs
+        let tnmValues: Map<number, TnmValueDefinitionEntity> | undefined
+        if (staging) {
+            const ids = [
+                staging.clinical_t_id,
+                staging.clinical_n_id,
+                staging.clinical_m_id,
+                staging.clinical_grade_id,
+                staging.pathological_t_id,
+                staging.pathological_n_id,
+                staging.pathological_m_id,
+                staging.pathological_grade_id,
+            ].filter((id): id is number => id != null)
+            if (ids.length > 0) {
+                tnmValues = await getTnmValuesByIds(ids)
+            }
+        }
+
         const dto = PatientMapper.toDto(
             patient,
             malignant,
@@ -444,7 +463,8 @@ export const getPatient = async (id: number): Promise<PatientDto | null> => {
             openBiopsy,
             histopathology,
             staging,
-            attachments
+            attachments,
+            tnmValues
         )
 
         // Decrypt sensitive fields
