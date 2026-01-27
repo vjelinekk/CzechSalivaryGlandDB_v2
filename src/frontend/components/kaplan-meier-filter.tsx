@@ -130,7 +130,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                    label={t(
+                        formTranslationKeys.epithelialMyoepithelialCarcinoma
+                    )}
                     dbValue="epithelial-myoepithelial-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
@@ -186,7 +188,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(formTranslationKeys.carcinomaFromPleomorphicAdenoma)}
+                    label={t(
+                        formTranslationKeys.carcinomaFromPleomorphicAdenoma
+                    )}
                     dbValue="carcinoma-from-pleomorphic-adenoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}

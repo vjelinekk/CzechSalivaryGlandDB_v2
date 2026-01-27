@@ -106,7 +106,7 @@ const ChiSquare: React.FC = () => {
                 rowSelectedCategories,
                 columnSelectedCategories
             )
-            console.log(response);
+            console.log(response)
 
             // Update matrix with API response
             if (response && Array.isArray(response) && response.length > 0) {

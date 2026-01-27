@@ -1,9 +1,7 @@
 import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { StudyDto } from '../../ipc/dtos/StudyDto'
-import { FormType, NewTableNames } from '../constants'
 import * as patientRepository from '../repositories/patientRepository'
 import * as studyRepository from '../repositories/studyRepository'
-import { decryptPatientData } from '../utils/patientEncryption'
 
 // Cross-repository operations that need coordination
 
@@ -21,11 +19,7 @@ export const savePatientWithStudies = async (
 ): Promise<number | null> => {
     const patientId = await patientRepository.savePatient(data)
     if (patientId && studies.length > 0) {
-        await studyRepository.updatePatientsStudies(
-            patientId,
-            data.form_type as FormType,
-            studies
-        )
+        await studyRepository.updatePatientsStudies(patientId, studies)
     }
     return patientId
 }

@@ -59,7 +59,6 @@ export const insertPatientToStudy = async (
 
 export const updatePatientsStudies = async (
     patientId: number,
-    _patientType: number, // Kept for backward compatibility, no longer used
     studies: StudyDto[]
 ): Promise<boolean> => {
     try {
@@ -111,8 +110,7 @@ export const getStudiesByFormType = async (
 }
 
 export const getStudiesByPatientId = async (
-    patientId: number,
-    _patientType?: number // Kept for backward compatibility, no longer used
+    patientId: number
 ): Promise<StudyDto[]> => {
     const query = `
         SELECT s.*
@@ -144,8 +142,7 @@ export const deletePatientFromAllStudies = async (
 
 export const deletePatientFromStudy = async (
     studyId: number,
-    patientId: number,
-    _patientType?: number // Kept for backward compatibility, no longer used
+    patientId: number
 ): Promise<boolean> => {
     try {
         await runDeleteWhere(NewTableNames.isInStudy, [

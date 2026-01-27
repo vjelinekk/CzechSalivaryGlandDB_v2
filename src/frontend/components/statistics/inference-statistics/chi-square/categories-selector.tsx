@@ -133,10 +133,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
         if (isTnmTab && tnmLoading) {
             return (
                 <TableRow>
-                    <TableCell
-                        colSpan={numberOfCategories + 1}
-                        align="center"
-                    >
+                    <TableCell colSpan={numberOfCategories + 1} align="center">
                         <CircularProgress size={24} />
                     </TableCell>
                 </TableRow>

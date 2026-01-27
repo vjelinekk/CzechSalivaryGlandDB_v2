@@ -57,8 +57,8 @@ ipcMain.handle(
 ipcMain.handle(
     ipcAPIUpdateChannels.updatePatientsStudies,
     async (event, args) => {
-        const [patientId, patientType, studies] = args
-        return await updatePatientsStudies(patientId, patientType, studies)
+        const [patientId, studies] = args
+        return await updatePatientsStudies(patientId, studies)
     }
 )
 
@@ -97,8 +97,8 @@ ipcMain.handle(
 )
 
 ipcMain.handle(ipcAPIGetChannels.getStudiesByPatientId, async (event, args) => {
-    const [id, patientType] = args
-    return await getStudiesByPatientId(id, patientType)
+    const [id] = args
+    return await getStudiesByPatientId(id)
 })
 
 ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
@@ -112,8 +112,8 @@ ipcMain.handle(ipcAPIDeleteChannels.deleteStudy, async (event, data) => {
 ipcMain.handle(
     ipcAPIDeleteChannels.deletePatientFromStudy,
     async (event, args) => {
-        const [studyId, patientId, formType] = args
-        return await deletePatientFromStudy(studyId, patientId, formType)
+        const [studyId, patientId] = args
+        return await deletePatientFromStudy(studyId, patientId)
     }
 )
 

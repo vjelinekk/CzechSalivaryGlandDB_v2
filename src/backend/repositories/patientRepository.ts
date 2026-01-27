@@ -677,7 +677,7 @@ export const getKaplanMeierData = async (
     try {
         const kaplanMeierData: KaplanMeierDataDto = {}
 
-        console.log(filter);
+        console.log(filter)
         // Need to join with histopathology to get histopatologie_vysledek
         for (const histopatologieVysledek of filter.histopatologie_vysledek) {
             let query = ''
@@ -703,16 +703,18 @@ export const getKaplanMeierData = async (
                 `
             }
 
-            console.log(histopatologieVysledek);
-            const histologyTypeId = HistologyTypeMapper.mapKeyToId(histopatologieVysledek);
-            console.log(histologyTypeId);
+            console.log(histopatologieVysledek)
+            const histologyTypeId = HistologyTypeMapper.mapKeyToId(
+                histopatologieVysledek
+            )
+            console.log(histologyTypeId)
             const rows = await runQueryAll<{
                 rok_diagnozy: string
                 datum_umrti?: string
                 datum_prokazani_recidivy?: string
                 posledni_kontrola?: string
             }>(query, [histologyTypeId])
-            console.log(rows);
+            console.log(rows)
 
             kaplanMeierData[histopatologieVysledek] = rows
                 .filter((row) => row.rok_diagnozy !== null)
@@ -726,7 +728,7 @@ export const getKaplanMeierData = async (
                 })
         }
 
-        console.log(kaplanMeierData);
+        console.log(kaplanMeierData)
         return kaplanMeierData
     } catch (err) {
         console.error('Error getting Kaplan-Meier data:', err)
@@ -782,10 +784,10 @@ export const getChiSquareContingencyTable = async (
         Record<InferenceChiSquareCategories, string[]>
     >
 ): Promise<number[][]> => {
-    console.log(rows);
-    console.log(columns);
-    console.log(rowSelectedCategories);
-    console.log(columnSelectedCategories);
+    console.log(rows)
+    console.log(columns)
+    console.log(rowSelectedCategories)
+    console.log(columnSelectedCategories)
 
     const contingencyTable = Array.from({ length: rows }, () =>
         Array(columns).fill(0)
@@ -823,9 +825,7 @@ const getChiSquareCount = async (
     const joinClause = allJoins.length > 0 ? ' ' + allJoins.join(' ') : ''
     const allConditions = [...rowFilters.conditions, ...colFilters.conditions]
     const whereClause =
-        allConditions.length > 0
-            ? ' AND ' + allConditions.join(' AND ')
-            : ''
+        allConditions.length > 0 ? ' AND ' + allConditions.join(' AND ') : ''
     const params = [...rowFilters.params, ...colFilters.params]
 
     const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${NewTableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant'${whereClause}`
