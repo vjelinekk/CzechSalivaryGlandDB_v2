@@ -29,5 +29,5 @@ export const fromIntBool = (val: number | null | undefined): string | null => {
 
 export const fromIsAlive = (val: number | null | undefined): string | null => {
     if (val === null || val === undefined) return null
-    return val === 1 ? 'Zije' : 'Nezije'
+    return val === 1 ? 'Žije' : 'Zemřel'
 }

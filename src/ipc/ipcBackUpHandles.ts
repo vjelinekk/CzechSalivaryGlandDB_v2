@@ -2,7 +2,7 @@ import { app, dialog, ipcMain } from 'electron'
 import { ipcBackUpChannels } from './ipcChannels'
 import path from 'path'
 import fs from 'fs'
-import { createTables } from '../backend/dbManager'
+import { initSchema } from '../backend/dbManager'
 
 const backUp = async () => {
     const result = await dialog.showSaveDialog({
@@ -47,7 +47,7 @@ const loadBackUp = async () => {
 
     fs.copyFileSync(backupPath, dbPath)
 
-    createTables()
+    initSchema()
 }
 
 ipcMain.handle(ipcBackUpChannels.backUp, async () => {

@@ -172,7 +172,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                 <FormControl component="fieldset">
                     <FormGroup>
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.acinocellularCarcinoma)}
+                            label={t(appTranslationKeys.acinicCellCarcinoma)}
                             dbValue="acinocelulární karcinom"
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}

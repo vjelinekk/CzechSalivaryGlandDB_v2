@@ -15,7 +15,7 @@ import {
     TumorType,
 } from '../types'
 import { FormType, KaplanMeierType } from '../constants'
-import { appTranslationKeys } from '../translations'
+import { appTranslationKeys, formTranslationKeys } from '../translations'
 import {
     kaplanMeierTypeToDto,
     filteredColumnsToDto,
@@ -95,131 +95,127 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
             </Typography>
             <FormGroup>
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.acinocellularCarcinoma)}
-                    dbValue="acinocelulární karcinom"
+                    label={t(formTranslationKeys.acinicCellCarcinoma)}
+                    dbValue="acinic-cell-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.secretoryCarcinoma)}
-                    dbValue="sekretorický karcinom"
+                    label={t(formTranslationKeys.secretoryCarcinoma)}
+                    dbValue="secretory-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.mucoepidermoidCarcinoma)}
-                    dbValue="mukoepidermoidní karcinom"
+                    label={t(formTranslationKeys.mucoepidermoidCarcinoma)}
+                    dbValue="mucoepidermoid-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.adenoidCysticCarcinoma)}
-                    dbValue="adenoidně cystický karcinom"
+                    label={t(formTranslationKeys.adenoidCysticCarcinoma)}
+                    dbValue="adenoid-cystic-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.polymorphousAdenocarcinoma)}
-                    dbValue="polymorfní adenokarcinom"
+                    label={t(formTranslationKeys.polymorphousAdenocarcinoma)}
+                    dbValue="polymorphous-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(
-                        appTranslationKeys.epithelialMyoepithelialCarcinoma
-                    )}
-                    dbValue="epiteliální myoepiteliální karcinom"
+                    label={t(formTranslationKeys.epithelialMyoepithelialCarcinoma)}
+                    dbValue="epithelial-myoepithelial-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.hyalinizingCarcinoma)}
-                    dbValue="hyalinizující karcinom ze světlých buněk"
+                    label={t(formTranslationKeys.hyalinizingClearCellCarcinoma)}
+                    dbValue="hyalinizing-clear-cell-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.basalCellAdenocarcinoma)}
-                    dbValue="bazocelulární adenokarcinom"
+                    label={t(formTranslationKeys.basalCellAdenocarcinoma)}
+                    dbValue="basal-cell-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.sebaceousAdenocarcinoma)}
-                    dbValue="sebaceózní adenokarcinom"
+                    label={t(formTranslationKeys.sebaceousAdenocarcinoma)}
+                    dbValue="sebaceous-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.intraductalCarcinoma)}
-                    dbValue="intraduktální karcinom"
+                    label={t(formTranslationKeys.intraductalCarcinoma)}
+                    dbValue="intraductal-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.salivaryCarcinomaNonSpecific)}
-                    dbValue="salivární karcinom NOS"
+                    label={t(formTranslationKeys.salivaryCarcinomaNos)}
+                    dbValue="salivary-carcinoma-non-specific"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.salivaryDuctalCarcinoma)}
-                    dbValue="salivární duktální karcinom"
+                    label={t(formTranslationKeys.salivaryDuctalCarcinoma)}
+                    dbValue="salivary-ductal-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.myoepithelialCarcinoma)}
-                    dbValue="myoepiteliální karcinom"
+                    label={t(formTranslationKeys.myoepithelialCarcinoma)}
+                    dbValue="myoepithelial-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(
-                        appTranslationKeys.carcinomaFromPleomorphicAdenoma
-                    )}
-                    dbValue="karcinom z pleomorfniho adenomu"
+                    label={t(formTranslationKeys.carcinomaFromPleomorphicAdenoma)}
+                    dbValue="carcinoma-from-pleomorphic-adenoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.carcinosarcoma)}
-                    dbValue="karcinosarkom"
+                    label={t(formTranslationKeys.carcinosarcoma)}
+                    dbValue="carcinosarcoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.poorlyDifferentiatedCarcinoma)}
-                    dbValue="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
+                    label={t(formTranslationKeys.poorlyDifferentiatedCarcinoma)}
+                    dbValue="poorly-differentiated-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.lymphoepithelialCarcinoma)}
-                    dbValue="lymfoepiteliální karcinom"
+                    label={t(formTranslationKeys.lymphoepithelialCarcinoma)}
+                    dbValue="lymphoepithelial-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.squamousCellCarcinoma)}
-                    dbValue="skvamocelulární karcinom"
+                    label={t(formTranslationKeys.squamousCellCarcinoma)}
+                    dbValue="squamous-cell-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}

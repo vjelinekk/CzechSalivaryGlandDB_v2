@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 import {
-    deletePatient,
+    deletePatientWithStudies,
     getAllPatients,
     searchPatientsByNameSurnameRC,
     getPatientsByType,
@@ -10,11 +10,10 @@ import {
     getPlannedPatientsBetweenDates,
     getChiSquareContingencyTable,
     getTTestData,
-} from '../backend/repositories/patientRepository'
+} from '../backend/services/patientService'
 import {
     deletePatientFromStudy,
     deleteStudy,
-    getPatientsInStudy,
     getStudies,
     getStudiesByFormType,
     getStudiesByPatientId,
@@ -36,6 +35,7 @@ import {
     ipcAPISaveChannels,
     ipcAPIUpdateChannels,
 } from './ipcChannels'
+import { getPatientsInStudy } from '../backend/repositories/patientRepository'
 
 ipcMain.handle(ipcAPISaveChannels.savePatient, async (event, args) => {
     const [data] = args
@@ -102,7 +102,7 @@ ipcMain.handle(ipcAPIGetChannels.getStudiesByPatientId, async (event, args) => {
 })
 
 ipcMain.handle(ipcAPIDeleteChannels.deletePatient, async (event, data) => {
-    return await deletePatient(data)
+    return await deletePatientWithStudies(data)
 })
 
 ipcMain.handle(ipcAPIDeleteChannels.deleteStudy, async (event, data) => {

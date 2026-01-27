@@ -253,9 +253,8 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
         selectedPatients.forEach(async (patient) => {
             const patientInStudy: PatientInStudy = {
-                id_pacient_db: patient.id,
-                id_studie: studyId,
-                typ_pacienta: patient.form_type,
+                id_patient: patient.id,
+                id_study: studyId,
             }
 
             await window.api.insert(

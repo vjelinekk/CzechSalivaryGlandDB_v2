@@ -213,10 +213,8 @@ export interface Study {
 }
 
 export interface PatientInStudy {
-    id?: number
-    id_pacient_db?: number
-    id_studie?: number
-    typ_pacienta?: FormType
+    id_patient?: number
+    id_study?: number
 }
 
 export type PatientType =

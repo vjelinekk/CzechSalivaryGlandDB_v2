@@ -29,12 +29,14 @@ const Attachments: React.FC<GlandComponentProps> = ({
         })
     }
 
+    console.log(formData?.attachments?.length)
+
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.attachmentsTitle)}</h1>
             <div className="attachments">
-                {formData?.attachments
-                    ?.split(',')
+                {formData && formData.attachments?.length > 0 && formData.attachments
+                    .split(',')
                     .map((path, index) => (
                         <Attachment
                             key={index}

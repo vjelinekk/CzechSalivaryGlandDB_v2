@@ -156,7 +156,7 @@ export class PatientMapper {
             recidive: toIntBool(patient.recidiva),
             date_of_recidive: toStr(patient.datum_prokazani_recidivy),
             is_alive:
-                patient.stav === null ? null : patient.stav === 'Zije' ? 1 : 0,
+                patient.stav === null ? null : patient.stav === 'Žije' ? 1 : 0,
             death_date: toStr(patient.datum_umrti),
             last_follow_up: toStr(patient.posledni_kontrola),
             next_follow_up: toStr(patient.planovana_kontrola),
@@ -613,6 +613,7 @@ export class PatientMapper {
             : null
 
         if (type === 'core') {
+            dto.core_biopsie = 'Ano'
             dto.core_vysledek = histologyKey
             if (subtypeKey && histologyKey) {
                 const subtypeField =
@@ -628,6 +629,7 @@ export class PatientMapper {
                 }
             }
         } else {
+            dto.otevrena_biopsie = 'Ano'
             dto.otevrena_vysledek = histologyKey
             if (subtypeKey && histologyKey) {
                 const subtypeField =

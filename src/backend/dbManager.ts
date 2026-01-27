@@ -1,30 +1,6 @@
 import sqlite3 from 'sqlite3'
-import {
-    isInStudyColumns,
-    parotidBenignColumns,
-    passwordColumns,
-    submandibularMalignantColumns,
-    sublingualMalignantColumns,
-    parotidMalignantColumns,
-    studyColumns,
-    submandibularBenignColumns,
-    TableNames,
-} from './constants'
-import {
-    IsInStudyColumns,
-    ParotidBenignColumns,
-    PasswordColumns,
-    SubmandibularMalignantColumns,
-    SublingualMalignantColumns,
-    ParotidMalignantColumns,
-    StudyColumns,
-    SubmandibularBenignColumns,
-} from './types'
-import { columnToSQL } from './utils'
 import path from 'path'
 import { app } from 'electron'
-
-// TODO: Migrate to the new schema and remove old tables after migration period
 
 const getDBPath = (filename: string): string => {
     let base = app.getAppPath()
@@ -36,50 +12,12 @@ const getDBPath = (filename: string): string => {
 
 const db = new sqlite3.Database(getDBPath('db'))
 
-const createTable = (
-    tableName: TableNames,
-    columns:
-        | SubmandibularMalignantColumns
-        | SublingualMalignantColumns
-        | ParotidMalignantColumns
-        | SubmandibularBenignColumns
-        | ParotidBenignColumns
-        | IsInStudyColumns
-        | StudyColumns
-        | PasswordColumns
-) => {
-    const columnDefinitions = Object.values(columns).map(
-        ({ columnName, columnType }) => columnToSQL(columnName, columnType)
-    )
-
-    db.run(
-        `CREATE TABLE IF NOT EXISTS ${tableName} (${columnDefinitions.join(', ')})`
-    )
-}
-
-export const createTables = () => {
-    db.serialize(() => {
-        createTable(
-            TableNames.submandibularMalignant,
-            submandibularMalignantColumns
-        )
-        createTable(TableNames.sublingualMalignant, sublingualMalignantColumns)
-        createTable(TableNames.parotidMalignant, parotidMalignantColumns)
-        createTable(TableNames.submandibularBenign, submandibularBenignColumns)
-        createTable(TableNames.parotidBenign, parotidBenignColumns)
-        createTable(TableNames.studies, studyColumns)
-        createTable(TableNames.isInStudy, isInStudyColumns)
-        createTable(TableNames.password, passwordColumns)
-    })
-}
-
-// --- NEW ERA MODEL SCHEMA ---
-const newSchemaQueries = [
+const schemaQueries = [
     // 1. Independent Lookups & Config
     `CREATE TABLE IF NOT EXISTS password (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         password TEXT,
-        encryption_enabled INTEGER -- boolean
+        using_encryption INTEGER -- boolean
     )`,
     `CREATE TABLE IF NOT EXISTS study (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -487,12 +425,12 @@ const seedLookups = () => {
     })
 }
 
-export const initNewSchema = () => {
+export const initSchema = () => {
     db.serialize(() => {
         // Enforce Foreign Keys
         db.run('PRAGMA foreign_keys = ON')
 
-        newSchemaQueries.forEach((query) => {
+        schemaQueries.forEach((query) => {
             db.run(query, (err) => {
                 if (err) {
                     console.error('Error creating new schema table:', err)
@@ -506,7 +444,6 @@ export const initNewSchema = () => {
     })
 }
 
-createTables()
-initNewSchema()
+initSchema()
 
 export default db

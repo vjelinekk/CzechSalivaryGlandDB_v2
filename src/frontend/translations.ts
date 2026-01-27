@@ -362,7 +362,7 @@ export enum appTranslationKeys {
     survivalCurve = 'survival-curve',
     recidiveCurve = 'recidive-curve',
     histopathologySelection = 'histopathology-selection',
-    acinocellularCarcinoma = 'acinocellular-carcinoma',
+    acinicCellCarcinoma = 'acinic-cell-carcinoma',
     secretoryCarcinoma = 'secretory-carcinoma',
     mucoepidermoidCarcinoma = 'mucoepidermoid-carcinoma',
     adenoidCysticCarcinoma = 'adenoid-cystic-carcinoma',
