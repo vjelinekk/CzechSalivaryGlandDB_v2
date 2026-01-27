@@ -26,87 +26,13 @@ import { ITTestGroupsDto } from '../../ipc/dtos/ITTestGroupsDto'
 import { NonParametricTestDataDto } from '../../ipc/dtos/NonParametricTestDataDto'
 import { InferenceChiSquareCategories } from '../enums'
 import { HistologyTypeMapper } from '../mappers/HistologyTypeMapper'
-
-// Helper to run a query and return a promise
-const runQuery = <T>(
-    query: string,
-    params: unknown[] = []
-): Promise<T | undefined> => {
-    return new Promise((resolve, reject) => {
-        db.get(query, params, (err, row) => {
-            if (err) reject(err)
-            else resolve(row as T | undefined)
-        })
-    })
-}
-
-const runQueryAll = <T>(
-    query: string,
-    params: unknown[] = []
-): Promise<T[]> => {
-    return new Promise((resolve, reject) => {
-        db.all(query, params, (err, rows) => {
-            if (err) reject(err)
-            else resolve(rows as T[])
-        })
-    })
-}
-
-const runInsert = (
-    tableName: string,
-    data: Record<string, unknown>
-): Promise<number> => {
-    return new Promise((resolve, reject) => {
-        const columns = Object.keys(data).filter(
-            (key) => data[key] !== undefined
-        )
-        const values = columns.map((key) => data[key])
-        const placeholders = columns.map(() => '?').join(', ')
-
-        const query = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`
-
-        db.run(query, values, function (err) {
-            if (err) reject(err)
-            else resolve(this.lastID)
-        })
-    })
-}
-
-const runUpdate = (
-    tableName: string,
-    id: number,
-    data: Record<string, unknown>,
-    idColumn = 'id'
-): Promise<number> => {
-    return new Promise((resolve, reject) => {
-        const columns = Object.keys(data).filter(
-            (key) => key !== idColumn && data[key] !== undefined
-        )
-        const values = columns.map((key) => data[key])
-        const setClause = columns.map((col) => `${col} = ?`).join(', ')
-
-        const query = `UPDATE ${tableName} SET ${setClause} WHERE ${idColumn} = ?`
-
-        db.run(query, [...values, id], function (err) {
-            if (err) reject(err)
-            else resolve(this.changes)
-        })
-    })
-}
-
-const runDelete = (
-    tableName: string,
-    id: number,
-    idColumn = 'id'
-): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const query = `DELETE FROM ${tableName} WHERE ${idColumn} = ?`
-        db.run(query, [id], (err) => {
-            if (err) reject(err)
-            else resolve()
-        })
-    })
-}
+import {
+    runQuery,
+    runQueryAll,
+    runInsert,
+    runUpdate,
+    runDelete,
+} from './dbHelpers'
 
 // =============================================
 // CRUD Operations

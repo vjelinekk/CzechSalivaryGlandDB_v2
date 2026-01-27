@@ -1,109 +1,16 @@
 import { NewTableNames } from '../constants'
-import db from '../dbManager'
-import { decryptPatientData } from '../utils/patientEncryption'
 import { StudyDto } from '../../ipc/dtos/StudyDto'
 import { PatientInStudyDto } from '../../ipc/dtos/PatientInStudyDto'
-import { PatientDto } from '../../ipc/dtos/PatientDto'
 import { StudyMapper } from '../mappers/StudyMapper'
 import { StudyEntity } from '../db-entities/StudyEntity'
-
-// Helper to run a query and return a single row
-const runQuery = <T>(
-    query: string,
-    params: unknown[] = []
-): Promise<T | undefined> => {
-    return new Promise((resolve, reject) => {
-        db.get(query, params, (err, row) => {
-            if (err) reject(err)
-            else resolve(row as T | undefined)
-        })
-    })
-}
-
-// Helper to run a query and return all rows
-const runQueryAll = <T>(
-    query: string,
-    params: unknown[] = []
-): Promise<T[]> => {
-    return new Promise((resolve, reject) => {
-        db.all(query, params, (err, rows) => {
-            if (err) reject(err)
-            else resolve(rows as T[])
-        })
-    })
-}
-
-// Helper to run a delete query with custom conditions
-const runDeleteWhere = (
-    tableName: string,
-    conditions: { column: string; value: unknown }[]
-): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const whereClause = conditions
-            .map((c) => `${c.column} = ?`)
-            .join(' AND ')
-        const values = conditions.map((c) => c.value)
-        const query = `DELETE FROM ${tableName} WHERE ${whereClause}`
-        db.run(query, values, (err) => {
-            if (err) reject(err)
-            else resolve()
-        })
-    })
-}
-
-// Helper to run an insert
-const runInsert = (
-    tableName: string,
-    data: Record<string, unknown>
-): Promise<number> => {
-    return new Promise((resolve, reject) => {
-        const columns = Object.keys(data).filter(
-            (key) => data[key] !== undefined
-        )
-        const values = columns.map((key) => data[key])
-        const placeholders = columns.map(() => '?').join(', ')
-
-        const query = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders})`
-
-        db.run(query, values, function (err) {
-            if (err) reject(err)
-            else resolve(this.lastID)
-        })
-    })
-}
-
-// Helper to run an update
-const runUpdate = (
-    tableName: string,
-    id: number,
-    data: Record<string, unknown>
-): Promise<number> => {
-    return new Promise((resolve, reject) => {
-        const columns = Object.keys(data).filter(
-            (key) => key !== 'id' && data[key] !== undefined
-        )
-        const values = columns.map((key) => data[key])
-        const setClause = columns.map((col) => `${col} = ?`).join(', ')
-
-        const query = `UPDATE ${tableName} SET ${setClause} WHERE id = ?`
-
-        db.run(query, [...values, id], function (err) {
-            if (err) reject(err)
-            else resolve(this.changes)
-        })
-    })
-}
-
-// Helper to run a delete by ID
-const runDelete = (tableName: string, id: number): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const query = `DELETE FROM ${tableName} WHERE id = ?`
-        db.run(query, [id], (err) => {
-            if (err) reject(err)
-            else resolve()
-        })
-    })
-}
+import {
+    runQuery,
+    runQueryAll,
+    runInsert,
+    runUpdate,
+    runDelete,
+    runDeleteWhere,
+} from './dbHelpers'
 
 export const insertStudy = async (data: StudyDto): Promise<number | null> => {
     try {
