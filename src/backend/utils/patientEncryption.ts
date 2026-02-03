@@ -1,4 +1,4 @@
-import { decrypt, encrypt } from '../encryption'
+import { decrypt, encrypt } from './encryption'
 import { PatientDto } from '../../ipc/dtos/PatientDto'
 
 export const decryptPatientData = (patientData: PatientDto[]): PatientDto[] => {

@@ -1,4 +1,4 @@
-import { NewTableNames, FormType } from '../constants'
+import { TableNames, FormType } from '../constants'
 import db from '../dbManager'
 import {
     encryptPatientData,
@@ -53,14 +53,14 @@ export const insertPatient = async (
                 db.run('BEGIN TRANSACTION')
 
                 // 1. Insert base patient
-                runInsert(NewTableNames.patient, { ...mapped.base })
+                runInsert(TableNames.patient, { ...mapped.base })
                     .then((patientId) => {
                         const insertPromises: Promise<unknown>[] = []
 
                         // 2. Insert malignant-specific
                         if (mapped.malignant) {
                             insertPromises.push(
-                                runInsert(NewTableNames.malignantPatient, {
+                                runInsert(TableNames.malignantPatient, {
                                     ...mapped.malignant,
                                     id_patient: patientId,
                                 })
@@ -70,7 +70,7 @@ export const insertPatient = async (
                         // 3. Insert benign-specific
                         if (mapped.benign) {
                             insertPromises.push(
-                                runInsert(NewTableNames.benignPatient, {
+                                runInsert(TableNames.benignPatient, {
                                     ...mapped.benign,
                                     id_patient: patientId,
                                 })
@@ -80,19 +80,16 @@ export const insertPatient = async (
                         // 4. Insert location-specific (parotid/submandibular)
                         if (mapped.malignantParotid) {
                             insertPromises.push(
-                                runInsert(
-                                    NewTableNames.malignantParotidSpecific,
-                                    {
-                                        ...mapped.malignantParotid,
-                                        id_malignant_patient: patientId,
-                                    }
-                                )
+                                runInsert(TableNames.malignantParotidSpecific, {
+                                    ...mapped.malignantParotid,
+                                    id_malignant_patient: patientId,
+                                })
                             )
                         }
                         if (mapped.malignantSubmandibular) {
                             insertPromises.push(
                                 runInsert(
-                                    NewTableNames.malignantSubmandibularSpecific,
+                                    TableNames.malignantSubmandibularSpecific,
                                     {
                                         ...mapped.malignantSubmandibular,
                                         id_malignant_patient: patientId,
@@ -104,7 +101,7 @@ export const insertPatient = async (
                         // 5. Insert biopsy results
                         if (mapped.coreBiopsyResult) {
                             insertPromises.push(
-                                runInsert(NewTableNames.biopsyResult, {
+                                runInsert(TableNames.biopsyResult, {
                                     ...mapped.coreBiopsyResult,
                                     id_patient: patientId,
                                 })
@@ -112,7 +109,7 @@ export const insertPatient = async (
                         }
                         if (mapped.openBiopsyResult) {
                             insertPromises.push(
-                                runInsert(NewTableNames.biopsyResult, {
+                                runInsert(TableNames.biopsyResult, {
                                     ...mapped.openBiopsyResult,
                                     id_patient: patientId,
                                 })
@@ -122,7 +119,7 @@ export const insertPatient = async (
                         // 6. Insert histopathology
                         if (mapped.histopathologyResult) {
                             insertPromises.push(
-                                runInsert(NewTableNames.histopathology, {
+                                runInsert(TableNames.histopathology, {
                                     ...mapped.histopathologyResult,
                                     id_patient: patientId,
                                 })
@@ -132,7 +129,7 @@ export const insertPatient = async (
                         // 7. Insert staging
                         if (mapped.patientStaging) {
                             insertPromises.push(
-                                runInsert(NewTableNames.patientStaging, {
+                                runInsert(TableNames.patientStaging, {
                                     ...mapped.patientStaging,
                                     id_patient: patientId,
                                 })
@@ -142,7 +139,7 @@ export const insertPatient = async (
                         // 8. Insert attachments
                         for (const attachment of mapped.attachments) {
                             insertPromises.push(
-                                runInsert(NewTableNames.attachment, {
+                                runInsert(TableNames.attachment, {
                                     ...attachment,
                                     id_patient: patientId,
                                 })
@@ -191,7 +188,7 @@ export const updatePatient = async (
 
                 // 1. Update base patient
                 updatePromises.push(
-                    runUpdate(NewTableNames.patient, patientId, {
+                    runUpdate(TableNames.patient, patientId, {
                         ...mapped.base,
                     })
                 )
@@ -200,11 +197,11 @@ export const updatePatient = async (
                 if (mapped.malignant) {
                     updatePromises.push(
                         runDelete(
-                            NewTableNames.malignantPatient,
+                            TableNames.malignantPatient,
                             patientId,
                             'id_patient'
                         ).then(() =>
-                            runInsert(NewTableNames.malignantPatient, {
+                            runInsert(TableNames.malignantPatient, {
                                 ...mapped.malignant,
                                 id_patient: patientId,
                             })
@@ -216,11 +213,11 @@ export const updatePatient = async (
                 if (mapped.benign) {
                     updatePromises.push(
                         runDelete(
-                            NewTableNames.benignPatient,
+                            TableNames.benignPatient,
                             patientId,
                             'id_patient'
                         ).then(() =>
-                            runInsert(NewTableNames.benignPatient, {
+                            runInsert(TableNames.benignPatient, {
                                 ...mapped.benign,
                                 id_patient: patientId,
                             })
@@ -232,11 +229,11 @@ export const updatePatient = async (
                 if (mapped.malignantParotid) {
                     updatePromises.push(
                         runDelete(
-                            NewTableNames.malignantParotidSpecific,
+                            TableNames.malignantParotidSpecific,
                             patientId,
                             'id_malignant_patient'
                         ).then(() =>
-                            runInsert(NewTableNames.malignantParotidSpecific, {
+                            runInsert(TableNames.malignantParotidSpecific, {
                                 ...mapped.malignantParotid,
                                 id_malignant_patient: patientId,
                             })
@@ -246,12 +243,12 @@ export const updatePatient = async (
                 if (mapped.malignantSubmandibular) {
                     updatePromises.push(
                         runDelete(
-                            NewTableNames.malignantSubmandibularSpecific,
+                            TableNames.malignantSubmandibularSpecific,
                             patientId,
                             'id_malignant_patient'
                         ).then(() =>
                             runInsert(
-                                NewTableNames.malignantSubmandibularSpecific,
+                                TableNames.malignantSubmandibularSpecific,
                                 {
                                     ...mapped.malignantSubmandibular,
                                     id_malignant_patient: patientId,
@@ -264,13 +261,13 @@ export const updatePatient = async (
                 // 5. Replace biopsy results
                 updatePromises.push(
                     runQueryAll(
-                        `DELETE FROM ${NewTableNames.biopsyResult} WHERE id_patient = ?`,
+                        `DELETE FROM ${TableNames.biopsyResult} WHERE id_patient = ?`,
                         [patientId]
                     ).then(() => {
                         const biopsyInserts: Promise<unknown>[] = []
                         if (mapped.coreBiopsyResult) {
                             biopsyInserts.push(
-                                runInsert(NewTableNames.biopsyResult, {
+                                runInsert(TableNames.biopsyResult, {
                                     ...mapped.coreBiopsyResult,
                                     id_patient: patientId,
                                 })
@@ -278,7 +275,7 @@ export const updatePatient = async (
                         }
                         if (mapped.openBiopsyResult) {
                             biopsyInserts.push(
-                                runInsert(NewTableNames.biopsyResult, {
+                                runInsert(TableNames.biopsyResult, {
                                     ...mapped.openBiopsyResult,
                                     id_patient: patientId,
                                 })
@@ -291,12 +288,12 @@ export const updatePatient = async (
                 // 6. Replace histopathology
                 updatePromises.push(
                     runDelete(
-                        NewTableNames.histopathology,
+                        TableNames.histopathology,
                         patientId,
                         'id_patient'
                     ).then(() => {
                         if (mapped.histopathologyResult) {
-                            return runInsert(NewTableNames.histopathology, {
+                            return runInsert(TableNames.histopathology, {
                                 ...mapped.histopathologyResult,
                                 id_patient: patientId,
                             })
@@ -307,12 +304,12 @@ export const updatePatient = async (
                 // 7. Replace staging
                 updatePromises.push(
                     runDelete(
-                        NewTableNames.patientStaging,
+                        TableNames.patientStaging,
                         patientId,
                         'id_patient'
                     ).then(() => {
                         if (mapped.patientStaging) {
-                            return runInsert(NewTableNames.patientStaging, {
+                            return runInsert(TableNames.patientStaging, {
                                 ...mapped.patientStaging,
                                 id_patient: patientId,
                             })
@@ -323,12 +320,12 @@ export const updatePatient = async (
                 // 8. Replace attachments
                 updatePromises.push(
                     runQueryAll(
-                        `DELETE FROM ${NewTableNames.attachment} WHERE id_patient = ?`,
+                        `DELETE FROM ${TableNames.attachment} WHERE id_patient = ?`,
                         [patientId]
                     ).then(() => {
                         return Promise.all(
                             mapped.attachments.map((attachment) =>
-                                runInsert(NewTableNames.attachment, {
+                                runInsert(TableNames.attachment, {
                                     ...attachment,
                                     id_patient: patientId,
                                 })
@@ -381,7 +378,7 @@ export const getPatient = async (id: number): Promise<PatientDto | null> => {
     try {
         // Get base patient
         const patient = await runQuery<PatientEntity>(
-            `SELECT * FROM ${NewTableNames.patient} WHERE id = ?`,
+            `SELECT *FROM ${TableNames.patient} WHERE id = ?`,
             [id]
         )
 
@@ -399,35 +396,35 @@ export const getPatient = async (id: number): Promise<PatientDto | null> => {
             attachments,
         ] = await Promise.all([
             runQuery<MalignantPatientEntity>(
-                `SELECT * FROM ${NewTableNames.malignantPatient} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.malignantPatient} WHERE id_patient = ?`,
                 [id]
             ),
             runQuery<BenignPatientEntity>(
-                `SELECT * FROM ${NewTableNames.benignPatient} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.benignPatient} WHERE id_patient = ?`,
                 [id]
             ),
             runQuery<MalignantParotidSpecificEntity>(
-                `SELECT * FROM ${NewTableNames.malignantParotidSpecific} WHERE id_malignant_patient = ?`,
+                `SELECT *FROM ${TableNames.malignantParotidSpecific} WHERE id_malignant_patient = ?`,
                 [id]
             ),
             runQuery<MalignantSubmandibularSpecificEntity>(
-                `SELECT * FROM ${NewTableNames.malignantSubmandibularSpecific} WHERE id_malignant_patient = ?`,
+                `SELECT *FROM ${TableNames.malignantSubmandibularSpecific} WHERE id_malignant_patient = ?`,
                 [id]
             ),
             runQueryAll<BiopsyResultEntity>(
-                `SELECT * FROM ${NewTableNames.biopsyResult} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.biopsyResult} WHERE id_patient = ?`,
                 [id]
             ),
             runQuery<HistopathologyEntity>(
-                `SELECT * FROM ${NewTableNames.histopathology} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.histopathology} WHERE id_patient = ?`,
                 [id]
             ),
             runQuery<PatientStagingEntity>(
-                `SELECT * FROM ${NewTableNames.patientStaging} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.patientStaging} WHERE id_patient = ?`,
                 [id]
             ),
             runQueryAll<AttachmentEntity>(
-                `SELECT * FROM ${NewTableNames.attachment} WHERE id_patient = ?`,
+                `SELECT *FROM ${TableNames.attachment} WHERE id_patient = ?`,
                 [id]
             ),
         ])
@@ -480,7 +477,7 @@ export const deletePatient = async (data: PatientDto): Promise<boolean> => {
     try {
         const patientId = data.id as number
         // CASCADE will handle related tables
-        await runDelete(NewTableNames.patient, patientId)
+        await runDelete(TableNames.patient, patientId)
         return true
     } catch (err) {
         console.error('Error deleting patient:', err)
@@ -501,7 +498,7 @@ const fetchFullPatients = async (ids: number[]): Promise<PatientDto[]> => {
 export const getAllPatients = async (): Promise<PatientDto[]> => {
     try {
         const patients = await runQueryAll<PatientEntity>(
-            `SELECT id FROM ${NewTableNames.patient}`
+            `SELECT id FROM ${TableNames.patient}`
         )
 
         const ids = patients.map((p) => p.id)
@@ -517,8 +514,8 @@ export const getPatientsInStudy = async (
 ): Promise<PatientDto[]> => {
     const query = `
         SELECT p.*
-        FROM ${NewTableNames.patient} p
-        INNER JOIN ${NewTableNames.isInStudy} iis ON p.id = iis.id_patient
+        FROM ${TableNames.patient} p
+        INNER JOIN ${TableNames.isInStudy} iis ON p.id = iis.id_patient
         WHERE iis.id_study = ?
     `
 
@@ -539,7 +536,7 @@ export const getPatientsByType = async (
         const { tumorType, tumorLocation } = formTypeToTumorInfo(formType)
 
         const patients = await runQueryAll<PatientEntity>(
-            `SELECT id FROM ${NewTableNames.patient} WHERE tumor_type = ? AND tumor_location = ?`,
+            `SELECT id FROM ${TableNames.patient} WHERE tumor_type = ?AND tumor_location = ?`,
             [tumorType, tumorLocation]
         )
 
@@ -556,12 +553,12 @@ export const getFilteredPatients = async (
     idStudie?: number
 ): Promise<PatientDto[] | null> => {
     try {
-        let query = `SELECT p.id FROM ${NewTableNames.patient} p`
+        let query = `SELECT p.id FROM ${TableNames.patient} p`
         const params: unknown[] = []
 
         // Join with study if filtering by study
         if (idStudie) {
-            query += ` JOIN ${NewTableNames.isInStudy} s ON p.id = s.id_patient WHERE s.id_study = ?`
+            query += ` JOIN ${TableNames.isInStudy} s ON p.id = s.id_patient WHERE s.id_study = ?`
             params.push(idStudie)
         } else {
             query += ' WHERE 1=1'
@@ -629,7 +626,7 @@ export const searchPatientsByNameSurnameRC = async (
 ): Promise<PatientDto[] | null> => {
     try {
         const query = `
-            SELECT id FROM ${NewTableNames.patient}
+            SELECT id FROM ${TableNames.patient}
             WHERE name || ' ' || surname LIKE ?
             OR personal_identification_number LIKE ?
         `
@@ -657,7 +654,7 @@ export const getPlannedPatientsBetweenDates = async (
         const endDateFormatted = endDate.toISOString().split('T')[0]
 
         const query = `
-            SELECT id FROM ${NewTableNames.patient}
+            SELECT id FROM ${TableNames.patient}
             WHERE next_follow_up BETWEEN ? AND ?
         `
 
@@ -706,9 +703,9 @@ export const getKaplanMeierData = async (
                     SELECT p.diagnosis_year as rok_diagnozy,
                            p.death_date as datum_umrti,
                            p.last_follow_up as posledni_kontrola
-                    FROM ${NewTableNames.patient} p
-                    JOIN ${NewTableNames.histopathology} h ON p.id = h.id_patient
-                    JOIN ${NewTableNames.histologyType} ht ON h.id_histology_type = ht.id
+                    FROM ${TableNames.patient} p
+                    JOIN ${TableNames.histopathology} h ON p.id = h.id_patient
+                    JOIN ${TableNames.histologyType} ht ON h.id_histology_type = ht.id
                     WHERE ht.id = ? AND p.tumor_type = 'malignant'
                 `
             } else {
@@ -716,9 +713,9 @@ export const getKaplanMeierData = async (
                     SELECT p.diagnosis_year as rok_diagnozy,
                            p.date_of_recidive as datum_prokazani_recidivy,
                            p.last_follow_up as posledni_kontrola
-                    FROM ${NewTableNames.patient} p
-                    JOIN ${NewTableNames.histopathology} h ON p.id = h.id_patient
-                    JOIN ${NewTableNames.histologyType} ht ON h.id_histology_type = ht.id
+                    FROM ${TableNames.patient} p
+                    JOIN ${TableNames.histopathology} h ON p.id = h.id_patient
+                    JOIN ${TableNames.histologyType} ht ON h.id_histology_type = ht.id
                     WHERE ht.id = ? AND p.tumor_type = 'malignant'
                 `
             }
@@ -848,7 +845,7 @@ const getChiSquareCount = async (
         allConditions.length > 0 ? ' AND ' + allConditions.join(' AND ') : ''
     const params = [...rowFilters.params, ...colFilters.params]
 
-    const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${NewTableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant'${whereClause}`
+    const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${TableNames.patient} p ${joinClause}WHERE p.tumor_type = 'malignant' ${whereClause}`
 
     const result = await runQuery<{ count: number }>(query, params)
     return result?.count ?? 0
@@ -886,8 +883,8 @@ const buildCategoryFilter = (
         case InferenceChiSquareCategories.histologicalTypes:
             return {
                 joins: [
-                    `JOIN ${NewTableNames.histopathology} hp ON hp.id_patient = p.id`,
-                    `JOIN ${NewTableNames.histologyType} ht ON ht.id = hp.id_histology_type`,
+                    `JOIN ${TableNames.histopathology} hp ON hp.id_patient = p.id`,
+                    `JOIN ${TableNames.histologyType} ht ON ht.id = hp.id_histology_type`,
                 ],
                 condition: `ht.translation_key IN (${placeholders})`,
                 params: converted,
@@ -895,8 +892,8 @@ const buildCategoryFilter = (
         case InferenceChiSquareCategories.tClassification:
             return {
                 joins: [
-                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
-                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_t ON tvd_t.id = ps.clinical_t_id`,
+                    `JOIN ${TableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${TableNames.tnmValueDefinition} tvd_t ON tvd_t.id = ps.clinical_t_id`,
                 ],
                 condition: `tvd_t.code IN (${placeholders})`,
                 params: converted,
@@ -904,8 +901,8 @@ const buildCategoryFilter = (
         case InferenceChiSquareCategories.nClassification:
             return {
                 joins: [
-                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
-                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_n ON tvd_n.id = ps.clinical_n_id`,
+                    `JOIN ${TableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${TableNames.tnmValueDefinition} tvd_n ON tvd_n.id = ps.clinical_n_id`,
                 ],
                 condition: `tvd_n.code IN (${placeholders})`,
                 params: converted,
@@ -913,8 +910,8 @@ const buildCategoryFilter = (
         case InferenceChiSquareCategories.mClassification:
             return {
                 joins: [
-                    `JOIN ${NewTableNames.patientStaging} ps ON ps.id_patient = p.id`,
-                    `JOIN ${NewTableNames.tnmValueDefinition} tvd_m ON tvd_m.id = ps.clinical_m_id`,
+                    `JOIN ${TableNames.patientStaging} ps ON ps.id_patient = p.id`,
+                    `JOIN ${TableNames.tnmValueDefinition} tvd_m ON tvd_m.id = ps.clinical_m_id`,
                 ],
                 condition: `tvd_m.code IN (${placeholders})`,
                 params: converted,
@@ -999,7 +996,7 @@ const getTTestGroupData = async (group: {
             ? ' AND ' + filters.conditions.join(' AND ')
             : ''
 
-    const query = `SELECT DISTINCT p.id FROM ${NewTableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant'${whereClause}`
+    const query = `SELECT DISTINCT p.id FROM ${TableNames.patient} p ${joinClause}WHERE p.tumor_type = 'malignant' ${whereClause}`
 
     const patients = await runQueryAll<PatientEntity>(query, filters.params)
 

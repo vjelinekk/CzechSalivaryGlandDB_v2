@@ -1,5 +1,8 @@
 import { ipcMain } from 'electron'
-import { generateEncryptionKey, setEncryptionKey } from '../backend/encryption'
+import {
+    generateEncryptionKey,
+    setEncryptionKey,
+} from '../backend/utils/encryption'
 import {
     insertPassword,
     insertPasswordRow,

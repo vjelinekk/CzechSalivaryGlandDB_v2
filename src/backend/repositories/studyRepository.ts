@@ -1,4 +1,4 @@
-import { NewTableNames } from '../constants'
+import { TableNames } from '../constants'
 import { StudyDto } from '../../ipc/dtos/StudyDto'
 import { PatientInStudyDto } from '../../ipc/dtos/PatientInStudyDto'
 import { StudyMapper } from '../mappers/StudyMapper'
@@ -15,7 +15,7 @@ import {
 export const insertStudy = async (data: StudyDto): Promise<number | null> => {
     try {
         const entity = StudyMapper.toPersistence(data)
-        return await runInsert(NewTableNames.study, { ...entity })
+        return await runInsert(TableNames.study, { ...entity })
     } catch (err) {
         return null
     }
@@ -24,7 +24,7 @@ export const insertStudy = async (data: StudyDto): Promise<number | null> => {
 export const updateStudy = async (data: StudyDto): Promise<number | null> => {
     try {
         const entity = StudyMapper.toPersistence(data)
-        await runUpdate(NewTableNames.study, data.id as number, { ...entity })
+        await runUpdate(TableNames.study, data.id as number, { ...entity })
         return data.id as number
     } catch (err) {
         return null
@@ -33,7 +33,7 @@ export const updateStudy = async (data: StudyDto): Promise<number | null> => {
 
 export const saveStudy = async (data: StudyDto): Promise<number | null> => {
     const existingStudy = await runQuery<StudyEntity>(
-        `SELECT * FROM ${NewTableNames.study} WHERE id = ?`,
+        `SELECT *FROM ${TableNames.study} WHERE id = ?`,
         [data.id]
     )
     if (existingStudy) {
@@ -47,7 +47,7 @@ export const insertPatientToStudy = async (
     data: PatientInStudyDto
 ): Promise<boolean> => {
     try {
-        await runInsert(NewTableNames.isInStudy, {
+        await runInsert(TableNames.isInStudy, {
             id_study: data.id_study,
             id_patient: data.id_patient,
         })
@@ -63,7 +63,7 @@ export const updatePatientsStudies = async (
 ): Promise<boolean> => {
     try {
         // Delete all existing study associations for this patient
-        await runDeleteWhere(NewTableNames.isInStudy, [
+        await runDeleteWhere(TableNames.isInStudy, [
             { column: 'id_patient', value: patientId },
         ])
 
@@ -85,7 +85,7 @@ export const updatePatientsStudies = async (
 export const getStudies = async (): Promise<StudyDto[]> => {
     try {
         const entities = await runQueryAll<StudyEntity>(
-            `SELECT * FROM ${NewTableNames.study}`
+            `SELECT * FROM ${TableNames.study}`
         )
         return StudyMapper.toDtoList(entities)
     } catch (err) {
@@ -98,7 +98,7 @@ export const getStudiesByFormType = async (
 ): Promise<StudyDto[]> => {
     // Study type 4 is "special" which includes all form types
     const query = `
-        SELECT * FROM ${NewTableNames.study}
+        SELECT * FROM ${TableNames.study}
         WHERE study_type = ? OR study_type = 4
     `
     try {
@@ -114,8 +114,8 @@ export const getStudiesByPatientId = async (
 ): Promise<StudyDto[]> => {
     const query = `
         SELECT s.*
-        FROM ${NewTableNames.study} s
-        INNER JOIN ${NewTableNames.isInStudy} iis ON s.id = iis.id_study
+        FROM ${TableNames.study} s
+        INNER JOIN ${TableNames.isInStudy} iis ON s.id = iis.id_study
         WHERE iis.id_patient = ?
     `
 
@@ -131,7 +131,7 @@ export const deletePatientFromAllStudies = async (
     patientId: number
 ): Promise<boolean> => {
     try {
-        await runDeleteWhere(NewTableNames.isInStudy, [
+        await runDeleteWhere(TableNames.isInStudy, [
             { column: 'id_patient', value: patientId },
         ])
         return true
@@ -145,7 +145,7 @@ export const deletePatientFromStudy = async (
     patientId: number
 ): Promise<boolean> => {
     try {
-        await runDeleteWhere(NewTableNames.isInStudy, [
+        await runDeleteWhere(TableNames.isInStudy, [
             { column: 'id_study', value: studyId },
             { column: 'id_patient', value: patientId },
         ])
@@ -158,7 +158,7 @@ export const deletePatientFromStudy = async (
 export const deleteStudy = async (data: StudyDto): Promise<boolean> => {
     const id = data.id as number
     try {
-        await runDelete(NewTableNames.study, id)
+        await runDelete(TableNames.study, id)
         // Note: is_in_study entries will be deleted automatically via CASCADE
         return true
     } catch (err) {

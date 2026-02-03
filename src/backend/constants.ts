@@ -1,14 +1,3 @@
-export enum TableNames {
-    submandibularMalignant = 'form_podcelistni',
-    sublingualMalignant = 'form_podjazykove',
-    parotidMalignant = 'form_priusni',
-    submandibularBenign = 'form_submandibular_benign',
-    parotidBenign = 'form_parotid_benign',
-    study = 'study',
-    isInStudy = 'is_in_study',
-    password = 'password',
-}
-
 export enum FormType {
     submandibularMalignant = 1,
     sublingualMalignant = 2,
@@ -17,8 +6,7 @@ export enum FormType {
     parotidBenign = 5,
 }
 
-// New ERA model table names
-export enum NewTableNames {
+export enum TableNames {
     patient = 'patient',
     malignantPatient = 'malignant_patient',
     benignPatient = 'benign_patient',
