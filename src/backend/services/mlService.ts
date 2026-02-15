@@ -45,7 +45,7 @@ const sanitizePatientForML = (patient: PatientDto): MLPatient => {
         clinical_n_id: toNum(patient.n_klasifikace_klinicka_id),
         pathological_n_id: toNum(patient.n_klasifikace_patologicka_id),
         is_alive: patient.stav === 'Žije',
-        diagnosis_year: patient.rok_diagnozy,
+        diagnosis_year: patient.rok_diagnozy ? patient.rok_diagnozy.substring(0, 4) : undefined,
         death_date: patient.datum_umrti,
         last_follow_up: patient.posledni_kontrola,
         recidive: patient.recidiva === 'Ano',

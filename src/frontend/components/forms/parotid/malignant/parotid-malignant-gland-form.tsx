@@ -19,6 +19,7 @@ import { useGlandForm } from '../../../../hooks/use-gland-form'
 import EditResult from '../../edit-result'
 import AvailableStudies from '../../available-studies'
 import FormHeader from '../../form-header'
+import PatientRiskCard from '../../../patient-risk-card'
 
 const ParotidMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -119,6 +120,12 @@ const ParotidMalignantGlandForm: React.FC<GlandFormProps> = ({
                 setSelectedStudies={setSelectedStudies}
                 disabled={formState === FormStates.view}
             />
+            {formState !== FormStates.add && (
+                <PatientRiskCard
+                    patient={formData}
+                    disabled={formState === FormStates.edit} // Only allow calculation in view mode or maybe edit? Actually view mode is safer.
+                />
+            )}
             <AddPatientButton
                 formState={formState}
                 selectedStudies={selectedStudies}

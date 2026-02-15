@@ -845,7 +845,7 @@ const getChiSquareCount = async (
         allConditions.length > 0 ? ' AND ' + allConditions.join(' AND ') : ''
     const params = [...rowFilters.params, ...colFilters.params]
 
-    const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${TableNames.patient} p ${joinClause}WHERE p.tumor_type = 'malignant' ${whereClause}`
+    const query = `SELECT COUNT(DISTINCT p.id) as count FROM ${TableNames.patient} p ${joinClause} WHERE p.tumor_type = 'malignant' ${whereClause}`
 
     const result = await runQuery<{ count: number }>(query, params)
     return result?.count ?? 0

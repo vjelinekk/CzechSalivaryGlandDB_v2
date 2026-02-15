@@ -30,6 +30,7 @@ import '../css/table.css'
 import PlannedChecks from './planned-checks'
 import DescriptiveStatistics from './statistics/descriptive-statistics/descriptive-statistics'
 import InferenceStatistics from './statistics/inference-statistics/inference-statistics'
+import MlRiskScoring from './statistics/ml-risk-scoring/ml-risk-scoring'
 
 const app = () => {
     const { activeComponent, setActiveComponent } = useActiveComponent(
@@ -143,6 +144,9 @@ const app = () => {
             )}
             {activeComponent.component === Components.inferenceStatistics && (
                 <InferenceStatistics />
+            )}
+            {activeComponent.component === Components.mlRiskScoring && (
+                <MlRiskScoring />
             )}
             {activeComponent.component === Components.setLanguage && (
                 <SetLanguage />

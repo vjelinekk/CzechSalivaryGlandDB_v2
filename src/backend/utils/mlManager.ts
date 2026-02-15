@@ -18,19 +18,19 @@ export const getModelsDirectory = (): string => {
 
 /**
  * Resolves the path to the Python ML engine.
- * In development, it points to the .py script.
- * In production, it points to the bundled executable.
+ * In development, it points to the compiled binary in python-ml-engine/dist.
+ * In production, it points to the bundled executable in extraResources.
  */
 export const getPythonBinaryPath = (): string => {
+    const binaryName = process.platform === 'win32' ? 'ml_engine.exe' : 'ml_engine';
+    
     if (app.isPackaged) {
         // In production, the binary is expected to be in the resources/ml_engine folder
-        // (added via extraResource in forge.config.ts)
         const base = app.getAppPath().replace(`${path.sep}app.asar`, '');
-        const binaryName = process.platform === 'win32' ? 'ml_engine.exe' : 'ml_engine';
         return path.join(base, 'ml_engine', binaryName);
     } else {
-        // In development, we use the python script directly from the project root
-        return path.join(app.getAppPath(), 'python-ml-engine', 'ml_engine.py');
+        // In development, we use the compiled binary from the dist folder
+        return path.join(app.getAppPath(), 'python-ml-engine', 'dist', binaryName);
     }
 };
 
@@ -40,18 +40,15 @@ export const getPythonBinaryPath = (): string => {
  */
 export const executePythonML = async (inputData: MLInputData): Promise<MLOutputData> => {
     return new Promise((resolve, reject) => {
-        const pythonPath = getPythonBinaryPath();
-        let child;
-
-        if (app.isPackaged) {
-            // In production, we run the compiled binary
-            child = spawn(pythonPath, []);
-        } else {
-            // In development, we run the script using python3
-            // Note: On Windows development, this might need to be 'python' 
-            const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
-            child = spawn(pythonCmd, [pythonPath]);
+        const binaryPath = getPythonBinaryPath();
+        
+        if (!fs.existsSync(binaryPath)) {
+            reject(new Error(`ML Engine binary not found at: ${binaryPath}. Please run the build script in python-ml-engine first.`));
+            return;
         }
+
+        // We always spawn the binary directly
+        const child = spawn(binaryPath, []);
 
         let stdout = '';
         let stderr = '';
