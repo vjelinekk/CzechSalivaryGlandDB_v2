@@ -15,6 +15,7 @@ import {
     ipcExportChannels,
     ipcFSChannels,
     ipcImportChannels,
+    ipcMLChannels,
 } from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
@@ -227,4 +228,13 @@ contextBridge.exposeInMainWorld('backUp', {
     loadBackUp: () => {
         return ipcRenderer.invoke(ipcBackUpChannels.loadBackUp)
     },
+})
+
+contextBridge.exposeInMainWorld('ml', {
+    trainModel: (modelType: 'overall_survival' | 'recurrence', algorithm: 'rsf' | 'coxph') =>
+        ipcRenderer.invoke(ipcMLChannels.trainModel, [modelType, algorithm]),
+    calculateRiskScore: (patient: PatientType, modelType: 'overall_survival' | 'recurrence', algorithm?: 'rsf' | 'coxph') =>
+        ipcRenderer.invoke(ipcMLChannels.calculateRiskScore, [patient, modelType, algorithm]),
+    getModelInfo: (modelType?: string) =>
+        ipcRenderer.invoke(ipcMLChannels.getModelInfo, modelType),
 })
