@@ -3,7 +3,7 @@ import {
     ipcAPIDeleteChannels,
     ipcAPISaveChannels,
 } from '../../../ipc/ipcChannels'
-import { FormStates } from '../../constants'
+import { FormStates, FormType } from '../../constants'
 import { EditSavedState, PatientType, Study } from '../../types'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import { formTranslationKeys } from '../../translations'
+import { formTypeToDto, studyArrayToDto } from '../../mappers/enumMappers'
 import { Box, Card } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import ChevronRight from '@mui/icons-material/ChevronRight'
@@ -77,10 +78,9 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     }
 
     const handleDeleteClick = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(formData))
         const result = await window.api.delete(
             ipcAPIDeleteChannels.deletePatient,
-            JSONdata
+            formData
         )
 
         if (result) {
@@ -118,19 +118,17 @@ const EditButtons: React.FC<EditButtonsProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        const JSONdata = JSON.parse(JSON.stringify(formData))
-        console.log(JSONdata)
         const result = await window.api.save(
             ipcAPISaveChannels.savePatient,
-            JSONdata
+            formData
         )
         console.log(result)
 
         if (studiesChanged) {
             const updated = await window.api.updatePatientsStudies(
                 formData.id,
-                formData.form_type,
-                selectedStudies
+                formTypeToDto[formData.form_type as FormType],
+                studyArrayToDto(selectedStudies)
             )
             console.log(updated)
         }
@@ -152,6 +150,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 id="editButtons"
                 sx={{
                     display: 'flex',
+                    flexDirection: 'row-reverse', // Toggle on the right
                     alignItems: 'center',
                     padding: 1,
                     gap: 1,
@@ -162,6 +161,10 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                     sx={{
                         minWidth: 0,
                         padding: 0.5,
+                        // Match ML button exactly
+                        width: '32px !important',
+                        height: '32px !important',
+                        margin: '0 !important',
                     }}
                     disableRipple
                     variant={!expand ? 'contained' : 'text'}
@@ -188,6 +191,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                     onClick={handleCancelButtonClick}
                                     color="secondary"
                                     disableRipple
+                                    sx={{ margin: '0 !important' }}
                                 >
                                     {t(formTranslationKeys.cancelEdit)}
                                 </Button>
@@ -197,6 +201,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                     disabled={formErrors.length > 0}
                                     color="secondary"
                                     disableRipple
+                                    sx={{ margin: '0 !important' }}
                                 >
                                     {t(formTranslationKeys.saveChanges)}
                                 </Button>
@@ -207,6 +212,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                 onClick={handleEditButtonClick}
                                 color="secondary"
                                 disableRipple
+                                sx={{ margin: '0 !important' }}
                             >
                                 {t(formTranslationKeys.editPatient)}
                             </Button>
@@ -215,6 +221,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleDeleteButtonClick}
                             color="error"
                             disableRipple
+                            sx={{ margin: '0 !important' }}
                         >
                             {t(formTranslationKeys.deletePatient)}
                         </Button>
@@ -223,6 +230,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                 onClick={handleDeleteFromStudyClick}
                                 color="error"
                                 disableRipple
+                                sx={{ margin: '0 !important' }}
                             >
                                 {t(formTranslationKeys.removeFromStudy)}
                             </Button>

@@ -80,4 +80,4 @@ The application is built using **Electron** and **React**, ensuring cross-platfo
 ## Database & Security
 
 -   The application uses a local SQLite database (`db.sqlite` in the app directory or `app.asar` sibling).
--   **Encryption:** The app supports an encrypted mode where sensitive data is protected. Keys and password management logic reside in `src/backend/encryption.ts` and `src/backend/passwordManager.ts`.
+-   **Encryption:** The app supports an encrypted mode where sensitive data is protected. Keys and password management logic reside in `src/backend/encryption.ts` and `src/backend/passwordRepository.ts`.

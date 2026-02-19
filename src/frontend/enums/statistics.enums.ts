@@ -15,53 +15,29 @@ export enum InferenceChiSquareCategories {
 }
 
 export enum InferenceChiSquareHistologicalTypes {
-    ACIONNUCLEAR_CARCINOMA = 'acinocelulární karcinom',
-    SECRETORY_CARCINOMA = 'sekretorický karcinom',
-    MUCOEPIDERMOID_CARCINOMA = 'mukoepidermoidní karcinom',
-    ADENOID_CYSTIC_CARCINOMA = 'adenoidně cystický karcinom',
-    POLYMORPHIC_ADENOCARCINOMA = 'polymorfní adenokarcinom',
-    EPITHELIAL_MYOEPITHELIAL_CARCINOMA = 'epiteliální myoepiteliální karcinom',
-    HYALINIZING_CARCINOMA_OF_CLEAR_CELLS = 'hyalinizující karcinom ze světlých buněk',
-    BASAL_CELL_ADENOCARCINOMA = 'bazocelulární adenokarcinom',
-    SEBACEOUS_ADENOCARCINOMA = 'sebaceózní adenokarcinom',
-    INTRADUCTAL_CARCINOMA = 'intraduktální karcinom',
-    SALIVARY_CARCINOMA_NOS = 'salivární karcinom NOS',
-    SALIVARY_DUCT_CARCINOMA = 'salivární duktální karcinom',
-    MYOEPITHELIAL_CARCINOMA = 'myoepiteliální karcinom',
-    CARCINOMA_FROM_PLEOMORPHIC_ADENOMA = 'karcinom z pleomorfního adenomu',
-    CARCINOSARCOMA = 'karcinosarkom',
-    POORLY_DIFERENTIATED_CARCINOMA = 'špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní',
-    LYMPHOEPITHELIAL_CARCINOMA = 'lymfoepiteliální karcinom',
-    SQUAMOUS_CELL_CARCINOMA = 'skvamocelulární karcinom',
-    MICROSECRETORY_ADENOCARCINOMA = 'mikrosekretorický adenokarcinom',
-    SCLEROSING_MICROCYSTIC_ADENOCARCINOMA = 'sklerózující mikrocystický adenokarcinom',
-    MUCINOUS_ADENOCARCINOMA = 'mucinózní adenokarcinom',
-    SIALOBLASTOMA = 'sialoblastom',
-    MALT_LYMPHOMA = 'MALT-lymfom',
-}
-
-export enum InferenceChiSquareTClassification {
-    TX = 'TX',
-    T1 = 'T1',
-    T2 = 'T2',
-    T3 = 'T3',
-    T4a = 'T4a',
-    T4b = 'T4b',
-}
-
-export enum InferenceChiSquareNClassification {
-    N0 = 'N0',
-    N1 = 'N1',
-    N2a = 'N2a',
-    N2b = 'N2b',
-    N2 = 'N2',
-    N3 = 'N3',
-}
-
-export enum InferenceChiSquareMClassification {
-    MX = 'MX',
-    M0 = 'M0',
-    M1 = 'M1',
+    ACINIC_CELL_CARCINOMA = 'acinic-cell-carcinoma',
+    SECRETORY_CARCINOMA = 'secretory-carcinoma',
+    MUCOEPIDERMOID_CARCINOMA = 'mucoepidermoid-carcinoma',
+    ADENOID_CYSTIC_CARCINOMA = 'adenoid-cystic-carcinoma',
+    POLYMORPHIC_ADENOCARCINOMA = 'polymorphous-adenocarcinoma',
+    EPITHELIAL_MYOEPITHELIAL_CARCINOMA = 'epithelial-myoepithelial-carcinoma',
+    HYALINIZING_CARCINOMA_OF_CLEAR_CELLS = 'hyalinizing-clear-cell-carcinoma',
+    BASAL_CELL_ADENOCARCINOMA = 'basal-cell-adenocarcinoma',
+    SEBACEOUS_ADENOCARCINOMA = 'sebaceous-adenocarcinoma',
+    INTRADUCTAL_CARCINOMA = 'intraductal-carcinoma',
+    SALIVARY_CARCINOMA_NOS = 'salivary-carcinoma-nos',
+    SALIVARY_DUCT_CARCINOMA = 'salivary-duct-carcinoma',
+    MYOEPITHELIAL_CARCINOMA = 'myoepithelial-carcinoma',
+    CARCINOMA_FROM_PLEOMORPHIC_ADENOMA = 'carcinoma-ex-pleomorphic-adenoma',
+    CARCINOSARCOMA = 'carcinosarcoma',
+    POORLY_DIFERENTIATED_CARCINOMA = 'poorly-differentiated-carcinoma',
+    LYMPHOEPITHELIAL_CARCINOMA = 'lymphoepithelial-carcinoma',
+    SQUAMOUS_CELL_CARCINOMA = 'squamous-cell-carcinoma',
+    MICROSECRETORY_ADENOCARCINOMA = 'microsecretory-adenocarcinoma',
+    SCLEROSING_MICROCYSTIC_ADENOCARCINOMA = 'sclerosing-microcystic-adenocarcinoma',
+    MUCINOUS_ADENOCARCINOMA = 'mucinous-adenocarcinoma',
+    SIALOBLASTOMA = 'asialoblastoma',
+    MALT_LYMPHOMA = 'malt-lymphoma',
 }
 
 export enum InferenceChiSquarePersistence {

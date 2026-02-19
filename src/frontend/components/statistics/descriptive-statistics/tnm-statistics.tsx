@@ -8,9 +8,9 @@ import {
     ResponsiveContainer,
     Tooltip,
 } from 'recharts'
-import { StatisticsData } from '../../../../frontend/types/statistics.types'
-import { COLORS } from '../../../../frontend/constants/statistics.constants'
-import { createDataTable } from '../../../../frontend/utils/statistics/createDataTable'
+import { StatisticsData } from '../../../types/statistics.types'
+import { COLORS } from '../../../constants/statistics.constants'
+import DescriptiveStatisticsDataTable from './descriptive-statistics-data-table'
 
 interface TnmStatisticsProps {
     statistics: StatisticsData
@@ -26,28 +26,28 @@ const TnmStatistics: React.FC<TnmStatisticsProps> = ({ statistics }) => {
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationClinical.t,
-                            'T Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationClinical.t}
+                            title="T Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationClinical.n,
-                            'N Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationClinical.n}
+                            title="N Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationClinical.m,
-                            'M Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationClinical.m}
+                            title="M Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationClinical.stage,
-                            'Stadium'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationClinical.stage}
+                            title="Stadium"
+                        />
                     </Grid>
                 </Grid>
 
@@ -111,28 +111,30 @@ const TnmStatistics: React.FC<TnmStatisticsProps> = ({ statistics }) => {
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationPathological.t,
-                            'T Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationPathological.t}
+                            title="T Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationPathological.n,
-                            'N Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationPathological.n}
+                            title="N Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationPathological.m,
-                            'M Klasifikace'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={statistics?.tnmClassificationPathological.m}
+                            title="M Klasifikace"
+                        />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
-                        {createDataTable(
-                            statistics?.tnmClassificationPathological.stage,
-                            'Stadium'
-                        )}
+                        <DescriptiveStatisticsDataTable
+                            data={
+                                statistics?.tnmClassificationPathological.stage
+                            }
+                            title="Stadium"
+                        />
                     </Grid>
                 </Grid>
 

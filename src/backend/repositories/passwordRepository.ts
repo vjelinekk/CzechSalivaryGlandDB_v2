@@ -1,7 +1,8 @@
-import { getRow, insertRow } from './basicOperations'
-import { TableNames } from './constants'
 import crypto from 'crypto'
-import { PasswordType } from './types'
+import { PasswordType } from '../types'
+import { runQuery, runInsert } from './dbHelpers'
+
+const PASSWORD_TABLE = 'password'
 
 /**
  * Password will always be just one on the first row with id 1
@@ -21,12 +22,19 @@ const hashPassword = (password: string) => {
     return hashedPassword
 }
 
+const getPasswordRow = async (): Promise<PasswordType | undefined> => {
+    return runQuery<PasswordType>(
+        `SELECT * FROM ${PASSWORD_TABLE} WHERE id = ?`,
+        [passwordId]
+    )
+}
+
 export const insertPasswordRow = async (
     password: string,
     usingEncryption: boolean
 ) => {
     const hashedPassword = hashPassword(password)
-    await insertRow(TableNames.password, {
+    await runInsert(PASSWORD_TABLE, {
         password: hashedPassword,
         using_encryption: usingEncryption ? 1 : 0,
     })
@@ -48,7 +56,7 @@ export const insertPassword = async (password: string) => {
     const hashedPassword = hashPassword(password)
 
     // Insert the hashed password into the database
-    await insertRow(TableNames.password, { password: hashedPassword })
+    await runInsert(PASSWORD_TABLE, { password: hashedPassword })
 }
 
 /**
@@ -58,7 +66,7 @@ export const insertPassword = async (password: string) => {
 export const insertUsingEncryption = async (enabled: boolean) => {
     const enabledNumber = enabled ? 1 : 0
 
-    await insertRow(TableNames.password, { using_encryption: enabledNumber })
+    await runInsert(PASSWORD_TABLE, { using_encryption: enabledNumber })
 }
 
 /**
@@ -71,10 +79,10 @@ export const validatePassword = async (passwordToValidate: string) => {
     const hashedPasswordToValidate = hashPassword(passwordToValidate)
 
     // Get the hashed password from the database
-    const { password } = await getRow(TableNames.password, passwordId)
+    const row = await getPasswordRow()
 
     // Compare the hashed passwords
-    if (hashedPasswordToValidate === password) {
+    if (hashedPasswordToValidate === row?.password) {
         // Passwords match
         return true
     } else {
@@ -89,7 +97,7 @@ export const validatePassword = async (passwordToValidate: string) => {
  */
 export const isPasswordSet = async () => {
     // Get the password from the database
-    const row: PasswordType = await getRow(TableNames.password, passwordId)
+    const row = await getPasswordRow()
 
     if (row === undefined || row.password === undefined) {
         return null
@@ -109,7 +117,7 @@ export const isPasswordSet = async () => {
  */
 export const isEncryptionEnabled = async () => {
     // Get the password from the database
-    const row: PasswordType = await getRow(TableNames.password, passwordId)
+    const row = await getPasswordRow()
 
     if (row === undefined || row.using_encryption === undefined) {
         return null

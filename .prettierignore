@@ -1,4 +1,8 @@
 #Ignore
 node_modules/
 out/
-README.md
+.claude/
+.vscode/
+.webpack/
+*.md
+python-ml-engine

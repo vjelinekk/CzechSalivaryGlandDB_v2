@@ -15,6 +15,7 @@ import {
     ipcExportChannels,
     ipcFSChannels,
     ipcImportChannels,
+    ipcMLChannels,
 } from './ipc/ipcChannels'
 
 contextBridge.exposeInMainWorld('api', {
@@ -116,6 +117,34 @@ contextBridge.exposeInMainWorld('api', {
             selectedGroups
         )
     },
+    getActiveTnmEdition: () => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getActiveTnmEdition)
+    },
+    getTnmValues: (editionId: number, category?: 'T' | 'N' | 'M' | 'G') => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getTnmValues, [
+            editionId,
+            category,
+        ])
+    },
+    calculateTnmStage: (
+        editionId: number,
+        tValueId: number | null,
+        nValueId: number | null,
+        mValueId: number | null
+    ) => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.calculateTnmStage, [
+            editionId,
+            tValueId,
+            nValueId,
+            mValueId,
+        ])
+    },
+    getPatientStaging: (patientId: number) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getPatientStaging,
+            patientId
+        )
+    },
 })
 
 contextBridge.exposeInMainWorld('export', {
@@ -199,4 +228,39 @@ contextBridge.exposeInMainWorld('backUp', {
     loadBackUp: () => {
         return ipcRenderer.invoke(ipcBackUpChannels.loadBackUp)
     },
+})
+
+contextBridge.exposeInMainWorld('ml', {
+    trainModel: (
+        modelType: 'overall_survival' | 'recurrence',
+        algorithm: 'rsf' | 'coxph'
+    ) => ipcRenderer.invoke(ipcMLChannels.trainModel, [modelType, algorithm]),
+    calculateRiskScore: (
+        patient: PatientType,
+        modelType: 'overall_survival' | 'recurrence',
+        algorithm?: 'rsf' | 'coxph',
+        recalculate?: boolean
+    ) =>
+        ipcRenderer.invoke(ipcMLChannels.calculateRiskScore, [
+            patient,
+            modelType,
+            algorithm,
+            recalculate,
+        ]),
+    getModelInfo: (modelType?: string) =>
+        ipcRenderer.invoke(ipcMLChannels.getModelInfo, modelType),
+    setActiveModel: (id: number) =>
+        ipcRenderer.invoke(ipcMLChannels.setActiveModel, id),
+    deleteModel: (id: number) =>
+        ipcRenderer.invoke(ipcMLChannels.deleteModel, id),
+    getSavedPrediction: (
+        patientId: number,
+        modelType: 'overall_survival' | 'recurrence',
+        algorithm: 'rsf' | 'coxph'
+    ) =>
+        ipcRenderer.invoke(ipcMLChannels.getSavedPrediction, [
+            patientId,
+            modelType,
+            algorithm,
+        ]),
 })

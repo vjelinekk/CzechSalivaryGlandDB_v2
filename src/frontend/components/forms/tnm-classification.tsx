@@ -17,20 +17,20 @@ const TNMClassification: React.FC<GlandComponentProps> = ({
             <h1>{t(formTranslationKeys.tnmClassification)}</h1>
             <h2>{t(formTranslationKeys.tnmClassificationClinical)}</h2>
             <TNMClassificationCalculator
-                tLabel={dbLabels.t_klasifikace_klinicka}
-                nLabel={dbLabels.n_klasifikace_klinicka}
-                mLabel={dbLabels.m_klasifikace_klinicka}
-                tnmLabel={dbLabels.tnm_klasifikace_klinicka}
+                tIdLabel={dbLabels.t_klasifikace_klinicka_id}
+                nIdLabel={dbLabels.n_klasifikace_klinicka_id}
+                mIdLabel={dbLabels.m_klasifikace_klinicka_id}
+                gradeIdLabel={dbLabels.tnm_klasifikace_klinicka_id}
                 formData={formData}
                 setFormData={setFormData}
                 disabled={disabled}
             />
             <h2>{t(formTranslationKeys.tnmClassificationPathological)}</h2>
             <TNMClassificationCalculator
-                tLabel={dbLabels.t_klasifikace_patologicka}
-                nLabel={dbLabels.n_klasifikace_patologicka}
-                mLabel={dbLabels.m_klasifikace_patologicka}
-                tnmLabel={dbLabels.tnm_klasifikace_patologicka}
+                tIdLabel={dbLabels.t_klasifikace_patologicka_id}
+                nIdLabel={dbLabels.n_klasifikace_patologicka_id}
+                mIdLabel={dbLabels.m_klasifikace_patologicka_id}
+                gradeIdLabel={dbLabels.tnm_klasifikace_patologicka_id}
                 formData={formData}
                 setFormData={setFormData}
                 disabled={disabled}

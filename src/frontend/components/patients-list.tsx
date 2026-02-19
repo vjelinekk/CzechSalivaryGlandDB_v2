@@ -69,6 +69,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SubmandibularBenignGlandForm from './forms/submandibular/benign/submandibular-benign-gland-form'
 import { useTranslation } from 'react-i18next'
 import { appTranslationKeys } from '../translations'
+import {
+    formTypeToDto,
+    filteredColumnsToDto,
+    studyToDto,
+    dtoToStudyArray,
+} from '../mappers/enumMappers'
 
 interface PatientsListProps {
     defaultActivePatient?: PatientType
@@ -160,26 +166,26 @@ const PatientsList: React.FC<PatientsListProps> = ({
 
         if (isFiltered) {
             loadedPatients = await window.api.getFilteredPatients(
-                filteredColumns,
+                filteredColumnsToDto(filteredColumns),
                 idStudie
             )
         } else {
             if (!idStudie) {
                 if (!studyType || studyType === StudyType.special) {
-                    loadedPatients = await window.api.get(
+                    loadedPatients = (await window.api.get(
                         ipcAPIGetChannels.getAllPatients
-                    )
+                    )) as PatientType[]
                 } else if (studyType) {
-                    loadedPatients = await window.api.get(
+                    loadedPatients = (await window.api.get(
                         ipcAPIGetChannels.getPatientsByType,
-                        studyTypeToFormTypeMap[studyType]
-                    )
+                        formTypeToDto[studyTypeToFormTypeMap[studyType]]
+                    )) as PatientType[]
                 }
             } else {
-                loadedPatients = await window.api.get(
+                loadedPatients = (await window.api.get(
                     ipcAPIGetChannels.getPatientsInStudy,
                     idStudie
-                )
+                )) as PatientType[]
             }
         }
 
@@ -206,12 +212,12 @@ const PatientsList: React.FC<PatientsListProps> = ({
     useEffect(() => {
         const getPatientsStudies = async () => {
             if (activePatient) {
-                const studies = await window.api.getStudiesByPatientId(
+                const studiesDto = await window.api.getStudiesByPatientId(
                     activePatient.id,
                     activePatient.form_type
                 )
 
-                setPatientsStudies(studies)
+                setPatientsStudies(dtoToStudyArray(studiesDto))
             }
         }
 
@@ -240,22 +246,20 @@ const PatientsList: React.FC<PatientsListProps> = ({
     }
 
     const handleCreateStudy = async () => {
-        const JSONdata = JSON.parse(JSON.stringify(study))
         const studyId = await window.api.save(
             ipcAPISaveChannels.saveStudy,
-            JSONdata
+            studyToDto(study)
         )
 
         selectedPatients.forEach(async (patient) => {
             const patientInStudy: PatientInStudy = {
-                id_pacient_db: patient.id,
-                id_studie: studyId,
-                typ_pacienta: patient.form_type,
+                id_patient: patient.id,
+                id_study: studyId,
             }
 
             await window.api.insert(
                 ipcAPIInsertChannels.insertPatientToStudy,
-                JSON.parse(JSON.stringify(patientInStudy))
+                patientInStudy
             )
         })
 

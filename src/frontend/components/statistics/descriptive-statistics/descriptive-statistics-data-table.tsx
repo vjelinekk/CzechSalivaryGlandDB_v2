@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Paper,
     Table,
@@ -8,13 +9,22 @@ import {
     TableRow,
     Typography,
 } from '@mui/material'
-import { CountPercentage } from '../../../frontend/types/statistics.types'
+import { CountPercentage } from '../../../types/statistics.types'
+import { useTranslation } from 'react-i18next'
 
-export const createDataTable = (
-    data: Record<string, CountPercentage> | undefined,
-    title: string,
-    emptyMessage = 'No data available'
-) => {
+interface Props {
+    data: Record<string, CountPercentage> | undefined
+    title: string
+    emptyMessage?: string
+}
+
+const DescriptiveStatisticsDataTable: React.FC<Props> = ({
+    data,
+    title,
+    emptyMessage = 'No data available',
+}) => {
+    const { t } = useTranslation()
+
     if (!data || Object.keys(data).length === 0) {
         return (
             <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
@@ -45,7 +55,7 @@ export const createDataTable = (
                         {sortedEntries.map(([name, stat]) => (
                             <TableRow key={name}>
                                 <TableCell component="th" scope="row">
-                                    {name}
+                                    {t(name)}
                                 </TableCell>
                                 <TableCell align="right">
                                     {stat.count}
@@ -61,3 +71,5 @@ export const createDataTable = (
         </>
     )
 }
+
+export default DescriptiveStatisticsDataTable

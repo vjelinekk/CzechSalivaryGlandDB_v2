@@ -10,18 +10,17 @@ import {
     TableRow,
     Tabs,
     Tab,
+    CircularProgress,
 } from '@mui/material'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
     InferenceChiSquareCategories,
     InferenceChiSquareHistologicalTypes,
-    InferenceChiSquareMClassification,
-    InferenceChiSquareNClassification,
     InferenceChiSquarePersistence,
     InferenceChiSquareRecurrence,
     InferenceChiSquareState,
-    InferenceChiSquareTClassification,
 } from '../../../../enums/statistics.enums'
+import useTnmData from '../../../../hooks/use-tnm-data'
 import {
     CATEGORY_TITLES,
     TAB_TITLES,
@@ -45,6 +44,8 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
     setSelectedCategories,
     categoryPrefix = 'Kategorie',
 }) => {
+    const { tOptions, nOptions, mOptions, isLoading: tnmLoading } = useTnmData()
+
     // State for the active category tab
     const [activeTab, setActiveTab] = useState<InferenceChiSquareCategories>(
         InferenceChiSquareCategories.histologicalTypes
@@ -123,7 +124,22 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
         return internalSelectedCategories
     }
 
+    const isTnmTab =
+        activeTab === InferenceChiSquareCategories.tClassification ||
+        activeTab === InferenceChiSquareCategories.nClassification ||
+        activeTab === InferenceChiSquareCategories.mClassification
+
     const renderCategoriesTable = (activeTab: InferenceChiSquareCategories) => {
+        if (isTnmTab && tnmLoading) {
+            return (
+                <TableRow>
+                    <TableCell colSpan={numberOfCategories + 1} align="center">
+                        <CircularProgress size={24} />
+                    </TableCell>
+                </TableRow>
+            )
+        }
+
         switch (activeTab) {
             case InferenceChiSquareCategories.histologicalTypes:
                 return (
@@ -140,9 +156,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.tClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(
-                            InferenceChiSquareTClassification
-                        )}
+                        categories={tOptions.map((v) => v.code)}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -152,9 +166,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.nClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(
-                            InferenceChiSquareNClassification
-                        )}
+                        categories={nOptions.map((v) => v.code)}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}
@@ -164,9 +176,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({
             case InferenceChiSquareCategories.mClassification:
                 return (
                     <CategoriesTable
-                        categories={Object.values(
-                            InferenceChiSquareMClassification
-                        )}
+                        categories={mOptions.map((v) => v.code)}
                         numberOfCategories={numberOfCategories}
                         selectedCategories={getSelectedCategoriesForCurrentTab()}
                         activeTab={activeTab}

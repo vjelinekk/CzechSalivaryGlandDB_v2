@@ -19,6 +19,7 @@ import { useGlandForm } from '../../../../hooks/use-gland-form'
 import EditResult from '../../edit-result'
 import AvailableStudies from '../../available-studies'
 import FormHeader from '../../form-header'
+import PatientRiskCard from '../../../patient-risk-card'
 
 const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -116,6 +117,9 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
                 setStudiesChanged={setStudiesChanged}
                 disabled={formState === FormStates.view}
             />
+            {formState !== FormStates.add && (
+                <PatientRiskCard patient={formData} />
+            )}
             <AddPatientButton
                 formState={formState}
                 formData={formData}

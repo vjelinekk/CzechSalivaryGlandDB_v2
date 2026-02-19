@@ -35,24 +35,21 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
-        const JSONdata = JSON.parse(JSON.stringify(formData))
         const result = await window.api.save(
             ipcAPISaveChannels.savePatient,
-            JSONdata
+            formData
         )
 
         Promise.all(
             selectedStudies.map(async (study) => {
                 const patientInStudy: PatientInStudy = {
-                    id_pacient_db: result,
-                    id_studie: study.id,
-                    typ_pacienta: formData.form_type,
+                    id_patient: result,
+                    id_study: study.id,
                 }
-                console.log(patientInStudy)
 
                 await window.api.insert(
                     ipcAPIInsertChannels.insertPatientToStudy,
-                    JSON.parse(JSON.stringify(patientInStudy))
+                    patientInStudy
                 )
             })
         )

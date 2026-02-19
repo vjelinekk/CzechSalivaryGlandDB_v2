@@ -10,6 +10,7 @@ import { CommonFormComponentProps } from '../../props'
 
 export interface ConditionalCheckboxOptionProps {
     label: string
+    dbValue?: string
     children?:
         | React.ReactElement<CommonFormComponentProps>
         | React.ReactElement<CommonFormComponentProps>[]
@@ -21,6 +22,8 @@ export interface ConditionalCheckboxOptionProps {
 
 const ConditionalCheckboxOption: React.FC<ConditionalCheckboxOptionProps> = ({
     label,
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    dbValue,
     children,
     selected,
     onSelect,

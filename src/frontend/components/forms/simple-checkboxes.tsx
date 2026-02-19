@@ -4,12 +4,14 @@ import { useSingleSelection } from '../../hooks/use-single-selection'
 import { PatientType } from '../../types'
 import getDataFromPatientInterface from '../../utils/getDataFromPatientInterface'
 import { CommonFormComponentProps } from '../../props'
+import { useTranslation } from 'react-i18next'
 
 interface SimpleCheckboxesProps extends CommonFormComponentProps {
     title?: string
     data: PatientType | null
     enableSingleSelect: boolean
     options: string[]
+    translate?: boolean
 }
 
 const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
@@ -20,7 +22,10 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
     enableSingleSelect,
     options,
     disabled,
+    translate = false,
 }) => {
+    const { t } = useTranslation()
+
     const { selectedOptions, setSelectedOptions, handleCheckboxChange } =
         useSingleSelection({
             enableSingleSelect,
@@ -51,6 +56,14 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
         }
     }, [data])
 
+    const getOptionLabel = (option: string) => {
+        if (translate) {
+            return t(option)
+        }
+
+        return option
+    }
+
     return (
         <>
             {title && <h3>{title}</h3>}
@@ -58,7 +71,7 @@ const SimpleCheckboxes: React.FC<SimpleCheckboxesProps> = ({
                 {options.map((option) => (
                     <SimpleCheckboxItem
                         key={option}
-                        label={option}
+                        label={getOptionLabel(option)}
                         dbLabel={dbLabel}
                         selected={selectedOptions.includes(option)}
                         onSelect={() => handleCheckboxChange(option)}

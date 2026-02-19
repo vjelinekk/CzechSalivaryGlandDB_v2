@@ -55,10 +55,10 @@ src/
 ├── root.tsx             # React root component
 ├── backend/             # Main process logic
 │   ├── dbManager.ts     # SQLite database initialization
-│   ├── patientsManager.ts    # Patient CRUD operations
-│   ├── studieManager.ts      # Study management
+│   ├── patientRepository.ts    # Patient CRUD operations
+│   ├── studyRepository.ts      # Study management
 │   ├── encryption.ts         # Data encryption/decryption
-│   ├── passwordManager.ts    # Password authentication
+│   ├── passwordRepository.ts    # Password authentication
 │   ├── backup.ts             # Database backup/restore
 │   └── constants.ts          # Database schema definitions
 ├── frontend/            # Renderer process (React UI)
@@ -119,7 +119,7 @@ The app supports optional encryption for sensitive patient data (name, surname, 
 -   Uses AES-256-CBC encryption (`src/backend/encryption.ts`)
 -   Encrypted fields stored as `encrypted_data:iv_hex`
 -   Encryption key must be stored externally by user
--   Functions: `encryptPatientData()` and `decryptPatientData()` in `patientsManager.ts`
+-   Functions: `encryptPatientData()` and `decryptPatientData()` in `patientRepository.ts`
 
 #### 4. Form Types
 
@@ -142,7 +142,7 @@ Studies group patients for analysis:
 
 -   Studies belong to a specific gland type or "special" (all types)
 -   Many-to-many relationship via `je_ve_studii` junction table
--   Managed in `src/backend/studieManager.ts`
+-   Managed in `src/backend/studyRepository.ts`
 -   UI components: `add-study.tsx`, `study-list.tsx`
 
 #### 6. Statistical Analysis
@@ -169,7 +169,7 @@ Basic operations abstracted in `src/backend/basicOperations.ts`:
 
 -   `insertRow()`, `updateRow()`, `deleteRow()`, `getRow()`, `getAllRows()`
 
-Patient-specific operations in `src/backend/patientsManager.ts`:
+Patient-specific operations in `src/backend/patientRepository.ts`:
 
 -   `savePatient()`, `getAllPatients()`, `getFilteredPatients()`, etc.
 
@@ -246,7 +246,7 @@ The app is primarily in Czech:
 2. Update type definition in `src/backend/types.ts`
 3. Add to frontend type in `src/frontend/types.ts`
 4. Update form component in `src/frontend/components/forms/`
-5. If sensitive, add encryption/decryption logic to `patientsManager.ts`
+5. If sensitive, add encryption/decryption logic to `patientRepository.ts`
 
 ### Adding a New IPC Endpoint
 

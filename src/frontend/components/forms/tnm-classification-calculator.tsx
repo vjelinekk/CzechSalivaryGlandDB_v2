@@ -1,15 +1,15 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import useTNMClassification from '../../hooks/use-tnm-classification'
-import { PatientType } from '../../types'
-import SimpleCheckboxes from './simple-checkboxes'
+import useTnmData from '../../hooks/use-tnm-data'
+import { PatientType, TnmValueDefinition } from '../../types'
 import { formTranslationKeys } from '../../translations'
+import EntityCheckboxes from './entity-checkboxes'
 
 interface TNMClassificationCalculatorProps {
-    tLabel: string
-    nLabel: string
-    mLabel: string
-    tnmLabel: string
+    tIdLabel: string
+    nIdLabel: string
+    mIdLabel: string
+    gradeIdLabel: string
     formData: PatientType | null
     setFormData: Dispatch<SetStateAction<PatientType | null>>
     disabled: boolean
@@ -17,74 +17,100 @@ interface TNMClassificationCalculatorProps {
 
 const TNMClassificationCalculator: React.FC<
     TNMClassificationCalculatorProps
-> = ({ tLabel, nLabel, mLabel, tnmLabel, formData, setFormData, disabled }) => {
+> = ({
+    tIdLabel,
+    nIdLabel,
+    mIdLabel,
+    gradeIdLabel,
+    formData,
+    setFormData,
+    disabled,
+}) => {
     const { t } = useTranslation()
+    const { tOptions, nOptions, mOptions, isLoading, calculateStage } =
+        useTnmData()
+    const [tnmStage, setTnmStage] = useState<TnmValueDefinition | null>(null)
 
-    const { tnm } = useTNMClassification(
-        tLabel,
-        nLabel,
-        mLabel,
-        tnmLabel,
-        formData,
-        setFormData
+    const notDeterminedLabel = t(
+        formTranslationKeys.classificationNotDetermined
     )
+
+    // Calculate stage when T, N, M IDs change
+    useEffect(() => {
+        const calculateCurrentStage = async () => {
+            if (!formData || isLoading) return
+
+            const tId = formData[tIdLabel] as number | undefined
+            const nId = formData[nIdLabel] as number | undefined
+            const mId = formData[mIdLabel] as number | undefined
+
+            if (!tId || !nId || !mId) {
+                setTnmStage(null)
+                return
+            }
+
+            const stage = await calculateStage(tId, nId, mId)
+            setTnmStage(stage)
+        }
+
+        calculateCurrentStage()
+    }, [formData, tIdLabel, nIdLabel, mIdLabel, isLoading, calculateStage])
+
+    // Update grade ID in formData when stage changes
+    useEffect(() => {
+        if (setFormData) {
+            setFormData((prev) => {
+                const newGradeId = tnmStage?.id ?? null
+                if (prev && prev[gradeIdLabel] !== newGradeId) {
+                    return {
+                        ...prev,
+                        [gradeIdLabel]: newGradeId,
+                    }
+                }
+                return prev
+            })
+        }
+    }, [tnmStage, gradeIdLabel, setFormData])
+
+    if (isLoading) {
+        return <div>{t('common.loading')}</div>
+    }
 
     return (
         <>
-            <SimpleCheckboxes
+            <EntityCheckboxes
                 title={t(formTranslationKeys.tClassification)}
                 data={formData}
-                dbLabel={tLabel}
-                enableSingleSelect={true}
+                dbLabel={tIdLabel}
                 setFormData={setFormData}
                 disabled={disabled}
-                options={[
-                    'TX',
-                    'T1',
-                    'T2',
-                    'T3',
-                    'T4a',
-                    'T4b',
-                    t(formTranslationKeys.classificationNotDetermined),
-                ]}
+                options={tOptions}
+                nullableLabel={notDeterminedLabel}
             />
-            <SimpleCheckboxes
+            <EntityCheckboxes
                 title={t(formTranslationKeys.nClassification)}
                 data={formData}
-                dbLabel={nLabel}
-                enableSingleSelect={true}
+                dbLabel={nIdLabel}
                 setFormData={setFormData}
                 disabled={disabled}
-                options={[
-                    'N0',
-                    'N1',
-                    'N2a',
-                    'N2b',
-                    'N2c',
-                    'N3a',
-                    'N3b',
-                    t(formTranslationKeys.classificationNotDetermined),
-                ]}
+                options={nOptions}
+                nullableLabel={notDeterminedLabel}
             />
-            <SimpleCheckboxes
+            <EntityCheckboxes
                 title={t(formTranslationKeys.mClassification)}
                 data={formData}
-                dbLabel={mLabel}
-                enableSingleSelect={true}
+                dbLabel={mIdLabel}
                 setFormData={setFormData}
                 disabled={disabled}
-                options={[
-                    'M0',
-                    'M1',
-                    t(formTranslationKeys.classificationNotDetermined),
-                ]}
+                options={mOptions}
+                nullableLabel={notDeterminedLabel}
             />
             <div className="textInputDiv">
                 <p>{t(formTranslationKeys.classification)}</p>
                 <input
                     type="text"
                     className="textInput"
-                    value={tnm}
+                    value={tnmStage?.code ?? ''}
                     disabled={true}
                 />
             </div>

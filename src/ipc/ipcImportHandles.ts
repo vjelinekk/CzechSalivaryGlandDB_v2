@@ -3,7 +3,7 @@ import { ipcImportChannels } from './ipcChannels'
 import { Workbook } from 'exceljs'
 import { PatientType } from '../frontend/types'
 import { FormType } from '../frontend/constants'
-import { savePatient } from '../backend/patientsManager'
+import { savePatient } from '../backend/repositories/patientRepository'
 
 type PatientValue = string | number | FormType
 
@@ -46,7 +46,6 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     })
 
     data.forEach((patient) => {
-        const dataJSON = JSON.parse(JSON.stringify(patient))
-        savePatient(dataJSON)
+        savePatient(patient)
     })
 })
