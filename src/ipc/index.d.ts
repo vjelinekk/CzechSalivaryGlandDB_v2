@@ -21,6 +21,9 @@ import { FormTypeEnum } from './dtos/enums/FormTypeEnum'
 import { PatientStagingDto } from './dtos/PatientStagingDto'
 import { TnmEditionDto } from './dtos/TnmEditionDto'
 import { TnmValueDefinitionDto } from './dtos/TnmValueDefinitionDto'
+import { MLTrainingResultDto } from './dtos/MLTrainingResultDto'
+import { MLPredictionResultDto } from './dtos/MLPredictionResultDto'
+import { MLModelInfoDto } from './dtos/MLModelInfoDto'
 
 declare global {
     interface Window {
@@ -136,6 +139,26 @@ declare global {
         backUp: {
             backUp: () => Promise<void>
             loadBackUp: () => Promise<void>
+        }
+        ml: {
+            trainModel: (
+                modelType: 'overall_survival' | 'recurrence',
+                algorithm: 'rsf' | 'coxph'
+            ) => Promise<MLTrainingResultDto>
+            calculateRiskScore: (
+                patient: PatientDto,
+                modelType: 'overall_survival' | 'recurrence',
+                algorithm?: 'rsf' | 'coxph',
+                recalculate?: boolean
+            ) => Promise<MLPredictionResultDto>
+            getModelInfo: (modelType?: string) => Promise<MLModelInfoDto[]>
+            setActiveModel: (id: number) => Promise<void>
+            deleteModel: (id: number) => Promise<void>
+            getSavedPrediction: (
+                patientId: number,
+                modelType: 'overall_survival' | 'recurrence',
+                algorithm: 'rsf' | 'coxph'
+            ) => Promise<MLPredictionResultDto | null>
         }
     }
 }

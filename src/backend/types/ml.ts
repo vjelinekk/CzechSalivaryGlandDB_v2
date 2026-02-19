@@ -1,0 +1,99 @@
+export type MLMode = 'train' | 'predict' | 'info'
+export type MLModelType = 'overall_survival' | 'recurrence'
+export type MLAlgorithm = 'rsf' | 'coxph'
+
+export interface MLPatient {
+    age_at_diagnosis?: number
+    therapy_type?: string
+    id_histology_type?: number
+    clinical_m_id?: number | null
+    pathological_m_id?: number | null
+    clinical_n_id?: number | null
+    pathological_n_id?: number | null
+    is_alive?: boolean
+    diagnosis_year?: string
+    death_date?: string | null
+    last_follow_up?: string | null
+    recidive?: boolean
+    date_of_first_post_treatment_follow_up?: string | null
+    date_of_recidive?: string | null
+}
+
+export interface MLTrainInputData {
+    mode: 'train'
+    model_type: MLModelType
+    algorithm: MLAlgorithm
+    model_path: string
+    data: {
+        patients: MLPatient[]
+    }
+}
+
+export interface MLPredictInputData {
+    mode: 'predict'
+    model_path: string
+    data: {
+        patient: MLPatient
+    }
+}
+
+export interface MLInfoInputData {
+    mode: 'info'
+    model_path: string
+}
+
+export type MLInputData =
+    | MLTrainInputData
+    | MLPredictInputData
+    | MLInfoInputData
+
+export interface MLRiskFactor {
+    feature: string
+    importance: number
+}
+
+export interface MLTrainResult {
+    c_index: number
+    n_samples: number
+    n_events: number
+    training_date: string
+    algorithm: MLAlgorithm
+    model_type: MLModelType
+    feature_names: string[]
+}
+
+export interface MLSurvivalPredictionResult {
+    risk_score: number
+    top_risk_factors: MLRiskFactor[]
+    survival_probability_1year: number
+    survival_probability_3year: number
+    survival_probability_5year: number
+}
+
+export interface MLRecurrencePredictionResult {
+    risk_score: number
+    top_risk_factors: MLRiskFactor[]
+    recurrence_probability_1year: number
+    recurrence_probability_3year: number
+    recurrence_probability_5year: number
+    recurrence_free_probability_1year: number
+    recurrence_free_probability_3year: number
+    recurrence_free_probability_5year: number
+}
+
+export interface MLModelInfoResult {
+    model_metadata: MLTrainResult
+}
+
+export type MLResult =
+    | MLTrainResult
+    | MLSurvivalPredictionResult
+    | MLRecurrencePredictionResult
+    | MLModelInfoResult
+
+export interface MLOutputData {
+    success: boolean
+    mode: MLMode
+    result?: MLResult
+    error?: string
+}

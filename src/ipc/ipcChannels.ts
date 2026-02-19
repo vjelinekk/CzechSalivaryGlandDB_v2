@@ -70,3 +70,12 @@ export enum ipcBackUpChannels {
     backUp = 'backUp',
     loadBackUp = 'loadBackUp',
 }
+
+export enum ipcMLChannels {
+    trainModel = 'trainModel',
+    calculateRiskScore = 'calculateRiskScore',
+    getModelInfo = 'getModelInfo',
+    setActiveModel = 'setActiveModel',
+    deleteModel = 'deleteModel',
+    getSavedPrediction = 'getSavedPrediction',
+}

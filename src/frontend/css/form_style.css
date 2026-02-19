@@ -146,6 +146,16 @@
     z-index: 1;
 }
 
+.form #mlRiskCard {
+    position: fixed;
+    top: 9em;
+    right: 2em;
+    display: flex;
+    justify-content: end;
+
+    z-index: 1;
+}
+
 .attachment-container {
     display: flex;
     align-items: center;
