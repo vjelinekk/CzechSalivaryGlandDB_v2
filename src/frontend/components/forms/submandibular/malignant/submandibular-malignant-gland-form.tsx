@@ -19,6 +19,7 @@ import PersonalData from '../../personal-data'
 import TNMClassification from '../../tnm-classification'
 import SubmandibularMalignantGlandDiagnosis from './submandibular-malignant-gland-diagnosis'
 import SubmandibularMalignantGlandTherapy from './submandibular-malignant-gland-therapy'
+import PatientRiskCard from '../../../patient-risk-card'
 
 const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
     data,
@@ -116,6 +117,9 @@ const SubmandibularMalignantGlandForm: React.FC<GlandFormProps> = ({
                 setStudiesChanged={setStudiesChanged}
                 disabled={formState === FormStates.view}
             />
+            {formState !== FormStates.add && (
+                <PatientRiskCard patient={formData} />
+            )}
             <AddPatientButton
                 formState={formState}
                 formData={formData}

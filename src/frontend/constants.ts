@@ -19,6 +19,7 @@ export enum Components {
     setLanguage,
     descriptiveStatistics,
     inferenceStatistics,
+    mlRiskScoring,
 }
 
 export enum StudyType {

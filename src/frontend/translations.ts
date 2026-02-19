@@ -412,4 +412,5 @@ export enum appTranslationKeys {
     deleteStudyTitle = 'delete-study-title',
     deleteStudyWarning = 'delete-study-warning',
     deleteStudy = 'delete-study',
+    mlRiskScoring = 'ml-risk-scoring',
 }

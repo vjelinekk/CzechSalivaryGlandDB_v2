@@ -220,6 +220,39 @@ const schemaQueries = [
         postoperative_house_brackmann_grade_of_facial_nerve_function TEXT,
         FOREIGN KEY (id_malignant_patient) REFERENCES malignant_patient(id_patient) ON DELETE CASCADE
     )`,
+
+    // 8. ML Models
+    `CREATE TABLE IF NOT EXISTS ml_model (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        model_path TEXT NOT NULL,
+        model_type TEXT NOT NULL, -- 'overall_survival', 'recurrence'
+        algorithm TEXT NOT NULL,  -- 'rsf', 'coxph'
+        c_index REAL,
+        n_samples INTEGER,
+        n_events INTEGER,
+        training_date TEXT,
+        feature_names TEXT,       -- JSON string array
+        is_active INTEGER DEFAULT 0
+    )`,
+    // Ensure only one model per type+algorithm is active at a time
+    `CREATE UNIQUE INDEX IF NOT EXISTS idx_active_ml_model 
+     ON ml_model (model_type, algorithm) WHERE is_active = 1`,
+
+    // 9. ML Predictions (Cached results for patients)
+    `CREATE TABLE IF NOT EXISTS ml_prediction (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_patient INTEGER NOT NULL,
+        id_model INTEGER NOT NULL,
+        model_type TEXT NOT NULL,
+        algorithm TEXT NOT NULL,
+        risk_score REAL NOT NULL,
+        result_json TEXT NOT NULL, -- Full JSON blob of MLPredictionResultDto
+        calculation_date TEXT NOT NULL,
+        FOREIGN KEY (id_patient) REFERENCES patient(id) ON DELETE CASCADE,
+        FOREIGN KEY (id_model) REFERENCES ml_model(id) ON DELETE CASCADE
+    )`,
+    `CREATE UNIQUE INDEX IF NOT EXISTS idx_patient_prediction 
+     ON ml_prediction (id_patient, model_type, algorithm)`,
 ]
 
 const seedTnmData = () => {
@@ -441,6 +474,165 @@ export const initSchema = () => {
 
         seedLookups()
         seedTnmData()
+
+        // --- Mock Data Generation for ML Testing ---
+        const GENERATE_MOCK_DATA = true // Set to true to generate mock patients
+        if (GENERATE_MOCK_DATA) {
+            // Clean up potentially broken mock patients (those with NULL names created by mock generator)
+            db.run(
+                'DELETE FROM patient WHERE name IS NULL AND internal_patient_id IS NULL'
+            )
+
+            db.get(
+                'SELECT COUNT(*) as count FROM patient',
+                (err, row: unknown) => {
+                    if (!err && (row as { count: number }).count < 50) {
+                        console.log(
+                            'Generating mock patients for ML testing...'
+                        )
+                        generateMockPatients(100)
+                    }
+                }
+            )
+        }
+    })
+}
+
+const generateMockPatients = (count: number) => {
+    const locations = ['parotid', 'submandibular', 'sublingual']
+    const genders = ['male', 'female']
+    const therapyTypes = [
+        'chirurgická',
+        'radioterapie',
+        'chemoradioterapie',
+        'sledování',
+    ]
+
+    db.serialize(() => {
+        db.run('BEGIN TRANSACTION')
+
+        for (let i = 0; i < count; i++) {
+            const age = Math.floor(Math.random() * 55) + 30 // 30-85
+            const gender = genders[Math.floor(Math.random() * genders.length)]
+            const location =
+                locations[Math.floor(Math.random() * locations.length)]
+            const diagnosisYear = 2015 + Math.floor(Math.random() * 8) // 2015-2022
+            const therapy =
+                therapyTypes[Math.floor(Math.random() * therapyTypes.length)]
+
+            // Features that affect risk
+            const histologyId = Math.floor(Math.random() * 24) + 1 // 1-24 malignant
+            const tStageId = Math.floor(Math.random() * 5) + 2 // T1-T4b (IDs 2-6)
+            const nStageId = Math.floor(Math.random() * 7) + 7 // N0-N3b (IDs 7-13)
+            const mStageId = Math.random() > 0.1 ? 14 : 15 // M0 or M1 (IDs 14-15)
+
+            // Calculate risk (0.0 to 1.0) - Increased baseline to ensure enough events
+            let risk = 0.3
+            if (age > 60) risk += 0.2
+            if (tStageId > 4) risk += 0.2
+            if (nStageId > 8) risk += 0.2
+            if (mStageId === 15) risk += 0.3
+
+            const died = Math.random() < risk
+            const recurred = Math.random() < risk + 0.15
+
+            const isAlive = died ? 0 : 1
+            const hasRecurrence = recurred ? 1 : 0
+
+            const diagDate = new Date(`${diagnosisYear}-01-01`)
+            const diagDateStr = diagDate.toISOString().split('T')[0]
+            const lastFollowUpDate = new Date(diagDate)
+            lastFollowUpDate.setFullYear(
+                lastFollowUpDate.getFullYear() +
+                    Math.floor(Math.random() * 5) +
+                    1
+            )
+
+            let deathDate = null
+            if (died) {
+                const dDate = new Date(diagDate)
+                dDate.setFullYear(
+                    dDate.getFullYear() + Math.floor(Math.random() * 4)
+                )
+                deathDate = dDate.toISOString().split('T')[0]
+            }
+
+            let recurrenceDate = null
+            if (recurred) {
+                const rDate = new Date(diagDate)
+                rDate.setFullYear(
+                    rDate.getFullYear() + Math.floor(Math.random() * 3)
+                )
+                recurrenceDate = rDate.toISOString().split('T')[0]
+            }
+
+            // 1. Insert Patient
+            db.run(
+                `INSERT INTO patient (
+                tumor_type, name, surname, personal_identification_number,
+                age_at_diagnosis, gender, 
+                tumor_location, diagnosis_year, therapy_type, is_alive, 
+                death_date, last_follow_up, recidive, date_of_recidive, 
+                date_of_first_post_treatment_follow_up
+            ) VALUES (?, NULL, NULL, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    'malignant',
+                    age,
+                    gender,
+                    location,
+                    diagDateStr,
+                    therapy,
+                    isAlive,
+                    deathDate,
+                    lastFollowUpDate.toISOString().split('T')[0],
+                    hasRecurrence,
+                    recurrenceDate,
+                    diagDateStr,
+                ],
+                function (this: unknown) {
+                    const patientId = (this as { lastID: number }).lastID
+
+                    // 2. Insert Malignant Patient
+                    db.run(
+                        'INSERT INTO malignant_patient (id_patient, adjuvant_therapy) VALUES (?, ?)',
+                        [patientId, Math.random() > 0.5 ? 'Ano' : 'Ne']
+                    )
+
+                    // 3. Insert Histopathology
+                    db.run(
+                        `INSERT INTO histopathology (
+                    id_patient, id_histology_type, tumor_size, resection_margin
+                ) VALUES (?, ?, ?, ?)`,
+                        [
+                            patientId,
+                            histologyId,
+                            Math.floor(Math.random() * 50) + 10,
+                            Math.random() > 0.8 ? 'R1' : 'R0',
+                        ]
+                    )
+
+                    // 4. Insert Staging
+                    db.run(
+                        `INSERT INTO patient_staging (
+                    id_patient, id_edition, clinical_t_id, clinical_n_id, clinical_m_id,
+                    pathological_t_id, pathological_n_id, pathological_m_id
+                ) VALUES (?, 1, ?, ?, ?, ?, ?, ?)`,
+                        [
+                            patientId,
+                            tStageId,
+                            nStageId,
+                            mStageId,
+                            tStageId,
+                            nStageId,
+                            mStageId,
+                        ]
+                    )
+                }
+            )
+        }
+
+        db.run('COMMIT')
+        console.log('Successfully generated 100 mock patients.')
     })
 }
 

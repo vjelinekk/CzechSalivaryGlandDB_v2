@@ -150,6 +150,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                 id="editButtons"
                 sx={{
                     display: 'flex',
+                    flexDirection: 'row-reverse', // Toggle on the right
                     alignItems: 'center',
                     padding: 1,
                     gap: 1,
@@ -160,6 +161,10 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                     sx={{
                         minWidth: 0,
                         padding: 0.5,
+                        // Match ML button exactly
+                        width: '32px !important',
+                        height: '32px !important',
+                        margin: '0 !important',
                     }}
                     disableRipple
                     variant={!expand ? 'contained' : 'text'}
@@ -186,6 +191,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                     onClick={handleCancelButtonClick}
                                     color="secondary"
                                     disableRipple
+                                    sx={{ margin: '0 !important' }}
                                 >
                                     {t(formTranslationKeys.cancelEdit)}
                                 </Button>
@@ -195,6 +201,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                     disabled={formErrors.length > 0}
                                     color="secondary"
                                     disableRipple
+                                    sx={{ margin: '0 !important' }}
                                 >
                                     {t(formTranslationKeys.saveChanges)}
                                 </Button>
@@ -205,6 +212,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                 onClick={handleEditButtonClick}
                                 color="secondary"
                                 disableRipple
+                                sx={{ margin: '0 !important' }}
                             >
                                 {t(formTranslationKeys.editPatient)}
                             </Button>
@@ -213,6 +221,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                             onClick={handleDeleteButtonClick}
                             color="error"
                             disableRipple
+                            sx={{ margin: '0 !important' }}
                         >
                             {t(formTranslationKeys.deletePatient)}
                         </Button>
@@ -221,6 +230,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                                 onClick={handleDeleteFromStudyClick}
                                 color="error"
                                 disableRipple
+                                sx={{ margin: '0 !important' }}
                             >
                                 {t(formTranslationKeys.removeFromStudy)}
                             </Button>
