@@ -118,11 +118,13 @@ export const trainMLModel = async (
 
 /**
  * Calculates risk score using the ACTIVE model from the database.
+ * First checks if a cached prediction exists.
  */
 export const calculateRiskScore = async (
     patient: PatientDto,
     modelType: MLModelType,
-    algorithm?: MLAlgorithm
+    algorithm?: MLAlgorithm,
+    recalculate = false
 ): Promise<MLPredictionResultDto> => {
     if (
         patient.form_type === undefined ||
@@ -133,7 +135,6 @@ export const calculateRiskScore = async (
         )
     }
 
-    // Default to 'rsf' if algorithm not specified (or search for any active)
     const targetAlgorithm = algorithm || 'rsf'
     const activeModel = await mlRepository.getActiveMLModel(
         modelType,
@@ -146,9 +147,27 @@ export const calculateRiskScore = async (
         )
     }
 
+    // 1. Check for cached prediction if not explicitly recalculating
+    if (!recalculate && patient.id) {
+        const cached = await mlRepository.getMLPrediction(
+            patient.id,
+            modelType,
+            targetAlgorithm
+        )
+        if (cached) {
+            const result = JSON.parse(
+                cached.result_json
+            ) as MLPredictionResultDto
+            result.calculation_date = cached.calculation_date
+            result.is_stale = cached.id_model !== activeModel.id
+            return result
+        }
+    }
+
+    // 2. Perform new calculation
     if (!fs.existsSync(activeModel.model_path)) {
         throw new Error(
-            `Model file not found on disk: ${activeModel.model_path}. It might have been moved or deleted manually.`
+            `Model file not found on disk: ${activeModel.model_path}`
         )
     }
 
@@ -159,9 +178,30 @@ export const calculateRiskScore = async (
     }
 
     const output = await executePythonML(input)
-    return output.result as
+    const result = output.result as
         | MLSurvivalPredictionResult
         | MLRecurrencePredictionResult
+
+    const resultDto: MLPredictionResultDto = {
+        ...result,
+        calculation_date: new Date().toISOString(),
+        is_stale: false,
+    }
+
+    // 3. Save to database for future use
+    if (patient.id) {
+        await mlRepository.saveMLPrediction({
+            id_patient: patient.id,
+            id_model: activeModel.id,
+            model_type: modelType,
+            algorithm: targetAlgorithm,
+            risk_score: resultDto.risk_score,
+            result_json: JSON.stringify(resultDto),
+            calculation_date: resultDto.calculation_date,
+        })
+    }
+
+    return resultDto
 }
 
 /**
@@ -212,6 +252,36 @@ export const deleteModel = async (id: number): Promise<void> => {
 
     // 2. Delete from database
     return mlRepository.deleteMLModel(id)
+}
+
+/**
+ * Retrieves a saved prediction for a patient if it exists.
+ */
+export const getSavedPrediction = async (
+    patientId: number,
+    modelType: MLModelType,
+    algorithm: MLAlgorithm
+): Promise<MLPredictionResultDto | null> => {
+    const activeModel = await mlRepository.getActiveMLModel(
+        modelType,
+        algorithm
+    )
+    const cached = await mlRepository.getMLPrediction(
+        patientId,
+        modelType,
+        algorithm
+    )
+
+    if (cached) {
+        const result = JSON.parse(cached.result_json) as MLPredictionResultDto
+        result.calculation_date = cached.calculation_date
+        result.is_stale = activeModel
+            ? cached.id_model !== activeModel.id
+            : true
+        return result
+    }
+
+    return null
 }
 
 /**

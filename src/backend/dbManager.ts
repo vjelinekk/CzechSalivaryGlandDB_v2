@@ -237,6 +237,22 @@ const schemaQueries = [
     // Ensure only one model per type+algorithm is active at a time
     `CREATE UNIQUE INDEX IF NOT EXISTS idx_active_ml_model 
      ON ml_model (model_type, algorithm) WHERE is_active = 1`,
+
+    // 9. ML Predictions (Cached results for patients)
+    `CREATE TABLE IF NOT EXISTS ml_prediction (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_patient INTEGER NOT NULL,
+        id_model INTEGER NOT NULL,
+        model_type TEXT NOT NULL,
+        algorithm TEXT NOT NULL,
+        risk_score REAL NOT NULL,
+        result_json TEXT NOT NULL, -- Full JSON blob of MLPredictionResultDto
+        calculation_date TEXT NOT NULL,
+        FOREIGN KEY (id_patient) REFERENCES patient(id) ON DELETE CASCADE,
+        FOREIGN KEY (id_model) REFERENCES ml_model(id) ON DELETE CASCADE
+    )`,
+    `CREATE UNIQUE INDEX IF NOT EXISTS idx_patient_prediction 
+     ON ml_prediction (id_patient, model_type, algorithm)`,
 ]
 
 const seedTnmData = () => {
@@ -470,7 +486,7 @@ export const initSchema = () => {
             db.get(
                 'SELECT COUNT(*) as count FROM patient',
                 (err, row: unknown) => {
-                    if (!err && row.count < 50) {
+                    if (!err && (row as { count: number }).count < 50) {
                         console.log(
                             'Generating mock patients for ML testing...'
                         )
@@ -574,7 +590,7 @@ const generateMockPatients = (count: number) => {
                     diagDateStr,
                 ],
                 function (this: unknown) {
-                    const patientId = this.lastID
+                    const patientId = (this as { lastID: number }).lastID
 
                     // 2. Insert Malignant Patient
                     db.run(

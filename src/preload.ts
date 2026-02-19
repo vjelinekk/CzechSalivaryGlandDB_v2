@@ -238,12 +238,14 @@ contextBridge.exposeInMainWorld('ml', {
     calculateRiskScore: (
         patient: PatientType,
         modelType: 'overall_survival' | 'recurrence',
-        algorithm?: 'rsf' | 'coxph'
+        algorithm?: 'rsf' | 'coxph',
+        recalculate?: boolean
     ) =>
         ipcRenderer.invoke(ipcMLChannels.calculateRiskScore, [
             patient,
             modelType,
             algorithm,
+            recalculate,
         ]),
     getModelInfo: (modelType?: string) =>
         ipcRenderer.invoke(ipcMLChannels.getModelInfo, modelType),
@@ -251,4 +253,14 @@ contextBridge.exposeInMainWorld('ml', {
         ipcRenderer.invoke(ipcMLChannels.setActiveModel, id),
     deleteModel: (id: number) =>
         ipcRenderer.invoke(ipcMLChannels.deleteModel, id),
+    getSavedPrediction: (
+        patientId: number,
+        modelType: 'overall_survival' | 'recurrence',
+        algorithm: 'rsf' | 'coxph'
+    ) =>
+        ipcRenderer.invoke(ipcMLChannels.getSavedPrediction, [
+            patientId,
+            modelType,
+            algorithm,
+        ]),
 })

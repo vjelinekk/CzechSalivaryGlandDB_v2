@@ -148,11 +148,17 @@ declare global {
             calculateRiskScore: (
                 patient: PatientDto,
                 modelType: 'overall_survival' | 'recurrence',
-                algorithm?: 'rsf' | 'coxph'
+                algorithm?: 'rsf' | 'coxph',
+                recalculate?: boolean
             ) => Promise<MLPredictionResultDto>
             getModelInfo: (modelType?: string) => Promise<MLModelInfoDto[]>
             setActiveModel: (id: number) => Promise<void>
             deleteModel: (id: number) => Promise<void>
+            getSavedPrediction: (
+                patientId: number,
+                modelType: 'overall_survival' | 'recurrence',
+                algorithm: 'rsf' | 'coxph'
+            ) => Promise<MLPredictionResultDto | null>
         }
     }
 }

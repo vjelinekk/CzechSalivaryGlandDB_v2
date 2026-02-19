@@ -5,6 +5,7 @@ import {
     getModelInfo,
     setActiveModel,
     deleteModel,
+    getSavedPrediction,
 } from '../backend/services/mlService'
 import { ipcMLChannels } from './ipcChannels'
 import { MLModelType, MLAlgorithm } from '../backend/types/ml'
@@ -20,9 +21,22 @@ ipcMain.handle(
 
 ipcMain.handle(
     ipcMLChannels.calculateRiskScore,
-    async (event, args: [PatientDto, MLModelType, MLAlgorithm?]) => {
-        const [patient, modelType, algorithm] = args
-        return await calculateRiskScore(patient, modelType, algorithm)
+    async (event, args: [PatientDto, MLModelType, MLAlgorithm?, boolean?]) => {
+        const [patient, modelType, algorithm, recalculate] = args
+        return await calculateRiskScore(
+            patient,
+            modelType,
+            algorithm,
+            recalculate
+        )
+    }
+)
+
+ipcMain.handle(
+    ipcMLChannels.getSavedPrediction,
+    async (event, args: [number, MLModelType, MLAlgorithm]) => {
+        const [patientId, modelType, algorithm] = args
+        return await getSavedPrediction(patientId, modelType, algorithm)
     }
 )
 

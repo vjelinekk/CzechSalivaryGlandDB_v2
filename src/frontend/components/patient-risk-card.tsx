@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Box,
     Button,
@@ -19,15 +19,16 @@ import InfoIcon from '@mui/icons-material/Info'
 import PsychologyIcon from '@mui/icons-material/Psychology'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import CloseIcon from '@mui/icons-material/Close'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import { useTranslation } from 'react-i18next'
 import { PatientType } from '../types'
 import { MLPredictionResultDto } from '../../ipc/dtos/MLPredictionResultDto'
-import { keyframes } from '@emotion/react'
 import { MLAlgorithm, MLModelType } from '../types/ml'
+import { keyframes } from '@emotion/react'
 
 const fadeIn = keyframes`
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 `
 
 interface PatientRiskCardProps {
@@ -51,40 +52,67 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
     const isMalignant =
         patient.form_type && [1, 2, 3].includes(patient.form_type as number)
 
+    // Load saved prediction when expanding or changing config
+    useEffect(() => {
+        const loadSaved = async () => {
+            if (expand && isMalignant && patient.id) {
+                setLoading(true)
+                setResult(null)
+                setError(null)
+
+                const startTime = Date.now()
+                const minDelay = 400
+
+                try {
+                    const saved = await window.ml.getSavedPrediction(
+                        patient.id,
+                        modelType,
+                        algorithm
+                    )
+
+                    const elapsedTime = Date.now() - startTime
+                    if (elapsedTime < minDelay) {
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, minDelay - elapsedTime)
+                        )
+                    }
+
+                    setResult(saved)
+                } catch (err) {
+                    console.error('Failed to load saved prediction:', err)
+                } finally {
+                    setLoading(false)
+                }
+            }
+        }
+        loadSaved()
+    }, [expand, modelType, algorithm, patient.id])
+
     if (!isMalignant) {
         return null
     }
 
     const handleCalculate = async () => {
+        if (loading) return
         setLoading(true)
         setError(null)
+        setResult(null)
+
         try {
             const prediction = await window.ml.calculateRiskScore(
                 patient,
                 modelType,
-                algorithm
+                algorithm,
+                true
             )
             setResult(prediction)
         } catch (err: unknown) {
-            if (
-                typeof err !== 'object' ||
-                err === null ||
-                !('message' in err)
-            ) {
-                setError(t('Nepodařilo se vypočítat riziko. Neznámá chyba.'))
-                setLoading(false)
-                return
+            if (err instanceof Error) {
+                setError(err.message)
+            } else {
+                setError(t('Nepodařilo se vypočítat riziko.'))
             }
-
-            // Say that the error is an Error object, so we can access the message property
-            const errorWithMessage = err as Error
-
-            setError(
-                errorWithMessage.message ||
-                    t(
-                        'Nepodařilo se vypočítat riziko. Ujistěte se, že existuje natrénovaný model.'
-                    )
-            )
+            setResult(null)
         } finally {
             setLoading(false)
         }
@@ -94,18 +122,14 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
         _: unknown,
         nextType: MLModelType | null
     ) => {
-        if (nextType && nextType !== modelType) {
+        if (nextType && nextType !== modelType && !loading) {
             setModelType(nextType)
-            setResult(null)
-            setError(null)
         }
     }
 
     const handleAlgorithmChange = (_: unknown, nextAlg: MLAlgorithm | null) => {
-        if (nextAlg && nextAlg !== algorithm) {
+        if (nextAlg && nextAlg !== algorithm && !loading) {
             setAlgorithm(nextAlg)
-            setResult(null)
-            setError(null)
         }
     }
 
@@ -121,6 +145,11 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
         return t('Vysoké riziko')
     }
 
+    const formatDate = (isoString?: string) => {
+        if (!isoString) return ''
+        return new Date(isoString).toLocaleDateString()
+    }
+
     return (
         <Card
             id="mlRiskCard"
@@ -130,14 +159,13 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                 alignItems: expand ? 'flex-start' : 'center',
                 padding: 1,
                 gap: 1,
-                minWidth: expand ? '450px' : 'auto',
-                maxWidth: expand ? '550px' : 'auto',
+                width: expand ? '450px' : 'fit-content',
+                minHeight: expand ? '180px' : 'auto',
                 boxShadow: 3,
                 border: 1,
                 borderColor: 'grey.300',
                 animation: expand ? `${fadeIn} 0.2s ease` : 'none',
-                width: expand ? 'auto' : 'fit-content',
-                // Targeted neutralization of problematic global styles for all MUI button types
+                cursor: loading ? 'wait' : 'default',
                 '& .MuiButton-root, & .MuiIconButton-root, & .MuiToggleButton-root':
                     {
                         margin: '0 !important',
@@ -151,12 +179,14 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
             }}
         >
             <Button
-                onClick={() => setExpand((prev) => !prev)}
+                onClick={() => !loading && setExpand(!expand)}
                 sx={{
                     minWidth: 0,
                     width: '32px !important',
                     height: '32px !important',
                     padding: '0 !important',
+                    pointerEvents: loading ? 'none' : 'auto',
+                    opacity: loading ? 0.7 : 1,
                 }}
                 disableRipple
                 variant={!expand ? 'contained' : 'text'}
@@ -170,7 +200,13 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
             </Button>
 
             {expand && (
-                <Box sx={{ width: '100%', mr: 1 }}>
+                <Box
+                    sx={{
+                        width: '100%',
+                        mr: 1,
+                        pointerEvents: loading ? 'none' : 'auto',
+                    }}
+                >
                     <Box sx={{ p: 1 }}>
                         <Typography
                             variant="subtitle2"
@@ -231,42 +267,37 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                             </ToggleButtonGroup>
                         </Box>
 
-                        {!result && !loading && !error && (
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    onClick={handleCalculate}
-                                    disabled={disabled}
-                                    disableRipple
-                                    sx={{
-                                        px: 3,
-                                        padding: '6px 16px !important',
-                                    }}
-                                >
-                                    {t('Vypočítat riziko')}
-                                </Button>
-                            </Box>
-                        )}
-
-                        {loading && (
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    p: 1,
-                                }}
-                            >
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                minHeight: '40px',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {loading ? (
                                 <CircularProgress size={24} />
-                            </Box>
-                        )}
+                            ) : (
+                                !result &&
+                                !error && (
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={handleCalculate}
+                                        disabled={disabled}
+                                        disableRipple
+                                        sx={{
+                                            px: 3,
+                                            padding: '6px 16px !important',
+                                        }}
+                                    >
+                                        {t('Vypočítat riziko')}
+                                    </Button>
+                                )
+                            )}
+                        </Box>
 
-                        {error && (
+                        {error && !loading && (
                             <Alert
                                 severity="error"
                                 action={
@@ -295,8 +326,8 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                         )}
                     </Box>
 
-                    {result && (
-                        <>
+                    {result && !loading && (
+                        <Box sx={{ animation: `${fadeIn} 0.3s ease` }}>
                             <Divider />
                             <CardContent
                                 sx={{ p: 2, '&:last-child': { pb: 2 } }}
@@ -542,13 +573,49 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                         )}
                                     </Grid>
                                 </Grid>
+
                                 <Box
                                     sx={{
-                                        mt: 1,
+                                        mt: 1.5,
                                         display: 'flex',
-                                        justifyContent: 'center',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
                                     }}
                                 >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 0.5,
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                fontSize: '0.65rem',
+                                                color: 'text.disabled',
+                                            }}
+                                        >
+                                            {t('Vypočteno')}:{' '}
+                                            {formatDate(
+                                                result.calculation_date
+                                            )}
+                                        </Typography>
+                                        {result.is_stale && (
+                                            <Tooltip
+                                                title={t(
+                                                    'Tento výsledek pochází ze starší verze modelu.'
+                                                )}
+                                            >
+                                                <WarningAmberIcon
+                                                    sx={{
+                                                        fontSize: '0.9rem',
+                                                        color: 'warning.main',
+                                                    }}
+                                                />
+                                            </Tooltip>
+                                        )}
+                                    </Box>
                                     <Button
                                         size="small"
                                         variant="text"
@@ -564,7 +631,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                     </Button>
                                 </Box>
                             </CardContent>
-                        </>
+                        </Box>
                     )}
                 </Box>
             )}

@@ -77,4 +77,5 @@ export enum ipcMLChannels {
     getModelInfo = 'getModelInfo',
     setActiveModel = 'setActiveModel',
     deleteModel = 'deleteModel',
+    getSavedPrediction = 'getSavedPrediction',
 }
