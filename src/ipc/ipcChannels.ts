@@ -75,4 +75,6 @@ export enum ipcMLChannels {
     trainModel = 'trainModel',
     calculateRiskScore = 'calculateRiskScore',
     getModelInfo = 'getModelInfo',
+    setActiveModel = 'setActiveModel',
+    deleteModel = 'deleteModel',
 }

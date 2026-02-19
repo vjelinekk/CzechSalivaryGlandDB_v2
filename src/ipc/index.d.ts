@@ -151,6 +151,8 @@ declare global {
                 algorithm?: 'rsf' | 'coxph'
             ) => Promise<MLPredictionResultDto>
             getModelInfo: (modelType?: string) => Promise<MLModelInfoDto[]>
+            setActiveModel: (id: number) => Promise<void>
+            deleteModel: (id: number) => Promise<void>
         }
     }
 }

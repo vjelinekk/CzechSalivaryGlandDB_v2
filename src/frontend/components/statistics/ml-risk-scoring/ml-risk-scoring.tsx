@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Box, Container, Paper, Tab, Tabs, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import ModelTrainingTab from './model-training-tab';
-import ModelInfoTab from './model-info-tab';
+import React, { useState } from 'react'
+import { Box, Container, Paper, Tab, Tabs, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import ModelTrainingTab from './model-training-tab'
+import ModelInfoTab from './model-info-tab'
 
 interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
+    children?: React.ReactNode
+    index: number
+    value: number
 }
 
 function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props
 
     return (
         <div
@@ -21,22 +21,23 @@ function TabPanel(props: TabPanelProps) {
             aria-labelledby={`ml-tab-${index}`}
             {...other}
         >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    {children}
-                </Box>
-            )}
+            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
         </div>
-    );
+    )
 }
 
 const MlRiskScoring: React.FC = () => {
-    const { t } = useTranslation();
-    const [value, setValue] = useState(0);
+    const { t } = useTranslation()
+    const [value, setValue] = useState(0)
+    const [refreshKey, setRefreshKey] = useState(0)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+        setValue(newValue)
+    }
+
+    const handleTrainingSuccess = () => {
+        setRefreshKey((prev) => prev + 1)
+    }
 
     return (
         <Container maxWidth={false} sx={{ mt: 2, mb: 4 }}>
@@ -46,21 +47,27 @@ const MlRiskScoring: React.FC = () => {
                 </Typography>
 
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange} aria-label="ml tabs">
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="ml tabs"
+                    >
                         <Tab label={t('Trénování modelu')} />
                         <Tab label={t('Informace o modelech')} />
                     </Tabs>
                 </Box>
 
                 <TabPanel value={value} index={0}>
-                    <ModelTrainingTab />
+                    <ModelTrainingTab
+                        onTrainingSuccess={handleTrainingSuccess}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <ModelInfoTab />
+                    <ModelInfoTab key={refreshKey} />
                 </TabPanel>
             </Paper>
         </Container>
-    );
-};
+    )
+}
 
-export default MlRiskScoring;
+export default MlRiskScoring

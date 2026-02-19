@@ -468,13 +468,10 @@ const Menu: React.FC<MenuProps> = ({
                     >
                         <ListItemButton
                             onClick={() =>
-                                handleButtonClick(
-                                    Components.mlRiskScoring
-                                )
+                                handleButtonClick(Components.mlRiskScoring)
                             }
                             selected={
-                                activeMenuButton ===
-                                Components.mlRiskScoring
+                                activeMenuButton === Components.mlRiskScoring
                             }
                             sx={{
                                 minHeight: 48,

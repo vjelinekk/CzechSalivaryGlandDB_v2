@@ -118,9 +118,7 @@ const SublingualMalignantGlandForm: React.FC<GlandFormProps> = ({
                 disabled={formState === FormStates.view}
             />
             {formState !== FormStates.add && (
-                <PatientRiskCard
-                    patient={formData}
-                />
+                <PatientRiskCard patient={formData} />
             )}
             <AddPatientButton
                 formState={formState}

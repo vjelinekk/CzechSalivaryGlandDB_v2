@@ -164,7 +164,7 @@ const EditButtons: React.FC<EditButtonsProps> = ({
                         // Match ML button exactly
                         width: '32px !important',
                         height: '32px !important',
-                        margin: '0 !important'
+                        margin: '0 !important',
                     }}
                     disableRipple
                     variant={!expand ? 'contained' : 'text'}
