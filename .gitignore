@@ -57,6 +57,10 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
+# ML Engine Binaries
+ml_engine/
+db.sqlite
+
 # Yarn Integrity file
 .yarn-integrity
 
