@@ -18,9 +18,19 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-            - uses: actions/setup-python@v4
+            - uses: actions/setup-python@v5
               with:
-                  python-version: '3.10'
+                  python-version: '3.14'
+            - name: Build ML Engine (Windows)
+              shell: bash
+              run: |
+                  cd python-ml-engine
+                  pip install -r requirements.txt
+                  pip install pyinstaller
+                  ./build.sh
+                  cd ..
+                  mkdir ml_engine
+                  mv python-ml-engine/dist/ml_engine.exe ml_engine/
             - run: npm install
             - run: npm run publish
               env:
