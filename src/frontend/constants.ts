@@ -150,6 +150,7 @@ export enum dbLabels {
     n_klasifikace_patologicka_id = 'n_klasifikace_patologicka_id',
     m_klasifikace_patologicka_id = 'm_klasifikace_patologicka_id',
     tnm_klasifikace_patologicka_id = 'tnm_klasifikace_patologicka_id',
+    id_edition = 'id_edition',
     datum_prvni_kontroly_po_lecbe = 'datum_prvni_kontroly_po_lecbe',
     perzistence = 'perzistence',
     doporuceno_dalsi_sledovani = 'doporuceno_dalsi_sledovani',

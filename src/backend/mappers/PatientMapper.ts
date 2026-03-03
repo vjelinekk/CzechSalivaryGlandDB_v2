@@ -702,6 +702,7 @@ export class PatientMapper {
         tnmValues?: Map<number, TnmValueDefinitionEntity>
     ): void {
         const d = dto as ParotidMalignantPatientDto
+        d.id_edition = staging.id_edition
         d.t_klasifikace_klinicka_id = staging.clinical_t_id
         d.n_klasifikace_klinicka_id = staging.clinical_n_id
         d.m_klasifikace_klinicka_id = staging.clinical_m_id

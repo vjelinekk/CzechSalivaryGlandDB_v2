@@ -4,6 +4,7 @@ import { GlandComponentProps } from '../../types'
 import TNMClassificationCalculator from './tnm-classification-calculator'
 import { useTranslation } from 'react-i18next'
 import { formTranslationKeys } from '../../translations'
+import useTnmData from '../../hooks/use-tnm-data'
 
 const TNMClassification: React.FC<GlandComponentProps> = ({
     formData,
@@ -11,10 +12,14 @@ const TNMClassification: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+    const { edition } = useTnmData(formData?.id_edition as number | undefined)
 
     return (
         <div className="sectionDiv">
-            <h1>{t(formTranslationKeys.tnmClassification)}</h1>
+            <h1>
+                {t(formTranslationKeys.tnmClassification)}
+                {edition && ` (${edition.name})`}
+            </h1>
             <h2>{t(formTranslationKeys.tnmClassificationClinical)}</h2>
             <TNMClassificationCalculator
                 tIdLabel={dbLabels.t_klasifikace_klinicka_id}

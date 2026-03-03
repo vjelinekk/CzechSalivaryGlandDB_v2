@@ -27,6 +27,7 @@ import {
     calculateStage,
     getPatientStaging,
     savePatientStaging,
+    getTnmEditionById,
 } from '../backend/repositories/tnmRepository'
 import {
     ipcAPIDeleteChannels,
@@ -157,6 +158,13 @@ ipcMain.handle(
 ipcMain.handle(ipcAPIGetChannels.getActiveTnmEdition, async () => {
     return await getActiveEdition()
 })
+
+ipcMain.handle(
+    ipcAPIGetChannels.getTnmEditionById,
+    async (event, editionId) => {
+        return await getTnmEditionById(editionId)
+    }
+)
 
 ipcMain.handle(ipcAPIGetChannels.getTnmValues, async (event, args) => {
     const [editionId, category] = args

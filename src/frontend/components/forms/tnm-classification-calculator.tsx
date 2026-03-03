@@ -27,8 +27,9 @@ const TNMClassificationCalculator: React.FC<
     disabled,
 }) => {
     const { t } = useTranslation()
+    const editionId = formData?.id_edition as number | undefined
     const { tOptions, nOptions, mOptions, isLoading, calculateStage } =
-        useTnmData()
+        useTnmData(editionId)
     const [tnmStage, setTnmStage] = useState<TnmValueDefinition | null>(null)
 
     const notDeterminedLabel = t(
