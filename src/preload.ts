@@ -120,6 +120,12 @@ contextBridge.exposeInMainWorld('api', {
     getActiveTnmEdition: () => {
         return ipcRenderer.invoke(ipcAPIGetChannels.getActiveTnmEdition)
     },
+    getTnmEditionById: (editionId: number) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getTnmEditionById,
+            editionId
+        )
+    },
     getTnmValues: (editionId: number, category?: 'T' | 'N' | 'M' | 'G') => {
         return ipcRenderer.invoke(ipcAPIGetChannels.getTnmValues, [
             editionId,

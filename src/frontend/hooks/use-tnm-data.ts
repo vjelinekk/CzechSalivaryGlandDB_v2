@@ -16,7 +16,7 @@ interface UseTnmDataResult {
     ) => Promise<TnmValueDefinition | null>
 }
 
-const useTnmData = (): UseTnmDataResult => {
+const useTnmData = (initialEditionId?: number): UseTnmDataResult => {
     const [edition, setEdition] = useState<TnmEdition | null>(null)
     const [tOptions, setTOptions] = useState<TnmValueDefinition[]>([])
     const [nOptions, setNOptions] = useState<TnmValueDefinition[]>([])
@@ -31,20 +31,30 @@ const useTnmData = (): UseTnmDataResult => {
                 setIsLoading(true)
                 setError(null)
 
-                const activeEdition = await window.api.getActiveTnmEdition()
-                if (!activeEdition) {
-                    setError('No active TNM edition found')
+                let selectedEdition: TnmEdition | null = null
+
+                if (initialEditionId) {
+                    // Fetch specific edition if ID is provided
+                    selectedEdition =
+                        await window.api.getTnmEditionById(initialEditionId)
+                } else {
+                    // Otherwise fetch default active edition
+                    selectedEdition = await window.api.getActiveTnmEdition()
+                }
+
+                if (!selectedEdition) {
+                    setError('No TNM edition found')
                     setIsLoading(false)
                     return
                 }
 
-                setEdition(activeEdition)
+                setEdition(selectedEdition)
 
                 const [tValues, nValues, mValues, gValues] = await Promise.all([
-                    window.api.getTnmValues(activeEdition.id, 'T'),
-                    window.api.getTnmValues(activeEdition.id, 'N'),
-                    window.api.getTnmValues(activeEdition.id, 'M'),
-                    window.api.getTnmValues(activeEdition.id, 'G'),
+                    window.api.getTnmValues(selectedEdition.id, 'T'),
+                    window.api.getTnmValues(selectedEdition.id, 'N'),
+                    window.api.getTnmValues(selectedEdition.id, 'M'),
+                    window.api.getTnmValues(selectedEdition.id, 'G'),
                 ])
 
                 setTOptions(tValues)
@@ -60,7 +70,7 @@ const useTnmData = (): UseTnmDataResult => {
         }
 
         loadTnmData()
-    }, [])
+    }, [initialEditionId])
 
     const calculateStage = useCallback(
         async (

@@ -44,7 +44,7 @@ export const insertPatient = async (
 ): Promise<number | null> => {
     try {
         const activeEdition = await getActiveEdition()
-        const editionId = activeEdition?.id ?? 1
+        const editionId = (data.id_edition as number) ?? activeEdition?.id ?? 1
         const encryptedData = encryptPatientData(data)
         const mapped = PatientMapper.toPersistence(encryptedData, editionId)
 
@@ -176,7 +176,7 @@ export const updatePatient = async (
     try {
         const patientId = data.id as number
         const activeEdition = await getActiveEdition()
-        const editionId = activeEdition?.id ?? 1
+        const editionId = (data.id_edition as number) ?? activeEdition?.id ?? 1
         const encryptedData = encryptPatientData(data)
         const mapped = PatientMapper.toPersistence(encryptedData, editionId)
 

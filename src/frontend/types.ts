@@ -121,6 +121,7 @@ export interface PatientData {
     n_klasifikace_patologicka_id?: number
     m_klasifikace_patologicka_id?: number
     tnm_klasifikace_patologicka_id?: number
+    id_edition?: number
     datum_prvni_kontroly_po_lecbe?: string
     perzistence?: string
     datum_prokazani_perzistence?: string

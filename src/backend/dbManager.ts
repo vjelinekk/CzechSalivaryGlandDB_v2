@@ -257,9 +257,11 @@ const schemaQueries = [
 
 const seedTnmData = () => {
     const tnmQueries = [
-        // TNM Edition (AJCC 8th Edition)
+        // =============================================
+        // TNM8 (AJCC 8th Edition) - INACTIVE
+        // =============================================
         `INSERT OR IGNORE INTO tnm_edition (id, name, active_from, is_active) VALUES
-        (1, 'AJCC 8th Edition', '2018-01-01', 1)`,
+        (1, 'TNM8', '2018-01-01', 0)`,
 
         // T Values (edition_id=1)
         `INSERT OR IGNORE INTO tnm_value_definition (id, edition_id, category, code, description, sort_order) VALUES
@@ -294,56 +296,80 @@ const seedTnmData = () => {
         (20, 1, 'G', 'Stage IVB', 'T4b any N M0 or any T N3 M0', 5),
         (21, 1, 'G', 'Stage IVC', 'Any T any N M1', 6)`,
 
-        // TNM Stage Rules - M1 -> Stage IVC (highest priority)
+        // TNM8 Stage Rules
         `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (1, 1, NULL, NULL, 15, 21, 100)`,
-
-        // T4b -> Stage IVB (with M0)
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (2, 1, 6, NULL, 14, 20, 90)`,
-
-        // N3a/N3b -> Stage IVB (with M0)
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (3, 1, NULL, 12, 14, 20, 85),
-        (4, 1, NULL, 13, 14, 20, 85)`,
-
-        // T4a combinations -> Stage IVA
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (5, 1, 5, 7, 14, 19, 50),
-        (6, 1, 5, 8, 14, 19, 50),
-        (7, 1, 5, 9, 14, 19, 50),
-        (8, 1, 5, 10, 14, 19, 50),
-        (9, 1, 5, 11, 14, 19, 50)`,
-
-        // N2 combinations (with T1-T3) -> Stage IVA
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (10, 1, 2, 9, 14, 19, 45),
-        (11, 1, 2, 10, 14, 19, 45),
-        (12, 1, 2, 11, 14, 19, 45),
-        (13, 1, 3, 9, 14, 19, 45),
-        (14, 1, 3, 10, 14, 19, 45),
-        (15, 1, 3, 11, 14, 19, 45),
-        (16, 1, 4, 9, 14, 19, 45),
-        (17, 1, 4, 10, 14, 19, 45),
-        (18, 1, 4, 11, 14, 19, 45)`,
-
-        // N1 combinations -> Stage III
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (19, 1, 2, 8, 14, 18, 40),
-        (20, 1, 3, 8, 14, 18, 40),
-        (21, 1, 4, 8, 14, 18, 40)`,
-
-        // T3 N0 M0 -> Stage III
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (22, 1, 4, 7, 14, 18, 30)`,
-
-        // T2 N0 M0 -> Stage II
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
-        (23, 1, 3, 7, 14, 17, 20)`,
-
-        // T1 N0 M0 -> Stage I
-        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
+        (1, 1, NULL, NULL, 15, 21, 100), 
+        (2, 1, 6, NULL, 14, 20, 90),     
+        (3, 1, NULL, 12, 14, 20, 85),    
+        (4, 1, NULL, 13, 14, 20, 85),    
+        (5, 1, 5, 7, 14, 19, 50),        
+        (6, 1, 5, 8, 14, 19, 50),        
+        (7, 1, 5, 9, 14, 19, 50),        
+        (8, 1, 5, 10, 14, 19, 50),       
+        (9, 1, 5, 11, 14, 19, 50),       
+        (10, 1, 2, 9, 14, 19, 45),       
+        (11, 1, 2, 10, 14, 19, 45),      
+        (12, 1, 2, 11, 14, 19, 45),      
+        (13, 1, 3, 9, 14, 19, 45),       
+        (14, 1, 3, 10, 14, 19, 45),      
+        (15, 1, 3, 11, 14, 19, 45),      
+        (16, 1, 4, 9, 14, 19, 45),       
+        (17, 1, 4, 10, 14, 19, 45),      
+        (18, 1, 4, 11, 14, 19, 45),      
+        (19, 1, 2, 8, 14, 18, 40),       
+        (20, 1, 3, 8, 14, 18, 40),       
+        (21, 1, 4, 8, 14, 18, 40),       
+        (22, 1, 4, 7, 14, 18, 30),       
+        (23, 1, 3, 7, 14, 17, 20),       
         (24, 1, 2, 7, 14, 16, 10)`,
+
+        // =============================================
+        // TNM9 (AJCC 9th Edition) - ACTIVE
+        // =============================================
+        `INSERT OR IGNORE INTO tnm_edition (id, name, active_from, is_active) VALUES
+        (2, 'TNM9', '2025-01-01', 1)`,
+
+        // T Values (edition_id=2)
+        `INSERT OR IGNORE INTO tnm_value_definition (id, edition_id, category, code, description, sort_order) VALUES
+        (101, 2, 'T', 'T1', 'Tumor size T1', 1),
+        (102, 2, 'T', 'T2', 'Tumor size T2', 2),
+        (103, 2, 'T', 'T3', 'Tumor size T3', 3),
+        (104, 2, 'T', 'T4', 'Tumor size T4', 4)`,
+
+        // N Values (edition_id=2)
+        `INSERT OR IGNORE INTO tnm_value_definition (id, edition_id, category, code, description, sort_order) VALUES
+        (105, 2, 'N', 'N0', 'No regional lymph node metastasis', 1),
+        (106, 2, 'N', 'N1', 'Metastasis in regional lymph nodes N1', 2),
+        (107, 2, 'N', 'N2', 'Metastasis in regional lymph nodes N2', 3)`,
+
+        // M Values (edition_id=2)
+        `INSERT OR IGNORE INTO tnm_value_definition (id, edition_id, category, code, description, sort_order) VALUES
+        (108, 2, 'M', 'M0', 'No distant metastasis', 1),
+        (109, 2, 'M', 'M1', 'Distant metastasis', 2)`,
+
+        // G (Stage) Values (edition_id=2)
+        `INSERT OR IGNORE INTO tnm_value_definition (id, edition_id, category, code, description, sort_order) VALUES
+        (110, 2, 'G', 'Stage I', 'Stage I', 1),
+        (111, 2, 'G', 'Stage II', 'Stage II', 2),
+        (112, 2, 'G', 'Stage IIIA', 'Stage IIIA', 3),
+        (113, 2, 'G', 'Stage IIIB', 'Stage IIIB', 4),
+        (114, 2, 'G', 'Stage IV', 'Stage IV', 5)`,
+
+        // TNM9 Stage Rules
+        `INSERT OR IGNORE INTO tnm_stage_rule (id, id_edition, t_value_id, n_value_id, m_value_id, stage_value_id, priority) VALUES
+        (100, 2, NULL, NULL, 109, 114, 100), -- Any T, Any N, M1 -> Stage IV
+        (101, 2, 101, 105, 108, 110, 10),  
+        (102, 2, 102, 105, 108, 111, 10),  
+        (103, 2, 103, 105, 108, 112, 10),  
+        (104, 2, 104, 105, 108, 112, 10),  
+        (105, 2, 101, 106, 108, 112, 10),  
+        (106, 2, 102, 106, 108, 112, 10),  
+        (107, 2, 101, 107, 108, 113, 10),  
+        (108, 2, 102, 107, 108, 113, 10),  
+        (109, 2, 103, 106, 108, 113, 10),  
+        (110, 2, 103, 107, 108, 113, 10),  
+        (111, 2, 104, 106, 108, 113, 10),  
+        (112, 2, 104, 107, 108, 113, 10)`,
     ]
 
     tnmQueries.forEach((query) => {

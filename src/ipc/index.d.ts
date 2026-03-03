@@ -92,6 +92,9 @@ declare global {
                 selectedGroups: ITTestGroupsDto
             ) => Promise<NonParametricTestDataDto>
             getActiveTnmEdition: () => Promise<TnmEditionDto | null>
+            getTnmEditionById: (
+                editionId: number
+            ) => Promise<TnmEditionDto | null>
             getTnmValues: (
                 editionId: number,
                 category?: 'T' | 'N' | 'M' | 'G'
