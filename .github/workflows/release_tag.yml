@@ -36,9 +36,9 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    publish:
+    publish_windows:
         needs: release
-        runs-on: ubuntu-latest
+        runs-on: windows-latest
 
         steps:
             - name: Checkout repository
@@ -54,16 +54,16 @@ jobs:
               with:
                   python-version: '3.14'
 
-            - name: Build ML Engine (Unix)
+            - name: Build ML Engine (Windows)
+              shell: bash
               run: |
                   cd python-ml-engine
                   pip install -r requirements.txt
                   pip install pyinstaller
-                  chmod +x build.sh
                   ./build.sh
                   cd ..
                   mkdir ml_engine
-                  mv python-ml-engine/dist/ml_engine ml_engine/
+                  mv python-ml-engine/dist/ml_engine.exe ml_engine/
 
             - run: npm install
 
