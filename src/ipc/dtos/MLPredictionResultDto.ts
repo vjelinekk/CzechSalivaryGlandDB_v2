@@ -1,6 +1,8 @@
+import { MLRiskFactor } from '../../backend/types/ml'
+
 export interface MLPredictionResultDto {
     risk_score: number
-    top_risk_factors: Array<{ feature: string; importance: number }>
+    top_risk_factors: MLRiskFactor[]
     calculation_date?: string
     is_stale?: boolean // True if prediction was made with a model that is no longer active
     // Survival specific

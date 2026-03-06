@@ -502,7 +502,7 @@ export const initSchema = () => {
         seedTnmData()
 
         // --- Mock Data Generation for ML Testing ---
-        const GENERATE_MOCK_DATA = false // Set to true to generate mock patients
+        const GENERATE_MOCK_DATA = true // Set to true to generate mock patients
         if (GENERATE_MOCK_DATA) {
             // Clean up potentially broken mock patients (those with NULL names created by mock generator)
             db.run(

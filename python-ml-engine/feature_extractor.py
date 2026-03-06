@@ -67,6 +67,66 @@ class FeatureExtractor:
         X = np.hstack([X_numeric, X_categorical])
         return X
 
+    def decode_feature_name(self, model_feature_name: str) -> dict:
+        """
+        Decode model feature name (e.g. 'm_stage_15') to clinical name and value
+
+        Args:
+            model_feature_name: One-hot encoded feature name from the model
+
+        Returns:
+            dict: { "feature": clinical_name, "value": clinical_value }
+        """
+        # TNM ID to Code mapping (from tnm_value_definition table)
+        # Includes both TNM8 (1-21) and TNM9 (101-114)
+        tnm_map = {
+            # T values
+            '1': 'TX', '2': 'T1', '3': 'T2', '4': 'T3', '5': 'T4a', '6': 'T4b',
+            '101': 'T1', '102': 'T2', '103': 'T3', '104': 'T4',
+            # N values
+            '7': 'N0', '8': 'N1', '9': 'N2a', '10': 'N2b', '11': 'N2c', '12': 'N3a', '13': 'N3b',
+            '105': 'N0', '106': 'N1', '107': 'N2',
+            # M values
+            '14': 'M0', '15': 'M1',
+            '108': 'M0', '109': 'M1'
+        }
+
+        # Internal alias to clinical field name mapping
+        alias_map = {
+            'm_stage': 'pathological_m_id',
+            'n_stage': 'pathological_n_id'
+        }
+
+        # 1. Handle Numeric Features (no underscore suffix from OneHot)
+        if model_feature_name in self.numeric_features:
+            return {
+                "feature": model_feature_name,
+                "value": "numeric"
+            }
+
+        # 2. Handle Categorical Features
+        for base_feature in self.categorical_features:
+            prefix = f"{base_feature}_"
+            if model_feature_name.startswith(prefix):
+                raw_value = model_feature_name[len(prefix):]
+                
+                # Check if it's a TNM alias that needs re-mapping
+                feature_name = alias_map.get(base_feature, base_feature)
+                
+                # Check if the value is a TNM ID that needs mapping to code
+                display_value = tnm_map.get(raw_value, raw_value)
+                
+                return {
+                    "feature": feature_name,
+                    "value": display_value
+                }
+
+        # Fallback for unknown features
+        return {
+            "feature": model_feature_name,
+            "value": "unknown"
+        }
+
     def _define_features(self):
         """Define which columns are numeric vs categorical
 

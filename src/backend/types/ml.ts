@@ -49,6 +49,7 @@ export type MLInputData =
 
 export interface MLRiskFactor {
     feature: string
+    value: string
     importance: number
 }
 

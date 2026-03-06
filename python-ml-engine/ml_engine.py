@@ -155,10 +155,14 @@ def handle_predict(input_data: PredictInputData) -> Union[SurvivalPredictionResu
         importance_pairs.sort(key=lambda x: x[1], reverse=True)
 
         # Top 3 risk factors
-        top_factors = [
-            {"feature": name, "importance": imp}
-            for name, imp in importance_pairs[:3]
-        ]
+        top_factors = []
+        for name, imp in importance_pairs[:3]:
+            decoded = extractor.decode_feature_name(name)
+            top_factors.append({
+                "feature": decoded["feature"],
+                "value": decoded["value"],
+                "importance": imp
+            })
     else:
         top_factors = []
 

@@ -34,6 +34,7 @@ class RiskFactor(TypedDict):
     Structure for a single risk factor with importance score
     """
     feature: str
+    value: str
     importance: float
 
 

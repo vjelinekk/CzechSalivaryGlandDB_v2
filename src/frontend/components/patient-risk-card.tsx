@@ -520,44 +520,70 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                         result.top_risk_factors.length > 0 ? (
                                             <Grid container spacing={1}>
                                                 {result.top_risk_factors.map(
-                                                    (factor, index) => (
-                                                        <Grid
-                                                            item
-                                                            xs={4}
-                                                            key={index}
-                                                        >
-                                                            <Typography
-                                                                variant="caption"
-                                                                noWrap
-                                                                display="block"
-                                                                title={
-                                                                    factor.feature
-                                                                }
-                                                                sx={{
-                                                                    fontSize:
-                                                                        '0.65rem',
-                                                                }}
+                                                    (factor, index) => {
+                                                        const isNumeric =
+                                                            factor.value ===
+                                                            'numeric'
+                                                        const isTNM = [
+                                                            'pathological_m_id',
+                                                            'pathological_n_id',
+                                                            'pathological_t_id',
+                                                            'clinical_m_id',
+                                                            'clinical_n_id',
+                                                            'clinical_t_id',
+                                                        ].includes(
+                                                            factor.feature
+                                                        )
+
+                                                        console.log(factor)
+
+                                                        const displayLabel =
+                                                            isNumeric
+                                                                ? t(
+                                                                      factor.feature
+                                                                  )
+                                                                : isTNM
+                                                                  ? factor.value
+                                                                  : t(
+                                                                        factor.value
+                                                                    )
+
+                                                        return (
+                                                            <Grid
+                                                                item
+                                                                xs={4}
+                                                                key={index}
                                                             >
-                                                                {t(
-                                                                    factor.feature
-                                                                ) ||
-                                                                    factor.feature}
-                                                            </Typography>
-                                                            <LinearProgress
-                                                                variant="determinate"
-                                                                value={Math.min(
-                                                                    factor.importance *
-                                                                        100,
-                                                                    100
-                                                                )}
-                                                                color="secondary"
-                                                                sx={{
-                                                                    height: 2,
-                                                                    mt: 0.1,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                    )
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    noWrap
+                                                                    display="block"
+                                                                    title={`${t(factor.feature)}: ${isNumeric ? '' : factor.value}`}
+                                                                    sx={{
+                                                                        fontSize:
+                                                                            '0.65rem',
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        displayLabel
+                                                                    }
+                                                                </Typography>
+                                                                <LinearProgress
+                                                                    variant="determinate"
+                                                                    value={Math.min(
+                                                                        factor.importance *
+                                                                            100,
+                                                                        100
+                                                                    )}
+                                                                    color="secondary"
+                                                                    sx={{
+                                                                        height: 2,
+                                                                        mt: 0.1,
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                        )
+                                                    }
                                                 )}
                                             </Grid>
                                         ) : (
