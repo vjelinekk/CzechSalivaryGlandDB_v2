@@ -81,6 +81,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -102,6 +103,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -149,6 +151,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -168,6 +171,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -202,6 +206,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -230,6 +235,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption

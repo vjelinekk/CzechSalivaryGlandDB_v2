@@ -55,11 +55,14 @@ export const insertPatient = async (
                 // 1. Insert base patient
                 runInsert(TableNames.patient, { ...mapped.base })
                     .then((patientId) => {
-                        const insertPromises: Promise<unknown>[] = []
+                        // Phase A: insert malignant/benign first — subsequent tables
+                        // (malignant_parotid_specific, malignant_submandibular_specific)
+                        // have FK constraints that reference these rows.
+                        const phase1: Promise<unknown>[] = []
 
                         // 2. Insert malignant-specific
                         if (mapped.malignant) {
-                            insertPromises.push(
+                            phase1.push(
                                 runInsert(TableNames.malignantPatient, {
                                     ...mapped.malignant,
                                     id_patient: patientId,
@@ -69,7 +72,7 @@ export const insertPatient = async (
 
                         // 3. Insert benign-specific
                         if (mapped.benign) {
-                            insertPromises.push(
+                            phase1.push(
                                 runInsert(TableNames.benignPatient, {
                                     ...mapped.benign,
                                     id_patient: patientId,
@@ -77,9 +80,15 @@ export const insertPatient = async (
                             )
                         }
 
+                        return Promise.all(phase1).then(() => patientId)
+                    })
+                    .then((patientId) => {
+                        // Phase B: insert everything that depends on malignant/benign rows
+                        const phase2: Promise<unknown>[] = []
+
                         // 4. Insert location-specific (parotid/submandibular)
                         if (mapped.malignantParotid) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.malignantParotidSpecific, {
                                     ...mapped.malignantParotid,
                                     id_malignant_patient: patientId,
@@ -87,7 +96,7 @@ export const insertPatient = async (
                             )
                         }
                         if (mapped.malignantSubmandibular) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(
                                     TableNames.malignantSubmandibularSpecific,
                                     {
@@ -100,7 +109,7 @@ export const insertPatient = async (
 
                         // 5. Insert biopsy results
                         if (mapped.coreBiopsyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.biopsyResult, {
                                     ...mapped.coreBiopsyResult,
                                     id_patient: patientId,
@@ -108,7 +117,7 @@ export const insertPatient = async (
                             )
                         }
                         if (mapped.openBiopsyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.biopsyResult, {
                                     ...mapped.openBiopsyResult,
                                     id_patient: patientId,
@@ -118,7 +127,7 @@ export const insertPatient = async (
 
                         // 6. Insert histopathology
                         if (mapped.histopathologyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.histopathology, {
                                     ...mapped.histopathologyResult,
                                     id_patient: patientId,
@@ -128,7 +137,7 @@ export const insertPatient = async (
 
                         // 7. Insert staging
                         if (mapped.patientStaging) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.patientStaging, {
                                     ...mapped.patientStaging,
                                     id_patient: patientId,
@@ -138,7 +147,7 @@ export const insertPatient = async (
 
                         // 8. Insert attachments
                         for (const attachment of mapped.attachments) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.attachment, {
                                     ...attachment,
                                     id_patient: patientId,
@@ -146,7 +155,7 @@ export const insertPatient = async (
                             )
                         }
 
-                        return Promise.all(insertPromises).then(() => patientId)
+                        return Promise.all(phase2).then(() => patientId)
                     })
                     .then((patientId) => {
                         db.run('COMMIT', (err) => {

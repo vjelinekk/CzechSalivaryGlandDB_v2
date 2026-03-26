@@ -4,6 +4,7 @@ import { Workbook } from 'exceljs'
 import { PatientType } from '../frontend/types'
 import { FormType } from '../frontend/constants'
 import { savePatient } from '../backend/repositories/patientRepository'
+import { transformLegacyPatient } from '../backend/services/ImportTransformService'
 
 type PatientValue = string | number | FormType
 
@@ -26,6 +27,9 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     const worksheet = workbook.getWorksheet(1)
 
     const data: PatientType[] = []
+    const headerRow = worksheet.getRow(1)
+    const headerValues = headerRow.values as (string | null)[]
+    const isLegacyFormat = !headerValues.includes('id_edition')
 
     worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
         if (rowNumber === 1) {
@@ -42,10 +46,16 @@ ipcMain.handle(ipcImportChannels.import, async () => {
             }
             patient[label] = cell.value as PatientValue
         })
+
+        if (isLegacyFormat) {
+            transformLegacyPatient(patient)
+        }
+
         data.push(patient)
     })
 
-    data.forEach((patient) => {
-        savePatient(patient)
-    })
+    for (const patient of data) {
+        console.log(patient);
+        await savePatient(patient)
+    }
 })
