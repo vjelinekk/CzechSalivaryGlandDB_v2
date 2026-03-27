@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { MLTrainingResultDto } from '../../../../ipc/dtos/MLTrainingResultDto'
+import { appTranslationKeys } from '../../../translations'
 
 interface ModelTrainingTabProps {
     onTrainingSuccess?: () => void
@@ -62,14 +63,14 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
         <Box sx={{ p: 2 }}>
             <Paper elevation={1} sx={{ p: 3, mb: 3 }}>
                 <Typography variant="h6" gutterBottom>
-                    {t('Konfigurace trénování modelu')}
+                    {t(appTranslationKeys.mlModelTrainingConfig)}
                 </Typography>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">
-                                {t('Cílová proměnná')}
+                                {t(appTranslationKeys.mlTargetVariable)}
                             </FormLabel>
                             <RadioGroup
                                 aria-label="model-type"
@@ -86,12 +87,12 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 <FormControlLabel
                                     value="overall_survival"
                                     control={<Radio />}
-                                    label={t('Celkové přežití')}
+                                    label={t(appTranslationKeys.mlOverallSurvival)}
                                 />
                                 <FormControlLabel
                                     value="recurrence"
                                     control={<Radio />}
-                                    label={t('Recidiva')}
+                                    label={t(appTranslationKeys.mlRecurrence)}
                                 />
                             </RadioGroup>
                         </FormControl>
@@ -100,7 +101,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                     <Grid item xs={12} md={6}>
                         <FormControl component="fieldset">
                             <FormLabel component="legend">
-                                {t('Algoritmus')}
+                                {t(appTranslationKeys.mlAlgorithm)}
                             </FormLabel>
                             <RadioGroup
                                 aria-label="algorithm"
@@ -115,12 +116,12 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 <FormControlLabel
                                     value="rsf"
                                     control={<Radio />}
-                                    label={t('Random Survival Forest')}
+                                    label={t(appTranslationKeys.mlRandomSurvivalForest)}
                                 />
                                 <FormControlLabel
                                     value="coxph"
                                     control={<Radio />}
-                                    label={t('Cox Proportional Hazards')}
+                                    label={t(appTranslationKeys.mlCoxProportionalHazards)}
                                 />
                             </RadioGroup>
                         </FormControl>
@@ -141,7 +142,9 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                             )
                         }
                     >
-                        {loading ? t('Trénování...') : t('Trénovat model')}
+                        {loading
+                            ? t(appTranslationKeys.mlTrainingInProgress)
+                            : t(appTranslationKeys.mlTrainModel)}
                     </Button>
                 </Box>
             </Paper>
@@ -155,7 +158,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
             {result && (
                 <Paper elevation={1} sx={{ p: 3, bgcolor: '#f1f8e9' }}>
                     <Typography variant="h6" gutterBottom color="primary">
-                        {t('Výsledky trénování')}
+                        {t(appTranslationKeys.mlTrainingResults)}
                     </Typography>
                     <Grid container spacing={2}>
                         <Grid item xs={6} sm={3}>
@@ -163,7 +166,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 variant="subtitle2"
                                 color="textSecondary"
                             >
-                                {t('C-index (Přesnost)')}
+                                {t(appTranslationKeys.mlCindexAccuracy)}
                             </Typography>
                             <Typography variant="h5">
                                 {(result.c_index * 100).toFixed(1)}%
@@ -174,7 +177,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 variant="subtitle2"
                                 color="textSecondary"
                             >
-                                {t('Počet pacientů')}
+                                {t(appTranslationKeys.mlNumberOfPatients)}
                             </Typography>
                             <Typography variant="h5">
                                 {result.n_samples}
@@ -185,7 +188,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 variant="subtitle2"
                                 color="textSecondary"
                             >
-                                {t('Počet událostí')}
+                                {t(appTranslationKeys.mlNumberOfEvents)}
                             </Typography>
                             <Typography variant="h5">
                                 {result.n_events}
@@ -196,7 +199,7 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 variant="subtitle2"
                                 color="textSecondary"
                             >
-                                {t('Datum trénování')}
+                                {t(appTranslationKeys.mlTrainingDate)}
                             </Typography>
                             <Typography variant="body1">
                                 {new Date(

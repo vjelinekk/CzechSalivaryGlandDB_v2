@@ -20,6 +20,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
+    console.log(formData);
 
     return (
         <div className="sectionDiv">

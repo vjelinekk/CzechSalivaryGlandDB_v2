@@ -4,7 +4,7 @@ import { Workbook } from 'exceljs'
 import { PatientType } from '../frontend/types'
 import { FormType } from '../frontend/constants'
 import { savePatient } from '../backend/repositories/patientRepository'
-import { transformLegacyPatient } from '../backend/services/ImportTransformService'
+import { transformLegacyPatient } from '../backend/services/importTransformService'
 
 type PatientValue = string | number | FormType
 

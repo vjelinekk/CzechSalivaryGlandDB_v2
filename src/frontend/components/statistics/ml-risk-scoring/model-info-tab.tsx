@@ -23,6 +23,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useTranslation } from 'react-i18next'
 import { MLModelInfoDto } from '../../../../ipc/dtos/MLModelInfoDto'
+import { appTranslationKeys } from '../../../translations'
 
 const ModelInfoTab: React.FC = () => {
     const { t } = useTranslation()
@@ -115,25 +116,25 @@ const ModelInfoTab: React.FC = () => {
                     <TableHead>
                         <TableRow sx={{ bgcolor: '#f5f5f5' }}>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Aktivní')}
+                                {t(appTranslationKeys.mlActive)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Typ modelu')}
+                                {t(appTranslationKeys.mlModelType)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Algoritmus')}
+                                {t(appTranslationKeys.mlAlgorithm)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Datum trénování')}
+                                {t(appTranslationKeys.mlTrainingDate)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('C-index')}
+                                {t(appTranslationKeys.mlCindex)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Vzorek')}
+                                {t(appTranslationKeys.mlSample)}
                             </TableCell>
                             <TableCell sx={{ fontWeight: 'bold' }}>
-                                {t('Akce')}
+                                {t(appTranslationKeys.mlActions)}
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -145,9 +146,7 @@ const ModelInfoTab: React.FC = () => {
                                     align="center"
                                     sx={{ py: 3 }}
                                 >
-                                    {t(
-                                        'Zatím nebyly natrénovány žádné modely.'
-                                    )}
+                                    {t(appTranslationKeys.mlNoModelsTrained)}
                                 </TableCell>
                             </TableRow>
                         ) : (
@@ -160,7 +159,7 @@ const ModelInfoTab: React.FC = () => {
                                     <TableCell padding="checkbox">
                                         <Tooltip
                                             title={t(
-                                                'Nastavit jako aktivní pro predikce'
+                                                appTranslationKeys.mlSetAsActive
                                             )}
                                         >
                                             <Radio
@@ -174,8 +173,8 @@ const ModelInfoTab: React.FC = () => {
                                     </TableCell>
                                     <TableCell>
                                         {model.model_type === 'overall_survival'
-                                            ? t('Přežití')
-                                            : t('Recidiva')}
+                                            ? t(appTranslationKeys.mlSurvival)
+                                            : t(appTranslationKeys.mlRecurrence)}
                                     </TableCell>
                                     <TableCell>
                                         {model.model_metadata.algorithm ===
@@ -200,7 +199,7 @@ const ModelInfoTab: React.FC = () => {
                                     </TableCell>
                                     <TableCell>
                                         <Tooltip
-                                            title={t('Smazat model i soubor')}
+                                            title={t(appTranslationKeys.mlDeleteModelAndFile)}
                                         >
                                             <IconButton
                                                 size="small"
@@ -224,12 +223,10 @@ const ModelInfoTab: React.FC = () => {
                 open={deleteDialogOpen}
                 onClose={() => setDeleteDialogOpen(false)}
             >
-                <DialogTitle>{t('Smazat ML model?')}</DialogTitle>
+                <DialogTitle>{t(appTranslationKeys.mlDeleteModelTitle)}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t(
-                            'Tato akce trvale smaže metadata modelu z databáze i fyzický soubor .joblib z disku. Tuto akci nelze vzít zpět.'
-                        )}
+                        {t(appTranslationKeys.mlDeleteModelWarning)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -237,7 +234,7 @@ const ModelInfoTab: React.FC = () => {
                         onClick={() => setDeleteDialogOpen(false)}
                         color="primary"
                     >
-                        {t('Zrušit')}
+                        {t(appTranslationKeys.mlDeleteCancel)}
                     </Button>
                     <Button
                         onClick={confirmDelete}
@@ -245,7 +242,7 @@ const ModelInfoTab: React.FC = () => {
                         autoFocus
                         variant="contained"
                     >
-                        {t('Smazat')}
+                        {t(appTranslationKeys.mlDeleteModel)}
                     </Button>
                 </DialogActions>
             </Dialog>

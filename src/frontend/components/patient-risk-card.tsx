@@ -22,6 +22,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import { useTranslation } from 'react-i18next'
 import { PatientType } from '../types'
+import { appTranslationKeys } from '../translations'
 import { MLPredictionResultDto } from '../../ipc/dtos/MLPredictionResultDto'
 import { MLAlgorithm, MLModelType } from '../types/ml'
 import { keyframes } from '@emotion/react'
@@ -110,7 +111,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
             if (err instanceof Error) {
                 setError(err.message)
             } else {
-                setError(t('Nepodařilo se vypočítat riziko.'))
+                setError(t(appTranslationKeys.mlCalculationFailed))
             }
             setResult(null)
         } finally {
@@ -140,9 +141,9 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
     }
 
     const getRiskLabel = (score: number) => {
-        if (score < 0.3) return t('Nízké riziko')
-        if (score < 0.7) return t('Střední riziko')
-        return t('Vysoké riziko')
+        if (score < 0.3) return t(appTranslationKeys.mlLowRisk)
+        if (score < 0.7) return t(appTranslationKeys.mlMediumRisk)
+        return t(appTranslationKeys.mlHighRisk)
     }
 
     const formatDate = (isoString?: string) => {
@@ -212,7 +213,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                             variant="subtitle2"
                             sx={{ fontWeight: 600, mb: 1 }}
                         >
-                            {t('Analýza rizika (ML)')}
+                            {t(appTranslationKeys.mlRiskAnalysis)}
                         </Typography>
 
                         <Box sx={{ mb: 1.5 }}>
@@ -229,14 +230,14 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                     disableRipple
                                     sx={{ padding: '4px 7px !important' }}
                                 >
-                                    {t('Přežití')}
+                                    {t(appTranslationKeys.mlSurvival)}
                                 </ToggleButton>
                                 <ToggleButton
                                     value="recurrence"
                                     disableRipple
                                     sx={{ padding: '4px 7px !important' }}
                                 >
-                                    {t('Recidiva')}
+                                    {t(appTranslationKeys.mlRecurrence)}
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </Box>
@@ -291,7 +292,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                             padding: '6px 16px !important',
                                         }}
                                     >
-                                        {t('Vypočítat riziko')}
+                                        {t(appTranslationKeys.mlCalculateRisk)}
                                     </Button>
                                 )
                             )}
@@ -400,10 +401,8 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                             }}
                                         >
                                             {modelType === 'overall_survival'
-                                                ? t('Pravděpodobnost přežití')
-                                                : t(
-                                                      'Pravděpodobnost bez recidivy'
-                                                  )}
+                                                ? t(appTranslationKeys.mlSurvivalProbability)
+                                                : t(appTranslationKeys.mlRecurrenceFreeProbability)}
                                         </Typography>
                                         {[
                                             {
@@ -495,12 +494,10 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                     fontWeight: 600,
                                                 }}
                                             >
-                                                {t('Hlavní rizikové faktory')}
+                                                {t(appTranslationKeys.mlTopRiskFactors)}
                                             </Typography>
                                             <Tooltip
-                                                title={t(
-                                                    'Faktory, které nejvíce přispěly k tomuto výsledku'
-                                                )}
+                                                title={t(appTranslationKeys.mlFactorsTooltip)}
                                             >
                                                 <IconButton
                                                     size="small"
@@ -566,9 +563,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                 color="text.secondary"
                                                 sx={{ fontSize: '0.7rem' }}
                                             >
-                                                {t(
-                                                    'Žádné faktory nebyly identifikovány.'
-                                                )}
+                                                {t(appTranslationKeys.mlNoFactorsIdentified)}
                                             </Typography>
                                         )}
                                     </Grid>
@@ -596,16 +591,14 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                 color: 'text.disabled',
                                             }}
                                         >
-                                            {t('Vypočteno')}:{' '}
+                                            {t(appTranslationKeys.mlCalculated)}:{' '}
                                             {formatDate(
                                                 result.calculation_date
                                             )}
                                         </Typography>
                                         {result.is_stale && (
                                             <Tooltip
-                                                title={t(
-                                                    'Tento výsledek pochází ze starší verze modelu.'
-                                                )}
+                                                title={t(appTranslationKeys.mlStaleResult)}
                                             >
                                                 <WarningAmberIcon
                                                     sx={{
@@ -627,7 +620,7 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                             p: '4px 8px !important',
                                         }}
                                     >
-                                        {t('Přepočítat')}
+                                        {t(appTranslationKeys.mlRecalculate)}
                                     </Button>
                                 </Box>
                             </CardContent>
