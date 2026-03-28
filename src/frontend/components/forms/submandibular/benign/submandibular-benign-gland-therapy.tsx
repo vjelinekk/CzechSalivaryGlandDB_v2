@@ -39,6 +39,7 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.surgical)}
+                    dbValue={formTranslationKeys.surgical}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -49,10 +50,11 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.peroralExtirpation),
-                            t(formTranslationKeys.externalExtirpation),
-                            t(formTranslationKeys.other),
+                            formTranslationKeys.peroralExtirpation,
+                            formTranslationKeys.externalExtirpation,
+                            formTranslationKeys.other,
                         ]}
                     />
                     <SimpleCheckboxes
@@ -64,7 +66,15 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={['I', 'II', 'III', 'IV', 'V', 'VI']}
+                        translate={true}
+                        options={[
+                            formTranslationKeys.I,
+                            formTranslationKeys.II,
+                            formTranslationKeys.III,
+                            formTranslationKeys.IV,
+                            formTranslationKeys.V,
+                            formTranslationKeys.VI,
+                        ]}
                     />
                     <ConditionalCheckboxes
                         title={t(
@@ -78,16 +88,19 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.none)}
+                            dbValue={formTranslationKeys.none}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.freysSyndrome)}
+                            dbValue={formTranslationKeys.freysSyndrome}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryFistula)}
+                            dbValue={formTranslationKeys.salivaryFistula}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -95,11 +108,13 @@ const SubmandibularBenignGlandTherapy: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.nonSurgicalMonitoring)}
+                    dbValue={formTranslationKeys.nonSurgicalMonitoring}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.notIndicated)}
+                    dbValue={formTranslationKeys.notIndicated}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

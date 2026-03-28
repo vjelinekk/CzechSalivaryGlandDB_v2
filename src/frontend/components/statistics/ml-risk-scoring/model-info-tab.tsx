@@ -174,7 +174,9 @@ const ModelInfoTab: React.FC = () => {
                                     <TableCell>
                                         {model.model_type === 'overall_survival'
                                             ? t(appTranslationKeys.mlSurvival)
-                                            : t(appTranslationKeys.mlRecurrence)}
+                                            : t(
+                                                  appTranslationKeys.mlRecurrence
+                                              )}
                                     </TableCell>
                                     <TableCell>
                                         {model.model_metadata.algorithm ===
@@ -199,7 +201,9 @@ const ModelInfoTab: React.FC = () => {
                                     </TableCell>
                                     <TableCell>
                                         <Tooltip
-                                            title={t(appTranslationKeys.mlDeleteModelAndFile)}
+                                            title={t(
+                                                appTranslationKeys.mlDeleteModelAndFile
+                                            )}
                                         >
                                             <IconButton
                                                 size="small"
@@ -223,7 +227,9 @@ const ModelInfoTab: React.FC = () => {
                 open={deleteDialogOpen}
                 onClose={() => setDeleteDialogOpen(false)}
             >
-                <DialogTitle>{t(appTranslationKeys.mlDeleteModelTitle)}</DialogTitle>
+                <DialogTitle>
+                    {t(appTranslationKeys.mlDeleteModelTitle)}
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {t(appTranslationKeys.mlDeleteModelWarning)}

@@ -154,8 +154,12 @@ contextBridge.exposeInMainWorld('api', {
 })
 
 contextBridge.exposeInMainWorld('export', {
-    export: (channel: ipcExportChannels, patients: PatientType[]) => {
-        return ipcRenderer.invoke(channel, patients)
+    export: (
+        channel: ipcExportChannels,
+        patients: PatientType[],
+        language: string
+    ) => {
+        return ipcRenderer.invoke(channel, patients, language)
     },
 })
 

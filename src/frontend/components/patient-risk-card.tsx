@@ -401,8 +401,12 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                             }}
                                         >
                                             {modelType === 'overall_survival'
-                                                ? t(appTranslationKeys.mlSurvivalProbability)
-                                                : t(appTranslationKeys.mlRecurrenceFreeProbability)}
+                                                ? t(
+                                                      appTranslationKeys.mlSurvivalProbability
+                                                  )
+                                                : t(
+                                                      appTranslationKeys.mlRecurrenceFreeProbability
+                                                  )}
                                         </Typography>
                                         {[
                                             {
@@ -494,10 +498,14 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                     fontWeight: 600,
                                                 }}
                                             >
-                                                {t(appTranslationKeys.mlTopRiskFactors)}
+                                                {t(
+                                                    appTranslationKeys.mlTopRiskFactors
+                                                )}
                                             </Typography>
                                             <Tooltip
-                                                title={t(appTranslationKeys.mlFactorsTooltip)}
+                                                title={t(
+                                                    appTranslationKeys.mlFactorsTooltip
+                                                )}
                                             >
                                                 <IconButton
                                                     size="small"
@@ -563,7 +571,9 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                 color="text.secondary"
                                                 sx={{ fontSize: '0.7rem' }}
                                             >
-                                                {t(appTranslationKeys.mlNoFactorsIdentified)}
+                                                {t(
+                                                    appTranslationKeys.mlNoFactorsIdentified
+                                                )}
                                             </Typography>
                                         )}
                                     </Grid>
@@ -591,14 +601,17 @@ const PatientRiskCard: React.FC<PatientRiskCardProps> = ({
                                                 color: 'text.disabled',
                                             }}
                                         >
-                                            {t(appTranslationKeys.mlCalculated)}:{' '}
+                                            {t(appTranslationKeys.mlCalculated)}
+                                            :{' '}
                                             {formatDate(
                                                 result.calculation_date
                                             )}
                                         </Typography>
                                         {result.is_stale && (
                                             <Tooltip
-                                                title={t(appTranslationKeys.mlStaleResult)}
+                                                title={t(
+                                                    appTranslationKeys.mlStaleResult
+                                                )}
                                             >
                                                 <WarningAmberIcon
                                                     sx={{

@@ -3,7 +3,7 @@ export const toIntBool = (
 ): number | null => {
     if (val === undefined || val === null) return null
     if (typeof val === 'boolean') return val ? 1 : 0
-    if (typeof val === 'string') return val === 'Ano' ? 1 : 0
+    if (typeof val === 'string') return val === 'Ano' || val === 'yes' ? 1 : 0
     if (typeof val === 'number') return val
     return 0
 }
@@ -24,10 +24,10 @@ export const toNum = (
 // Reverse mapping helpers (Entity → DTO)
 export const fromIntBool = (val: number | null | undefined): string | null => {
     if (val === null || val === undefined) return null
-    return val === 1 ? 'Ano' : 'Ne'
+    return val === 1 ? 'yes' : 'no'
 }
 
 export const fromIsAlive = (val: number | null | undefined): string | null => {
     if (val === null || val === undefined) return null
-    return val === 1 ? 'Žije' : 'Zemřel'
+    return val === 1 ? 'alive' : 'deceased'
 }

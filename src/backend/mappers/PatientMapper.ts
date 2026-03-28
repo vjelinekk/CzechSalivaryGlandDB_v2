@@ -157,7 +157,7 @@ export class PatientMapper {
             recidive: toIntBool(patient.recidiva),
             date_of_recidive: toStr(patient.datum_prokazani_recidivy),
             is_alive:
-                patient.stav === null ? null : patient.stav === 'Žije' ? 1 : 0,
+                patient.stav === null ? null : patient.stav === 'alive' ? 1 : 0,
             death_date: toStr(patient.datum_umrti),
             last_follow_up: toStr(patient.posledni_kontrola),
             next_follow_up: toStr(patient.planovana_kontrola),
@@ -457,7 +457,10 @@ export class PatientMapper {
             fnab: fromIntBool(base.fnab),
             vysledek_fnab: base.fnab_result,
             datum_zahajeni_lecby: base.date_of_treatment_initiation,
-            typ_terapie: base.therapy_type,
+            typ_terapie:
+                base.therapy_type === 'chirurgical'
+                    ? 'surgical'
+                    : base.therapy_type,
             rozsah_chirurgicke_lecby: base.extent_of_surgical_treatment,
             datum_prvni_kontroly_po_lecbe:
                 base.date_of_first_post_treatment_follow_up,

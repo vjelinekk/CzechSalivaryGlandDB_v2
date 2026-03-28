@@ -1,4 +1,106 @@
 import { PatientType } from '../../frontend/types'
+import csTranslation from '../../../public/locales/translation-cs.json'
+import enTranslation from '../../../public/locales/translation-en.json'
+import skTranslation from '../../../public/locales/translation-sk.json'
+import csFormTranslation from '../../../public/locales/form-translation-cs.json'
+import enFormTranslation from '../../../public/locales/form-translation-en.json'
+import skFormTranslation from '../../../public/locales/form-translation-sk.json'
+
+// Build a reverse map: translated string → translation key
+// Covers all 6 locale files (app + form translations × cs/en/sk)
+function buildReverseMap(): Record<string, string> {
+    const allLocales = [
+        csTranslation,
+        enTranslation,
+        skTranslation,
+        csFormTranslation,
+        enFormTranslation,
+        skFormTranslation,
+    ]
+    const map: Record<string, string> = {}
+    for (const locale of allLocales) {
+        for (const [key, value] of Object.entries(locale)) {
+            if (typeof value === 'string') {
+                map[value] = key
+            }
+        }
+    }
+    return map
+}
+
+const REVERSE_TRANSLATION_MAP = buildReverseMap()
+
+// Old translation keys that were previously stored directly in the DB
+// (not translated strings — these need explicit remapping to the current key)
+const OLD_KEY_TO_NEW_KEY: Record<string, string> = {
+    chirurgical: 'surgical',
+    'non-surgical': 'nonSurgicalMonitoring',
+    Ano: 'yes',
+    Ne: 'no',
+    Žije: 'alive',
+    Zemřel: 'deceased',
+}
+
+// Fields that should NOT be run through the reverse translation map
+// (free-text inputs, names, dates, numeric values, IDs)
+const NON_CHECKBOX_FIELDS = new Set([
+    'id',
+    'id_pacient',
+    'jmeno',
+    'prijmeni',
+    'rodne_cislo',
+    'datum_zahajeni_lecby',
+    'datum_prvni_kontroly_po_lecbe',
+    'datum_prokazani_perzistence',
+    'datum_prokazani_recidivy',
+    'datum_umrti',
+    'rok_diagnozy',
+    'posledni_kontrola',
+    'planovana_kontrola',
+    'vek_pri_diagnoze',
+    'pocet_cigaret_denne',
+    'jak_dlouho_kouri',
+    'pocet_balickoroku',
+    'velikost_nadoru_histopatologie',
+    'pocet_lymfatickych_uzlin_s_metastazou_histopatologie',
+    'specifikace_mista_vyskytu_jineho_karcinomu',
+    'specifikace_onemocneni',
+    'jine_pooperacni_komplikace',
+    'velikost_nadoru_neurcena_histopatologie',
+    'misto_vyskytu_vzdalene_metastazy_histopatologie',
+    'histologicalTypeSpecification',
+    'core_vysledek_jine',
+    'otevrena_vysledek_jine',
+])
+
+function mapSingleValue(value: string): string {
+    if (OLD_KEY_TO_NEW_KEY[value] !== undefined)
+        return OLD_KEY_TO_NEW_KEY[value]
+    return REVERSE_TRANSLATION_MAP[value] ?? value
+}
+
+function mapCommaValue(value: string): string {
+    if (!value.includes(',')) {
+        return mapSingleValue(value)
+    }
+    return value
+        .split(',')
+        .map((v) => mapSingleValue(v.trim()))
+        .join(', ')
+}
+
+/**
+ * Maps translated checkbox field values back to translation keys.
+ * Applied to all imported patients (both legacy and new exports).
+ */
+export function mapCheckboxFields(patient: PatientType): void {
+    for (const [field, value] of Object.entries(patient)) {
+        if (NON_CHECKBOX_FIELDS.has(field)) continue
+        if (typeof value !== 'string') continue
+        if (!value) continue
+        patient[field] = mapCommaValue(value)
+    }
+}
 
 // Maps Czech histology type strings (from old Excel exports) to translation keys
 const czechHistologyTypeToKey: Record<string, string> = {
@@ -8,7 +110,8 @@ const czechHistologyTypeToKey: Record<string, string> = {
     'adenoidně cystický karcinom': 'adenoid-cystic-carcinoma',
     'polymorfní adenokarcinom': 'polymorphous-adenocarcinoma',
     'epiteliální myoepiteliální karcinom': 'epithelial-myoepithelial-carcinoma',
-    'hyalinizující karcinom ze světlých buněk': 'hyalinizing-clear-cell-carcinoma',
+    'hyalinizující karcinom ze světlých buněk':
+        'hyalinizing-clear-cell-carcinoma',
     'bazocelulární adenokarcinom': 'basal-cell-adenocarcinoma',
     'sebaceózní adenokarcinom': 'sebaceous-adenocarcinoma',
     'intraduktální karcinom': 'intraductal-carcinoma',
@@ -41,7 +144,8 @@ const czechSubtypeToKey: Record<string, Record<string, string>> = {
         'subtyp nebyl určen': 'subtype-not-specified',
     },
     adenoidne_cysticky_karcinom: {
-        's převahou tubulární/kribriformní složky': 'tubular-cribriform-dominant',
+        's převahou tubulární/kribriformní složky':
+            'tubular-cribriform-dominant',
         '>30% solidní složky': 'more-than-30-solid-component',
         'high grade': 'subtype-not-specified',
         'subtyp nebyl určen': 'subtype-not-specified',
@@ -116,10 +220,7 @@ const tnm8StageToId: Record<string, number> = {
     'Stage IVC': 21,
 }
 
-function mapHistologyField(
-    patient: PatientType,
-    fieldName: string
-): void {
+function mapHistologyField(patient: PatientType, fieldName: string): void {
     const value = patient[fieldName] as string | undefined
     if (!value) return
     const key = czechHistologyTypeToKey[value]

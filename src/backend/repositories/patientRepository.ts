@@ -599,19 +599,19 @@ export const getFilteredPatients = async (
         // Filter by persistence
         if (filter.perzistence) {
             query += ` AND p.persistence = ?`
-            params.push(filter.perzistence === 'Ano' ? 1 : 0)
+            params.push(filter.perzistence === 'yes' ? 1 : 0)
         }
 
         // Filter by recurrence
         if (filter.recidiva) {
             query += ` AND p.recidive = ?`
-            params.push(filter.recidiva === 'Ano' ? 1 : 0)
+            params.push(filter.recidiva === 'yes' ? 1 : 0)
         }
 
         // Filter by state (alive/dead)
         if (filter.stav) {
             query += ` AND p.is_alive = ?`
-            params.push(filter.stav === 'Zije' ? 1 : 0)
+            params.push(filter.stav === 'alive' ? 1 : 0)
         }
 
         // Filter by gender
@@ -873,9 +873,9 @@ const convertValues = (
     switch (category) {
         case InferenceChiSquareCategories.persistence:
         case InferenceChiSquareCategories.recurrence:
-            return values.map((v) => (v === 'Ano' ? 1 : 0))
+            return values.map((v) => (v === 'yes' ? 1 : 0))
         case InferenceChiSquareCategories.state:
-            return values.map((v) => (v === 'Žije' ? 1 : 0))
+            return values.map((v) => (v === 'alive' ? 1 : 0))
         default:
             return values
     }

@@ -109,8 +109,8 @@ export const calculateStatistics = (
                 (tnmStagePathological[stagePathological] || 0) + 1
 
         // Recurrence
-        if (p.recidiva === 'Ano') recurrenceYes++
-        else if (p.recidiva === 'Ne') recurrenceNo++
+        if (p.recidiva === 'yes') recurrenceYes++
+        else if (p.recidiva === 'no') recurrenceNo++
 
         const complicationType = p.pooperacni_komplikace
             ? (p.pooperacni_komplikace as string)?.trim()

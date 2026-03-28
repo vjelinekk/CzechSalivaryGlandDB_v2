@@ -20,7 +20,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
     disabled,
 }) => {
     const { t } = useTranslation()
-    console.log(formData);
+    console.log(formData)
 
     return (
         <div className="sectionDiv">
@@ -90,9 +90,10 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
+                    translate={true}
                     options={[
-                        t(formTranslationKeys.female),
-                        t(formTranslationKeys.male),
+                        formTranslationKeys.female,
+                        formTranslationKeys.male,
                     ]}
                     disabled={disabled}
                 />
@@ -106,21 +107,22 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
+                    translate={true}
                     options={[
-                        t(formTranslationKeys.prague),
-                        t(formTranslationKeys.centralBohemianRegion),
-                        t(formTranslationKeys.southBohemianRegion),
-                        t(formTranslationKeys.pilsenRegion),
-                        t(formTranslationKeys.karlovyVaryRegion),
-                        t(formTranslationKeys.usteckyRegion),
-                        t(formTranslationKeys.liberecRegion),
-                        t(formTranslationKeys.hradecKraloveRegion),
-                        t(formTranslationKeys.pardubiceRegion),
-                        t(formTranslationKeys.vysocinaRegion),
-                        t(formTranslationKeys.southMoravianRegion),
-                        t(formTranslationKeys.zlinRegion),
-                        t(formTranslationKeys.olomoucRegion),
-                        t(formTranslationKeys.moravianSilesianRegion),
+                        formTranslationKeys.prague,
+                        formTranslationKeys.centralBohemianRegion,
+                        formTranslationKeys.southBohemianRegion,
+                        formTranslationKeys.pilsenRegion,
+                        formTranslationKeys.karlovyVaryRegion,
+                        formTranslationKeys.usteckyRegion,
+                        formTranslationKeys.liberecRegion,
+                        formTranslationKeys.hradecKraloveRegion,
+                        formTranslationKeys.pardubiceRegion,
+                        formTranslationKeys.vysocinaRegion,
+                        formTranslationKeys.southMoravianRegion,
+                        formTranslationKeys.zlinRegion,
+                        formTranslationKeys.olomoucRegion,
+                        formTranslationKeys.moravianSilesianRegion,
                     ]}
                     disabled={disabled}
                 />
@@ -136,6 +138,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                 >
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.yes)}
+                        dbValue={formTranslationKeys.yes}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
@@ -156,6 +159,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.no)}
+                        dbValue={formTranslationKeys.no}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
@@ -171,6 +175,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                 >
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.yes)}
+                        dbValue={formTranslationKeys.yes}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
@@ -187,6 +192,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.no)}
+                        dbValue={formTranslationKeys.no}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
@@ -203,6 +209,7 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                 >
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.yes)}
+                        dbValue={formTranslationKeys.yes}
                         disabled={disabled}
                         setFormData={setFormData}
                     >
@@ -245,11 +252,13 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     </ConditionalCheckboxOption>
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.no)}
+                        dbValue={formTranslationKeys.no}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
                     <ConditionalCheckboxOption
                         label={t(formTranslationKeys.unknown)}
+                        dbValue={formTranslationKeys.unknown}
                         disabled={disabled}
                         setFormData={setFormData}
                     />
@@ -260,10 +269,11 @@ const PersonalData: React.FC<GlandComponentProps> = ({
                     data={formData}
                     setFormData={setFormData}
                     enableSingleSelect={true}
+                    translate={true}
                     options={[
-                        t(formTranslationKeys.yes),
-                        t(formTranslationKeys.no),
-                        t(formTranslationKeys.unknown),
+                        formTranslationKeys.yes,
+                        formTranslationKeys.no,
+                        formTranslationKeys.unknown,
                     ]}
                     disabled={disabled}
                 />

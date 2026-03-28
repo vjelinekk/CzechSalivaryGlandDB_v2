@@ -87,7 +87,9 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 <FormControlLabel
                                     value="overall_survival"
                                     control={<Radio />}
-                                    label={t(appTranslationKeys.mlOverallSurvival)}
+                                    label={t(
+                                        appTranslationKeys.mlOverallSurvival
+                                    )}
                                 />
                                 <FormControlLabel
                                     value="recurrence"
@@ -116,12 +118,16 @@ const ModelTrainingTab: React.FC<ModelTrainingTabProps> = ({
                                 <FormControlLabel
                                     value="rsf"
                                     control={<Radio />}
-                                    label={t(appTranslationKeys.mlRandomSurvivalForest)}
+                                    label={t(
+                                        appTranslationKeys.mlRandomSurvivalForest
+                                    )}
                                 />
                                 <FormControlLabel
                                     value="coxph"
                                     control={<Radio />}
-                                    label={t(appTranslationKeys.mlCoxProportionalHazards)}
+                                    label={t(
+                                        appTranslationKeys.mlCoxProportionalHazards
+                                    )}
                                 />
                             </RadioGroup>
                         </FormControl>

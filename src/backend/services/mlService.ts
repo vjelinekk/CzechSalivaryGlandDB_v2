@@ -43,13 +43,13 @@ const sanitizePatientForML = (patient: PatientDto): MLPatient => {
         pathological_m_id: toNum(patient.m_klasifikace_patologicka_id),
         clinical_n_id: toNum(patient.n_klasifikace_klinicka_id),
         pathological_n_id: toNum(patient.n_klasifikace_patologicka_id),
-        is_alive: patient.stav === 'Žije',
+        is_alive: patient.stav === 'alive',
         diagnosis_year: patient.rok_diagnozy
             ? patient.rok_diagnozy.substring(0, 4)
             : undefined,
         death_date: patient.datum_umrti,
         last_follow_up: patient.posledni_kontrola,
-        recidive: patient.recidiva === 'Ano',
+        recidive: patient.recidiva === 'yes',
         date_of_first_post_treatment_follow_up:
             patient.datum_prvni_kontroly_po_lecbe,
         date_of_recidive: patient.datum_prokazani_recidivy,

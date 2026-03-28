@@ -4,7 +4,10 @@ import { Workbook } from 'exceljs'
 import { PatientType } from '../frontend/types'
 import { FormType } from '../frontend/constants'
 import { savePatient } from '../backend/repositories/patientRepository'
-import { transformLegacyPatient } from '../backend/services/importTransformService'
+import {
+    transformLegacyPatient,
+    mapCheckboxFields,
+} from '../backend/services/importTransformService'
 
 type PatientValue = string | number | FormType
 
@@ -47,6 +50,7 @@ ipcMain.handle(ipcImportChannels.import, async () => {
             patient[label] = cell.value as PatientValue
         })
 
+        mapCheckboxFields(patient)
         if (isLegacyFormat) {
             transformLegacyPatient(patient)
         }
@@ -55,7 +59,7 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     })
 
     for (const patient of data) {
-        console.log(patient);
+        console.log(patient)
         await savePatient(patient)
     }
 })

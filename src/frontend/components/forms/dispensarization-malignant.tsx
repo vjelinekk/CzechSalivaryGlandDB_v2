@@ -38,6 +38,7 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
+                    dbValue={formTranslationKeys.yes}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
@@ -54,11 +55,13 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.no)}
+                    dbValue={formTranslationKeys.no}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.unknown)}
+                    dbValue={formTranslationKeys.unknown}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
@@ -73,6 +76,7 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
+                    dbValue={formTranslationKeys.yes}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
@@ -89,11 +93,13 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.no)}
+                    dbValue={formTranslationKeys.no}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.unknown)}
+                    dbValue={formTranslationKeys.unknown}
                     setFormData={setFormData}
                     disabled={disabled}
                 />
@@ -108,11 +114,13 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.alive)}
+                    dbValue={formTranslationKeys.alive}
                     setFormData={setFormData}
                     disabled={disabled}
                 ></ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.deceased)}
+                    dbValue={formTranslationKeys.deceased}
                     setFormData={setFormData}
                     disabled={disabled}
                 >
@@ -129,6 +137,7 @@ const Dispensarization: React.FC<GlandComponentProps> = ({
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.unknown)}
+                    dbValue={formTranslationKeys.unknown}
                     setFormData={setFormData}
                     disabled={disabled}
                 />

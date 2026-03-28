@@ -39,6 +39,7 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.surgical)}
+                    dbValue={formTranslationKeys.surgical}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -49,10 +50,11 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.peroralExstirpation),
-                            t(formTranslationKeys.externalExstirpation),
-                            t(formTranslationKeys.other),
+                            formTranslationKeys.peroralExstirpation,
+                            formTranslationKeys.externalExstirpation,
+                            formTranslationKeys.other,
                         ]}
                     />
                     <ConditionalCheckboxes
@@ -65,6 +67,7 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.yes)}
+                            dbValue={formTranslationKeys.yes}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -77,9 +80,10 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.sameSide),
-                                    t(formTranslationKeys.twoSided),
+                                    formTranslationKeys.sameSide,
+                                    formTranslationKeys.twoSided,
                                 ]}
                             />
                             <SimpleCheckboxes
@@ -89,9 +93,10 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.electiveCN0),
-                                    t('therapeutic-cN+'),
+                                    formTranslationKeys.electiveCN0,
+                                    formTranslationKeys.therapeuticCnplus,
                                 ]}
                             />
                             <SimpleCheckboxes
@@ -101,23 +106,25 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={false}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.ia),
-                                    t(formTranslationKeys.ib),
-                                    t(formTranslationKeys.iia),
-                                    t(formTranslationKeys.iib),
-                                    t(formTranslationKeys.iii),
-                                    t(formTranslationKeys.iv),
-                                    t(formTranslationKeys.v),
-                                    t(formTranslationKeys.va),
-                                    t(formTranslationKeys.vb),
-                                    t(formTranslationKeys.vi),
-                                    t(formTranslationKeys.scopeUndefined),
+                                    formTranslationKeys.ia,
+                                    formTranslationKeys.ib,
+                                    formTranslationKeys.iia,
+                                    formTranslationKeys.iib,
+                                    formTranslationKeys.iii,
+                                    formTranslationKeys.iv,
+                                    formTranslationKeys.v,
+                                    formTranslationKeys.va,
+                                    formTranslationKeys.vb,
+                                    formTranslationKeys.vi,
+                                    formTranslationKeys.scopeUndefined,
                                 ]}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.no)}
+                            dbValue={formTranslationKeys.no}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -129,17 +136,19 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.rt),
-                            t(formTranslationKeys.chrt),
-                            t(formTranslationKeys.ch),
-                            t(formTranslationKeys.protonTherapy),
-                            t(formTranslationKeys.notIndicated),
+                            formTranslationKeys.rt,
+                            formTranslationKeys.chrt,
+                            formTranslationKeys.ch,
+                            formTranslationKeys.protonTherapy,
+                            formTranslationKeys.notIndicated,
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.nonSurgical)}
+                    dbValue={formTranslationKeys.nonSurgical}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -152,16 +161,18 @@ const SublingualMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.rt),
-                            t(formTranslationKeys.chrt),
-                            t(formTranslationKeys.ch),
-                            t(formTranslationKeys.protonTherapy),
+                            formTranslationKeys.rt,
+                            formTranslationKeys.chrt,
+                            formTranslationKeys.ch,
+                            formTranslationKeys.protonTherapy,
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.notIndicated)}
+                    dbValue={formTranslationKeys.notIndicated}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
