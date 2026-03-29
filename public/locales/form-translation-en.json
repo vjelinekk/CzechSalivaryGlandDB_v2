@@ -19,7 +19,6 @@
     "ecd-i": "ECD I",
     "ecd-ii": "ECD II",
     "ecd-v": "ECD V",
-
     "diagnosis-title": "DIAGNOSIS",
     "year-of-diagnosis": "Date of diagnosis",
     "side-of-finding": "Side of finding",
@@ -68,7 +67,6 @@
     "peroral-extirpation": "Peroral extirpation",
     "external-extirpation": "External extirpation",
     "not-indicated": "Not indicated",
-
     "add-patient": "Add patient",
     "attachments-title": "ATTACHMENTS",
     "add-attachment": "Add attachment",
@@ -112,6 +110,7 @@
     "acinic-cell-carcinoma": "acinic cell carcinoma",
     "pleomorphic-adenoma": "pleomorphic adenoma",
     "papillary-cystadenolymphoma-warthin": "papillary cystadenolymphoma (Warthin's tumor)",
+    "warthin-tumor": "Warthin's tumor",
     "oncocytoma": "oncocytoma",
     "sebaceous-adenoma": "sebaceous adenoma",
     "ductal-papilloma": "ductal papilloma",
@@ -134,8 +133,6 @@
     "gender": "Gender",
     "male": "Male",
     "female": "Female",
-    "acinocellular-carcinoma": "acinocellular carcinoma",
-    "debaceous-lymphadenoma": "Sebaceous lymphadenoma",
     "filtration-menu": "Filter menu",
     "reset-filter": "Reset filter",
     "save-filter": "Save filter",
@@ -147,7 +144,6 @@
     "sublingual": "Sublingual",
     "parotid": "Parotid",
     "select-tumor-type-message": "Additional filters will appear after selecting tumor type.",
-
     "anamnestic-personal-data": "ANAMNESTIC/PERSONAL DATA",
     "basic-information": "Basic information",
     "first-name": "First name",
@@ -182,7 +178,6 @@
     "how-long-years": "Duration (years)",
     "pack-years": "Pack-years",
     "alcohol-abuse": "Alcohol abuse",
-
     "secretory-carcinoma": "secretory carcinoma",
     "mucoepidermoid-carcinoma": "mucoepidermoid carcinoma",
     "low-grade": "low grade",
@@ -221,7 +216,6 @@
     "microsecretory-adenocarcinoma": "microsecretory adenocarcinoma",
     "sclerosing-microcystic-adenocarcinoma": "sclerosing microcystic adenocarcinoma",
     "mucinous-adenocarcinoma": "mucinous adenocarcinoma",
-    "sialoblastom": "sialoblastom",
     "r0": "R0",
     "r1": "R1",
     "lymphovascular-invasion": "Lymphovascular invasion",
@@ -233,16 +227,11 @@
     "proven-distant-metastases": "Proven distant metastases",
     "specify-site-of-distant-metastasis": "Specify site of distant metastasis",
     "more-than-30-solid-component": ">30% solid component",
-
     "terapy-type": "Therapy type",
     "chirurgical": "Surgical",
     "non-surgical": "Non-surgical",
     "polymorphous-adenocarcinoma": "polymorphous adenocarcinoma",
-    "hyalinizing-carcinoma-of-clear-cells": "hyalinizing clear cell carcinoma",
-    "salivary-ductal-carcinoma": "salivary duct carcinoma",
-    "carcinoma-from-pleomorphic-adenoma": "carcinoma ex pleomorphic adenoma",
     "malt-lymphoma": "MALT-lymphoma",
-
     "surgical-treatment-scope": "Scope of surgical treatment",
     "peroral-exstirpation": "Peroral extirpation",
     "external-exstirpation": "External extirpation",
@@ -305,7 +294,6 @@
     "keratocyst": "keratocystoma",
     "open-biopsy": "Open biopsy",
     "open-biopsy-result": "Open biopsy result",
-
     "surgical-treatment-extent": "Extent of surgical treatment",
     "parotidectomy-iii-iv-deep-lobe": "Parotidectomy III–IV (Deep lobe parotidectomy)",
     "side-of-block-neck-dissection": "Side of block neck dissection",

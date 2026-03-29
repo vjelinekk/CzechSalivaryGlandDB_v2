@@ -59,7 +59,6 @@ const TTest: React.FC = () => {
 
             if (response) {
                 setTTestData(response)
-                console.log('T-Test data fetched successfully:', response)
             } else {
                 console.error('Failed to fetch T-Test data')
             }

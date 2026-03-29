@@ -32,21 +32,21 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.surgical)}
-                            dbValue="Chirurgická"
+                            dbValue={formTranslationKeys.surgical}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.nonSurgicalMonitoring)}
-                            dbValue="Nechirurgická-sledování"
+                            dbValue={formTranslationKeys.nonSurgicalMonitoring}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.notIndicated)}
-                            dbValue="Nebyla indikována"
+                            dbValue={formTranslationKeys.notIndicated}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -64,7 +64,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.male)}
-                            dbValue="Muž"
+                            dbValue={formTranslationKeys.male}
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -72,7 +72,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.female)}
-                            dbValue="Žena"
+                            dbValue={formTranslationKeys.female}
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -91,7 +91,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.yes)}
-                            dbValue="Ano"
+                            dbValue={appTranslationKeys.yes}
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -99,7 +99,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.no)}
-                            dbValue="Ne"
+                            dbValue={appTranslationKeys.no}
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -118,7 +118,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.yes)}
-                            dbValue="Ano"
+                            dbValue={appTranslationKeys.yes}
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -126,7 +126,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.no)}
-                            dbValue="Ne"
+                            dbValue={appTranslationKeys.no}
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -145,7 +145,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.alive)}
-                            dbValue="Žije"
+                            dbValue={formTranslationKeys.alive}
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -153,7 +153,7 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.deceased)}
-                            dbValue="Zemřel"
+                            dbValue={formTranslationKeys.deceased}
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -172,14 +172,14 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                     <FormGroup>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.acinicCellCarcinoma)}
-                            dbValue="acinocelulární karcinom"
+                            dbValue={appTranslationKeys.acinicCellCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.pleomorphicAdenoma)}
-                            dbValue="pleomorfní adenom"
+                            dbValue={formTranslationKeys.pleomorphicAdenoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -188,70 +188,70 @@ const FiltrationBenign: React.FC<FiltrationBenignProps> = ({
                             label={t(
                                 formTranslationKeys.papillaryCystadenolymphomaWarthin
                             )}
-                            dbValue="papilární cystadenolymfom (Warthinův tumor)"
+                            dbValue={formTranslationKeys.warthinTumor}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.basalCellAdenoma)}
-                            dbValue="bazocelulární adenom"
+                            dbValue={formTranslationKeys.basalCellAdenoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.myoepithelioma)}
-                            dbValue="myoepiteliom"
+                            dbValue={formTranslationKeys.myoepithelioma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.oncocytoma)}
-                            dbValue="onkocytom"
+                            dbValue={formTranslationKeys.oncocytoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.canalicularAdenoma)}
-                            dbValue="kanalikulární adenom"
+                            dbValue={formTranslationKeys.canalicularAdenoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.sebaceousAdenoma)}
-                            dbValue="sebaceózní adenom"
+                            dbValue={formTranslationKeys.sebaceousAdenoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.ductalPapilloma)}
-                            dbValue="duktální papilom"
+                            dbValue={formTranslationKeys.ductalPapilloma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(formTranslationKeys.debaceousLymphadenoma)}
-                            dbValue="debaceózní lymfadenom"
+                            label={t(formTranslationKeys.sebaceousLymphadenoma)}
+                            dbValue={formTranslationKeys.sebaceousLymphadenoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.keratocystoma)}
-                            dbValue="keratocystom"
+                            dbValue={formTranslationKeys.keratocystoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.other)}
-                            dbValue="jiné"
+                            dbValue={appTranslationKeys.other}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}

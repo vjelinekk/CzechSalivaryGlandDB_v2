@@ -80,7 +80,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ setIsLoggedIn }) => {
         if (isPasswordSet) {
             const validation =
                 await window.encryption.validatePassword(password)
-            console.log(validation)
             if (!validation) {
                 setValidationFailed(true)
                 return

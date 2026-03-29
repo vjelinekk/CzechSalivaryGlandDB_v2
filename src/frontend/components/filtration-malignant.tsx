@@ -2,8 +2,6 @@ import Typography from '@mui/material/Typography'
 import ListItem from '@mui/material/ListItem'
 import FormControl from '@mui/material/FormControl'
 import FormGroup from '@mui/material/FormGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
 import ListSubheader from '@mui/material/ListSubheader'
 import { FilterColumn, FilteredColumns } from '../types'
 import FiltrationCheckbox from './filtration-checkbox'
@@ -33,21 +31,21 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.chirurgical)}
-                            dbValue="Chirurgická"
+                            dbValue={formTranslationKeys.chirurgical}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.nonSurgical)}
-                            dbValue="Nechirurgická"
+                            dbValue={formTranslationKeys.nonSurgical}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.notIndicated)}
-                            dbValue="Nebyla indikována"
+                            dbValue={formTranslationKeys.notIndicated}
                             filterLabel={FilterColumn.TYP_TERAPIE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -65,7 +63,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.male)}
-                            dbValue="Muž"
+                            dbValue={formTranslationKeys.male}
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -73,7 +71,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.female)}
-                            dbValue="Žena"
+                            dbValue={formTranslationKeys.female}
                             filterLabel={FilterColumn.POHLAVI}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -92,7 +90,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.yes)}
-                            dbValue="Ano"
+                            dbValue={appTranslationKeys.yes}
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -100,7 +98,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.no)}
-                            dbValue="Ne"
+                            dbValue={appTranslationKeys.no}
                             filterLabel={FilterColumn.PERZISTENCE}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -119,7 +117,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.yes)}
-                            dbValue="Ano"
+                            dbValue={appTranslationKeys.yes}
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -127,7 +125,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.no)}
-                            dbValue="Ne"
+                            dbValue={appTranslationKeys.no}
                             filterLabel={FilterColumn.RECIDIVA}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -146,7 +144,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup sx={{ flexDirection: 'row' }}>
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.alive)}
-                            dbValue="Žije"
+                            dbValue={formTranslationKeys.alive}
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -154,7 +152,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.deceased)}
-                            dbValue="Zemřel"
+                            dbValue={formTranslationKeys.deceased}
                             filterLabel={FilterColumn.STAV}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -173,14 +171,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                     <FormGroup>
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.acinicCellCarcinoma)}
-                            dbValue="acinocelulární karcinom"
+                            dbValue={appTranslationKeys.acinicCellCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.secretoryCarcinoma)}
-                            dbValue="sekretorický karcinom"
+                            dbValue={appTranslationKeys.secretoryCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -189,14 +187,14 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.mucoepidermoidCarcinoma
                             )}
-                            dbValue="mukoepidermoidní karcinom"
+                            dbValue={appTranslationKeys.mucoepidermoidCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.adenoidCysticCarcinoma)}
-                            dbValue="adenoidně cystický karcinom"
+                            dbValue={appTranslationKeys.adenoidCysticCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -205,7 +203,9 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.polymorphousAdenocarcinoma
                             )}
-                            dbValue="polymorfní adenokarcinom"
+                            dbValue={
+                                appTranslationKeys.polymorphousAdenocarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -214,16 +214,20 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.epithelialMyoepithelialCarcinoma
                             )}
-                            dbValue="epiteliální myoepiteliální karcinom"
+                            dbValue={
+                                appTranslationKeys.epithelialMyoepithelialCarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(
-                                formTranslationKeys.hyalinizingCarcinomaOfClearCells
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
                             )}
-                            dbValue="hyalinizující karcinom ze světlých buněk"
+                            dbValue={
+                                formTranslationKeys.hyalinizingClearCellCarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -232,7 +236,7 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.basalCellAdenocarcinoma
                             )}
-                            dbValue="bazocelulární adenokarcinom"
+                            dbValue={appTranslationKeys.basalCellAdenocarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -241,53 +245,53 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.sebaceousAdenocarcinoma
                             )}
-                            dbValue="sebaceózní adenokarcinom"
+                            dbValue={appTranslationKeys.sebaceousAdenocarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.intraductalCarcinoma)}
-                            dbValue="intraduktální karcinom"
+                            dbValue={appTranslationKeys.intraductalCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(formTranslationKeys.salivaryCarcinomaNos)}
-                            dbValue="salivární karcinom NOS"
+                            dbValue={formTranslationKeys.salivaryCarcinomaNos}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(
-                                appTranslationKeys.salivaryDuctalCarcinoma
-                            )}
-                            dbValue="salivární duktální karcinom"
+                            label={t(formTranslationKeys.salivaryDuctCarcinoma)}
+                            dbValue={formTranslationKeys.salivaryDuctCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.myoepithelialCarcinoma)}
-                            dbValue="myoepiteliální karcinom"
+                            dbValue={appTranslationKeys.myoepithelialCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(
-                                appTranslationKeys.carcinomaFromPleomorphicAdenoma
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
                             )}
-                            dbValue="karcinom z pleomorfniho adenomu"
+                            dbValue={
+                                formTranslationKeys.carcinomaExPleomorphicAdenoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.carcinosarcoma)}
-                            dbValue="karcinosarkom"
+                            dbValue={appTranslationKeys.carcinosarcoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -296,7 +300,9 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.poorlyDifferentiatedCarcinoma
                             )}
-                            dbValue="špatně diferencovaný karcinom: neuroendokrinní a nonneuroendokrinní"
+                            dbValue={
+                                appTranslationKeys.poorlyDifferentiatedCarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -305,35 +311,27 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.lymphoepithelialCarcinoma
                             )}
-                            dbValue="lymfoepiteliální karcinom"
+                            dbValue={
+                                appTranslationKeys.lymphoepithelialCarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.squamousCellCarcinoma)}
-                            dbValue="skvamocelulární karcinom"
+                            dbValue={appTranslationKeys.squamousCellCarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
-                        />
-                        <FormControlLabel
-                            control={<Checkbox />}
-                            label={t(
-                                appTranslationKeys.microsecretoryAdenocarcinoma
-                            )}
-                        />
-                        <FormControlLabel
-                            control={<Checkbox />}
-                            label={t(
-                                appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
-                            )}
                         />
                         <FiltrationCheckbox
                             label={t(
                                 appTranslationKeys.microsecretoryAdenocarcinoma
                             )}
-                            dbValue="mikrosekretorický adenokarcinom"
+                            dbValue={
+                                appTranslationKeys.microsecretoryAdenocarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
@@ -342,35 +340,37 @@ const FiltrationMalignant: React.FC<FiltrationMalignantProps> = ({
                             label={t(
                                 appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
                             )}
-                            dbValue="sklerózující mikrocystický adenokarcinom"
+                            dbValue={
+                                appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
+                            }
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.mucinousAdenocarcinoma)}
-                            dbValue="mucinózní adenokarcinom"
+                            dbValue={appTranslationKeys.mucinousAdenocarcinoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
-                            label={t(appTranslationKeys.sialoblastom)}
-                            dbValue="asialoblastom"
+                            label={t(formTranslationKeys.asialoblastoma)}
+                            dbValue={formTranslationKeys.asialoblastoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.maltLymphoma)}
-                            dbValue="MALT-lymfom"
+                            dbValue={appTranslationKeys.maltLymphoma}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}
                         />
                         <FiltrationCheckbox
                             label={t(appTranslationKeys.other)}
-                            dbValue="jiné"
+                            dbValue={appTranslationKeys.other}
                             filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                             filteredColumns={filteredColumns}
                             setFilteredColumns={setFilteredColumns}

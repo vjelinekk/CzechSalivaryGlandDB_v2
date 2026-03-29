@@ -221,9 +221,13 @@ const tnm8StageToId: Record<string, number> = {
 }
 
 function mapHistologyField(patient: PatientType, fieldName: string): void {
+    console.log('Patient before mapping:', patient)
+    console.log('Mapping histology field:', fieldName)
     const value = patient[fieldName] as string | undefined
+    console.log('Original value:', value)
     if (!value) return
     const key = czechHistologyTypeToKey[value]
+    console.log('Mapped key:', key)
     if (key) {
         patient[fieldName] = key
     }

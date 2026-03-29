@@ -59,7 +59,6 @@ ipcMain.handle(ipcImportChannels.import, async () => {
     })
 
     for (const patient of data) {
-        console.log(patient)
         await savePatient(patient)
     }
 })

@@ -559,16 +559,16 @@ export const getPatientsByType = async (
 
 export const getFilteredPatients = async (
     filter: FilteredColumnsDto,
-    idStudie?: number
+    idStudy?: number
 ): Promise<PatientDto[] | null> => {
     try {
         let query = `SELECT p.id FROM ${TableNames.patient} p`
         const params: unknown[] = []
 
         // Join with study if filtering by study
-        if (idStudie) {
+        if (idStudy) {
             query += ` JOIN ${TableNames.isInStudy} s ON p.id = s.id_patient WHERE s.id_study = ?`
-            params.push(idStudie)
+            params.push(idStudy)
         } else {
             query += ' WHERE 1=1'
         }
@@ -618,6 +618,22 @@ export const getFilteredPatients = async (
         if (filter.pohlavi) {
             query += ` AND p.gender = ?`
             params.push(filter.pohlavi)
+        }
+
+        // Filter by histopathology result
+        if (
+            filter.histopatologie_vysledek &&
+            filter.histopatologie_vysledek.length > 0
+        ) {
+            const placeholders = filter.histopatologie_vysledek
+                .map(() => '?')
+                .join(', ')
+            query += ` AND EXISTS (
+                SELECT 1 FROM ${TableNames.histopathology} hp
+                JOIN ${TableNames.histologyType} ht ON ht.id = hp.id_histology_type
+                WHERE hp.id_patient = p.id AND ht.translation_key IN (${placeholders})
+            )`
+            params.push(...filter.histopatologie_vysledek)
         }
 
         const patients = await runQueryAll<PatientEntity>(query, params)
@@ -703,7 +719,6 @@ export const getKaplanMeierData = async (
     try {
         const kaplanMeierData: KaplanMeierDataDto = {}
 
-        console.log(filter)
         // Need to join with histopathology to get histopatologie_vysledek
         for (const histopatologieVysledek of filter.histopatologie_vysledek) {
             let query = ''
@@ -729,18 +744,15 @@ export const getKaplanMeierData = async (
                 `
             }
 
-            console.log(histopatologieVysledek)
             const histologyTypeId = HistologyTypeMapper.mapKeyToId(
                 histopatologieVysledek
             )
-            console.log(histologyTypeId)
             const rows = await runQueryAll<{
                 rok_diagnozy: string
                 datum_umrti?: string
                 datum_prokazani_recidivy?: string
                 posledni_kontrola?: string
             }>(query, [histologyTypeId])
-            console.log(rows)
 
             kaplanMeierData[histopatologieVysledek] = rows
                 .filter((row) => row.rok_diagnozy !== null)
@@ -754,7 +766,6 @@ export const getKaplanMeierData = async (
                 })
         }
 
-        console.log(kaplanMeierData)
         return kaplanMeierData
     } catch (err) {
         console.error('Error getting Kaplan-Meier data:', err)
@@ -810,11 +821,6 @@ export const getChiSquareContingencyTable = async (
         Record<InferenceChiSquareCategories, string[]>
     >
 ): Promise<number[][]> => {
-    console.log(rows)
-    console.log(columns)
-    console.log(rowSelectedCategories)
-    console.log(columnSelectedCategories)
-
     const contingencyTable = Array.from({ length: rows }, () =>
         Array(columns).fill(0)
     )

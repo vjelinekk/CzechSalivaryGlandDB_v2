@@ -149,9 +149,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.acinocellularCarcinoma
-                            )}
+                            label={t(formTranslationKeys.acinicCellCarcinoma)}
                             dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
@@ -308,9 +306,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.salivaryDuctalCarcinoma
-                            )}
+                            label={t(formTranslationKeys.salivaryDuctCarcinoma)}
                             dbValue="salivary-duct-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
@@ -467,9 +463,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         disabled={disabled}
                     >
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.acinocellularCarcinoma
-                            )}
+                            label={t(formTranslationKeys.acinicCellCarcinoma)}
                             dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
@@ -632,9 +626,7 @@ const SubmandibularMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.salivaryDuctalCarcinoma
-                            )}
+                            label={t(formTranslationKeys.salivaryDuctCarcinoma)}
                             dbValue="salivary-duct-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}

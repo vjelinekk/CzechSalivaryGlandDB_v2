@@ -157,7 +157,11 @@ export class PatientMapper {
             recidive: toIntBool(patient.recidiva),
             date_of_recidive: toStr(patient.datum_prokazani_recidivy),
             is_alive:
-                patient.stav === null ? null : patient.stav === 'alive' ? 1 : 0,
+                patient.stav === null || patient.stav === undefined
+                    ? null
+                    : patient.stav === 'alive'
+                      ? 1
+                      : 0,
             death_date: toStr(patient.datum_umrti),
             last_follow_up: toStr(patient.posledni_kontrola),
             next_follow_up: toStr(patient.planovana_kontrola),

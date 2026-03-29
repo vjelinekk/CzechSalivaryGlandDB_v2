@@ -145,9 +145,7 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.acinocellularCarcinoma
-                            )}
+                            label={t(formTranslationKeys.acinicCellCarcinoma)}
                             dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}
@@ -459,9 +457,7 @@ const ParotidMalignantGlandDiagnosis: React.FC<GlandComponentProps> = ({
                         enableSingleSelect={true}
                     >
                         <ConditionalCheckboxOption
-                            label={t(
-                                formTranslationKeys.acinocellularCarcinoma
-                            )}
+                            label={t(formTranslationKeys.acinicCellCarcinoma)}
                             dbValue="acinic-cell-carcinoma"
                             disabled={disabled}
                             setFormData={setFormData}

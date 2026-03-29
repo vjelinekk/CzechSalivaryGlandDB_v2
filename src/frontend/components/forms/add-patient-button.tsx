@@ -35,6 +35,7 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
         e: React.MouseEvent<HTMLButtonElement>
     ) => {
         e.preventDefault()
+        console.log(formData)
         const result = await window.api.save(
             ipcAPISaveChannels.savePatient,
             formData
@@ -53,8 +54,6 @@ const AddPatientButton: React.FC<AddPatientButtonProps> = ({
                 )
             })
         )
-
-        console.log(selectedStudies)
 
         setActiveComponent({
             component: Components.patientsList,

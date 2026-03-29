@@ -187,12 +187,6 @@ const FisherExactTest: React.FC = () => {
         const { fisherTestResult, isSignificant, pValue } =
             calculateFishersExact(matrix, alphaValue)
 
-        console.log('Fisher Exact Test Results:', {
-            fisherTestResult,
-            isSignificant,
-            pValue,
-        })
-
         setTestResults({
             fisherTestResult,
             isSignificant,

@@ -1,8 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Stack from '@mui/material/Stack'
 import FormGroup from '@mui/material/FormGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
 import FiltrationCheckbox from './filtration-checkbox'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -20,6 +18,7 @@ import {
     kaplanMeierTypeToDto,
     filteredColumnsToDto,
 } from '../mappers/enumMappers'
+import { FormControlLabel } from '@mui/material'
 
 interface KaplanMeierFilterProps {
     setKaplanMeierData: Dispatch<SetStateAction<KaplanMeierData>>
@@ -54,7 +53,6 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
             kaplanMeierTypeToDto[selectedCurveType],
             filteredColumnsToDto(filteredColumns)
         )
-        console.log(data)
         setKaplanMeierData(data)
     }
 
@@ -168,14 +166,14 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                 />
                 <FiltrationCheckbox
                     label={t(formTranslationKeys.salivaryCarcinomaNos)}
-                    dbValue="salivary-carcinoma-non-specific"
+                    dbValue="salivary-carcinoma-nos"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(formTranslationKeys.salivaryDuctalCarcinoma)}
-                    dbValue="salivary-ductal-carcinoma"
+                    label={t(formTranslationKeys.salivaryDuctCarcinoma)}
+                    dbValue="salivary-duct-carcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
@@ -188,10 +186,8 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(
-                        formTranslationKeys.carcinomaFromPleomorphicAdenoma
-                    )}
-                    dbValue="carcinoma-from-pleomorphic-adenoma"
+                    label={t(formTranslationKeys.carcinomaExPleomorphicAdenoma)}
+                    dbValue="carcinoma-ex-pleomorphic-adenoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
@@ -224,19 +220,9 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
-                <FormControlLabel
-                    control={<Checkbox />}
-                    label={t(appTranslationKeys.microsecretoryAdenocarcinoma)}
-                />
-                <FormControlLabel
-                    control={<Checkbox />}
-                    label={t(
-                        appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
-                    )}
-                />
                 <FiltrationCheckbox
                     label={t(appTranslationKeys.microsecretoryAdenocarcinoma)}
-                    dbValue="mikrosekretorický adenokarcinom"
+                    dbValue="microsecretory-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
@@ -245,35 +231,35 @@ const KaplanMeierFilter: React.FC<KaplanMeierFilterProps> = ({
                     label={t(
                         appTranslationKeys.sclerosingMicrocysticAdenocarcinoma
                     )}
-                    dbValue="sklerózující mikrocystický adenokarcinom"
+                    dbValue="sclerosing-microcystic-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
                     label={t(appTranslationKeys.mucinousAdenocarcinoma)}
-                    dbValue="mucinózní adenokarcinom"
+                    dbValue="mucinous-adenocarcinoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
-                    label={t(appTranslationKeys.sialoblastom)}
-                    dbValue="asialoblastom"
+                    label={t(formTranslationKeys.asialoblastoma)}
+                    dbValue="asialoblastoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
                     label={t(appTranslationKeys.maltLymphoma)}
-                    dbValue="MALT-lymfom"
+                    dbValue="malt-lymphoma"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
                 />
                 <FiltrationCheckbox
                     label={t(appTranslationKeys.other)}
-                    dbValue="jiné"
+                    dbValue="other"
                     filterLabel={FilterColumn.HISTOPATOLOGIE_VYSLEDEK}
                     filteredColumns={filteredColumns}
                     setFilteredColumns={setFilteredColumns}
