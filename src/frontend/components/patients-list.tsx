@@ -91,7 +91,7 @@ const PatientsList: React.FC<PatientsListProps> = ({
     setActiveComponent,
     setActiveMenuButton,
 }) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const [patients, setPatients] = useState<PatientType[]>([])
     const [patientsToSearchFrom, setPatientsToSearchFrom] = useState<
         PatientType[]
@@ -235,13 +235,18 @@ const PatientsList: React.FC<PatientsListProps> = ({
     }, [editSaved, activePatient, idStudie, filteredColumns, isFiltered])
 
     const handleExport = async () => {
-        await window.export.export(ipcExportChannels.export, selectedPatients)
+        await window.export.export(
+            ipcExportChannels.export,
+            selectedPatients,
+            i18n.language
+        )
     }
 
     const handleExportAnonymized = async () => {
         await window.export.export(
             ipcExportChannels.exportAnonymized,
-            selectedPatients
+            selectedPatients,
+            i18n.language
         )
     }
 

@@ -3,6 +3,7 @@ import { Box, Container, Paper, Tab, Tabs, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import ModelTrainingTab from './model-training-tab'
 import ModelInfoTab from './model-info-tab'
+import { appTranslationKeys } from '../../../translations'
 
 interface TabPanelProps {
     children?: React.ReactNode
@@ -43,7 +44,7 @@ const MlRiskScoring: React.FC = () => {
         <Container maxWidth={false} sx={{ mt: 2, mb: 4 }}>
             <Paper elevation={3} sx={{ p: 3 }}>
                 <Typography variant="h4" gutterBottom align="center">
-                    {t('Predikce rizik pomocí strojového učení')}
+                    {t(appTranslationKeys.mlRiskScoringTitle)}
                 </Typography>
 
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -52,8 +53,8 @@ const MlRiskScoring: React.FC = () => {
                         onChange={handleChange}
                         aria-label="ml tabs"
                     >
-                        <Tab label={t('Trénování modelu')} />
-                        <Tab label={t('Informace o modelech')} />
+                        <Tab label={t(appTranslationKeys.mlModelTraining)} />
+                        <Tab label={t(appTranslationKeys.mlModelInfo)} />
                     </Tabs>
                 </Box>
 

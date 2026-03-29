@@ -29,8 +29,6 @@ const Attachments: React.FC<GlandComponentProps> = ({
         })
     }
 
-    console.log(formData?.attachments?.length)
-
     return (
         <div className="sectionDiv">
             <h1>{t(formTranslationKeys.attachmentsTitle)}</h1>

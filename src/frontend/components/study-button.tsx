@@ -42,12 +42,7 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     }
 
     const saveStudyName = async () => {
-        const result = await window.api.save(
-            ipcAPISaveChannels.saveStudy,
-            studyToDto(study)
-        )
-
-        console.log(result)
+        await window.api.save(ipcAPISaveChannels.saveStudy, studyToDto(study))
 
         setEditStudyName((prev) => !prev)
         setListChanged((prev) => !prev)
@@ -74,12 +69,10 @@ const StudyButton: React.FC<StudyButtonProps> = ({
     }
 
     const handleDeleteStudy = async () => {
-        const result = await window.api.delete(
+        await window.api.delete(
             ipcAPIDeleteChannels.deleteStudy,
             studyToDto(study)
         )
-
-        console.log(result)
 
         setListChanged((prev) => !prev)
         setActiveStudy(null)

@@ -81,6 +81,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -102,6 +103,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -149,6 +151,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -168,6 +171,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -202,6 +206,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -230,6 +235,7 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                             formTranslationKeys.subtypeNotSpecified,
                         ]}
                         disabled={disabled}
+                        translate={true}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
@@ -314,7 +320,8 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[t(formTranslationKeys.r0), t(formTranslationKeys.r1)]}
+                translate={true}
+                options={[formTranslationKeys.r0, formTranslationKeys.r1]}
                 disabled={disabled}
             />
 
@@ -324,10 +331,8 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[
-                    t(formTranslationKeys.no),
-                    t(formTranslationKeys.yes),
-                ]}
+                translate={true}
+                options={[formTranslationKeys.no, formTranslationKeys.yes]}
                 disabled={disabled}
             />
 
@@ -337,10 +342,8 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                 data={formData}
                 setFormData={setFormData}
                 enableSingleSelect={true}
-                options={[
-                    t(formTranslationKeys.no),
-                    t(formTranslationKeys.yes),
-                ]}
+                translate={true}
+                options={[formTranslationKeys.no, formTranslationKeys.yes]}
                 disabled={disabled}
             />
 
@@ -366,11 +369,13 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.no)}
+                    dbValue={formTranslationKeys.no}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
+                    dbValue={formTranslationKeys.yes}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -381,9 +386,10 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
                         data={formData}
                         setFormData={setFormData}
                         enableSingleSelect={true}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.ENEmaOver2mm),
-                            t(formTranslationKeys.ENEmi2mmOrLess),
+                            formTranslationKeys.ENEmaOver2mm,
+                            formTranslationKeys.ENEmi2mmOrLess,
                         ]}
                         disabled={disabled}
                     />
@@ -399,11 +405,13 @@ const HistopathologyMalignant: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.no)}
+                    dbValue={formTranslationKeys.no}
                     disabled={disabled}
                     setFormData={setFormData}
                 />
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.yes)}
+                    dbValue={formTranslationKeys.yes}
                     disabled={disabled}
                     setFormData={setFormData}
                 >

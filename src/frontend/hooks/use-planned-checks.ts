@@ -19,7 +19,6 @@ export const usePlannedChecks = () => {
                     startDate,
                     endDate
                 )
-                console.log(data)
                 setPlannedDays(data)
 
                 // Transform data into rows where each row contains at max 5 patients

@@ -93,8 +93,8 @@ def handle_train(input_data: TrainInputData) -> TrainResultMetadata:
 
     # Validate events
     n_events = int(sum(y_event))
-    if n_events < 30:
-        raise ValueError(f"Insufficient events: {n_events} events (need at least 30)")
+    if n_events < 15:
+        raise ValueError(f"Insufficient events: {n_events} events (need at least 15)")
 
     # Train model
     model = SurvivalModel(algorithm=algorithm)

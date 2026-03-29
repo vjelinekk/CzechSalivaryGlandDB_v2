@@ -96,12 +96,11 @@ const EditButtons: React.FC<EditButtonsProps> = ({
     }
 
     const handleDeleteFromStudy = async () => {
-        const result = await window.api.deletePatientFromStudy(
+        await window.api.deletePatientFromStudy(
             idStudie,
             formData?.id,
             formData?.form_type
         )
-        console.log(result)
         setActivePatient(null)
     }
 
@@ -122,15 +121,13 @@ const EditButtons: React.FC<EditButtonsProps> = ({
             ipcAPISaveChannels.savePatient,
             formData
         )
-        console.log(result)
 
         if (studiesChanged) {
-            const updated = await window.api.updatePatientsStudies(
+            await window.api.updatePatientsStudies(
                 formData.id,
                 formTypeToDto[formData.form_type as FormType],
                 studyArrayToDto(selectedStudies)
             )
-            console.log(updated)
         }
 
         setEditSaved((prevEditSaved) => {

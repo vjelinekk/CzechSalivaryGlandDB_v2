@@ -112,7 +112,8 @@ declare global {
         export: {
             export: (
                 channel: ipcExportChannels,
-                patients: PatientDto[]
+                patients: PatientDto[],
+                language: string
             ) => Promise<void>
         }
         import: {

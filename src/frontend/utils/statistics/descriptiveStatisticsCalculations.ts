@@ -50,8 +50,8 @@ export const calculateStatistics = (
 
     for (const p of patients) {
         // Gender
-        if (p.pohlavi === 'Muž') maleCount++
-        else if (p.pohlavi === 'Žena') femaleCount++
+        if (p.pohlavi === 'male') maleCount++
+        else if (p.pohlavi === 'female') femaleCount++
 
         // Age
         const age = Number(p.vek_pri_diagnoze)
@@ -109,17 +109,16 @@ export const calculateStatistics = (
                 (tnmStagePathological[stagePathological] || 0) + 1
 
         // Recurrence
-        if (p.recidiva === 'Ano') recurrenceYes++
-        else if (p.recidiva === 'Ne') recurrenceNo++
+        if (p.recidiva === 'yes') recurrenceYes++
+        else if (p.recidiva === 'no') recurrenceNo++
 
         const complicationType = p.pooperacni_komplikace
             ? (p.pooperacni_komplikace as string)?.trim()
             : null
-        console.log(complicationType)
 
         // Complications
         if (complicationType) {
-            if (complicationType === 'Nejsou') {
+            if (complicationType === 'none') {
                 complicationsNo++
             } else {
                 complicationsYes++

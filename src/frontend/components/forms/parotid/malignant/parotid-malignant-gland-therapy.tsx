@@ -40,6 +40,7 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
             >
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.surgical)}
+                    dbValue={formTranslationKeys.surgical}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -50,19 +51,20 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.parotidectomyI_IV_VII),
-                            t(formTranslationKeys.parotidectomyI_IV),
-                            t(formTranslationKeys.parotidectomyI_IV_VII_s_MM),
-                            t(formTranslationKeys.parotidectomyI_II_Pes),
-                            t(formTranslationKeys.parotidectomyIIIVDeepLobe),
-                            t(formTranslationKeys.parotidectomyI),
-                            t(formTranslationKeys.parotidectomyII),
-                            t(formTranslationKeys.parotidectomyI_II_III),
-                            t(formTranslationKeys.parotidectomyV),
-                            t(formTranslationKeys.ecdI),
-                            t(formTranslationKeys.ecdII),
-                            t(formTranslationKeys.ecdV),
+                            formTranslationKeys.parotidectomyI_IV_VII,
+                            formTranslationKeys.parotidectomyI_IV,
+                            formTranslationKeys.parotidectomyI_IV_VII_s_MM,
+                            formTranslationKeys.parotidectomyI_II_Pes,
+                            formTranslationKeys.parotidectomyIIIVDeepLobe,
+                            formTranslationKeys.parotidectomyI,
+                            formTranslationKeys.parotidectomyII,
+                            formTranslationKeys.parotidectomyI_II_III,
+                            formTranslationKeys.parotidectomyV,
+                            formTranslationKeys.ecdI,
+                            formTranslationKeys.ecdII,
+                            formTranslationKeys.ecdV,
                         ]}
                     />
                     <ConditionalCheckboxes
@@ -75,6 +77,7 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.yes)}
+                            dbValue={formTranslationKeys.yes}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -87,9 +90,10 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.sameSide),
-                                    t(formTranslationKeys.twoSided),
+                                    formTranslationKeys.sameSide,
+                                    formTranslationKeys.twoSided,
                                 ]}
                             />
                             <SimpleCheckboxes
@@ -99,9 +103,10 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={true}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.electiveCn0),
-                                    t(formTranslationKeys.therapeuticCnplus),
+                                    formTranslationKeys.electiveCn0,
+                                    formTranslationKeys.therapeuticCnplus,
                                 ]}
                             />
                             <SimpleCheckboxes
@@ -111,23 +116,25 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                                 setFormData={setFormData}
                                 enableSingleSelect={false}
                                 disabled={disabled}
+                                translate={true}
                                 options={[
-                                    t(formTranslationKeys.ia),
-                                    t(formTranslationKeys.ib),
-                                    t(formTranslationKeys.iia),
-                                    t(formTranslationKeys.iib),
-                                    t(formTranslationKeys.iii),
-                                    t(formTranslationKeys.iv),
-                                    t(formTranslationKeys.v),
-                                    t(formTranslationKeys.va),
-                                    t(formTranslationKeys.vb),
-                                    t(formTranslationKeys.vi),
-                                    t(formTranslationKeys.scopeUndefined),
+                                    formTranslationKeys.ia,
+                                    formTranslationKeys.ib,
+                                    formTranslationKeys.iia,
+                                    formTranslationKeys.iib,
+                                    formTranslationKeys.iii,
+                                    formTranslationKeys.iv,
+                                    formTranslationKeys.v,
+                                    formTranslationKeys.va,
+                                    formTranslationKeys.vb,
+                                    formTranslationKeys.vi,
+                                    formTranslationKeys.scopeUndefined,
                                 ]}
                             />
                         </ConditionalCheckboxOption>
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.no)}
+                            dbValue={formTranslationKeys.no}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
@@ -141,7 +148,15 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
-                        options={['I', 'II', 'III', 'IV', 'V', 'VI']}
+                        translate={true}
+                        options={[
+                            formTranslationKeys.I,
+                            formTranslationKeys.II,
+                            formTranslationKeys.III,
+                            formTranslationKeys.IV,
+                            formTranslationKeys.V,
+                            formTranslationKeys.VI,
+                        ]}
                     />
                     <ConditionalCheckboxes
                         title={t(
@@ -155,21 +170,25 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                     >
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.none)}
+                            dbValue={formTranslationKeys.none}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.freysSyndrome)}
+                            dbValue={formTranslationKeys.freysSyndrome}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.salivaryFistula)}
+                            dbValue={formTranslationKeys.salivaryFistula}
                             disabled={disabled}
                             setFormData={setFormData}
                         />
                         <ConditionalCheckboxOption
                             label={t(formTranslationKeys.other)}
+                            dbValue={formTranslationKeys.other}
                             disabled={disabled}
                             setFormData={setFormData}
                         >
@@ -194,17 +213,19 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.rt),
-                            t(formTranslationKeys.chrt),
-                            t(formTranslationKeys.ch),
-                            t(formTranslationKeys.protonTherapy),
-                            t(formTranslationKeys.notIndicated),
+                            formTranslationKeys.rt,
+                            formTranslationKeys.chrt,
+                            formTranslationKeys.ch,
+                            formTranslationKeys.protonTherapy,
+                            formTranslationKeys.notIndicated,
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.nonSurgical)}
+                    dbValue={formTranslationKeys.nonSurgical}
                     disabled={disabled}
                     setFormData={setFormData}
                 >
@@ -217,16 +238,18 @@ const ParotidMalignantGlandTherapy: React.FC<GlandComponentProps> = ({
                         setFormData={setFormData}
                         enableSingleSelect={true}
                         disabled={disabled}
+                        translate={true}
                         options={[
-                            t(formTranslationKeys.rt),
-                            t(formTranslationKeys.chrt),
-                            t(formTranslationKeys.ch),
-                            t(formTranslationKeys.protonTherapy),
+                            formTranslationKeys.rt,
+                            formTranslationKeys.chrt,
+                            formTranslationKeys.ch,
+                            formTranslationKeys.protonTherapy,
                         ]}
                     />
                 </ConditionalCheckboxOption>
                 <ConditionalCheckboxOption
                     label={t(formTranslationKeys.notIndicated)}
+                    dbValue={formTranslationKeys.notIndicated}
                     disabled={disabled}
                     setFormData={setFormData}
                 />

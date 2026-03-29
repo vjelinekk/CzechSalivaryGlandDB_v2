@@ -19,7 +19,6 @@
     "ecd-i": "ECD I",
     "ecd-ii": "ECD II",
     "ecd-v": "ECD V",
-
     "diagnosis-title": "DIAGNOSTIKA",
     "year-of-diagnosis": "Dátum stanovenia diagnózy",
     "side-of-finding": "Strana nálezu",
@@ -68,7 +67,6 @@
     "peroral-extirpation": "Perorálna extirpácia",
     "external-extirpation": "Vonkajšia extirpácia",
     "not-indicated": "Nebola indikovaná",
-
     "add-patient": "Pridať pacienta",
     "attachments-title": "PRÍLOHY",
     "add-attachment": "Pridať prílohu",
@@ -112,6 +110,7 @@
     "acinic-cell-carcinoma": "acinocelulárny karcinóm",
     "pleomorphic-adenoma": "pleomorfný adenóm",
     "papillary-cystadenolymphoma-warthin": "papilárny cystadenolymfóm (Warthinov tumor)",
+    "warthin-tumor": "papilárny cystadenolymfóm (Warthinov tumor)",
     "oncocytoma": "onkocytóm",
     "sebaceous-adenoma": "sebaceózny adenóm",
     "ductal-papilloma": "duktálny papilóm",
@@ -134,8 +133,6 @@
     "gender": "Pohlavie",
     "male": "Muž",
     "female": "Žena",
-    "acinocellular-carcinoma": "acinocelulárny karcinóm",
-    "debaceous-lymphadenoma": "Sebaceózny lymfadenóm",
     "filtration-menu": "Filtračné menu",
     "reset-filter": "Resetovať filter",
     "save-filter": "Uložiť filter",
@@ -147,7 +144,6 @@
     "sublingual": "Podjazyková",
     "parotid": "Príušná",
     "select-tumor-type-message": "Ďalšie filtre sa zobrazia po výbere typu tumoru.",
-
     "anamnestic-personal-data": "ANAMNESTICKÉ/OSOBNÉ ÚDAJE",
     "basic-information": "Základné informácie",
     "first-name": "Meno",
@@ -182,7 +178,6 @@
     "how-long-years": "Ako dlho (roky)",
     "pack-years": "Počet balíčkorokov",
     "alcohol-abuse": "Abúzus alkoholu",
-
     "secretory-carcinoma": "sekretórny karcinóm",
     "mucoepidermoid-carcinoma": "mukoepidermoidný karcinóm",
     "low-grade": "low grade",
@@ -221,7 +216,6 @@
     "microsecretory-adenocarcinoma": "mikrosekretórny adenokarcinóm",
     "sclerosing-microcystic-adenocarcinoma": "sklerotizujúci mikrocystický adenokarcinóm",
     "mucinous-adenocarcinoma": "mucinózny adenokarcinóm",
-    "sialoblastom": "sialoblastom",
     "r0": "R0",
     "r1": "R1",
     "lymphovascular-invasion": "Lymfovaskulárna invázia",
@@ -233,16 +227,11 @@
     "proven-distant-metastases": "Preukázané vzdialené metastázy",
     "specify-site-of-distant-metastasis": "Špecifikácia miesta výskytu vzdialenej metastázy",
     "more-than-30-solid-component": ">30% solidnej zložky",
-
     "terapy-type": "Typ terapie",
     "chirurgical": "Chirurgická",
     "non-surgical": "Nechirurgická",
     "polymorphous-adenocarcinoma": "polymorfný adenokarcinóm",
-    "hyalinizing-carcinoma-of-clear-cells": "hyalinizujúci karcinóm zo svetlých buniek",
-    "salivary-ductal-carcinoma": "salivárny duktálny karcinóm",
-    "carcinoma-from-pleomorphic-adenoma": "karcinóm z pleomorfného adenómu",
     "malt-lymphoma": "MALT-lymfóm",
-
     "surgical-treatment-scope": "Rozsah chirurgickej liečby",
     "peroral-exstirpation": "Perorálna extirpácia",
     "external-exstirpation": "Vonkajšia extirpácia",
@@ -305,7 +294,6 @@
     "keratocyst": "keratocystóm",
     "open-biopsy": "Otvorená biopsia",
     "open-biopsy-result": "Výsledok otvorenej biopsie",
-
     "surgical-treatment-extent": "Rozsah chirurgickej liečby",
     "parotidectomy-iii-iv-deep-lobe": "Parotidektómia III–IV (Parotidektómia hlubokého laloku)",
     "side-of-block-neck-dissection": "Strana blokovej krčnej disekcie",

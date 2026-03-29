@@ -55,11 +55,14 @@ export const insertPatient = async (
                 // 1. Insert base patient
                 runInsert(TableNames.patient, { ...mapped.base })
                     .then((patientId) => {
-                        const insertPromises: Promise<unknown>[] = []
+                        // Phase A: insert malignant/benign first — subsequent tables
+                        // (malignant_parotid_specific, malignant_submandibular_specific)
+                        // have FK constraints that reference these rows.
+                        const phase1: Promise<unknown>[] = []
 
                         // 2. Insert malignant-specific
                         if (mapped.malignant) {
-                            insertPromises.push(
+                            phase1.push(
                                 runInsert(TableNames.malignantPatient, {
                                     ...mapped.malignant,
                                     id_patient: patientId,
@@ -69,7 +72,7 @@ export const insertPatient = async (
 
                         // 3. Insert benign-specific
                         if (mapped.benign) {
-                            insertPromises.push(
+                            phase1.push(
                                 runInsert(TableNames.benignPatient, {
                                     ...mapped.benign,
                                     id_patient: patientId,
@@ -77,9 +80,15 @@ export const insertPatient = async (
                             )
                         }
 
+                        return Promise.all(phase1).then(() => patientId)
+                    })
+                    .then((patientId) => {
+                        // Phase B: insert everything that depends on malignant/benign rows
+                        const phase2: Promise<unknown>[] = []
+
                         // 4. Insert location-specific (parotid/submandibular)
                         if (mapped.malignantParotid) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.malignantParotidSpecific, {
                                     ...mapped.malignantParotid,
                                     id_malignant_patient: patientId,
@@ -87,7 +96,7 @@ export const insertPatient = async (
                             )
                         }
                         if (mapped.malignantSubmandibular) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(
                                     TableNames.malignantSubmandibularSpecific,
                                     {
@@ -100,7 +109,7 @@ export const insertPatient = async (
 
                         // 5. Insert biopsy results
                         if (mapped.coreBiopsyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.biopsyResult, {
                                     ...mapped.coreBiopsyResult,
                                     id_patient: patientId,
@@ -108,7 +117,7 @@ export const insertPatient = async (
                             )
                         }
                         if (mapped.openBiopsyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.biopsyResult, {
                                     ...mapped.openBiopsyResult,
                                     id_patient: patientId,
@@ -118,7 +127,7 @@ export const insertPatient = async (
 
                         // 6. Insert histopathology
                         if (mapped.histopathologyResult) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.histopathology, {
                                     ...mapped.histopathologyResult,
                                     id_patient: patientId,
@@ -128,7 +137,7 @@ export const insertPatient = async (
 
                         // 7. Insert staging
                         if (mapped.patientStaging) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.patientStaging, {
                                     ...mapped.patientStaging,
                                     id_patient: patientId,
@@ -138,7 +147,7 @@ export const insertPatient = async (
 
                         // 8. Insert attachments
                         for (const attachment of mapped.attachments) {
-                            insertPromises.push(
+                            phase2.push(
                                 runInsert(TableNames.attachment, {
                                     ...attachment,
                                     id_patient: patientId,
@@ -146,7 +155,7 @@ export const insertPatient = async (
                             )
                         }
 
-                        return Promise.all(insertPromises).then(() => patientId)
+                        return Promise.all(phase2).then(() => patientId)
                     })
                     .then((patientId) => {
                         db.run('COMMIT', (err) => {
@@ -550,16 +559,16 @@ export const getPatientsByType = async (
 
 export const getFilteredPatients = async (
     filter: FilteredColumnsDto,
-    idStudie?: number
+    idStudy?: number
 ): Promise<PatientDto[] | null> => {
     try {
         let query = `SELECT p.id FROM ${TableNames.patient} p`
         const params: unknown[] = []
 
         // Join with study if filtering by study
-        if (idStudie) {
+        if (idStudy) {
             query += ` JOIN ${TableNames.isInStudy} s ON p.id = s.id_patient WHERE s.id_study = ?`
-            params.push(idStudie)
+            params.push(idStudy)
         } else {
             query += ' WHERE 1=1'
         }
@@ -590,25 +599,41 @@ export const getFilteredPatients = async (
         // Filter by persistence
         if (filter.perzistence) {
             query += ` AND p.persistence = ?`
-            params.push(filter.perzistence === 'Ano' ? 1 : 0)
+            params.push(filter.perzistence === 'yes' ? 1 : 0)
         }
 
         // Filter by recurrence
         if (filter.recidiva) {
             query += ` AND p.recidive = ?`
-            params.push(filter.recidiva === 'Ano' ? 1 : 0)
+            params.push(filter.recidiva === 'yes' ? 1 : 0)
         }
 
         // Filter by state (alive/dead)
         if (filter.stav) {
             query += ` AND p.is_alive = ?`
-            params.push(filter.stav === 'Zije' ? 1 : 0)
+            params.push(filter.stav === 'alive' ? 1 : 0)
         }
 
         // Filter by gender
         if (filter.pohlavi) {
             query += ` AND p.gender = ?`
             params.push(filter.pohlavi)
+        }
+
+        // Filter by histopathology result
+        if (
+            filter.histopatologie_vysledek &&
+            filter.histopatologie_vysledek.length > 0
+        ) {
+            const placeholders = filter.histopatologie_vysledek
+                .map(() => '?')
+                .join(', ')
+            query += ` AND EXISTS (
+                SELECT 1 FROM ${TableNames.histopathology} hp
+                JOIN ${TableNames.histologyType} ht ON ht.id = hp.id_histology_type
+                WHERE hp.id_patient = p.id AND ht.translation_key IN (${placeholders})
+            )`
+            params.push(...filter.histopatologie_vysledek)
         }
 
         const patients = await runQueryAll<PatientEntity>(query, params)
@@ -694,7 +719,6 @@ export const getKaplanMeierData = async (
     try {
         const kaplanMeierData: KaplanMeierDataDto = {}
 
-        console.log(filter)
         // Need to join with histopathology to get histopatologie_vysledek
         for (const histopatologieVysledek of filter.histopatologie_vysledek) {
             let query = ''
@@ -720,18 +744,15 @@ export const getKaplanMeierData = async (
                 `
             }
 
-            console.log(histopatologieVysledek)
             const histologyTypeId = HistologyTypeMapper.mapKeyToId(
                 histopatologieVysledek
             )
-            console.log(histologyTypeId)
             const rows = await runQueryAll<{
                 rok_diagnozy: string
                 datum_umrti?: string
                 datum_prokazani_recidivy?: string
                 posledni_kontrola?: string
             }>(query, [histologyTypeId])
-            console.log(rows)
 
             kaplanMeierData[histopatologieVysledek] = rows
                 .filter((row) => row.rok_diagnozy !== null)
@@ -745,7 +766,6 @@ export const getKaplanMeierData = async (
                 })
         }
 
-        console.log(kaplanMeierData)
         return kaplanMeierData
     } catch (err) {
         console.error('Error getting Kaplan-Meier data:', err)
@@ -801,11 +821,6 @@ export const getChiSquareContingencyTable = async (
         Record<InferenceChiSquareCategories, string[]>
     >
 ): Promise<number[][]> => {
-    console.log(rows)
-    console.log(columns)
-    console.log(rowSelectedCategories)
-    console.log(columnSelectedCategories)
-
     const contingencyTable = Array.from({ length: rows }, () =>
         Array(columns).fill(0)
     )
@@ -864,9 +879,9 @@ const convertValues = (
     switch (category) {
         case InferenceChiSquareCategories.persistence:
         case InferenceChiSquareCategories.recurrence:
-            return values.map((v) => (v === 'Ano' ? 1 : 0))
+            return values.map((v) => (v === 'yes' ? 1 : 0))
         case InferenceChiSquareCategories.state:
-            return values.map((v) => (v === 'Žije' ? 1 : 0))
+            return values.map((v) => (v === 'alive' ? 1 : 0))
         default:
             return values
     }

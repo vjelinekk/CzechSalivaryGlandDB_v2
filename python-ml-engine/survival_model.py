@@ -62,8 +62,8 @@ class SurvivalModel:
 
         if n_samples < 50:
             raise ValueError(f"Insufficient training data: {n_samples} patients (need at least 50)")
-        if n_events < 30:
-            raise ValueError(f"Insufficient events: {n_events} events (need at least 30)")
+        if n_events < 15:
+            raise ValueError(f"Insufficient events: {n_events} events (need at least 15)")
 
         # Create structured array for scikit-survival
         y = np.array(
