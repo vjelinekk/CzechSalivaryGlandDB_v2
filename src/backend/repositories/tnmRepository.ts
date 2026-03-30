@@ -119,10 +119,33 @@ export const getPatientStaging = async (
     return row ?? null
 }
 
+export const getPatientStagingByEdition = async (
+    patientId: number,
+    editionId: number
+): Promise<PatientStagingEntity | null> => {
+    const row = await runQuery<PatientStagingEntity>(
+        'SELECT * FROM patient_staging WHERE id_patient = ? AND id_edition = ?',
+        [patientId, editionId]
+    )
+    return row ?? null
+}
+
+export const getAllPatientStagings = async (
+    patientId: number
+): Promise<PatientStagingEntity[]> => {
+    return runQueryAll<PatientStagingEntity>(
+        'SELECT * FROM patient_staging WHERE id_patient = ?',
+        [patientId]
+    )
+}
+
 export const savePatientStaging = async (
     staging: PatientStagingEntity
 ): Promise<number | null> => {
-    const existingStaging = await getPatientStaging(staging.id_patient)
+    const existingStaging = await getPatientStagingByEdition(
+        staging.id_patient,
+        staging.id_edition
+    )
 
     if (existingStaging) {
         return updatePatientStaging(staging)
@@ -153,7 +176,6 @@ const updatePatientStaging = async (
 ): Promise<number | null> => {
     await runQueryAll(
         `UPDATE patient_staging SET
-            id_edition = ?,
             clinical_t_id = ?,
             clinical_n_id = ?,
             clinical_m_id = ?,
@@ -162,9 +184,8 @@ const updatePatientStaging = async (
             pathological_n_id = ?,
             pathological_m_id = ?,
             pathological_grade_id = ?
-        WHERE id_patient = ?`,
+        WHERE id_patient = ? AND id_edition = ?`,
         [
-            staging.id_edition,
             staging.clinical_t_id,
             staging.clinical_n_id,
             staging.clinical_m_id,
@@ -174,6 +195,7 @@ const updatePatientStaging = async (
             staging.pathological_m_id,
             staging.pathological_grade_id,
             staging.id_patient,
+            staging.id_edition,
         ]
     )
     return staging.id_patient

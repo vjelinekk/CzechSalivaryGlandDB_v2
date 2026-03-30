@@ -23,9 +23,11 @@ import {
 } from '../backend/repositories/studyRepository'
 import {
     getActiveEdition,
+    getAllTnmEditions,
     getTnmValuesByEdition,
     calculateStage,
     getPatientStaging,
+    getAllPatientStagings,
     savePatientStaging,
     getTnmEditionById,
 } from '../backend/repositories/tnmRepository'
@@ -159,6 +161,10 @@ ipcMain.handle(ipcAPIGetChannels.getActiveTnmEdition, async () => {
     return await getActiveEdition()
 })
 
+ipcMain.handle(ipcAPIGetChannels.getAllTnmEditions, async () => {
+    return await getAllTnmEditions()
+})
+
 ipcMain.handle(
     ipcAPIGetChannels.getTnmEditionById,
     async (event, editionId) => {
@@ -180,6 +186,13 @@ ipcMain.handle(
     ipcAPIGetChannels.getPatientStaging,
     async (event, patientId) => {
         return await getPatientStaging(patientId)
+    }
+)
+
+ipcMain.handle(
+    ipcAPIGetChannels.getAllPatientStagings,
+    async (event, patientId) => {
+        return await getAllPatientStagings(patientId)
     }
 )
 

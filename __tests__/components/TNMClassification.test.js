@@ -8,6 +8,28 @@ import { formTranslationKeys } from '../../src/frontend/translations'
 
 beforeAll(async () => {
     global.window = Object.create(window)
+    const activeEdition = {
+        id: 2,
+        name: 'TNM9',
+        active_from: '2024-01-01',
+        is_active: 1,
+    }
+    window.api = {
+        getAllTnmEditions: jest.fn().mockResolvedValue([
+            {
+                id: 1,
+                name: 'TNM8',
+                active_from: '2017-01-01',
+                is_active: 0,
+            },
+            activeEdition,
+        ]),
+        getAllPatientStagings: jest.fn().mockResolvedValue([]),
+        getActiveTnmEdition: jest.fn().mockResolvedValue(activeEdition),
+        getTnmEditionById: jest.fn().mockResolvedValue(activeEdition),
+        getTnmValues: jest.fn().mockResolvedValue([]),
+        calculateTnmStage: jest.fn().mockResolvedValue(null),
+    }
     window.fs = {
         loadJson: (filePath) => {
             const fs = require('fs')
@@ -30,7 +52,7 @@ beforeAll(async () => {
 })
 
 describe('TNMClassification component', () => {
-    test('renders TNM klasifikace section with two TNMClassificationCalculator components', () => {
+    test('renders TNM klasifikace section with two TNMClassificationCalculator components', async () => {
         const formData = {
             t_klasifikace_klinicka: '',
             n_klasifikace_klinicka: '',
@@ -52,7 +74,7 @@ describe('TNMClassification component', () => {
             />
         )
 
-        const sectionHeading = screen.getByText(
+        const sectionHeading = await screen.findByText(
             i18n.t(formTranslationKeys.tnmClassification)
         )
         expect(sectionHeading).toBeInTheDocument()
@@ -67,7 +89,7 @@ describe('TNMClassification component', () => {
         )
         expect(pathologicalSectionHeading).toBeInTheDocument()
 
-        const tnmCalculators = screen.getAllByText(
+        const tnmCalculators = await screen.findAllByText(
             i18n.t(formTranslationKeys.tClassification)
         )
         expect(tnmCalculators).toHaveLength(2)
