@@ -123,6 +123,7 @@
     "tnm-classification": "TNM classification",
     "tnm-classification-clinical": "TNM classification (clinical)",
     "tnm-classification-pathological": "TNM classification (pathological)",
+    "tnm-edition-selector": "TNM version",
     "t-classification": "T-classification",
     "n-classification": "N-classification",
     "m-classification": "M-classification",

@@ -71,6 +71,7 @@ const NON_CHECKBOX_FIELDS = new Set([
     'histologicalTypeSpecification',
     'core_vysledek_jine',
     'otevrena_vysledek_jine',
+    'other_stagings_json',
 ])
 
 function mapSingleValue(value: string): string {

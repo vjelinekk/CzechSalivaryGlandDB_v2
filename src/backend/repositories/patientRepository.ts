@@ -135,7 +135,7 @@ export const insertPatient = async (
                             )
                         }
 
-                        // 7. Insert staging
+                        // 7. Insert staging for current edition
                         if (mapped.patientStaging) {
                             phase2.push(
                                 runInsert(TableNames.patientStaging, {
@@ -143,6 +143,29 @@ export const insertPatient = async (
                                     id_patient: patientId,
                                 })
                             )
+                        }
+
+                        // 7b. Insert stagings for other editions (stored as JSON)
+                        const otherStagingsJson = data.other_stagings_json as
+                            | string
+                            | undefined
+                        if (otherStagingsJson) {
+                            try {
+                                const otherStagings: PatientStagingEntity[] =
+                                    JSON.parse(otherStagingsJson)
+                                for (const staging of otherStagings) {
+                                    phase2.push(
+                                        runInsert(TableNames.patientStaging, {
+                                            ...staging,
+                                            id_patient: patientId,
+                                        })
+                                    )
+                                }
+                            } catch {
+                                console.error(
+                                    'Failed to parse other_stagings_json'
+                                )
+                            }
                         }
 
                         // 8. Insert attachments
@@ -310,21 +333,20 @@ export const updatePatient = async (
                     })
                 )
 
-                // 7. Replace staging
-                updatePromises.push(
-                    runDelete(
-                        TableNames.patientStaging,
-                        patientId,
-                        'id_patient'
-                    ).then(() => {
-                        if (mapped.patientStaging) {
-                            return runInsert(TableNames.patientStaging, {
+                // 7. Replace staging for current edition only (preserving other editions)
+                if (mapped.patientStaging) {
+                    updatePromises.push(
+                        runQueryAll(
+                            `DELETE FROM ${TableNames.patientStaging} WHERE id_patient = ? AND id_edition = ?`,
+                            [patientId, mapped.patientStaging.id_edition]
+                        ).then(() =>
+                            runInsert(TableNames.patientStaging, {
                                 ...mapped.patientStaging,
                                 id_patient: patientId,
                             })
-                        }
-                    })
-                )
+                        )
+                    )
+                }
 
                 // 8. Replace attachments
                 updatePromises.push(

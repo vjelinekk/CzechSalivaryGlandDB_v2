@@ -123,6 +123,7 @@ export enum formTranslationKeys {
     tnmClassification = 'tnm-classification',
     tnmClassificationClinical = 'tnm-classification-clinical',
     tnmClassificationPathological = 'tnm-classification-pathological',
+    tnmEditionSelector = 'tnm-edition-selector',
     tClassification = 't-classification',
     nClassification = 'n-classification',
     mClassification = 'm-classification',

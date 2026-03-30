@@ -30,7 +30,7 @@ declare global {
         api: {
             save: (
                 channel: ipcAPISaveChannels,
-                data: PatientDto | StudyDto
+                data: PatientDto | StudyDto | PatientStagingDto
             ) => Promise<number | null>
             updatePatientsStudies: (
                 patientId: number,
@@ -108,6 +108,10 @@ declare global {
             getPatientStaging: (
                 patientId: number
             ) => Promise<PatientStagingDto | null>
+            getAllTnmEditions: () => Promise<TnmEditionDto[]>
+            getAllPatientStagings: (
+                patientId: number
+            ) => Promise<PatientStagingDto[]>
         }
         export: {
             export: (

@@ -120,6 +120,9 @@ contextBridge.exposeInMainWorld('api', {
     getActiveTnmEdition: () => {
         return ipcRenderer.invoke(ipcAPIGetChannels.getActiveTnmEdition)
     },
+    getAllTnmEditions: () => {
+        return ipcRenderer.invoke(ipcAPIGetChannels.getAllTnmEditions)
+    },
     getTnmEditionById: (editionId: number) => {
         return ipcRenderer.invoke(
             ipcAPIGetChannels.getTnmEditionById,
@@ -148,6 +151,12 @@ contextBridge.exposeInMainWorld('api', {
     getPatientStaging: (patientId: number) => {
         return ipcRenderer.invoke(
             ipcAPIGetChannels.getPatientStaging,
+            patientId
+        )
+    },
+    getAllPatientStagings: (patientId: number) => {
+        return ipcRenderer.invoke(
+            ipcAPIGetChannels.getAllPatientStagings,
             patientId
         )
     },
